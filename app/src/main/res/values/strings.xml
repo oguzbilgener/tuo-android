@@ -2,11 +2,19 @@
 <resources>
 
     <string name="app_name">UltimateApp</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+
+	<!-- main navigation -->
+    <string name="title_section_overview">Overview</string>
+    <string name="title_section_calendar">Calendar</string>
+    <string name="title_section_notes">Notes</string>
+	<string name="title_section_academic">Academic</string>
+	<string name="title_section_academic_schedule">Schedule</string>
+	<string name="title_section_academic_network">Network</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+	<!-- ActionBar items -->
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
 
