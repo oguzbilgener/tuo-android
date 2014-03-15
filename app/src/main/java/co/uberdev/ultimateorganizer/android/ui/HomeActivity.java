@@ -27,8 +27,8 @@ public class HomeActivity extends Activity
      */
     private HomeNavigationDrawerFragment mHomeNavigationDrawerFragment;
 
-	private SectionsPagerAdapter mSectionsPagerAdapter;
-	private ViewPager mViewPager;
+	public SectionsPagerAdapter mSectionsPagerAdapter;
+	public ViewPager mViewPager;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -125,7 +125,6 @@ public class HomeActivity extends Activity
 
 	@Override
 	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-		Utils.log.d(" scrolled " + mViewPager.getCurrentItem() + " | "+position+"    "+positionOffset+"      "+positionOffsetPixels);
 		if(positionOffsetPixels > 0)
 		{
 			int oldPos = mViewPager.getCurrentItem();
@@ -143,27 +142,26 @@ public class HomeActivity extends Activity
 			else {
 				newPos++;
 			}
-
+			// now get the colors from resources
 			int oldColor = mSectionsPagerAdapter.getIntBackground(oldPos);
 			int newColor = mSectionsPagerAdapter.getIntBackground(newPos);
-
+			// mix em
 			int mixColor = Utils.mixTwoColors(newColor, oldColor, positionOffset);
-
+			// apply the mixture
 			getActionBar().setBackgroundDrawable(new ColorDrawable(mixColor));
 		}
 	}
 
 	@Override
 	public void onPageSelected(int position) {
-		Utils.log.d("pselect "+position);
+		// When a page is selected, apply its 100% opaque Action Bar color
 		mHomeNavigationDrawerFragment.setItemChecked(position);
 		getActionBar().setBackgroundDrawable(mSectionsPagerAdapter.getColorBackground(position));
 	}
 
 	@Override
 	public void onPageScrollStateChanged(int state) {
-		Utils.log.w("statechange "+state);
-		getActionBar().setBackgroundDrawable(mSectionsPagerAdapter.getColorBackground(mViewPager.getCurrentItem()));
+//		getActionBar().setBackgroundDrawable(mSectionsPagerAdapter.getColorBackground(mViewPager.getCurrentItem()));
 	}
 
 	/**
@@ -178,7 +176,6 @@ public class HomeActivity extends Activity
 
 		@Override
 		public Fragment getItem(int position) {
-			Utils.log.d("getItem "+position);
 
 			// getItem is called to instantiate the fragment for the given page.
 			switch(position) {

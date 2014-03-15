@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by oguzbilgener on 15/03/14.
@@ -40,7 +39,6 @@ public class OverviewFragment extends Fragment
 	public void onResume()
 	{
 		super.onResume();
-		Utils.log.i("Overview Fragment onResume");
 
 //		EventBus.getDefault().register(this);
 	}
@@ -49,7 +47,6 @@ public class OverviewFragment extends Fragment
 	public void onPause()
 	{
 		super.onPause();
-		Utils.log.i("Overview Fragment onPause");
 
 //		EventBus.getDefault().unregister(this);
 	}
@@ -66,13 +63,11 @@ public class OverviewFragment extends Fragment
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		Utils.log.i("OverviewFragment onAttach");
 	}
 
 	@Override
 	public void onDetach()
 	{
-		Utils.log.i("OverviewFragment onDetach");
 		super.onDetach();
 	}
 }

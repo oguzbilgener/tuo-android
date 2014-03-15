@@ -1,16 +1,17 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -168,9 +170,19 @@ public class HomeNavigationDrawerFragment extends Fragment {
                             .getDefaultSharedPreferences(getActivity());
                     sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
-
                 getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
+
+			@Override
+			public void onDrawerSlide(View drawerView, float slideOffset)
+			{
+				int currentColor = getParent().mSectionsPagerAdapter.getIntBackground(getParent().mViewPager.getCurrentItem());
+				int drawerColor = getParent().getResources().getColor(R.color.title_navigation_drawer);
+				// find the mixture
+				int mixColor = Utils.mixTwoColors(drawerColor, currentColor,slideOffset);
+				// apply the mixture
+				getActionBar().setBackgroundDrawable(new ColorDrawable(mixColor));
+			}
         };
 
         // If the user hasn't 'learned' about the drawer, open it to introduce them to the drawer,
@@ -276,6 +288,10 @@ public class HomeNavigationDrawerFragment extends Fragment {
     private ActionBar getActionBar() {
         return getActivity().getActionBar();
     }
+
+	private HomeActivity getParent() {
+		return (HomeActivity) getActivity();
+	}
 
     /**
      * Callbacks interface that all activities using this fragment must implement.
