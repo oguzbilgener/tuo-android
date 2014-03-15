@@ -43,9 +43,6 @@ public class HomeActivity extends Activity
         mHomeNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
-		// just test if we can access to the core repo
-		co.uberdev.ultimateorganizer.core.Core testcore = new co.uberdev.ultimateorganizer.core.Core();
     }
 
     @Override
