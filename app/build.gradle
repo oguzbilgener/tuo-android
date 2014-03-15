@@ -2,7 +2,7 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    buildToolsVersion '19.0.3'
 
     defaultConfig {
         minSdkVersion 15
@@ -16,9 +16,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    sourceSets {
+        main.java.srcDirs += '../tuo-core/src'
+    }
 }
 
 dependencies {
     compile 'com.android.support:support-v4:+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':..:tuo-core') // co.uberdev.ultimateorganizer.core
 }
