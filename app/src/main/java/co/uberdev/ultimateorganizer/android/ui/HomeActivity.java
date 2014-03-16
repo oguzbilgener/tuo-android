@@ -39,6 +39,7 @@ public class HomeActivity extends FragmentActivity
 	// Spinner as a sub level navigation element
 	private SpinnerAdapter mSpinnerAdapter;
 
+	private boolean firstPageCreated;
 	private boolean nextPageCreated;
 	private boolean pageJustChanged;
 
@@ -80,9 +81,9 @@ public class HomeActivity extends FragmentActivity
 		// prepare the ActionBar for the first page
 		getActionBar().setBackgroundDrawable(mSectionsPagerAdapter.getColorBackground(0));
 
+		firstPageCreated = false;
 		nextPageCreated = false;
 		pageJustChanged = false;
-//		prepareActionBar(0);
     }
 
 	@Override
@@ -133,11 +134,16 @@ public class HomeActivity extends FragmentActivity
 	public boolean onNavigationItemSelected(int position, long id) {
 
 		Utils.log.i("onNavigationItemSelected "+position+" @ "+getCurrentPageIndex());
+		if(getCurrentPageIndex() == 0 && !firstPageCreated && position == 0) {
+			getActionBar().setSelectedNavigationItem(mSubPageAdapter.getCurrentSubPosition(0));
+			firstPageCreated = true;
+			pageJustChanged = false;
+		}
 		if(!nextPageCreated) {
 			Utils.log.d("mudahele");
-			mSubPageAdapter.changeDisplayedFragment(1, mSubPageAdapter.getCurrentSubPosition(0));
+			mSubPageAdapter.changeDisplayedFragment(1, mSubPageAdapter.getCurrentSubPosition(1));
 			nextPageCreated = true;
-			return false;
+			return true;
 		}
 		if(pageJustChanged) {
 			pageJustChanged = false;

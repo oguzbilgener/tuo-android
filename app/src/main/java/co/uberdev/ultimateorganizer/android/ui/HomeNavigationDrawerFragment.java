@@ -74,6 +74,7 @@ public class HomeNavigationDrawerFragment extends Fragment {
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
         if (savedInstanceState != null) {
+			Utils.log.w("nav sis not null");
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
