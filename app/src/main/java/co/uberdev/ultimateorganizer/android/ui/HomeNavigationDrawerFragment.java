@@ -21,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.util.Utils;
@@ -152,6 +151,10 @@ public class HomeNavigationDrawerFragment extends Fragment {
                     return;
                 }
 
+				// display the relevant action bar according to the fragment index
+				Utils.log.d("onDrawerClosed restoreActionBar: "+getParent().getCurrentPageIndex());
+				getParent().restoreActionBar();
+
                 getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
 
@@ -266,11 +269,6 @@ public class HomeNavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -279,11 +277,9 @@ public class HomeNavigationDrawerFragment extends Fragment {
      * 'context', rather than just what's in the current screen.
      */
     private void showGlobalContextActionBar() {
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setTitle(R.string.app_name);
-    }
+		// pass this action to the Parent Activity
+		getParent().showGlobalContextActionBar();
+	}
 
     private ActionBar getActionBar() {
         return getActivity().getActionBar();

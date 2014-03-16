@@ -11,6 +11,19 @@
 	<string name="title_section_academic_schedule">Schedule</string>
 	<string name="title_section_academic_network">Network</string>
 
+	<!-- sub navigation (ActionBar Spinner) -->
+	<string-array name="title_section_overview_subs">
+		<item>Overview 1</item>
+		<item>Overview 2</item>
+	</string-array>
+
+	<string-array name="title_section_calendar_subs">
+		<item>Cal Day</item>
+		<item>Cal Week</item>
+		<item>Cal Month</item>
+		<item>Cal Year</item>
+	</string-array>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
