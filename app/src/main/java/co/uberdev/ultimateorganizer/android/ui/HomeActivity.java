@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -436,7 +437,10 @@ public class HomeActivity extends FragmentActivity
 
 			// Literally change the displayed Fragment
 			FragmentManager childManager = baseFragment.getSubFragmentManager();
-			childManager.beginTransaction().replace(BaseFragment.getViewId(), fragToDisplay).commit();
+			FragmentTransaction childTransaction = childManager.beginTransaction();
+			// add a nice fade effect
+			childTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+			childTransaction.replace(BaseFragment.getViewId(), fragToDisplay).commit();
 
 			// Store the new preference
 			setStoredPosition(position, subPosition);
