@@ -1,29 +1,22 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import co.uberdev.ultimateorganizer.android.R;
 
 /**
  * Created by oguzbilgener on 15/03/14.
  */
-public class OverviewFragment extends Fragment
+public class OverviewBaseFragment extends BaseFragment
 {
 
 	// Required empty constructor
-	public OverviewFragment()
+	public OverviewBaseFragment()
 	{
 
 	}
 
-	public static OverviewFragment newInstance() {
-		OverviewFragment fragment = new OverviewFragment();
+	public static OverviewBaseFragment newInstance() {
+		OverviewBaseFragment fragment = new OverviewBaseFragment();
 		Bundle args = new Bundle();
 		fragment.setArguments(args);
 		return fragment;
@@ -49,15 +42,6 @@ public class OverviewFragment extends Fragment
 		super.onPause();
 
 //		EventBus.getDefault().unregister(this);
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-		TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-		textView.setText("overview");
-		return rootView;
 	}
 
 	@Override

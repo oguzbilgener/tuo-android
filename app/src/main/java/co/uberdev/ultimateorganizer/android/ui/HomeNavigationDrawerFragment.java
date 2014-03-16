@@ -191,6 +191,10 @@ public class HomeNavigationDrawerFragment extends Fragment {
         // If the user hasn't 'learned' about the drawer, open it to introduce them to the drawer,
         // per the navigation drawer design guidelines.
         if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
+			// Apply specific drawer color to the ActionBar
+			int drawerColor = getParent().getResources().getColor(R.color.title_navigation_drawer);
+			getActionBar().setBackgroundDrawable(new ColorDrawable(drawerColor));
+			// Open the drawer
             mDrawerLayout.openDrawer(mFragmentContainerView);
         }
 

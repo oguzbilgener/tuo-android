@@ -1,19 +1,14 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by oguzbilgener on 15/03/14.
  */
-public class CalendarBaseFragment extends Fragment
+public class CalendarBaseFragment extends BaseFragment
 {
 
 	// Required empty constructor
@@ -25,6 +20,7 @@ public class CalendarBaseFragment extends Fragment
 	public static CalendarBaseFragment newInstance() {
 		CalendarBaseFragment fragment = new CalendarBaseFragment();
 		Bundle args = new Bundle();
+		args.putString("xxx","yes");
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -33,6 +29,7 @@ public class CalendarBaseFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Utils.log.d("I AM CREATED. ");
 	}
 
 	@Override
@@ -49,15 +46,6 @@ public class CalendarBaseFragment extends Fragment
 		super.onPause();
 
 //		EventBus.getDefault().unregister(this);
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
-		TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-		textView.setText("Calendar");
-		return rootView;
 	}
 
 	@Override

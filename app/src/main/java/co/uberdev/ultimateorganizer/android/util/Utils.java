@@ -1,6 +1,10 @@
 package co.uberdev.ultimateorganizer.android.util;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.TypedValue;
 
@@ -63,5 +67,12 @@ public class Utils
 				((float)(color2 & 0xff )*inverseAmount))) & 0xff;
 
 		return a << ALPHA_CHANNEL | r << RED_CHANNEL | g << GREEN_CHANNEL | b << BLUE_CHANNEL;
+	}
+
+	public static Fragment findFragmentByPosition(int position, FragmentManager fragmentManager,
+			FragmentPagerAdapter fragmentPagerAdapter, ViewPager viewPager) {
+		return fragmentManager.findFragmentByTag(
+				"android:switcher:" + viewPager.getId() + ":"
+						+ fragmentPagerAdapter.getItemId(position));
 	}
 }

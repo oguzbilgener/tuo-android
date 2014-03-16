@@ -1,12 +1,14 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -20,7 +22,7 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 
-public class HomeActivity extends Activity
+public class HomeActivity extends FragmentActivity
         implements HomeNavigationDrawerFragment.NavigationDrawerCallbacks,
 		ViewPager.OnPageChangeListener,
 		ActionBar.OnNavigationListener {
@@ -32,8 +34,13 @@ public class HomeActivity extends Activity
 	public SectionsPagerAdapter mSectionsPagerAdapter;
 	public ViewPager mViewPager;
 
+	public SubPageAdapter mSubPageAdapter;
+
 	// Spinner as a sub level navigation element
 	private SpinnerAdapter mSpinnerAdapter;
+
+	private boolean nextPageCreated;
+	private boolean pageJustChanged;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -49,7 +56,8 @@ public class HomeActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+		mSubPageAdapter = new SubPageAdapter();
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.homePager);
@@ -69,8 +77,12 @@ public class HomeActivity extends Activity
 		// Register in-app events
 //		EventBus.getDefault().register(this);
 
-		// display the first page
-		this.onNavigationDrawerItemSelected(0);
+		// prepare the ActionBar for the first page
+		getActionBar().setBackgroundDrawable(mSectionsPagerAdapter.getColorBackground(0));
+
+		nextPageCreated = false;
+		pageJustChanged = false;
+//		prepareActionBar(0);
     }
 
 	@Override
@@ -97,13 +109,19 @@ public class HomeActivity extends Activity
 		if(mViewPager != null)
 		{
 			// Literally set the current item
-			mViewPager.setCurrentItem(position);
-			// Apply the final ActionBar background color
-			getActionBar().setBackgroundDrawable(mSectionsPagerAdapter.getColorBackground(position));
-			// Modify the ActionBar to make it relevant
-			mSectionsPagerAdapter.applyActionBarRules(position);
+			mViewPager.setCurrentItem(position, false);
+
+			prepareActionBar(position);
 		}
     }
+
+	public void prepareActionBar(int position)
+	{
+		// Apply the final ActionBar background color
+		getActionBar().setBackgroundDrawable(mSectionsPagerAdapter.getColorBackground(position));
+		// Modify the ActionBar to make it relevant
+		mSectionsPagerAdapter.applyActionBarRules(position);
+	}
 
 	/**
 	 * Called when the user changes the sub level navigation item (Spinner), by the ActionBar Spinner.
@@ -113,8 +131,29 @@ public class HomeActivity extends Activity
 	 */
 	@Override
 	public boolean onNavigationItemSelected(int position, long id) {
-		Utils.log.i("onNavigationItemSelected "+position);
-		return false;
+
+		Utils.log.i("onNavigationItemSelected "+position+" @ "+getCurrentPageIndex());
+		if(!nextPageCreated) {
+			Utils.log.d("mudahele");
+			mSubPageAdapter.changeDisplayedFragment(1, mSubPageAdapter.getCurrentSubPosition(0));
+			nextPageCreated = true;
+			return false;
+		}
+		if(pageJustChanged) {
+			pageJustChanged = false;
+			try {
+				Utils.log.w("call sub "+position+" while "+getCurrentPageIndex() +" and "+mSubPageAdapter.getCurrentSubPosition(getCurrentPageIndex()));
+				getActionBar().setSelectedNavigationItem(mSubPageAdapter.getCurrentSubPosition(getCurrentPageIndex()));
+			}
+			catch(Exception e) {
+				Utils.log.e(e.toString());
+				e.printStackTrace();
+			}
+			return false;
+		}
+		// Change the sub navigation item
+		Utils.log.e("hmm "+mSubPageAdapter.changeDisplayedFragment(getCurrentPageIndex(), position));
+		return true;
 	}
 
 	/**
@@ -198,18 +237,22 @@ public class HomeActivity extends Activity
 		 */
 		@Override
 		public Fragment getItem(int position) {
-
+			Utils.log.e("SectionsPagerAdapter getItem("+position+")");
 			// getItem is called to instantiate the fragment for the given page.
 			switch(position) {
 				case 0:
-					return OverviewFragment.newInstance();
+					return OverviewBaseFragment.newInstance();
 				case 1:
 					return CalendarBaseFragment.newInstance();
+					// pass this action to the getSubItem method
+//					Utils.log.w("pass "+position);
+//					return mSubPageAdapter.getSubItem(position, 0);
 				case 2:
 				default:
 					return NotesFragment.newInstance();
 			}
 		}
+
 
 		/**
 		 * Returns the count of top level navigation items
@@ -269,6 +312,7 @@ public class HomeActivity extends Activity
 		 * @param position the main navigation position
 		 */
 		public void applyActionBarRules(int position) {
+			Utils.log.d("applyActionBarRules("+position+")");
 			final ActionBar actionBar = getActionBar();
 			switch(position)
 			{
@@ -279,6 +323,7 @@ public class HomeActivity extends Activity
 					break;
 				// Overview
 				case 0:
+					pageJustChanged = true;
 					actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 					actionBar.setDisplayShowTitleEnabled(false);
 					mSpinnerAdapter = ArrayAdapter.createFromResource(getHomeActivity(), R.array.title_section_overview_subs,
@@ -287,6 +332,7 @@ public class HomeActivity extends Activity
 					break;
 				// Calendar
 				case 1:
+					pageJustChanged = true;
 					actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 					actionBar.setDisplayShowTitleEnabled(false);
 					mSpinnerAdapter = ArrayAdapter.createFromResource(getHomeActivity(), R.array.title_section_calendar_subs,
@@ -295,11 +341,125 @@ public class HomeActivity extends Activity
 					break;
 				// Notes
 				case 2:
+					pageJustChanged = true;
 					actionBar.setDisplayShowTitleEnabled(true);
 					actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 					actionBar.setTitle(getPageTitle(position));
 					break;
 			}
+		}
+	}
+
+	/**
+	 * Holds the positions of the sub navigation pages, stores them in the SharedPreferences and
+	 * displays the sub page in the ViewPager when needed.
+	 */
+	public class SubPageAdapter {
+		public static final String PREF_SUBNAV_OVERVIEW = "sub_navigation_overview_item_position";
+		public static final String PREF_SUBNAV_CALENDAR = "sub_navigation_calendar_item_position";
+
+		private int[] positions = new int[]{0, 0, 0};
+		private final int[] subPositionCounts = new int[]{2,4,0};
+
+
+		public SubPageAdapter()
+		{
+			// Get the last position from SharedPreferences
+			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getHomeActivity());
+			positions[0] = sp.getInt(PREF_SUBNAV_OVERVIEW, 0);
+			positions[1] = sp.getInt(PREF_SUBNAV_CALENDAR, 0);
+			Utils.log.d(positions[0]+" "+positions[1]);
+		}
+
+		public int getCurrentSubPosition(int position) {
+			Utils.log.i("getCurrentSubPosition{"+position+"} = "+positions[position]);
+			return positions[position];
+		}
+
+		public Fragment getSubItem(int position, int subPosition) {
+
+			Utils.log.d("SubPageAdapter getSubItem("+position+", "+subPosition+")");
+			switch(position) {
+				case 0:
+					return OverviewBaseFragment.newInstance();
+				case 1:
+					switch(subPosition) {
+						case 0:
+							return CalendarDailyFragment.newInstance();
+						case 1:
+							return CalendarWeeklyFragment.newInstance();
+						case 2:
+							return CalendarMonthlyFragment.newInstance();
+						case 3:
+							return CalendarYearlyFragment.newInstance();
+					}
+					break;
+			}
+			return null;
+		}
+
+		public Fragment getSubItem(int position) {
+			try {
+				return getSubItem(position, positions[position]);
+			}
+			catch (Exception e) {
+				return null;
+			}
+		}
+
+		public boolean changeDisplayedFragment(int position, int subPosition) {
+			if(position < 0 || position >= positions.length) {
+				return false;
+			}
+			Fragment fragToDisplay = getSubItem(position, subPosition);
+
+
+			if(fragToDisplay == null) {
+				return false;
+			}
+			Utils.log.i("changeDisplayedFragment("+position+", "+subPosition+"");
+
+			// Find the Base Fragment that will contain the sub fragment
+			BaseFragment baseFragment = (BaseFragment)Utils.findFragmentByPosition(position, getSupportFragmentManager(),
+					mSectionsPagerAdapter, mViewPager);
+			if(baseFragment == null) {
+				Utils.log.d("baseFrag null");
+				return false;
+			}
+//			Utils.log.e("||| "+baseFragment.getArguments().getString("xxx","no")+" "+fragToDisplay.getArguments().getString("123","n"));
+
+			// Literally change the displayed Fragment
+			FragmentManager childManager = baseFragment.getSubFragmentManager();
+			childManager.beginTransaction().replace(BaseFragment.getViewId(), fragToDisplay).commit();
+
+			// Store the new preference
+			setStoredPosition(position, subPosition);
+
+
+			return true;
+		}
+
+		private void setStoredPosition(int page, int subPosition)
+		{
+			// prevent unwanted indexes
+			if(subPosition >= subPositionCounts[page]) {
+				Utils.log.e("interesting "+page+"  "+subPosition);
+				return;
+			}
+			Utils.log.d("setStored "+page+"  "+subPosition);
+
+			String tag;
+			if(page == 0) {
+				tag = PREF_SUBNAV_OVERVIEW;
+			}
+			else {
+				tag = PREF_SUBNAV_CALENDAR;
+			}
+			// also save into the memory
+			positions[page] = subPosition;
+
+			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getHomeActivity());
+			sp.edit().putInt(tag, subPosition).commit();
 		}
 	}
 
