@@ -13,17 +13,17 @@ import co.uberdev.ultimateorganizer.android.R;
 /**
  * Created by oguzbilgener on 15/03/14.
  */
-public class CalendarFragment extends Fragment
+public class CalendarBaseFragment extends Fragment
 {
 
 	// Required empty constructor
-	public CalendarFragment()
+	public CalendarBaseFragment()
 	{
 
 	}
 
-	public static CalendarFragment newInstance() {
-		CalendarFragment fragment = new CalendarFragment();
+	public static CalendarBaseFragment newInstance() {
+		CalendarBaseFragment fragment = new CalendarBaseFragment();
 		Bundle args = new Bundle();
 		fragment.setArguments(args);
 		return fragment;
