@@ -142,8 +142,12 @@ public class HomeActivity extends FragmentActivity
 		}
 		if(!nextPageCreated) {
 			Utils.log.d("mudahele");
-			mSubPageAdapter.changeDisplayedFragment(1, mSubPageAdapter.getCurrentSubPosition(1));
 			nextPageCreated = true;
+			if(getCurrentPageIndex() == 1) {
+				getActionBar().setSelectedNavigationItem(mSubPageAdapter.getCurrentSubPosition(1));
+				return false;
+			}
+			mSubPageAdapter.changeDisplayedFragment(1, mSubPageAdapter.getCurrentSubPosition(1));
 			return true;
 		}
 		if(pageJustChanged) {
