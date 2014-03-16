@@ -1,6 +1,8 @@
 package co.uberdev.ultimateorganizer.android.util;
 
+import android.content.Context;
 import android.util.Log;
+import android.util.TypedValue;
 
 /**
  * Created by oguzbilgener on 15/03/14.
@@ -30,6 +32,16 @@ public class Utils
 		{
 			Log.w(TAG, msg);
 		}
+	}
+
+	public static float getPixelsByDp(Context context,float dp)
+	{
+		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+	}
+
+	public static int getUnixTimestamp()
+	{
+		return (int)(System.currentTimeMillis()/1000L);
 	}
 
 	public static int mixTwoColors( int color1, int color2, float amount )
