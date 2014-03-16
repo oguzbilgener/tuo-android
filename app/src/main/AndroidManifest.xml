@@ -6,7 +6,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/UltimateTheme" >
+        android:theme="@style/UltimateTheme"
+		android:name="co.uberdev.ultimateorganizer.android.util.UltimateApplication">
         <activity
             android:name=".ui.HomeActivity"
             android:label="@string/app_name" >
