@@ -17,7 +17,7 @@ public class CalendarDailyFragment extends Fragment {
 	public static CalendarDailyFragment newInstance() {
 		CalendarDailyFragment fragment = new CalendarDailyFragment();
 		Bundle args = new Bundle();
-		args.putString("123","hoooooo");
+
 		fragment.setArguments(args);
 		return fragment;
 	}

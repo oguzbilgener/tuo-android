@@ -1,6 +1,5 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ public class CalendarMonthlyFragment extends Fragment {
 	public static CalendarMonthlyFragment newInstance() {
 		CalendarMonthlyFragment fragment = new CalendarMonthlyFragment();
 		Bundle args = new Bundle();
-		args.putString("123","hoooooo");
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -27,7 +25,6 @@ public class CalendarMonthlyFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
-		rootView.setBackgroundColor(Color.CYAN);
 		TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 		textView.setText("monthly");
 		return rootView;

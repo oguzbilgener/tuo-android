@@ -93,6 +93,21 @@ public class HomeActivity extends FragmentActivity
 	}
 
 	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		Utils.log.i("onSaveInstanceState");
+
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onPause() {
+		Utils.log.i("onPause");
+		// Remember sub navigation positions!
+		mSubPageAdapter.permanantlyStoreSubPositions();
+		super.onPause();
+	}
+
+	@Override
 	public void onDestroy() {
 		// Unregister in-app events
 //		EventBus.getDefault().unregister(this);
@@ -141,7 +156,6 @@ public class HomeActivity extends FragmentActivity
 			pageJustChanged = false;
 		}
 		if(!nextPageCreated) {
-			Utils.log.d("mudahele");
 			nextPageCreated = true;
 			if(getCurrentPageIndex() == 1) {
 				getActionBar().setSelectedNavigationItem(mSubPageAdapter.getCurrentSubPosition(1));
@@ -255,9 +269,6 @@ public class HomeActivity extends FragmentActivity
 					return OverviewBaseFragment.newInstance();
 				case 1:
 					return CalendarBaseFragment.newInstance();
-					// pass this action to the getSubItem method
-//					Utils.log.w("pass "+position);
-//					return mSubPageAdapter.getSubItem(position, 0);
 				case 2:
 				default:
 					return NotesFragment.newInstance();
@@ -373,8 +384,7 @@ public class HomeActivity extends FragmentActivity
 		private final int[] subPositionCounts = new int[]{2,4,0};
 
 
-		public SubPageAdapter()
-		{
+		public SubPageAdapter() {
 			// Get the last position from SharedPreferences
 			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getHomeActivity());
 			positions[0] = sp.getInt(PREF_SUBNAV_OVERVIEW, 0);
@@ -453,27 +463,25 @@ public class HomeActivity extends FragmentActivity
 			return true;
 		}
 
-		private void setStoredPosition(int page, int subPosition)
-		{
+		private void setStoredPosition(int page, int subPosition) {
 			// prevent unwanted indexes
-			if(subPosition >= subPositionCounts[page]) {
+			if(page >= positions.length || subPosition >= subPositionCounts[page]) {
 				Utils.log.e("interesting "+page+"  "+subPosition);
 				return;
 			}
 			Utils.log.d("setStored "+page+"  "+subPosition);
 
-			String tag;
-			if(page == 0) {
-				tag = PREF_SUBNAV_OVERVIEW;
-			}
-			else {
-				tag = PREF_SUBNAV_CALENDAR;
-			}
 			// also save into the memory
 			positions[page] = subPosition;
 
-			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getHomeActivity());
-			sp.edit().putInt(tag, subPosition).commit();
+			// IO concern. do not write every time a position is changed.
+		}
+
+		public void permanantlyStoreSubPositions() {
+			SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getHomeActivity()).edit();
+			editor.putInt(PREF_SUBNAV_OVERVIEW, positions[0]);
+			editor.putInt(PREF_SUBNAV_CALENDAR, positions[1]);
+			editor.commit();
 		}
 	}
 
