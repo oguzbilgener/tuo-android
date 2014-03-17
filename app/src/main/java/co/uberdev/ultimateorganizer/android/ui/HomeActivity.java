@@ -80,7 +80,14 @@ public class HomeActivity extends FragmentActivity
 //		EventBus.getDefault().register(this);
 
 		// prepare the ActionBar for the first page
-		getActionBar().setBackgroundDrawable(mSectionsPagerAdapter.getColorBackground(0));
+		if(mHomeNavigationDrawerFragment.hasUserLearnedDrawer()) {
+			getActionBar().setBackgroundDrawable(mSectionsPagerAdapter.getColorBackground(0));
+		}
+		else {
+			// Apply specific drawer color to the ActionBar
+			int drawerColor = getResources().getColor(R.color.title_navigation_drawer);
+			getActionBar().setBackgroundDrawable(new ColorDrawable(drawerColor));
+		}
 
 		firstPageCreated = false;
 		nextPageCreated = false;
@@ -444,10 +451,9 @@ public class HomeActivity extends FragmentActivity
 			BaseFragment baseFragment = (BaseFragment)Utils.findFragmentByPosition(position, getSupportFragmentManager(),
 					mSectionsPagerAdapter, mViewPager);
 			if(baseFragment == null) {
-				Utils.log.d("baseFrag null");
+				Utils.log.w("baseFrag null");
 				return false;
 			}
-//			Utils.log.e("||| "+baseFragment.getArguments().getString("xxx","no")+" "+fragToDisplay.getArguments().getString("123","n"));
 
 			// Literally change the displayed Fragment
 			FragmentManager childManager = baseFragment.getSubFragmentManager();

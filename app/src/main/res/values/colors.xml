@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="title_navigation_drawer">#000</color>
+	<color name="title_navigation_drawer">#ff272727</color>
 	<color name="title_section_overview">#669900</color>
 	<color name="title_section_calendar">#0099CC</color>
 	<color name="title_section_notes">#FFBB33</color>
