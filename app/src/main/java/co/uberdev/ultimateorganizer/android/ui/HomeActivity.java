@@ -1,6 +1,7 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -128,14 +129,18 @@ public class HomeActivity extends FragmentActivity
 	 */
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-		Utils.log.w("onNavigationDrawerItemSelected "+position);
-        // Tell the ViewPager to display the new fragment
-		if(mViewPager != null)
-		{
-			// Literally set the current item
-			mViewPager.setCurrentItem(position, false);
+		if(position < 3) {
+			Utils.log.w("onNavigationDrawerItemSelected " + position);
+			// Tell the ViewPager to display the new fragment
+			if (mViewPager != null) {
+				// Literally set the current item
+				mViewPager.setCurrentItem(position, false);
 
-			prepareActionBar(position);
+				prepareActionBar(position);
+			}
+		}
+		else {
+			startActivity(new Intent(this, ScheduleActivity.class));
 		}
     }
 

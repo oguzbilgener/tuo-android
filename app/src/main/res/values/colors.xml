@@ -7,4 +7,8 @@
 	<color name="title_section_academic">#000</color>
 	<color name="title_section_academic_schedule">#CC0000</color>
 	<color name="title_section_academic_network">#9933CC</color>
+
+	<!-- other navigation colors -->
+	<color name="nav_academic_schedule_title_pager_background">#ff6f000a</color>
+	<color name="nav_academic_schedule_title_pager_text">#e2e2e2</color>
 </resources>

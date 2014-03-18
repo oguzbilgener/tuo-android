@@ -3,32 +3,35 @@
 
     <string name="app_name">UltimateApp</string>
 
-	<!-- main navigation -->
+    <!-- main navigation -->
     <string name="title_section_overview">Overview</string>
     <string name="title_section_calendar">Calendar</string>
     <string name="title_section_notes">Notes</string>
-	<string name="title_section_academic">Academic</string>
-	<string name="title_section_academic_schedule">Schedule</string>
-	<string name="title_section_academic_network">Network</string>
+    <string name="title_section_academic">Academic</string>
+    <string name="title_section_academic_schedule">Schedule</string>
+    <string name="title_section_academic_network">Network</string>
 
-	<!-- sub navigation (ActionBar Spinner) -->
-	<string-array name="title_section_overview_subs">
-		<item>Overview 1</item>
-		<item>Overview 2</item>
-	</string-array>
-
-	<string-array name="title_section_calendar_subs">
-		<item>Cal Day</item>
-		<item>Cal Week</item>
-		<item>Cal Month</item>
-		<item>Cal Year</item>
-	</string-array>
+    <!-- sub navigation (ActionBar Spinner) -->
+    <string-array name="title_section_overview_subs">
+        <item>Overview 1</item>
+        <item>Overview 2</item>
+    </string-array>
+    <string-array name="title_section_calendar_subs">
+        <item>Cal Day</item>
+        <item>Cal Week</item>
+        <item>Cal Month</item>
+        <item>Cal Year</item>
+    </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-	<!-- ActionBar items -->
+    <!-- ActionBar items -->
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_schedule">Academic Schedule</string>
+    <string name="academic_schedule_section_1">Section 1</string>
+    <string name="academic_schedule_section_2">Section 2</string>
+    <string name="academic_schedule_section_3">Section 3</string>
 
 </resources>

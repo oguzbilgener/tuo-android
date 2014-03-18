@@ -109,6 +109,7 @@ public class HomeNavigationDrawerFragment extends Fragment {
                         getString(R.string.title_section_overview),
                         getString(R.string.title_section_calendar),
                         getString(R.string.title_section_notes),
+						getString(R.string.title_section_academic_schedule)
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;

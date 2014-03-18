@@ -3,19 +3,25 @@
     package="co.uberdev.ultimateorganizer.android" >
 
     <application
+        android:name="co.uberdev.ultimateorganizer.android.util.UltimateApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/UltimateTheme"
-		android:name="co.uberdev.ultimateorganizer.android.util.UltimateApplication">
+        android:theme="@style/UltimateTheme" >
         <activity
-            android:name=".ui.HomeActivity"
+            android:name="co.uberdev.ultimateorganizer.android.ui.HomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="co.uberdev.ultimateorganizer.android.ui.ScheduleActivity"
+			android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity"
+			android:icon="@drawable/ic_launcher"
+            android:label="@string/title_activity_schedule" >
         </activity>
     </application>
 
