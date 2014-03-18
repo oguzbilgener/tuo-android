@@ -140,7 +140,13 @@ public class HomeActivity extends FragmentActivity
 			}
 		}
 		else {
-			startActivity(new Intent(this, ScheduleActivity.class));
+			// Simple, but to be changed
+			if(position == 3) {
+				startActivity(new Intent(this, ScheduleActivity.class));
+			}
+			else if(position == 4) {
+				startActivity(new Intent(this, AcademicNetworkActivity.class));
+			}
 		}
     }
 

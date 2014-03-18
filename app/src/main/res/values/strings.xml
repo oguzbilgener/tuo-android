@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">UltimateApp</string>
+    <string name="app_name">Ultimate Organizer</string>
 
     <!-- main navigation -->
     <string name="title_section_overview">Overview</string>
@@ -10,6 +10,10 @@
     <string name="title_section_academic">Academic</string>
     <string name="title_section_academic_schedule">Schedule</string>
     <string name="title_section_academic_network">Network</string>
+
+	<!-- Activity Names -->
+	<string name="title_activity_academic_network">Academic Network</string>
+	<string name="title_activity_schedule">Academic Schedule</string>
 
     <!-- sub navigation (ActionBar Spinner) -->
     <string-array name="title_section_overview_subs">
@@ -27,11 +31,14 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- ActionBar items -->
-    <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_schedule">Academic Schedule</string>
+
     <string name="academic_schedule_section_1">Section 1</string>
     <string name="academic_schedule_section_2">Section 2</string>
     <string name="academic_schedule_section_3">Section 3</string>
+
+    <string name="academic_network_section_1">Section 1</string>
+    <string name="academic_network_section_2">Section 2</string>
+    <string name="academic_network_section_3">Section 3</string>
 
 </resources>
