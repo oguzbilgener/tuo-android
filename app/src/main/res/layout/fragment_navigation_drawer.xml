@@ -21,9 +21,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="#ffffff"
-            android:layout_width="200dp"
-            android:layout_height="50dp">
+            style="@style/navigation_drawer_element_background">
 
             <TextView
                 style="@style/navigation_drawer_element"
@@ -48,9 +46,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="#ffffff"
-            android:layout_width="200dp"
-            android:layout_height="50dp">
+            style="@style/navigation_drawer_element_background">
 
             <TextView
                 style="@style/navigation_drawer_element"
@@ -76,9 +72,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="#ffffff"
-            android:layout_width="200dp"
-            android:layout_height="50dp">
+            style="@style/navigation_drawer_element_background">
 
             <TextView
                 style="@style/navigation_drawer_element"
@@ -104,9 +98,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="@color/button_dark_text"
-            android:layout_width="200dp"
-            android:layout_height="50dp">
+            style="@style/navigation_drawer_element_background">
 
             <TextView
                 style="@style/navigation_drawer_element"
@@ -131,9 +123,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="#ffffff"
-            android:layout_width="200dp"
-            android:layout_height="50dp">
+            style="@style/navigation_drawer_element_background">
 
             <TextView
                 style="@style/navigation_drawer_element"
