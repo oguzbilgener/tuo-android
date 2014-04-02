@@ -104,7 +104,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="#ffffff"
+            android:background="@color/button_dark_text"
             android:layout_width="200dp"
             android:layout_height="50dp">
 
