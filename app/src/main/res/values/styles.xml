@@ -5,4 +5,20 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="navigation_drawer_outer_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="navigation_drawer_element">
+        <item name="android:layout_width">@dimen/navigation_drawer_item_width</item>
+        <item name="android:layout_height">@dimen/navigation_drawer_item_height</item>
+        <item name="android:paddingLeft">@dimen/navigation_drawer_item_padding_left</item>
+        <item name="android:paddingTop">@dimen/navigation_drawer_item_padding_top</item>
+        <item name="android:textSize">@dimen/navigation_drawer_item_text_size</item>
+        <item name="android:textColor">@color/title_section_items_text_color</item>
+        <item name="android:clickable">true</item>
+    </style>
+
 </resources>

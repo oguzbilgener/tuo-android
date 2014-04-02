@@ -1,9 +1,159 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:choiceMode="singleChoice"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="0dp"
-    android:background="#cccc"
-    tools:context="co.uberdev.ultimateorganizer.android.ui.HomeNavigationDrawerFragment" />
+    style="@style/navigation_drawer_outer_layout"
+    tools:context="co.uberdev.ultimateorganizer.android.ui.HomeNavigationDrawerFragment">
+
+    <LinearLayout
+        android:layout_width="210dp"
+        android:layout_height="100dp"></LinearLayout>
+
+    <LinearLayout
+        android:background="#000000"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:background="@color/title_section_overview"
+            android:layout_width="10dp"
+            android:layout_height="50dp">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:layout_width="200dp"
+            android:layout_height="50dp">
+
+            <TextView
+                style="@style/navigation_drawer_element"
+                android:text="Overview"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="#000000"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:background="@color/title_section_calendar"
+            android:layout_width="10dp"
+            android:layout_height="50dp">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:layout_width="200dp"
+            android:layout_height="50dp">
+
+            <TextView
+                style="@style/navigation_drawer_element"
+                android:text="Calendar"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:background="#000000"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:background="@color/title_section_notes"
+            android:layout_width="10dp"
+            android:layout_height="50dp">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:layout_width="200dp"
+            android:layout_height="50dp">
+
+            <TextView
+                style="@style/navigation_drawer_element"
+                android:text="Notes"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:background="#000000"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:background="@color/title_section_academic_schedule"
+            android:layout_width="10dp"
+            android:layout_height="50dp">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:layout_width="200dp"
+            android:layout_height="50dp">
+
+            <TextView
+                style="@style/navigation_drawer_element"
+                android:text="Schedule"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="#000000"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:background="@color/title_section_academic_network"
+            android:layout_width="10dp"
+            android:layout_height="50dp">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:layout_width="200dp"
+            android:layout_height="50dp">
+
+            <TextView
+                style="@style/navigation_drawer_element"
+                android:text="Network"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+
+    <!--<ListView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:choiceMode="singleChoice"-->
+    <!--android:divider="@android:color/transparent"-->
+    <!--android:dividerHeight="0dp"-->
+    <!--android:background="#cccc"-->
+    <!--tools:context="co.uberdev.ultimateorganizer.android.ui.HomeNavigationDrawerFragment" />-->
