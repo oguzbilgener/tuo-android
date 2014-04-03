@@ -4,9 +4,12 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -18,6 +21,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.util.Utils;
@@ -52,6 +57,8 @@ public class HomeNavigationDrawerFragment extends Fragment {
 
     private DrawerLayout mDrawerLayout;
     private View mFragmentContainerView;
+
+    private NavigationItemAdapter mNavigationItemAdapter;
 
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
@@ -90,6 +97,7 @@ public class HomeNavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        mNavigationItemAdapter = new NavigationItemAdapter(rootView);
        	return rootView;
     }
 
@@ -187,23 +195,16 @@ public class HomeNavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
-		// TODO: create an adapter and make this work
-//        mCurrentSelectedPosition = position;
-//        if (mDrawerListView != null) {
-//            mDrawerListView.setItemChecked(position, true);
-//        }
-//        if (mDrawerLayout != null) {
-//            mDrawerLayout.closeDrawer(mFragmentContainerView);
-//        }
-//        if (mCallbacks != null) {
-//            mCallbacks.onNavigationDrawerItemSelected(position);
-//        }
+        if(mNavigationItemAdapter != null) {
+            mNavigationItemAdapter.setSelectedNavigationItem(position);
+        }
     }
 
 	public void setItemChecked(int position)
 	{
-		// TODO: make this possible too
-//		mDrawerListView.setItemChecked(position, true);
+        if(mNavigationItemAdapter != null) {
+            mNavigationItemAdapter.setSelectedNavigationItem(position);
+        }
 	}
 
     @Override
@@ -285,4 +286,92 @@ public class HomeNavigationDrawerFragment extends Fragment {
 	public boolean hasUserLearnedDrawer() {
 		return mUserLearnedDrawer;
 	}
+
+    /**
+     * Created by dunkuCoder on 03/04/14.
+     * Adapter for the items of navigation drawer, to link them with activities
+     */
+    public class NavigationItemAdapter implements View.OnClickListener
+    {
+        private ArrayList<View> navigationItems;
+
+        public NavigationItemAdapter(View rootView)
+        {
+            navigationItems = new ArrayList<View>();
+            navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_overview));
+            navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_calendar));
+            navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_notes));
+            navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_schedule));
+            navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_network));
+
+            for(View item : navigationItems)
+            {
+                item.setOnClickListener(this);
+            }
+
+        }
+
+        @Override
+        public void onClick(View view)
+        {
+            int index;
+            switch(view.getId())
+            {
+                case R.id.navigation_drawer_item_overview:
+                    index = 0;
+                    break;
+                case R.id.navigation_drawer_item_calendar:
+                    index = 1;
+                    break;
+                case R.id.navigation_drawer_item_notes:
+                    index = 2;
+                    break;
+                case R.id.navigation_drawer_item_schedule:
+                    index = 3;
+                    break;
+                case R.id.navigation_drawer_item_network:
+                    index = 4;
+                    break;
+                default:
+                    index = 0;
+            }
+
+            mCurrentSelectedPosition = index;
+            if(mDrawerLayout != null)
+            {
+                mDrawerLayout.closeDrawer(mFragmentContainerView);
+            }
+
+            setSelectedNavigationItem(index);
+
+            if (mCallbacks != null) {
+                mCallbacks.onNavigationDrawerItemSelected(index);
+            }
+        }
+
+        public void setSelectedNavigationItem(int position)
+        {
+            // position haricindeki itemlerin arka plan drawable'ini navigation_item_background yap.
+            // position'daki itemin arka planini baska bir drawable/renk yap
+            Drawable unselected = getParent().getResources().getDrawable(R.drawable.navigation_item_background);
+            Drawable selected = getParent().getResources().getDrawable(R.drawable.navigation_drawer_item_selected);
+            for( int i = 0; i < navigationItems.size(); i++)
+            {
+                if( i != position)
+                {
+                    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                        navigationItems.get(i).setBackgroundDrawable(unselected);
+                    else
+                        navigationItems.get(i).setBackground(unselected);
+                }
+                else
+                {
+                    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                        navigationItems.get(i).setBackgroundDrawable(selected);
+                    else
+                        navigationItems.get(i).setBackground(selected);
+                }
+            }
+        }
+    }
 }
