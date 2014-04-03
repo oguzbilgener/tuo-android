@@ -3,134 +3,106 @@
     style="@style/navigation_drawer_outer_layout"
     tools:context="co.uberdev.ultimateorganizer.android.ui.HomeNavigationDrawerFragment">
 
+	<!-- Header User Information Container  -->
     <LinearLayout
-        android:layout_width="210dp"
-        android:layout_height="100dp"></LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_drawer_header_height">
 
-    <LinearLayout
-        android:background="#000000"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:background="@color/title_section_overview"
-            android:layout_width="10dp"
-            android:layout_height="50dp">
+		<TextView android:layout_width="wrap_content"
+				  android:layout_height="wrap_content"
+				  android:text="header" />
 
         </LinearLayout>
 
-        <LinearLayout
-            style="@style/navigation_drawer_element_background">
+	<!-- Overview item -->
+    <LinearLayout
+		android:id="@+id/navigation_drawer_item_overview"
+        style="@style/navigation_drawer_item_layout">
 
+		<!-- Overview indicator -->
+        <LinearLayout
+            android:background="@color/title_section_overview"
+			style="@style/navigation_drawer_item_indicator">
+
+        </LinearLayout>
+
+			<!-- Overview title -->
             <TextView
-                style="@style/navigation_drawer_element"
+                style="@style/navigation_drawer_item_text"
                 android:text="Overview"/>
 
 
-        </LinearLayout>
-
     </LinearLayout>
 
+	<!-- Calendar item -->
     <LinearLayout
-        android:background="#000000"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+			android:id="@+id/navigation_drawer_item_calendar"
+			style="@style/navigation_drawer_item_layout">
 
         <LinearLayout
             android:background="@color/title_section_calendar"
-            android:layout_width="10dp"
-            android:layout_height="50dp">
-
+			style="@style/navigation_drawer_item_indicator">
         </LinearLayout>
 
-        <LinearLayout
-            style="@style/navigation_drawer_element_background">
-
             <TextView
-                style="@style/navigation_drawer_element"
+                style="@style/navigation_drawer_item_text"
                 android:text="Calendar"/>
 
 
-        </LinearLayout>
-
     </LinearLayout>
 
 
+	<!-- Notes item -->
     <LinearLayout
-        android:background="#000000"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+			android:id="@+id/navigation_drawer_item_notes"
+			style="@style/navigation_drawer_item_layout">
 
         <LinearLayout
             android:background="@color/title_section_notes"
-            android:layout_width="10dp"
-            android:layout_height="50dp">
+			style="@style/navigation_drawer_item_indicator">
 
         </LinearLayout>
-
-        <LinearLayout
-            style="@style/navigation_drawer_element_background">
 
             <TextView
-                style="@style/navigation_drawer_element"
+                style="@style/navigation_drawer_item_text"
                 android:text="Notes"/>
-
-
-        </LinearLayout>
 
     </LinearLayout>
 
 
+	<!-- Academic Schedule item -->
     <LinearLayout
-        android:background="#000000"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+			android:id="@+id/navigation_drawer_item_schedule"
+			style="@style/navigation_drawer_item_layout"
+			android:layout_marginTop="@dimen/navigation_drawer_academic_marginTop">
 
         <LinearLayout
             android:background="@color/title_section_academic_schedule"
-            android:layout_width="10dp"
-            android:layout_height="50dp">
+			style="@style/navigation_drawer_item_indicator">
 
         </LinearLayout>
-
-        <LinearLayout
-            style="@style/navigation_drawer_element_background">
 
             <TextView
-                style="@style/navigation_drawer_element"
+                style="@style/navigation_drawer_item_text"
                 android:text="Schedule"/>
-
-
-        </LinearLayout>
 
     </LinearLayout>
 
+	<!-- Network item -->
     <LinearLayout
-        android:background="#000000"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+			android:id="@+id/navigation_drawer_item_network"
+			style="@style/navigation_drawer_item_layout">
 
         <LinearLayout
             android:background="@color/title_section_academic_network"
-            android:layout_width="10dp"
-            android:layout_height="50dp">
+			style="@style/navigation_drawer_item_indicator">
 
         </LinearLayout>
-
-        <LinearLayout
-            style="@style/navigation_drawer_element_background">
 
             <TextView
-                style="@style/navigation_drawer_element"
+                style="@style/navigation_drawer_item_text"
                 android:text="Network"/>
 
-
-        </LinearLayout>
 
     </LinearLayout>
 

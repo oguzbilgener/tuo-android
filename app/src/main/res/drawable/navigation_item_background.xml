@@ -4,5 +4,6 @@
           android:drawable="@drawable/navigation_drawer_item_pressed" /> <!-- pressed -->
     <item android:state_focused="true"
           android:drawable="@drawable/navigation_drawer_item_selected" /> <!-- selected -->
-    <item android:drawable="@drawable/navigation_drawer_item_default" /> <!-- default -->
+    <item android:drawable="@android:color/transparent" /> <!-- default -->
+	<!-- do not set a color again, just use the drawer bg color -->
 </selector>
