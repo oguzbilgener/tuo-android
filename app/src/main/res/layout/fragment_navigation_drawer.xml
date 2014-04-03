@@ -34,6 +34,10 @@
 
     </LinearLayout>
 
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
+
 	<!-- Calendar item -->
     <LinearLayout
 			android:id="@+id/navigation_drawer_item_calendar"
@@ -48,9 +52,11 @@
                 style="@style/navigation_drawer_item_text"
                 android:text="Calendar"/>
 
-
     </LinearLayout>
 
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
 
 	<!-- Notes item -->
     <LinearLayout
@@ -69,6 +75,9 @@
 
     </LinearLayout>
 
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
 
 	<!-- Academic Schedule item -->
     <LinearLayout
@@ -88,6 +97,10 @@
 
     </LinearLayout>
 
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
+
 	<!-- Network item -->
     <LinearLayout
 			android:id="@+id/navigation_drawer_item_network"
@@ -103,10 +116,11 @@
                 style="@style/navigation_drawer_item_text"
                 android:text="Network"/>
 
-
     </LinearLayout>
 
-
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
 
 </LinearLayout>
 

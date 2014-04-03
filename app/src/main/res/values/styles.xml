@@ -37,4 +37,9 @@
         <item name="android:clickable">true</item>
     </style>
 
+	<style name="navigation_drawer_item_separator">
+		<item name="android:layout_height">1dp</item>
+		<item name="android:background">@color/navigation_drawer_item_separator</item>
+	</style>
+
 </resources>

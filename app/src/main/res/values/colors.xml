@@ -20,4 +20,6 @@
 
 	<color name="nav_academic_network_title_pager_background">#ff4b1b67</color>
 	<color name="nav_academic_network_title_pager_text">#e2e2e2</color>
+
+	<color name="navigation_drawer_item_separator">#cecece</color>
 </resources>
