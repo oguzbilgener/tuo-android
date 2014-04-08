@@ -59,4 +59,29 @@ public class OverviewSpinnerAdapter extends ArrayAdapter<String> implements Spin
 
         return convertView;
     }
+
+    public View getDropDownView(int position, View convertView,ViewGroup parent) {
+        if(position >= list.size())
+            return null;
+
+        ViewHolder holder;
+
+        if(convertView == null)
+        {
+            convertView = inflater.inflate(R.layout.overview_spinner_item, null);
+
+            holder = new ViewHolder();
+            holder.text = (TextView) convertView.findViewById(R.id.overview_spinner_item_text);
+            convertView.setTag(R.integer.overview_spinner_holder, holder);
+        }
+        else
+        {
+            holder = (ViewHolder)convertView.getTag(R.integer.overview_spinner_holder);
+        }
+
+        holder.text.setText(list.get(position));
+
+        return convertView;
+    }
+
 }

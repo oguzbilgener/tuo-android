@@ -377,6 +377,8 @@ public class HomeActivity extends FragmentActivity
 
                     mSpinnerAdapter  = new OverviewSpinnerAdapter(getHomeActivity(), R.id.overview_spinner_item_text, overviewSpinner);
 
+                    ((ArrayAdapter)mSpinnerAdapter).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 					actionBar.setListNavigationCallbacks(mSpinnerAdapter, getHomeActivity());
 					break;
 				// Calendar
