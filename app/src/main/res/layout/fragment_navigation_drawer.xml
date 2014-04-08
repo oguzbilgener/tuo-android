@@ -1,9 +1,143 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:choiceMode="singleChoice"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="0dp"
-    android:background="#cccc"
-    tools:context="co.uberdev.ultimateorganizer.android.ui.HomeNavigationDrawerFragment" />
+    style="@style/navigation_drawer_outer_layout"
+    tools:context="co.uberdev.ultimateorganizer.android.ui.HomeNavigationDrawerFragment">
+
+	<!-- Header User Information Container  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_drawer_header_height">
+
+		<TextView android:layout_width="wrap_content"
+				  android:layout_height="wrap_content"
+				  android:text="header" />
+
+        </LinearLayout>
+
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
+
+	<!-- Overview item -->
+    <LinearLayout
+		android:id="@+id/navigation_drawer_item_overview"
+        style="@style/navigation_drawer_item_layout">
+
+		<!-- Overview indicator -->
+        <LinearLayout
+            android:background="@color/title_section_overview"
+			style="@style/navigation_drawer_item_indicator">
+
+        </LinearLayout>
+
+			<!-- Overview title -->
+            <TextView
+                style="@style/navigation_drawer_item_text"
+                android:text="Overview"/>
+
+
+    </LinearLayout>
+
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
+
+	<!-- Calendar item -->
+    <LinearLayout
+			android:id="@+id/navigation_drawer_item_calendar"
+			style="@style/navigation_drawer_item_layout">
+
+        <LinearLayout
+            android:background="@color/title_section_calendar"
+			style="@style/navigation_drawer_item_indicator">
+        </LinearLayout>
+
+            <TextView
+                style="@style/navigation_drawer_item_text"
+                android:text="Calendar"/>
+
+    </LinearLayout>
+
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
+
+	<!-- Notes item -->
+    <LinearLayout
+			android:id="@+id/navigation_drawer_item_notes"
+			style="@style/navigation_drawer_item_layout">
+
+        <LinearLayout
+            android:background="@color/title_section_notes"
+			style="@style/navigation_drawer_item_indicator">
+
+        </LinearLayout>
+
+            <TextView
+                style="@style/navigation_drawer_item_text"
+                android:text="Notes"/>
+
+    </LinearLayout>
+
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
+
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator"
+				  android:layout_marginTop="@dimen/navigation_drawer_academic_marginTop"/>
+
+	<!-- Academic Schedule item -->
+    <LinearLayout
+			android:id="@+id/navigation_drawer_item_schedule"
+			style="@style/navigation_drawer_item_layout">
+
+        <LinearLayout
+            android:background="@color/title_section_academic_schedule"
+			style="@style/navigation_drawer_item_indicator">
+
+        </LinearLayout>
+
+            <TextView
+                style="@style/navigation_drawer_item_text"
+                android:text="Schedule"/>
+
+    </LinearLayout>
+
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
+
+	<!-- Network item -->
+    <LinearLayout
+			android:id="@+id/navigation_drawer_item_network"
+			style="@style/navigation_drawer_item_layout">
+
+        <LinearLayout
+            android:background="@color/title_section_academic_network"
+			style="@style/navigation_drawer_item_indicator">
+
+        </LinearLayout>
+
+            <TextView
+                style="@style/navigation_drawer_item_text"
+                android:text="Network"/>
+
+    </LinearLayout>
+
+	<!-- separator -->
+	<LinearLayout android:layout_width="match_parent"
+				  style="@style/navigation_drawer_item_separator" />
+
+</LinearLayout>
+
+    <!--<ListView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:choiceMode="singleChoice"-->
+    <!--android:divider="@android:color/transparent"-->
+    <!--android:dividerHeight="0dp"-->
+    <!--android:background="#cccc"-->
+    <!--tools:context="co.uberdev.ultimateorganizer.android.ui.HomeNavigationDrawerFragment" />-->
