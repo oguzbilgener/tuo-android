@@ -17,14 +17,17 @@
 
     <!-- sub navigation (ActionBar Spinner) -->
     <string-array name="title_section_overview_subs">
-        <item>Overview 1</item>
-        <item>Overview 2</item>
+        <item>All Tasks</item>
+        <item>Upcoming</item>
+        <item>Overdue</item>
+        <item>Completed</item>
     </string-array>
+
     <string-array name="title_section_calendar_subs">
-        <item>Cal Day</item>
-        <item>Cal Week</item>
-        <item>Cal Month</item>
-        <item>Cal Year</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
     </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

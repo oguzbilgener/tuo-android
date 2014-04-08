@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import co.uberdev.ultimateorganizer.android.R;
@@ -366,8 +367,16 @@ public class HomeActivity extends FragmentActivity
 					pageJustChanged = true;
 					actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 					actionBar.setDisplayShowTitleEnabled(false);
-					mSpinnerAdapter = ArrayAdapter.createFromResource(getHomeActivity(), R.array.title_section_overview_subs,
-							android.R.layout.simple_spinner_dropdown_item);
+
+                    String[] overviewSpinnerArray = getResources().getStringArray(R.array.title_section_overview_subs);
+
+                    ArrayList<String> overviewSpinner = new ArrayList<String>();
+                    for (int i = 0; i < overviewSpinnerArray.length; i++) {
+                        overviewSpinner.add(overviewSpinnerArray[i]);
+                    }
+
+                    mSpinnerAdapter  = new OverviewSpinnerAdapter(getHomeActivity(), R.id.overview_spinner_item_text, overviewSpinner);
+
 					actionBar.setListNavigationCallbacks(mSpinnerAdapter, getHomeActivity());
 					break;
 				// Calendar
