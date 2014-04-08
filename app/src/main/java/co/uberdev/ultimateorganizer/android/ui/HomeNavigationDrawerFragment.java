@@ -4,7 +4,6 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
@@ -342,7 +341,10 @@ public class HomeNavigationDrawerFragment extends Fragment {
                 mDrawerLayout.closeDrawer(mFragmentContainerView);
             }
 
-            setSelectedNavigationItem(index);
+			if(index < 3)
+			{
+				setSelectedNavigationItem(index);
+			}
 
             if (mCallbacks != null) {
                 mCallbacks.onNavigationDrawerItemSelected(index);

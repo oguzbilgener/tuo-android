@@ -12,7 +12,7 @@
     <dimen name="navigation_drawer_item_padding_top">0dp</dimen>
     <dimen name="navigation_drawer_item_text_size">20sp</dimen>
 
-	<dimen name="navigation_drawer_academic_marginTop">70dp</dimen>
+	<dimen name="navigation_drawer_academic_marginTop">0dp</dimen>
 
 	<dimen name="navigation_drawer_header_height">80dp</dimen>
 	<!--<dimen name="navigation_drawer_header_width">match_parent</dimen>-->
