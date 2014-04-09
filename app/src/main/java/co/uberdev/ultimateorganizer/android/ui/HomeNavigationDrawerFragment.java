@@ -78,6 +78,7 @@ public class HomeNavigationDrawerFragment extends Fragment {
         if (savedInstanceState != null) {
 			Utils.log.w("nav sis not null");
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+			Utils.log.e("asd"+mCurrentSelectedPosition);
             mFromSavedInstanceState = true;
         }
 
@@ -202,6 +203,8 @@ public class HomeNavigationDrawerFragment extends Fragment {
 	public void setItemChecked(int position)
 	{
         if(mNavigationItemAdapter != null) {
+			mCurrentSelectedPosition = position;
+			Utils.log.d("pos "+mCurrentSelectedPosition);
             mNavigationItemAdapter.setSelectedNavigationItem(position);
         }
 	}
@@ -224,7 +227,8 @@ public class HomeNavigationDrawerFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+		super.onSaveInstanceState(outState);
+		Utils.log.e("pos "+mCurrentSelectedPosition);
         outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
     }
 
@@ -353,14 +357,13 @@ public class HomeNavigationDrawerFragment extends Fragment {
 
         public void setSelectedNavigationItem(int position)
         {
-            // position haricindeki itemlerin arka plan drawable'ini navigation_item_background yap.
-            // position'daki itemin arka planini baska bir drawable/renk yap
-            Drawable unselected = getParent().getResources().getDrawable(R.drawable.navigation_item_background);
-            Drawable selected = getParent().getResources().getDrawable(R.drawable.navigation_drawer_item_selected);
             for( int i = 0; i < navigationItems.size(); i++)
             {
                 if( i != position)
                 {
+					// Regenerate the drawable each time. This is necessary for color state lists
+					Drawable unselected = getParent().getResources().getDrawable(R.drawable.navigation_item_background);
+					// Use the correct API, according to the API level
                     if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
                         navigationItems.get(i).setBackgroundDrawable(unselected);
                     else
@@ -368,6 +371,9 @@ public class HomeNavigationDrawerFragment extends Fragment {
                 }
                 else
                 {
+					// Regenerate the drawable each time. This is necessary for color state lists
+					Drawable selected = getParent().getResources().getDrawable(R.drawable.navigation_drawer_item_selected);
+					// Use the correct API, according to the API level
                     if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
                         navigationItems.get(i).setBackgroundDrawable(selected);
                     else
@@ -376,4 +382,9 @@ public class HomeNavigationDrawerFragment extends Fragment {
             }
         }
     }
+
+	public NavigationItemAdapter getmNavigationItemAdapter()
+	{
+		return mNavigationItemAdapter;
+	}
 }

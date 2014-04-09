@@ -83,10 +83,10 @@
 	<LinearLayout android:layout_width="match_parent"
 				  style="@style/navigation_drawer_item_separator" />
 
-	<!-- separator -->
-	<LinearLayout android:layout_width="match_parent"
-				  style="@style/navigation_drawer_item_separator"
-				  android:layout_marginTop="@dimen/navigation_drawer_academic_marginTop"/>
+	<!--&lt;!&ndash; separator &ndash;&gt;-->
+	<!--<LinearLayout android:layout_width="match_parent"-->
+				  <!--style="@style/navigation_drawer_item_separator"-->
+				  <!--android:layout_marginTop="@dimen/navigation_drawer_academic_marginTop"/>-->
 
 	<!-- Academic Schedule item -->
     <LinearLayout
