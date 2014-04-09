@@ -20,7 +20,7 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
 
 public class OverviewSpinnerAdapter extends ArrayAdapter implements SpinnerAdapter {
 
-    private ArrayList<OverviewNavigationItem> list = new ArrayList<OverviewNavigationItem>();
+    private ArrayList<OverviewNavigationItem> list;
     private LayoutInflater inflater;
     public static final int resourceId = R.layout.overview_spinner_item;
 
