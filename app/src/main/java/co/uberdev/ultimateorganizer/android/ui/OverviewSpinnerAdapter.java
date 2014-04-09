@@ -1,7 +1,6 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +34,7 @@ public class OverviewSpinnerAdapter extends ArrayAdapter<String> implements Spin
         TextView text;
     }
 
+	@Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
         if(position >= list.size())
