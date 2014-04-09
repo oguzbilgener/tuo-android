@@ -21,6 +21,7 @@ public class OverviewSpinnerAdapter extends ArrayAdapter<String> implements Spin
     private ArrayList<String> list;
     private LayoutInflater inflater;
     public static final int resourceId = R.layout.overview_spinner_item;
+	// TODO: create a different layout for this:
 	public static final int resourceIdAlt = R.layout.overview_spinner_item;
 
     public OverviewSpinnerAdapter(Context context, ArrayList<String> list)
