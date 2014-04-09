@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.util.OverviewNavigationItem;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 
@@ -376,12 +377,12 @@ public class HomeActivity extends FragmentActivity
 
                     String[] overviewSpinnerArray = getResources().getStringArray(R.array.title_section_overview_subs);
 
-                    ArrayList<String> overviewSpinner = new ArrayList<String>();
+                    ArrayList<OverviewNavigationItem> overviewSpinner = new ArrayList<OverviewNavigationItem>();
                     for (int i = 0; i < overviewSpinnerArray.length; i++) {
-                        overviewSpinner.add(overviewSpinnerArray[i]);
+                        overviewSpinner.add(new OverviewNavigationItem(overviewSpinnerArray[i]));
                     }
 
-                    mSpinnerAdapter  = new OverviewSpinnerAdapter(getHomeActivity(), R.id.overview_spinner_item_text, overviewSpinner);
+                    mSpinnerAdapter  = new OverviewSpinnerAdapter(getHomeActivity(),  overviewSpinner);
 
 					actionBar.setListNavigationCallbacks(mSpinnerAdapter, getHomeActivity());
 					break;
