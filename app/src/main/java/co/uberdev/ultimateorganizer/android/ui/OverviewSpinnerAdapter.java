@@ -11,21 +11,24 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.util.OverviewNavigationItem;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by begum on 08/04/14.
  */
 
-public class OverviewSpinnerAdapter extends ArrayAdapter<String> implements SpinnerAdapter {
+public class OverviewSpinnerAdapter extends ArrayAdapter implements SpinnerAdapter {
 
-    private ArrayList<String> list = new ArrayList<String>();
+    private ArrayList<OverviewNavigationItem> list = new ArrayList<OverviewNavigationItem>();
     private LayoutInflater inflater;
-    int resource;
+    public static final int resourceId = R.layout.overview_spinner_item;
 
-    public OverviewSpinnerAdapter(Context context, int resource, ArrayList<String> list) {
-        super(context, resource, list);
+    public OverviewSpinnerAdapter(Context context, ArrayList<OverviewNavigationItem> list)
+	{
+        super(context, resourceId, list);
+
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.resource = resource;
         this.list = list;
     }
 
@@ -44,18 +47,21 @@ public class OverviewSpinnerAdapter extends ArrayAdapter<String> implements Spin
 
         if(convertView == null)
         {
-            convertView = inflater.inflate(R.layout.overview_spinner_item, null);
+            convertView = inflater.inflate(R.layout.overview_spinner_item, parent, false);
 
             holder = new ViewHolder();
-            holder.text = (TextView) convertView.findViewById(R.id.overview_spinner_item_text);
-            convertView.setTag(R.integer.overview_spinner_holder, holder);
+			try {
+				holder.text = (TextView) convertView.findViewById(resourceId);
+			}catch(Exception e) {
+				Utils.log.d("hoooo"); e.printStackTrace();}
+            convertView.setTag(R.id.overview_spinner_holder, holder);
         }
         else
         {
-            holder = (ViewHolder)convertView.getTag(R.integer.overview_spinner_holder);
+            holder = (ViewHolder) convertView.getTag(R.id.overview_spinner_holder);
         }
-
-        holder.text.setText(list.get(position));
+		if(holder.text != null)
+        	holder.text.setText(list.get(position).title);
 
         return convertView;
     }
