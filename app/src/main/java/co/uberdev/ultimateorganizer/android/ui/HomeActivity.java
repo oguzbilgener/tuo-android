@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.util.OverviewNavigationItem;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 
@@ -324,13 +323,13 @@ public class HomeActivity extends FragmentActivity
 			{
 				// Overview
 				case 0:
-					return getString(R.string.title_section_overview).toUpperCase(l);
+					return getString(R.string.title_section_overview);
 				// Calendar
 				case 1:
-					return getString(R.string.title_section_calendar).toUpperCase(l);
+					return getString(R.string.title_section_calendar);
 				// Notes
 				case 2:
-					return getString(R.string.title_section_notes).toUpperCase(l);
+					return getString(R.string.title_section_notes);
 			}
 			return null;
 		}
@@ -377,10 +376,12 @@ public class HomeActivity extends FragmentActivity
 
                     String[] overviewSpinnerArray = getResources().getStringArray(R.array.title_section_overview_subs);
 
-                    ArrayList<OverviewNavigationItem> overviewSpinner = new ArrayList<OverviewNavigationItem>();
+                    ArrayList<String> overviewSpinner = new ArrayList<String>();
                     for (int i = 0; i < overviewSpinnerArray.length; i++) {
-                        overviewSpinner.add(new OverviewNavigationItem(overviewSpinnerArray[i]));
+                        overviewSpinner.add(overviewSpinnerArray[i]);
                     }
+					// add a faux last item
+					overviewSpinner.add("");
 
                     mSpinnerAdapter  = new OverviewSpinnerAdapter(getHomeActivity(),  overviewSpinner);
 
