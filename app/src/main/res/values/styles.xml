@@ -2,8 +2,14 @@
 
     <!-- Base application theme. -->
     <style name="UltimateTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+		<item name="android:actionDropDownStyle">@style/DropDownNav.UltimateTheme</item>
     </style>
+
+	<style name="DropDownNav.UltimateTheme" parent="@android:style/Widget.Holo.Light.Spinner">
+		<item name="android:background">@drawable/spinner_background_ab_ultimate</item>
+		<item name="android:popupBackground">@drawable/menu_dropdown_panel_ultimate</item>
+		<item name="android:dropDownSelector">@drawable/selectable_background_ultimate</item>
+	</style>
 
     <style name="navigation_drawer_outer_layout">
         <item name="android:layout_width">match_parent</item>
