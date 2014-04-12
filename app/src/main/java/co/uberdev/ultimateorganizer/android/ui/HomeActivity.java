@@ -380,8 +380,6 @@ public class HomeActivity extends FragmentActivity
                     for (int i = 0; i < overviewSpinnerArray.length; i++) {
                         overviewSpinner.add(overviewSpinnerArray[i]);
                     }
-					// add a faux last item
-					overviewSpinner.add("");
 
                     mSpinnerAdapter  = new OverviewSpinnerAdapter(getHomeActivity(),  overviewSpinner);
 

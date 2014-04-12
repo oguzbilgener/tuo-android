@@ -1,6 +1,7 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,61 +38,50 @@ public class OverviewSpinnerAdapter extends ArrayAdapter<String> implements Spin
         TextView text;
     }
 
+	// The view to be displayed when the dropdown is closed
 	@Override
 	 public View getView(int position, View convertView, ViewGroup parent)
 	{
-		return getItemView(position, convertView, parent);
+		return getItemView(position,  parent, false);
 	}
 
+	// The view to be displayed when the dropdown is open
 	@Override
 	public View getDropDownView(int position, View convertView, ViewGroup parent)
 	{
-		return getItemView(position, convertView, parent);
+		return getItemView(position, parent, true);
 	}
 
-    public View getItemView(int position, View convertView, ViewGroup parent)
+    public View getItemView(int position,  ViewGroup parent, boolean isOpen)
     {
         if(position >= list.size())
             return null;
 
-		int resId;
-
+		View view;
 		if(getItemViewType(position) == 0)
 		{
-			resId = resourceId;
-		}
-		else
-		{
-			resId = resourceIdAlt;
-		}
+			view = inflater.inflate(resourceId, parent, false);
+			TextView titleText = (TextView) view.findViewById(R.id.overview_spinner_item_text);
+			titleText.setText(list.get(position));
 
-        ViewHolder holder;
-
-//        if(convertView == null)
-//        {
-            convertView = inflater.inflate(resId, parent, false);
-
-            holder = new ViewHolder();
-			holder.text = (TextView) convertView.findViewById(resourceId);
-//            convertView.setTag(R.id.overview_spinner_holder, holder);
-//        }
-//        else
-//        {
-//            holder = (ViewHolder) convertView.getTag(R.id.overview_spinner_holder);
-//        }
-		if(holder.text != null)
-		{
-			if(getItemViewType(position) == 0)
+			if(isOpen)
 			{
-				holder.text.setText(list.get(position));
+				titleText.setTextColor(Color.parseColor("#000000"));
 			}
 			else
 			{
-				holder.text.setText("last");
+				titleText.setTextColor(Color.parseColor("#ffffff"));
 			}
 		}
+		else
+		{
+			// the last item
+			view = inflater.inflate(resourceIdAlt, parent, false);
+			TextView titleText = (TextView) view.findViewById(R.id.overview_spinner_item_text);
+			titleText.setText("t");
+		}
 
-        return convertView;
+       	return view;
     }
 
 	/**

@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout android:id="@+id/overview_spinner_item" xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="@dimen/navigation_spinner_default_height">
 
     <TextView
         android:id="@+id/overview_spinner_item_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="asd asd asd >>>>>"/>
+        android:layout_height="@dimen/navigation_spinner_default_height"
+		android:padding="@dimen/navigation_spinner_default_title_padding"
+		android:layout_gravity="center_vertical"
+		android:gravity="center_vertical"
+		android:textSize="@dimen/navigation_spinner_default_title_size"
+        android:text="All Tasks"/>
 
 </LinearLayout>
