@@ -32,6 +32,7 @@
 
 			<!-- Overview title -->
             <TextView
+				android:id="@+id/navigation_drawer_item_text_overview"
                 style="@style/navigation_drawer_item_text"
                 android:text="Overview"/>
 
@@ -53,6 +54,7 @@
         </LinearLayout>
 
             <TextView
+				android:id="@+id/navigation_drawer_item_text_calendar"
                 style="@style/navigation_drawer_item_text"
                 android:text="Calendar"/>
 
@@ -74,6 +76,7 @@
         </LinearLayout>
 
             <TextView
+				android:id="@+id/navigation_drawer_item_text_notes"
                 style="@style/navigation_drawer_item_text"
                 android:text="Notes"/>
 
@@ -100,6 +103,7 @@
         </LinearLayout>
 
             <TextView
+				android:id="@+id/navigation_drawer_item_text_academic_schedule"
                 style="@style/navigation_drawer_item_text"
                 android:text="Schedule"/>
 
@@ -121,6 +125,7 @@
         </LinearLayout>
 
             <TextView
+				android:id="@+id/navigation_drawer_item_text_academic_network"
                 style="@style/navigation_drawer_item_text"
                 android:text="Network"/>
 
