@@ -71,6 +71,12 @@ public class AcademicNetworkActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+		Bundle extras = getIntent().getExtras();
+		if(id == android.R.id.home && extras != null && extras.getString(getString(R.string.INTENT_CALLER_ACTIVITY)) != null) {
+			finish();
+			return true;
+		}
         if (id == R.id.action_settings) {
             return true;
         }

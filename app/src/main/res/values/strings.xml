@@ -21,6 +21,7 @@
         <item>Upcoming</item>
         <item>Overdue</item>
         <item>Completed</item>
+		<item>Tags</item>
     </string-array>
 
     <string-array name="title_section_calendar_subs">

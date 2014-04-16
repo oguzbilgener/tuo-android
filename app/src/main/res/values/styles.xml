@@ -2,8 +2,45 @@
 
     <!-- Base application theme. -->
     <style name="UltimateTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+		<item name="android:actionDropDownStyle">@style/DropDownNav.UltimateTheme</item>
+		<item name="android:textViewStyle">@style/TextViewStyle.UltimateTheme</item>
+		<item name="android:actionBarStyle">@style/ActionBar.UltimateTheme</item>
     </style>
+
+	<style name="DropDownNav.Base.UltimateTheme" parent="@android:style/Widget.Holo.Light.Spinner">
+		<item name="android:background">@drawable/spinner_background_ab_ultimate</item>
+		<item name="android:popupBackground">@drawable/menu_dropdown_panel_ultimate</item>
+		<item name="android:dropDownSelector">@drawable/selectable_background_ultimate</item>
+	</style>
+
+	<style name="DropDownNav.UltimateTheme" parent="DropDownNav.Base.UltimateTheme">
+
+	</style>
+
+	<style name="TextViewStyle.UltimateTheme" parent="android:Widget.TextView">
+
+	</style>
+
+	<style name="ActionBar.UltimateTheme" parent="android:Widget.ActionBar">
+		<item name="android:titleTextStyle">@style/ActionBar.TextAppearance.UltimateTheme</item>
+	</style>
+	<style name="ActionBar.Base.TextAppearance.UltimateTheme" parent="android:TextAppearance.Holo.Widget.ActionBar.Menu">
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">#ffffff</item>
+		<!--<item name="android:inputType">textCapWords</item>-->
+		<item name="android:shadowColor">#999999</item>
+		<item name="android:shadowRadius">1</item>
+		<item name="android:shadowDx">1</item>
+		<item name="android:shadowDy">1</item>
+		<!--<item name="android:paddingLeft">30dp</item>-->
+		<item name="android:layout_marginLeft">30dp</item>
+	</style>
+
+	<style name="ActionBar.TextAppearance.UltimateTheme" parent="@style/ActionBar.Base.TextAppearance.UltimateTheme">
+
+	</style>
+
+	<!-- styles for xml layouts -->
 
     <style name="navigation_drawer_outer_layout">
         <item name="android:layout_width">match_parent</item>
@@ -31,7 +68,7 @@
     </style>
 
     <style name="navigation_drawer_item_indicator">
-        <item name="android:background">@drawable/navigation_item_background</item>
+        <!--<item name="android:background">@drawable/navigation_item_background</item>-->
         <item name="android:layout_width">10dp</item>
         <item name="android:layout_height">@dimen/navigation_drawer_item_height</item>
         <item name="android:clickable">true</item>

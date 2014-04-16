@@ -78,6 +78,7 @@ public class HomeNavigationDrawerFragment extends Fragment {
         if (savedInstanceState != null) {
 			Utils.log.w("nav sis not null");
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+			Utils.log.e("asd"+mCurrentSelectedPosition);
             mFromSavedInstanceState = true;
         }
 
@@ -202,6 +203,8 @@ public class HomeNavigationDrawerFragment extends Fragment {
 	public void setItemChecked(int position)
 	{
         if(mNavigationItemAdapter != null) {
+			mCurrentSelectedPosition = position;
+			Utils.log.d("pos "+mCurrentSelectedPosition);
             mNavigationItemAdapter.setSelectedNavigationItem(position);
         }
 	}
@@ -224,7 +227,8 @@ public class HomeNavigationDrawerFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+		super.onSaveInstanceState(outState);
+		Utils.log.e("pos "+mCurrentSelectedPosition);
         outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
     }
 
@@ -293,10 +297,12 @@ public class HomeNavigationDrawerFragment extends Fragment {
     public class NavigationItemAdapter implements View.OnClickListener
     {
         private ArrayList<View> navigationItems;
+		private View rootView;
 
         public NavigationItemAdapter(View rootView)
         {
             navigationItems = new ArrayList<View>();
+			this.rootView = rootView;
             navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_overview));
             navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_calendar));
             navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_notes));
@@ -309,6 +315,11 @@ public class HomeNavigationDrawerFragment extends Fragment {
             }
 
         }
+
+		public View getRootView()
+		{
+			return rootView;
+		}
 
         @Override
         public void onClick(View view)
@@ -353,27 +364,85 @@ public class HomeNavigationDrawerFragment extends Fragment {
 
         public void setSelectedNavigationItem(int position)
         {
-            // position haricindeki itemlerin arka plan drawable'ini navigation_item_background yap.
-            // position'daki itemin arka planini baska bir drawable/renk yap
-            Drawable unselected = getParent().getResources().getDrawable(R.drawable.navigation_item_background);
-            Drawable selected = getParent().getResources().getDrawable(R.drawable.navigation_drawer_item_selected);
             for( int i = 0; i < navigationItems.size(); i++)
             {
                 if( i != position)
                 {
+					// Regenerate the drawable each time. This is necessary for color state lists
+					Drawable unselected = getParent().getResources().getDrawable(R.drawable.navigation_item_background);
+					// Use the correct API, according to the API level
                     if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
                         navigationItems.get(i).setBackgroundDrawable(unselected);
                     else
                         navigationItems.get(i).setBackground(unselected);
+
+					// TODO: Make the text style normal
                 }
                 else
                 {
+					// Regenerate the drawable each time. This is necessary for color state lists
+					Drawable selected = getParent().getResources().getDrawable(R.drawable.navigation_selected_item_background);
+					// Use the correct API, according to the API level
                     if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
                         navigationItems.get(i).setBackgroundDrawable(selected);
                     else
                         navigationItems.get(i).setBackground(selected);
+
+					// TODO:  Make the text style bold. Use TextAppearance or Typeface classes
+
                 }
             }
         }
+
+		/**
+		 * A utility method for getting a TextView id from the position of the item in the NavigationDrawer
+		 * @param position
+		 * @return
+		 */
+		public int getTextViewId(int position)
+		{
+			switch(position)
+			{
+				case 0:
+					return R.id.navigation_drawer_item_text_overview;
+				case 1:
+					return R.id.navigation_drawer_item_text_calendar;
+				case 2:
+					return R.id.navigation_drawer_item_text_notes;
+				case 3:
+					return R.id.navigation_drawer_item_text_academic_schedule;
+				case 4:
+					return R.id.navigation_drawer_item_text_academic_network;
+			}
+			return 0;
+		}
+
+		/**
+		 * A utility method for getting the section title String from the position of the item in the Navigation Drawer
+		 * @param position
+		 * @return
+		 */
+		public int getNavigationItemString(int position)
+		{
+			switch(position)
+			{
+				case 0:
+					return R.string.title_section_overview;
+				case 1:
+					return R.string.title_section_calendar;
+				case 2:
+					return R.string.title_section_notes;
+				case 3:
+					return R.string.title_section_academic_schedule;
+				case 4:
+					return R.string.title_section_academic_network;
+			}
+			return 0;
+		}
     }
+
+	public NavigationItemAdapter getmNavigationItemAdapter()
+	{
+		return mNavigationItemAdapter;
+	}
 }
