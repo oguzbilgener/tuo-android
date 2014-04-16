@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_name1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:text="Configure the Server"
+        android:textSize="25dp"
+        />
+
+    <CheckBox
+        android:id="@+id/cb_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name1"
+        android:layout_marginTop="10dp"
+        android:checked="true"
+        android:text="Choose a provider"
+        android:textSize="20dp"
+        android:textColor="#a0a0a0"/>
+
+    <CheckBox
+        android:id="@+id/cb_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cb_1"
+        android:layout_marginTop="10dp"
+        android:checked="true"
+        android:text="Rent the server"
+        android:textSize="20dp"
+        android:textColor="#a0a0a0"/>
+
+    <CheckBox
+        android:id="@+id/cb_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cb_2"
+        android:layout_marginTop="10dp"
+        android:checked="false"
+        android:text="Install Postgres"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/cb_3"
+        android:text="2 Mar 18:42"/>
+
+
+
+
+
+</RelativeLayout>
