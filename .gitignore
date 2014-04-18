@@ -28,6 +28,7 @@ proguard/
 # Idea workspace
 .idea
 /.idea/workspace.xml
+app/app.iml
 *.iml
 
 ### OSX ###
