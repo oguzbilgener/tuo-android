@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import co.uberdev.ultimateorganizer.android.R;
@@ -98,6 +99,8 @@ public class HomeActivity extends FragmentActivity
 	@Override
 	public void onResume() {
 		super.onResume();
+		// Indicate the latest navigation item in the navigation drawer
+		mHomeNavigationDrawerFragment.getmNavigationItemAdapter().setSelectedNavigationItem(mViewPager.getCurrentItem());
 	}
 
 	@Override
@@ -140,13 +143,16 @@ public class HomeActivity extends FragmentActivity
 			}
 		}
 		else {
-			// Simple, but to be changed
+			// Start those activities with an extra, specifying that they are called from home activity
+			Intent startIntent;
 			if(position == 3) {
-				startActivity(new Intent(this, ScheduleActivity.class));
+				startIntent = new Intent(this, ScheduleActivity.class);
 			}
-			else if(position == 4) {
-				startActivity(new Intent(this, AcademicNetworkActivity.class));
+			else /* if(position == 4)*/ {
+				startIntent = new Intent(this, AcademicNetworkActivity.class);
 			}
+			startIntent.putExtra(getString(R.string.INTENT_CALLER_ACTIVITY),getString(R.string.INTENT_CALLER_HOME));
+			startActivity(startIntent);
 		}
     }
 
@@ -241,8 +247,9 @@ public class HomeActivity extends FragmentActivity
 	@Override
 	public void onPageSelected(int position) {
 		Utils.log.d("onPageSelected "+position);
-		// When a page is selected, apply its 100% opaque Action Bar color
+		// change the selected item in the action bar
 		mHomeNavigationDrawerFragment.setItemChecked(position);
+		// When a page is selected, apply its 100% opaque Action Bar color
 		getActionBar().setBackgroundDrawable(mSectionsPagerAdapter.getColorBackground(position));
 		// Modify the ActionBar to make it relevant
 		mSectionsPagerAdapter.applyActionBarRules(position);
@@ -280,7 +287,7 @@ public class HomeActivity extends FragmentActivity
 		 */
 		@Override
 		public Fragment getItem(int position) {
-			Utils.log.e("SectionsPagerAdapter getItem("+position+")");
+			Utils.log.i("SectionsPagerAdapter getItem("+position+")");
 			// getItem is called to instantiate the fragment for the given page.
 			switch(position) {
 				case 0:
@@ -316,13 +323,13 @@ public class HomeActivity extends FragmentActivity
 			{
 				// Overview
 				case 0:
-					return getString(R.string.title_section_overview).toUpperCase(l);
+					return getString(R.string.title_section_overview);
 				// Calendar
 				case 1:
-					return getString(R.string.title_section_calendar).toUpperCase(l);
+					return getString(R.string.title_section_calendar);
 				// Notes
 				case 2:
-					return getString(R.string.title_section_notes).toUpperCase(l);
+					return getString(R.string.title_section_notes);
 			}
 			return null;
 		}
@@ -366,8 +373,18 @@ public class HomeActivity extends FragmentActivity
 					pageJustChanged = true;
 					actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 					actionBar.setDisplayShowTitleEnabled(false);
-					mSpinnerAdapter = ArrayAdapter.createFromResource(getHomeActivity(), R.array.title_section_overview_subs,
-							android.R.layout.simple_spinner_dropdown_item);
+
+                    String[] overviewSpinnerArray = getResources().getStringArray(R.array.title_section_overview_subs);
+
+                    ArrayList<String> overviewSpinner = new ArrayList<String>();
+                    for (int i = 0; i < overviewSpinnerArray.length; i++) {
+                        overviewSpinner.add(overviewSpinnerArray[i]);
+                    }
+
+                    mSpinnerAdapter  = new OverviewSpinnerAdapter(getHomeActivity(),  overviewSpinner);
+
+                    ((ArrayAdapter)mSpinnerAdapter).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 					actionBar.setListNavigationCallbacks(mSpinnerAdapter, getHomeActivity());
 					break;
 				// Calendar

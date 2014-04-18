@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="INTENT_CALLER_ACTIVITY">intent_caller_activity_123</string>
+	<string name="INTENT_CALLER_HOME">intent_caller_home</string>
+</resources>

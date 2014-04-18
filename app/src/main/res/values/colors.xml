@@ -10,8 +10,9 @@
     <color name="title_section_items_text_color">#000000</color>
 
 	<color name="navigation_drawer_bg_default">#e2e2e2</color>
-    <drawable name="navigation_drawer_item_pressed">#ffa9ffd7</drawable>
-    <drawable name="navigation_drawer_item_selected">#ff9b2fff</drawable>
+    <drawable name="navigation_drawer_item_pressed">#ffa5a5a5</drawable>
+    <drawable name="navigation_drawer_item_selected">#ffdcdcdc</drawable>
+	<drawable name="navigation_drawer_item_pressed_selected">#ffc1c1c1</drawable>
     <drawable name="navigation_drawer_item_default">#e2e2e2</drawable>
 
 	<!-- other navigation colors -->
@@ -21,5 +22,5 @@
 	<color name="nav_academic_network_title_pager_background">#ff4b1b67</color>
 	<color name="nav_academic_network_title_pager_text">#e2e2e2</color>
 
-	<color name="navigation_drawer_item_separator">#cecece</color>
+	<color name="navigation_drawer_item_separator">#ffd6d6d6</color>
 </resources>

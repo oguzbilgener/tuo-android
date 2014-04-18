@@ -1,0 +1,15 @@
+<resources>
+
+	<style name="DropDownNav.UltimateTheme" parent="DropDownNav.Base.UltimateTheme">
+		<item name="android:fontFamily">sans-serif-light</item>
+	</style>
+
+	<style name="TextViewStyle.UltimateTheme" parent="android:Widget.TextView">
+		<item name="android:fontFamily">sans-serif-light</item>
+	</style>
+
+	<style name="ActionBar.TextAppearance.UltimateTheme" parent="@style/ActionBar.Base.TextAppearance.UltimateTheme">
+		<item name="android:fontFamily">sans-serif-light</item>
+	</style>
+
+</resources>
