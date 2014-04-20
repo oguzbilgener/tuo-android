@@ -45,4 +45,14 @@
     <string name="academic_network_section_2">Section 2</string>
     <string name="academic_network_section_3">Section 3</string>
 
+    <!-- Task item strings -->
+
+    <string name="tag_name">CS 102</string>
+    <string name="tag_name2">lab06</string>
+    <string name="task_title">Task Title</string>
+    <string name="task_description">Task Description</string>
+    <string name="date_active">13:40-17:40</string>
+    <string name="date_overdue">13:40-17:40</string>
+    <string name="date_complete">13:40-17:40</string>
+
 </resources>

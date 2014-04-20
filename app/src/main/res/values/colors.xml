@@ -23,4 +23,15 @@
 	<color name="nav_academic_network_title_pager_text">#e2e2e2</color>
 
 	<color name="navigation_drawer_item_separator">#ffd6d6d6</color>
+
+    <!-- task item colors -->
+
+    <color name="task_item_background">#eeeeee</color>
+    <color name="task_item_title_overdue">#ff040404</color>
+    <color name="task_item_title_complete">#ff606060</color>
+    <color name="task_item_title_active">@color/task_item_tag_color1</color>
+    <color name="task_item_tag_color1">#ffff1824</color>
+    <color name="task_item_tag_color2">#ff0e07ff</color>
+    <color name="task_item_tag_title_color1">#fff3ffea</color>
+
 </resources>
