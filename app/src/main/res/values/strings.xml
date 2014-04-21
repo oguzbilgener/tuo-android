@@ -53,16 +53,14 @@
     <string name="date_complete">13:40-17:40</string>
     <string name="title_activity_add_task">New Task</string>
     <string name="hello_world">Hello world!</string>
+    <string name="action_add">Add new</string>
 
-	<string name="action_add">Add new</string>
-
-	<!-- Add task screen -->
-	<string name="action_add_task">Add Task</string>
-	<string name="add_task_name_input_hint">Name</string>
-	<string name="add_task_description_input_hint">Description</string>
-	<string name="add_task_time_text_from">FROM</string>
-	<string name="add_task_time_text_to">T0</string>
-
-
+    <!-- Add task screen -->
+    <string name="action_add_task">Add Task</string>
+    <string name="add_task_name_input_hint">Name</string>
+    <string name="add_task_description_input_hint">Description</string>
+    <string name="add_task_time_text_from">FROM</string>
+    <string name="add_task_time_text_to">T0</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

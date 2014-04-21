@@ -1,18 +1,19 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.DatePicker;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.util.DatePickerFragment;
 
-public class AddTaskActivity extends Activity {
+public class AddTaskActivity extends Activity implements DatePickerFragment.DatePickerFragmentCallbacks, AddTaskDetailFragment.OnFragmentInteractionListener
+{
+	private DatePickerFragment.DatePickerFragmentCallbacks mOnDatePickResultListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +21,13 @@ public class AddTaskActivity extends Activity {
 
 		getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.title_section_overview)));
 
+		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
+		mOnDatePickResultListener = (DatePickerFragment.DatePickerFragmentCallbacks) fragment;
+
         setContentView(R.layout.activity_add_task);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, fragment)
                     .commit();
         }
     }
@@ -57,19 +61,14 @@ public class AddTaskActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
+	@Override
+	public void onDateSet(DatePicker view, int year, int month, int day)
+	{
+		mOnDatePickResultListener.onDateSet(view, year, month, day);
+	}
 
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_add_task_detailed, container, false);
-            return rootView;
-        }
-    }
+	@Override
+	public void onFragmentInteraction(Uri uri) {
+		// TODO: use this
+	}
 }
