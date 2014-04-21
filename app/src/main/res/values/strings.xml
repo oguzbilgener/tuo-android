@@ -11,9 +11,9 @@
     <string name="title_section_academic_schedule">Schedule</string>
     <string name="title_section_academic_network">Network</string>
 
-	<!-- Activity Names -->
-	<string name="title_activity_academic_network">Academic Network</string>
-	<string name="title_activity_schedule">Academic Schedule</string>
+    <!-- Activity Names -->
+    <string name="title_activity_academic_network">Academic Network</string>
+    <string name="title_activity_schedule">Academic Schedule</string>
 
     <!-- sub navigation (ActionBar Spinner) -->
     <string-array name="title_section_overview_subs">
@@ -21,9 +21,8 @@
         <item>Upcoming</item>
         <item>Overdue</item>
         <item>Completed</item>
-		<item>Tags</item>
+        <item>Tags</item>
     </string-array>
-
     <string-array name="title_section_calendar_subs">
         <item>Daily</item>
         <item>Weekly</item>
@@ -36,11 +35,9 @@
 
     <!-- ActionBar items -->
     <string name="action_settings">Settings</string>
-
     <string name="academic_schedule_section_1">Section 1</string>
     <string name="academic_schedule_section_2">Section 2</string>
     <string name="academic_schedule_section_3">Section 3</string>
-
     <string name="academic_network_section_1">Section 1</string>
     <string name="academic_network_section_2">Section 2</string>
     <string name="academic_network_section_3">Section 3</string>
@@ -54,5 +51,10 @@
     <string name="date_active">13:40-17:40</string>
     <string name="date_overdue">13:40-17:40</string>
     <string name="date_complete">13:40-17:40</string>
+    <string name="title_activity_add_task">New Task</string>
+    <string name="hello_world">Hello world!</string>
+
+	<string name="action_add">Add new</string>
+	<string name="action_add_task">Add Task</string>
 
 </resources>

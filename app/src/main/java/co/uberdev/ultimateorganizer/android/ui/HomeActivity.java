@@ -559,6 +559,21 @@ public class HomeActivity extends FragmentActivity
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
+
+		// Add Button tap
+		if( id == R.id.action_add) {
+			// Start those activities with an extra, specifying that they are called from home activity
+			Intent startIntent;
+			if( mViewPager.getCurrentItem() == 1) {
+				startIntent = new Intent(this, AddTaskActivity.class);
+			}
+			else /* if(mViewPager.getCurrentItem() == 2)*/ {
+				startIntent = new Intent(this, AddTaskActivity.class);
+				// more to be added
+			}
+			startIntent.putExtra(getString(R.string.INTENT_CALLER_ACTIVITY),getString(R.string.INTENT_CALLER_HOME));
+			startActivity(startIntent);
+		}
 		if (id == R.id.action_settings) {
 			return true;
 		}

@@ -25,9 +25,17 @@
         </activity>
         <activity
             android:name="co.uberdev.ultimateorganizer.android.ui.AcademicNetworkActivity"
-			android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/ic_launcher"
             android:label="@string/title_activity_academic_network"
-			android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
+            android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
+        </activity>
+        <activity
+            android:name="co.uberdev.ultimateorganizer.android.ui.AddTaskActivity"
+            android:label="@string/title_activity_add_task"
+            android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
         </activity>
     </application>
 
