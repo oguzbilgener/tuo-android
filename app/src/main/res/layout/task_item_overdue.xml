@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:style="@style/task_item"
+        style="@style/task_item"
         android:layout_width="match_parent"
         android:layout_height="@dimen/task_item_height">
 
@@ -14,13 +14,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/task_item_checkbox_height"
             android:text="@string/task_title"
-            android:style="@style/task_item_overdue"
+            style="@style/task_item_overdue"
             android:id="@+id/checkBox" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/task_item_description_height"
-            android:style="@style/task_item_description_overdue"
+            style="@style/task_item_description_overdue"
             android:id="@+id/textView" />
 
         <LinearLayout
@@ -35,7 +35,7 @@
                 android:layout_marginLeft="10dp">
 
                 <TextView
-                    android:style="@style/task_item_tag"
+                    style="@style/task_item_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/task_item_tag_height"
                     android:text="@string/tag_name2"
@@ -43,7 +43,7 @@
                     android:clickable="true"/>
 
                 <TextView
-                    android:style="@style/task_item_tag"
+                    style="@style/task_item_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/task_item_tag_height"
                     android:text="@string/tag_name"
@@ -57,12 +57,12 @@
         <TextView
             android:layout_width="@dimen/task_item_date_width"
             android:layout_height="@dimen/task_item_date_height"
-            android:style="@style/task_item_date_overdue"/>
+            style="@style/task_item_date_overdue"/>
 
         <ImageView
             android:layout_width="@dimen/task_item_alert_width"
             android:layout_height="@dimen/task_item_alert_height"
-            android:style="@style/alert_image"/>
+            style="@style/alert_image"/>
 
 
         <ImageView
