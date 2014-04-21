@@ -6,7 +6,9 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:style="@style/task_item">
+        android:style="@style/task_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/task_item_height">
 
         <CheckBox
             android:layout_width="match_parent"
