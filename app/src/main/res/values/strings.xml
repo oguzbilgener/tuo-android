@@ -55,6 +55,14 @@
     <string name="hello_world">Hello world!</string>
 
 	<string name="action_add">Add new</string>
+
+	<!-- Add task screen -->
 	<string name="action_add_task">Add Task</string>
+	<string name="add_task_name_input_hint">Name</string>
+	<string name="add_task_description_input_hint">Description</string>
+	<string name="add_task_time_text_from">FROM</string>
+	<string name="add_task_time_text_to">T0</string>
+
+
 
 </resources>
