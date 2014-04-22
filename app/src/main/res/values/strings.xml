@@ -63,4 +63,16 @@
     <string name="add_task_time_text_to">T0</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Academic schedule screen -->
+    <string name="user_name">Omert Aksoy</string>
+    <string name="user_info">Bilkent University, EE</string>
+
+    <string name="academic_calendar_year">2013-2014 SPRING</string>
+
+    <string name="schedule_course_name">CS 102</string>
+    <string name="schedule_course_description">Algorithms and Programming II</string>
+    <string name="schedule_course_instructor">David Davenport</string>
+
+
+
 </resources>

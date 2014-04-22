@@ -1,16 +1,71 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="co.uberdev.ultimateorganizer.android.ui.ScheduleActivity$PlaceholderFragment">
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Layout for schedule fragment, where the users basic information will be displayed
+    The courses she takes will be displayed below her image, name and the current academic semester
+    The courses will be a list view
+-->
+
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/fragment_schedule"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_info_layout">
+
+        <ImageView
+            android:layout_width="@dimen/schedule_user_image_width"
+            android:layout_height="@dimen/schedule_user_image_height"
+            android:id="@+id/schedule_user_image"
+            android:src="@raw/omert"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/schedule_user_image_margin_top"
+            android:layout_marginLeft="@dimen/schedule_user_image_margin_left"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/schedule_user_name"
+            android:textSize="@dimen/schedule_user_name_text_size"
+            android:layout_toRightOf="@id/schedule_user_image"
+            android:layout_marginLeft="@dimen/schedule_user_name_margin_left"
+            android:layout_marginTop="@dimen/schedule_user_name_margin_top"
+            android:text="@string/user_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/schedule_user_info"
+            android:layout_below="@id/schedule_user_name"
+            android:layout_toRightOf="@id/schedule_user_image"
+            android:textSize="@dimen/schedule_user_info_text_size"
+            android:layout_marginLeft="@dimen/schedule_user_info_margin_left"
+            android:layout_marginTop="@dimen/schedule_user_info_margin_top"
+            android:text="@string/user_info"/>
+
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/section_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/schedule_academic_year"
+        android:layout_below="@id/user_info_layout"
+        android:layout_marginTop="@dimen/schedule_academic_year_margin_top"
+        android:layout_marginLeft="@dimen/schedule_academic_year_margin_left"
+        android:textSize="@dimen/schedule_academic_year_text_size"
+        android:textStyle="bold"
+        android:text="@string/academic_calendar_year"
+        android:textColor="@color/schedule_academic_year_color"/>
+
+    <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/schedule_academic_year"
+        android:layout_marginTop="@dimen/schedule_listview_margin_top"
+        android:id="@+id/schedule_courses_list"/>
 
 </RelativeLayout>

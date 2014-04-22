@@ -1,71 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/task_item"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/task_item_height">
 
-    <RelativeLayout
-        style="@style/task_item"
+    <CheckBox
         android:layout_width="match_parent"
-        android:layout_height="@dimen/task_item_height">
+        android:layout_height="@dimen/task_item_checkbox_height"
+        android:text="@string/task_title"
+        style="@style/task_item_active"
+        android:id="@+id/checkBox" />
 
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/task_item_checkbox_height"
-            android:text="@string/task_title"
-            style="@style/task_item_active"
-            android:id="@+id/checkBox" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/task_item_description_height"
+        style="@style/task_item_description_active"
+        android:id="@+id/textView"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/task_item_description_height"
-            style="@style/task_item_description_active"
-            android:id="@+id/textView" />
+    <LinearLayout
+        android:layout_width="@dimen/task_item_sub_bar_width"
+        android:layout_height="@dimen/task_item_sub_bar_width"
+        android:layout_marginTop="@dimen/task_item_sub_bar_margin_top"
+        android:id="@+id/linearLayout">
 
         <LinearLayout
-            android:layout_width="@dimen/task_item_sub_bar_width"
-            android:layout_height="@dimen/task_item_sub_bar_width"
-            android:layout_marginTop="@dimen/task_item_sub_bar_margin_top"
-            android:id="@+id/linearLayout">
+            android:layout_height="@dimen/task_item_tag_bar_height"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/task_item_tag_bar_margin_left">
 
-            <LinearLayout
-                android:layout_height="@dimen/task_item_tag_bar_height"
+            <TextView
+                style="@style/task_item_tag"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="@dimen/task_item_tag_bar_margin_left">
+                android:layout_height="@dimen/task_item_tag_height"
+                android:text="@string/tag_name2"
+                android:background="@color/task_item_tag_color1"
+                android:clickable="true"/>
 
-                <TextView
-                    style="@style/task_item_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/task_item_tag_height"
-                    android:text="@string/tag_name2"
-                    android:background="@color/task_item_tag_color1"
-                    android:clickable="true"/>
-
-                <TextView
-                    style="@style/task_item_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/task_item_tag_height"
-                    android:text="@string/tag_name"
-                    android:background="@color/task_item_tag_color2"
-                    android:clickable="true"/>
-
-            </LinearLayout>
+            <TextView
+                style="@style/task_item_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/task_item_tag_height"
+                android:text="@string/tag_name"
+                android:background="@color/task_item_tag_color2"
+                android:clickable="true"/>
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="@dimen/task_item_date_width"
-            android:layout_height="@dimen/task_item_date_height"
-            style="@style/task_item_date_active"/>
+    </LinearLayout>
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_action_expand"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"/>
+    <TextView
+        android:layout_width="@dimen/task_item_date_width"
+        android:layout_height="@dimen/task_item_date_height"
+        style="@style/task_item_date_active"/>
 
-    </RelativeLayout>
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_action_expand"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
 
 </RelativeLayout>
+

@@ -34,4 +34,8 @@
     <color name="task_item_tag_color2">#ff0e07ff</color>
     <color name="task_item_tag_title_color1">#fff3ffea</color>
 
+    <!-- schedule fragment item colors -->
+
+    <color name="schedule_academic_year_color">#ffff1824</color>
+
 </resources>

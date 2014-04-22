@@ -62,13 +62,54 @@
     <dimen name="task_item_date_margin_top">80dp</dimen>
     <dimen name="task_item_date_margin_left">250dp</dimen>
 
-
-
-
     <dimen name="task_item_alert_width">30dp</dimen>
     <dimen name="task_item_alert_height">30dp</dimen>
     <dimen name="task_item_alert_margin_left">320dp</dimen>
     <dimen name="task_item_alert_margin_bottom">40dp</dimen>
+
+    <!-- schedule fragment dimensions -->
+
+    <dimen name="schedule_main_layout_width">match_parent</dimen>
+    <dimen name="schedule_main_layout_height">match_parent</dimen>
+
+    <dimen name="schedule_user_layout_width">match_parent</dimen>
+    <dimen name="schedule_user_layout_height">wrap_content</dimen>
+
+    <dimen name="schedule_user_image_width">80dp</dimen>
+    <dimen name="schedule_user_image_height">100dp</dimen>
+    <dimen name="schedule_user_image_margin_top">15dp</dimen>
+    <dimen name="schedule_user_image_margin_left">15dp</dimen>
+
+    <dimen name="schedule_user_name_width">wrap_content</dimen>
+    <dimen name="schedule_user_name_height">wrap_content</dimen>
+    <dimen name="schedule_user_name_margin_top">40dp</dimen>
+    <dimen name="schedule_user_name_margin_left">10dp</dimen>
+    <dimen name="schedule_user_name_text_size">20dp</dimen>
+
+    <dimen name="schedule_user_info_width">wrap_content</dimen>
+    <dimen name="schedule_user_info_height">wrap_content</dimen>
+    <dimen name="schedule_user_info_text_size">20dp</dimen>
+    <dimen name="schedule_user_info_margin_top">10dp</dimen>
+    <dimen name="schedule_user_info_margin_left">10dp</dimen>
+
+    <dimen name="schedule_academic_year_margin_top">10dp</dimen>
+    <dimen name="schedule_academic_year_margin_left">20dp</dimen>
+    <dimen name="schedule_academic_year_text_size">20dp</dimen>
+
+    <dimen name="schedule_listview_margin_top">10dp</dimen>
+
+    <!-- schedule fragment, course listview dimensions -->
+
+    <dimen name="schedule_course_name_margin_top">20dp</dimen>
+    <dimen name="schedule_course_name_margin_left">20dp</dimen>
+
+    <dimen name="schedule_course_info_margin_top">20dp</dimen>
+    <dimen name="schedule_course_info_margin_left">10dp</dimen>
+
+    <dimen name="schedule_course_instructor_margin_top">10dp</dimen>
+    <dimen name="schedule_course_instructor_margin_left">10dp</dimen>
+
+
 
 
 </resources>

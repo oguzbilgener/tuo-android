@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/schedule_course_name"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/schedule_course_name_margin_top"
+        android:layout_marginLeft="@dimen/schedule_course_name_margin_top"
+        android:text="@string/schedule_course_name"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/schedule_course_description"
+        android:textSize="18dp"
+        android:layout_marginTop="@dimen/schedule_course_info_margin_top"
+        android:layout_marginLeft="@dimen/schedule_course_info_margin_left"
+        android:layout_toRightOf="@id/schedule_course_name"
+        android:text="@string/schedule_course_description"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/schedule_course_instructor"
+        android:textSize="18dp"
+        android:layout_alignLeft="@id/schedule_course_name"
+        android:layout_marginTop="@dimen/schedule_course_instructor_margin_top"
+        android:layout_below="@id/schedule_course_description"
+        android:textStyle="bold"
+        android:text="@string/schedule_course_instructor"/>
+
+</RelativeLayout>
