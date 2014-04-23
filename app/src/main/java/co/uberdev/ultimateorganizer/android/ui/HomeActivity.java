@@ -273,9 +273,9 @@ public class HomeActivity extends FragmentActivity
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
 	 */
-	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-		public SectionsPagerAdapter(FragmentManager fm) {
+	public class SectionsPagerAdapter extends FragmentPagerAdapter
+    {
+        public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
 
@@ -286,10 +286,12 @@ public class HomeActivity extends FragmentActivity
 		 * @return
 		 */
 		@Override
-		public Fragment getItem(int position) {
+		public Fragment getItem(int position)
+        {
 			Utils.log.i("SectionsPagerAdapter getItem("+position+")");
 			// getItem is called to instantiate the fragment for the given page.
-			switch(position) {
+			switch(position)
+            {
 				case 0:
 					return OverviewBaseFragment.newInstance();
 				case 1:
