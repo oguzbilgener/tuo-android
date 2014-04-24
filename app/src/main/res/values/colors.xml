@@ -16,6 +16,7 @@
     <drawable name="navigation_drawer_item_default">#e2e2e2</drawable>
 
 	<!-- other navigation colors -->
+
 	<color name="nav_academic_schedule_title_pager_background">#ff6f000a</color>
 	<color name="nav_academic_schedule_title_pager_text">#e2e2e2</color>
 
@@ -37,5 +38,16 @@
     <!-- schedule fragment item colors -->
 
     <color name="schedule_academic_year_color">#ffff1824</color>
+
+    <!-- note to-do and note photo item colors -->
+
+    <color name="note_todo_unchecked_color">#000000</color>
+    <color name="note_todo_checked_color">#a0a0a0</color>
+
+    <color name="note_photo_title_color">#000000</color>
+    <color name="note_photo_tag_color1">#990000</color>
+    <color name="note_photo_tag_color2">#606060</color>
+    <color name="note_photo_tag_text_color">#ffffff</color>
+
 
 </resources>

@@ -73,6 +73,17 @@
     <string name="schedule_course_description">Algorithms and Programming II</string>
     <string name="schedule_course_instructor">David Davenport</string>
 
+    <!-- Notes to do and notes photo item strings -->
 
+    <string name="note_todo_title">Configure the server</string>
+    <string name="note_todo_text1">Choose a provider</string>
+    <string name="note_todo_text2">Pay for the server</string>
+    <string name="note_todo_text3">Install Postgres</string>
+    <string name="note_todo_date1">2 Mar 18:42</string>
+
+    <string name="note_photo_title">Homework Q4 Solution</string>
+    <string name="note_photo_tag_name1">MATH 132</string>
+    <string name="note_photo_tag_name2">homework</string>
+    <string name="note_photo_date">2 Mar\n18:42</string>
 
 </resources>

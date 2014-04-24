@@ -3,58 +3,55 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:padding="@dimen/note_todo_main_layout_padding">
 
     <TextView
         android:id="@+id/tv_name1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:text="Configure the Server"
-        android:textSize="25dp"
-        />
+        android:text="@string/note_todo_title"
+        android:textSize="@dimen/note_todo_title_text_size"
+        android:textColor="@color/note_todo_unchecked_color"/>
 
     <CheckBox
         android:id="@+id/cb_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_name1"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/note_todo_item_margin_top"
         android:checked="true"
-        android:text="Choose a provider"
-        android:textSize="20dp"
-        android:textColor="#a0a0a0"/>
+        android:text="@string/note_todo_text1"
+        android:textSize="@dimen/note_todo_checkbox_text_size"
+        android:textColor="@color/note_todo_checked_color"/>
 
     <CheckBox
         android:id="@+id/cb_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/cb_1"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/note_todo_item_margin_top"
         android:checked="true"
-        android:text="Rent the server"
-        android:textSize="20dp"
-        android:textColor="#a0a0a0"/>
+        android:text="@string/note_todo_text2"
+        android:textSize="@dimen/note_todo_checkbox_text_size"
+        android:textColor="@color/note_todo_checked_color"/>
 
     <CheckBox
         android:id="@+id/cb_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/cb_2"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/note_todo_item_margin_top"
         android:checked="false"
-        android:text="Install Postgres"
-        android:textSize="20dp"/>
+        android:text="@string/note_todo_text3"
+        android:color="@color/note_todo_unchecked_color"
+        android:textSize="@dimen/note_todo_checkbox_text_size"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/cb_3"
-        android:text="2 Mar 18:42"/>
-
-
-
-
+        android:text="@string/note_todo_date1"/>
 
 </RelativeLayout>

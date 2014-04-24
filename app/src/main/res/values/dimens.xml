@@ -99,6 +99,19 @@
 
     <dimen name="schedule_course_text_size">18sp</dimen>
 
+    <!-- note to-do and note photo dimensions -->
+
+    <dimen name="note_todo_main_layout_padding">10dp</dimen>
+    <dimen name="note_todo_item_margin_top">10dp</dimen>
+    <dimen name="note_todo_title_text_size">25sp</dimen>
+    <dimen name="note_todo_checkbox_text_size">20sp</dimen>
+
+    <dimen name="note_photo_tag_text_size">18sp</dimen>
+    <dimen name="note_photo_tag_text_padding">1dp</dimen>
+    <dimen name="note_photo_tag_margin_left">5dp</dimen>
+    <dimen name="note_photo_tag_bar_margin_top">5dp</dimen>
+
+
 
 
 
