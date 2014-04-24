@@ -111,6 +111,28 @@
     <dimen name="note_photo_tag_margin_left">5dp</dimen>
     <dimen name="note_photo_tag_bar_margin_top">5dp</dimen>
 
+    <dimen name="note_voice_play_pause_button_width">40dp</dimen>
+    <dimen name="note_voice_play_pause_button_height">40dp</dimen>
+    <dimen name="note_voice_play_pause_button_margin_left">5dp</dimen>
+    <dimen name="note_voice_progress_bar_width">200dp</dimen>
+    <dimen name="note_voice_progress_bar_margin_top">12dp</dimen>
+    <dimen name="note_voice_tag_bar_margin_top">5dp</dimen>
+    <dimen name="note_voice_title_margin_left">5dp</dimen>
+    <dimen name="note_voice_title_text_size">20sp</dimen>
+    <dimen name="note_voice_date_text_size">14sp</dimen>
+
+    <dimen name="note_plain_main_layout_width">240dp</dimen>
+    <dimen name="note_plain_title_margin_top">10dp</dimen>
+    <dimen name="note_plain_title_margin_left">10dp</dimen>
+    <dimen name="note_plain_title_text_size">24sp</dimen>
+    <dimen name="note_plain_description_text_size">18sp</dimen>
+    <dimen name="note_plain_tag_bar_margin_top">5dp</dimen>
+    <dimen name="note_plain_tag_text_size">18sp</dimen>
+    <dimen name="note_plain_tag_text_padding">1dp</dimen>
+    <dimen name="note_plain_tag_margin_left">5dp</dimen>
+    <dimen name="note_plain_date_margin_left">10dp</dimen>
+    <dimen name="note_plain_date_text_size">14sp</dimen>
+
 
 
 

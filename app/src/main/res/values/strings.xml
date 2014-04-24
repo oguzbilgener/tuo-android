@@ -86,4 +86,16 @@
     <string name="note_photo_tag_name2">homework</string>
     <string name="note_photo_date">2 Mar\n18:42</string>
 
+    <string name="note_voice_title">Presentation: Suggestions of classmates</string>
+    <string name="note_voice_tag_name1">CS 102</string>
+    <string name="note_voice_tag_name2">presentation</string>
+    <string name="note_voice_duration">5:39</string>
+    <string name="note_voice_date">4 Mar\n15:33</string>
+
+    <string name="note_plain_title">Calculus Midterm 2</string>
+    <string name="note_plain_description">stop whatever youre doing and study</string>
+    <string name="note_plain_tag_name1">MATH 102</string>
+    <string name="note_plain_tag_name2">midterm</string>
+    <string name="note_plain_date">24 Apr\n17:33</string>
+
 </resources>
