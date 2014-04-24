@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 public class ScheduleActivity extends Activity implements CoursesListFragment.OnFragmentInteractionListener {
 
@@ -97,9 +98,11 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public Fragment getItem(int position)
+        {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            Utils.log.d("getItem "+position);
             if(position == 0)
             {
                 return CoursesListFragment.newInstance();
@@ -157,10 +160,12 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_courses_list, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+//            View rootView = inflater.inflate(R.layout.fragment_courses_list, container, false);
+//            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 //            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
+            TextView tv = new TextView(getActivity());
+            tv.setText("lol");
+            return tv;
         }
     }
 
