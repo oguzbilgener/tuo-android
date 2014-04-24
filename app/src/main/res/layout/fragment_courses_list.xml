@@ -27,9 +27,9 @@ android:layout_height="match_parent">
             android:layout_marginLeft="@dimen/schedule_user_image_margin_left"/>
 
         <TextView
+            android:id="@+id/schedule_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/schedule_user_name"
             android:textSize="@dimen/schedule_user_name_text_size"
             android:layout_toRightOf="@id/schedule_user_image"
             android:layout_marginLeft="@dimen/schedule_user_name_margin_left"
