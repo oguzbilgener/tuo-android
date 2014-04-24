@@ -16,13 +16,13 @@ import co.uberdev.ultimateorganizer.core.CoreCourse;
 /**
  * Created by mozart on 23/04/14.
  */
-public class CoursesListAdapter extends ArrayAdapter<CoreCourse> implements View.OnClickListener
+public class CoursesListAdapter extends ArrayAdapter<CourseItem> implements View.OnClickListener
 {
-    ArrayList<CoreCourse> coursesList;
+    ArrayList<CourseItem> coursesList;
     LayoutInflater inflater;
     Context context;
 
-    public CoursesListAdapter(Context context, ArrayList<CoreCourse> coursesList)
+    public CoursesListAdapter(Context context, ArrayList<CourseItem> coursesList)
     {
         super(context, R.layout.item_courses_list, coursesList);
 
@@ -56,23 +56,27 @@ public class CoursesListAdapter extends ArrayAdapter<CoreCourse> implements View
             viewHolder.courseDescription = (TextView) view.findViewById(R.id.schedule_course_description);
             viewHolder.courseInstructor = (TextView) view.findViewById(R.id.schedule_course_instructor);
 
-        }
+            view.setTag(R.id.courseitem_object,viewHolder);
+         }
         else
         {
             view = convertView;
         }
 
-        final ViewHolder holder = (ViewHolder) view.getTag(R.id.i);
+        // ViewHolder receives tags for the next items
+        final ViewHolder viewHolder = (ViewHolder) view.getTag(R.id.courseitem_object);
 
-        view.setTag(R.id.newsitem_id, item.getItemId());
-        view.setTag(R.id.newsitem_index, position);
+        // item is set to the given index of the CoursesItem arraylist
+        CourseItem item = coursesList.get(position);
 
-        viewHolder.titleText.setText(item.getTitle());
-        viewHolder.username.setText(item.getUsername());
-        viewHolder.domainText.setText(item.getDomain());
-        viewHolder.pointsText.setText(item.getPoints());
-        holder.commentsText.setText(item.getComments());
+        view.setTag(R.id.courseitem_id, item.getItemId());
+        view.setTag(R.id.courseitem_index, position);
 
+        viewHolder.courseName.setText(item.getCourseName());
+        viewHolder.courseDescription.setText(item.getCourseDescription());
+        viewHolder.courseInstructor.setText(item.getCourseInstructor());
+
+        return view;
     }
 
     @Override

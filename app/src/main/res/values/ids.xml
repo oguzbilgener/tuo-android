@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<item type="id" name="overview_spinner_holder" />
+
+    <!-- id for course item to be received by CoursesListAdapter.java -->
+    <item type="id" name="courseitem_object" />
+    <item type="id" name="courseitem_index" />
+    <item type="id" name="courseitem_id" />
+
 </resources>

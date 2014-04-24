@@ -28,7 +28,7 @@ public class CoursesListFragment extends Fragment
     private OnFragmentInteractionListener mListener;
 
     private ListView coursesListView;
-    private ArrayList<CoreCourse> coursesList;
+    private ArrayList<CourseItem> coursesList;
     private CoursesListAdapter coursesListAdapter;
 
     /**
@@ -48,16 +48,22 @@ public class CoursesListFragment extends Fragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
+        coursesList = new ArrayList<CourseItem>();
+        coursesListAdapter = new CoursesListAdapter(getActivity(), coursesList);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_courses_list, container, false);
 
         coursesListView = (ListView) rootView.findViewById(R.id.schedule_courses_listview);
+
+        coursesListView.setAdapter(coursesListAdapter);
 
         return rootView;
     }
