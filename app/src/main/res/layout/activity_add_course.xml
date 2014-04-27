@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/add_course_academic_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2013-2014 SPRING"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textColor="#ff0f0f"/>
+
+    <LinearLayout
+        android:id="@+id/add_course_academic_year_underline"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#ff0f0f"
+        android:layout_below="@id/add_course_academic_year"></LinearLayout>
+
+    <EditText
+        android:id="@+id/add_course_course_code_edittext"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/add_course_academic_year_underline"
+        android:layout_alignLeft="@id/add_course_academic_year_underline"
+        android:layout_marginTop="20dp"
+        android:hint="ENG"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:textAlignment="center">
+    </EditText>
+
+    <EditText
+        android:id="@+id/add_course_course_number_edittext"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/add_course_academic_year_underline"
+        android:layout_toRightOf="@id/add_course_course_code_edittext"
+        android:layout_alignTop="@id/add_course_course_code_edittext"
+        android:hint="101"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:textAlignment="center">
+    </EditText>
+
+    <EditText
+        android:id="@+id/add_course_section_number_edittext"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/add_course_academic_year_underline"
+        android:layout_toRightOf="@id/add_course_course_number_edittext"
+        android:layout_alignTop="@id/add_course_course_code_edittext"
+        android:hint="17"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:textAlignment="center">
+    </EditText>
+
+    <EditText
+        android:id="@+id/add_course_course_name_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/add_course_section_number_edittext"
+        android:layout_alignLeft="@id/add_course_academic_year_underline"
+        android:layout_alignRight="@id/add_course_academic_year_underline"
+        android:hint="Course Name"/>
+
+
+</RelativeLayout>
