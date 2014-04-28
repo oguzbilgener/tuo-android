@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter task here"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginTop="@dimen/item_add_task_edittext_margin_top"
+        android:layout_marginLeft="@dimen/item_add_task_edittext_margin_left"
+        android:layout_marginRight="@dimen/item_add_task_edittext_margin_right"/>
     
     <ImageView
         android:id="@+id/add_task_alarm_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/item_add_note_icon_width"
+        android:layout_height="@dimen/item_add_note_icon_height"
         android:layout_below="@id/add_task_edittext"
         android:layout_alignLeft="@id/add_task_edittext"
         android:src="@drawable/ic_action_alarms"/>
@@ -66,11 +66,11 @@
 
         <ImageView
             android:id="@+id/alarm_top_left"
+            android:layout_width="@dimen/item_add_note_icon_width"
+            android:layout_height="@dimen/item_add_note_icon_height"
             android:src="@drawable/ic_action_expand"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="40dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"/>
+            android:layout_marginLeft="40dp"/>
 
         <ImageView
             android:id="@+id/alarm_bottom_left"

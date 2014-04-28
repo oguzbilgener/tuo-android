@@ -107,4 +107,8 @@
     <string name="add_course_academic_year">2013-2014 SPRING</string>
     <string name="add_course_new_course_edittext">Add New Course</string>
 
+    <!-- strings for add quick note -->
+
+    <string name="item_add_note_edittext_hint">Tap To Add Quick Note!</string>
+
 </resources>

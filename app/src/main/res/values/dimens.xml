@@ -165,4 +165,23 @@
 
     <dimen name="item_add_course_top_layout_margin_top">130dp</dimen>
 
+    <!-- dimensions for add note -->
+
+    <dimen name="item_add_note_margin_top">20dp</dimen>
+    <dimen name="item_add_note_margin_bottom">20dp</dimen>
+    <dimen name="item_add_note_margin_left">20dp</dimen>
+    <dimen name="item_add_note_margin_right">20dp</dimen>
+
+    <dimen name="item_add_note_edittext_margin_top">30dp</dimen>
+
+    <dimen name="item_add_note_icon_width">35dp</dimen>
+    <dimen name="item_add_note_icon_height">35dp</dimen>
+    <dimen name="item_add_note_icon_margin_left">10dp</dimen>
+
+    <!-- dimensions for add task -->
+
+    <dimen name="item_add_task_edittext_margin_top">20dp</dimen>
+    <dimen name="item_add_task_edittext_margin_left">20dp</dimen>
+    <dimen name="item_add_task_edittext_margin_right">20dp</dimen>
+
 </resources>
