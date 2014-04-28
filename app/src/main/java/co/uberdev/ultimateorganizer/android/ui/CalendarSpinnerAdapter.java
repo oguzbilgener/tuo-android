@@ -10,6 +10,8 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import co.uberdev.ultimateorganizer.android.R;
@@ -21,6 +23,8 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
 
     private ArrayList<String> list;
     private LayoutInflater inflater;
+    private Date date;
+    private Calendar calendar;
     public static final int resourceId = R.layout.calendar_spinner_item;
 
     public CalendarSpinnerAdapter(Context context, ArrayList<String> list)
@@ -29,6 +33,10 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.list = list;
+
+        date = new Date();
+        calendar = Calendar.getInstance();
+        calendar.setTime(date);
     }
 
     private class ViewHolder
@@ -60,10 +68,26 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
         {
             view = inflater.inflate(resourceId, parent, false);
             TextView text = (TextView) view.findViewById(R.id.calendar_spinner_item_text);
-            TextView date = (TextView) view.findViewById(R.id.calendar_spinner_item_date);
+            TextView dateText = (TextView) view.findViewById(R.id.calendar_spinner_item_date);
             text.setText(list.get(position));
 
-            // TODO: Set the date according to the position
+            // Might be wrong to set the date here. Couldn't think od another way, though.
+            // These are int values right now. Need to work on them.
+            switch (position) {
+                case 0:
+                    dateText.setText(calendar.get(Calendar.MONTH) + " " + calendar.get(Calendar.DAY_OF_MONTH));
+                    break;
+                case 1:
+                    dateText.setText(calendar.get(Calendar.WEEK_OF_MONTH));
+                    break;
+                case 2:
+                    dateText.setText(calendar.get(Calendar.MONTH));
+                    break;
+                case 3:
+                    dateText.setText(calendar.get(Calendar.MONTH) + " " + calendar.get(Calendar.DAY_OF_MONTH));
+                    break;
+            }
+
 
             if(isOpen)
             {
