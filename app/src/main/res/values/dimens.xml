@@ -133,8 +133,36 @@
     <dimen name="note_plain_date_margin_left">10dp</dimen>
     <dimen name="note_plain_date_text_size">14sp</dimen>
 
+    <!-- dimensions for add course  -->
 
+    <dimen name="item_add_course_edittext_height">40dp</dimen>
+    <dimen name="item_add_course_edittext_width">60dp</dimen>
+    <dimen name="item_add_course_edittext_width2">80dp</dimen>
+    <dimen name="item_add_course_edittext_text_size">18sp</dimen>
+    <dimen name="item_add_course_course_name_edittext_margin_top">20dp</dimen>
 
+    <dimen name="item_add_course_plus_width">35dp</dimen>
+    <dimen name="item_add_course_plus_height">35dp</dimen>
+    <dimen name="item_add_course_plus_margin_left">60dp</dimen>
 
+    <dimen name="item_add_course_year_text_size">20sp</dimen>
+    <dimen name="item_add_course_year_margin_left">15dp</dimen>
+    <dimen name="item_add_course_year_margin_right">15dp</dimen>
+    <dimen name="item_add_course_year_margin_top">30dp</dimen>
+    <dimen name="item_add_course_year_padding_left">10dp</dimen>
+
+    <dimen name="item_add_course_year_bottom_line_height">2dp</dimen>
+
+    <dimen name="item_add_course_edittext_margin_top">20dp</dimen>
+
+    <dimen name="item_add_course_bottom_line_margin_top">15dp</dimen>
+    <dimen name="item_add_course_line_height">1dp</dimen>
+
+    <dimen name="item_add_course_new_course_edittext_text_size">20sp</dimen>
+
+    <dimen name="item_add_course_new_course_layout_margin_top">20dp</dimen>
+    <dimen name="item_add_course_new_course_layout_height">20dp</dimen>
+
+    <dimen name="item_add_course_top_layout_margin_top">130dp</dimen>
 
 </resources>

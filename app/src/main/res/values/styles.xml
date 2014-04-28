@@ -196,5 +196,10 @@
         <item name="android:layout_alignParentBottom">true</item>
     </style>
 
+    <style name="add_course_edittext">
+        <item name="android:textSize">@dimen/item_add_course_edittext_text_size</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
 
 </resources>

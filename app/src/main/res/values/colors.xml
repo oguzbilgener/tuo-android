@@ -59,4 +59,10 @@
     <color name="note_plain_tag_color2">#ff616770</color>
     <color name="note_plain_tag_text_color">#ffffff</color>
 
+    <!-- for add course screen -->
+
+    <color name="add_course_academic_year_color">#ff0f0f</color>
+    <color name="add_course_add_icon_background">#a0a0a0</color>
+    <color name="add_course_add_icon_background_darker">#606060</color>
+
 </resources>

@@ -98,4 +98,13 @@
     <string name="note_plain_tag_name2">midterm</string>
     <string name="note_plain_date">24 Apr\n17:33</string>
 
+    <!-- strings for add course -->
+
+    <string name="add_course_course_code">ENG</string>
+    <string name="add_course_course_number">101</string>
+    <string name="add_course_section_number">17</string>
+    <string name="add_course_course_name">Course Name</string>
+    <string name="add_course_academic_year">2013-2014 SPRING</string>
+    <string name="add_course_new_course_edittext">Add New Course</string>
+
 </resources>
