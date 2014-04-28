@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp">
+
+    <EditText
+        android:id="@+id/add_quick_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Tap to add a quick note"/>
+    
+    <ImageView
+        android:id="@+id/detailed_note_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/add_quick_note"
+        android:src="@drawable/ic_action_expand"/>
+
+    <ImageView
+        android:id="@+id/checkbox_note_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@id/detailed_note_icon"
+        android:layout_toRightOf="@id/detailed_note_icon"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_action_storage"/>
+
+    <ImageView
+        android:id="@+id/attach_note_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@id/detailed_note_icon"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_action_new_attachment"/>
+
+    <ImageView
+        android:id="@+id/discard_note_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignBottom="@id/add_quick_note"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_action_remove"/>
+
+    <ImageView
+        android:id="@+id/add_note_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_action_accept_dark"/>
+
+
 
 </RelativeLayout>
