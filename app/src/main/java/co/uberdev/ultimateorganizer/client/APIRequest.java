@@ -1,20 +1,11 @@
 package co.uberdev.ultimateorganizer.client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.entity.StringEntity;
+
+import java.io.IOException;
 
 
 
@@ -43,7 +34,7 @@ public class APIRequest {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(URL);
 
-        post.setEntity(new StringEntity(requestBody, ContentType.create("application/json")));
+//        post.setEntity(new StringEntity(requestBody, ContentType.create("application/json")));
         HttpResponse response = client.execute(post);
 
 
