@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="co.uberdev.ultimateorganizer.android.ui.AddTaskActivity" >
+    
+    <item android:id="@+id/action_add_task"
+        android:title="@string/action_add_task"
+		android:icon="@drawable/ic_action_accept"
+        android:orderInCategory="1"
+        android:showAsAction="always" />
+</menu>

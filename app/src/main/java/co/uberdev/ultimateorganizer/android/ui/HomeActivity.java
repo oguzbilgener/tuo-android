@@ -273,9 +273,9 @@ public class HomeActivity extends FragmentActivity
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
 	 */
-	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-		public SectionsPagerAdapter(FragmentManager fm) {
+	public class SectionsPagerAdapter extends FragmentPagerAdapter
+    {
+        public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
 
@@ -286,10 +286,12 @@ public class HomeActivity extends FragmentActivity
 		 * @return
 		 */
 		@Override
-		public Fragment getItem(int position) {
+		public Fragment getItem(int position)
+        {
 			Utils.log.i("SectionsPagerAdapter getItem("+position+")");
 			// getItem is called to instantiate the fragment for the given page.
-			switch(position) {
+			switch(position)
+            {
 				case 0:
 					return OverviewBaseFragment.newInstance();
 				case 1:
@@ -392,9 +394,19 @@ public class HomeActivity extends FragmentActivity
 					pageJustChanged = true;
 					actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 					actionBar.setDisplayShowTitleEnabled(false);
-					mSpinnerAdapter = ArrayAdapter.createFromResource(getHomeActivity(), R.array.title_section_calendar_subs,
-							android.R.layout.simple_spinner_dropdown_item);
-					actionBar.setListNavigationCallbacks(mSpinnerAdapter, getHomeActivity());
+
+                    String[] calendarSpinnerArray = getResources().getStringArray(R.array.title_section_calendar_subs);
+                    ArrayList<String> calendarSpinnerItems = new ArrayList<String>();
+                    for (int i = 0; i < calendarSpinnerArray.length; i++) {
+                        calendarSpinnerItems.add(calendarSpinnerArray[i]);
+                    }
+
+                    Utils.log.w("wut? "+calendarSpinnerItems.size());
+                    mSpinnerAdapter  = new CalendarSpinnerAdapter(getHomeActivity(),  calendarSpinnerItems);
+
+//                    ((ArrayAdapter)mSpinnerAdapter).setDropDownViewResource(R.layout.calendar_spinner_item);
+
+                    actionBar.setListNavigationCallbacks(mSpinnerAdapter, getHomeActivity());
 					break;
 				// Notes
 				case 2:
@@ -559,6 +571,21 @@ public class HomeActivity extends FragmentActivity
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
+
+		// Add Button tap
+		if( id == R.id.action_add) {
+			// Start those activities with an extra, specifying that they are called from home activity
+			Intent startIntent;
+			if( mViewPager.getCurrentItem() == 1) {
+				startIntent = new Intent(this, AddTaskActivity.class);
+			}
+			else /* if(mViewPager.getCurrentItem() == 2)*/ {
+				startIntent = new Intent(this, AddTaskActivity.class);
+				// more to be added
+			}
+			startIntent.putExtra(getString(R.string.INTENT_CALLER_ACTIVITY),getString(R.string.INTENT_CALLER_HOME));
+			startActivity(startIntent);
+		}
 		if (id == R.id.action_settings) {
 			return true;
 		}

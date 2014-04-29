@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- This EditText will take the task's name -->
+    <EditText
+        android:id="@+id/add_task_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/item_add_task_edittext_hint"
+        android:layout_marginTop="@dimen/item_add_task_edittext_margin_top"
+        android:layout_marginLeft="@dimen/item_add_task_edittext_margin_left"
+        android:layout_marginRight="@dimen/item_add_task_edittext_margin_right"/>
+
+    <!-- This icon will link to a fragment to set alarm for the task -->
+    <ImageView
+        android:id="@+id/add_task_alarm_icon"
+        android:layout_width="@dimen/icon_width"
+        android:layout_height="@dimen/icon_height"
+        android:layout_below="@id/add_task_edittext"
+        android:layout_alignLeft="@id/add_task_edittext"
+        android:src="@drawable/ic_action_alarms"/>
+
+    <!-- This TextView will display the task's current due date and it may be changed by tapping -->
+    <TextView
+        android:id="@+id/add_task_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/add_task_alarm_icon"
+        android:layout_alignTop="@id/add_task_alarm_icon"
+        android:layout_marginTop="@dimen/item_add_task_date_margin_top"
+        android:textSize="@dimen/item_add_task_date_text_size"
+        android:text="@string/item_add_task_date"/>
+
+    <!-- Tag for the task -->
+    <TextView
+        android:id="@+id/task_item_tag_1"
+        style="@style/task_item_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/task_item_tag_height"
+        android:layout_below="@id/add_task_edittext"
+        android:layout_alignRight="@id/add_task_edittext"
+        android:layout_marginTop="@dimen/item_add_task_tag_margin_top"
+        android:text="@string/tag_name"
+        android:background="@color/task_item_tag_color1"
+        android:clickable="true"/>
+
+    <!-- Tag for the task -->
+    <TextView
+        android:id="@+id/task_item_tag_2"
+        style="@style/task_item_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/task_item_tag_height"
+        android:layout_alignTop="@id/task_item_tag_1"
+        android:layout_toLeftOf="@id/task_item_tag_1"
+        android:text="@string/tag_name2"
+        android:background="@color/task_item_tag_color2"
+        android:clickable="true"/>
+
+    <!-- When tapped on this RelativeLayout, user will be able to add details for the task -->
+    <RelativeLayout
+        android:id="@+id/add_task_details_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_task_date"
+        android:layout_marginTop="@dimen/item_add_task_details_layout_margin_top"
+        android:layout_alignRight="@id/add_task_edittext"
+        android:layout_alignLeft="@id/add_task_edittext">
+
+        <ImageView
+            android:id="@+id/add_task_expand_top_left"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:src="@drawable/ic_action_expand"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/item_add_task_alarm_icon_margin_left"/>
+
+        <ImageView
+            android:id="@+id/add_task_expand_bottom_left"
+            android:src="@drawable/ic_action_expand"
+            android:layout_alignLeft="@id/add_task_expand_top_left"
+            android:layout_alignTop="@id/add_task_expand_top_left"
+            android:layout_marginTop="@dimen/item_add_task_expand_button_margin_top"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"/>
+
+        <TextView
+            android:id="@+id/add_task_details_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_add_task_details_text"
+            android:layout_alignBottom="@id/add_task_expand_top_left"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/item_add_task_details_layout_text_size"/>
+
+        <ImageView
+            android:id="@+id/add_task_expand_top_right"
+            android:src="@drawable/ic_action_expand"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/item_add_task_expand_icon_margin_right"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"/>
+
+        <ImageView
+            android:id="@+id/add_task_expadn_bottom_right"
+            android:src="@drawable/ic_action_expand"
+            android:layout_alignRight="@id/add_task_expand_top_right"
+            android:layout_alignTop="@id/add_task_expand_top_right"
+            android:layout_marginTop="@dimen/item_add_task_expand_button_margin_top"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

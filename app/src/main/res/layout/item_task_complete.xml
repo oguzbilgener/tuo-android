@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/task_item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/task_item_height">
+
+    <CheckBox
+        android:id="@+id/task_item_checkbox_complete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/task_item_checkbox_height"
+        android:text="@string/task_title"
+        android:layout_alignParentLeft="true"
+        style="@style/task_item_checkbox_complete"/>
+
+    <TextView
+        android:id="@+id/task_item_description_complete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/task_item_description_height"
+        style="@style/task_item_description_complete"/>
+
+    <LinearLayout
+        android:id="@+id/task_item_tag_bar"
+        android:layout_width="@dimen/task_item_tag_bar_width"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/task_item_description_complete"
+        android:layout_marginTop="@dimen/task_item_tag_bar_margin_top"
+        android:layout_marginLeft="@dimen/task_item_tag_bar_margin_left"
+        android:paddingBottom="@dimen/task_item_tag_padding_bottom">
+
+        <TextView
+            android:id="@+id/task_item_tag_1"
+            style="@style/task_item_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/task_item_tag_height"
+            android:text="@string/tag_name2"
+            android:background="@color/task_item_tag_color1"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/task_item_date"
+        android:layout_width="@dimen/task_item_date_width"
+        android:layout_height="@dimen/task_item_date_height"
+        android:layout_toRightOf="@id/task_item_tag_bar"
+        android:layout_marginBottom="@dimen/task_item_date_margin_bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        style="@style/task_item_date_complete"/>
+
+    <ImageView
+        android:id="@+id/task_item_expand_icon"
+        android:layout_width="@dimen/icon_width"
+        android:layout_height="@dimen/icon_height"
+        android:src="@drawable/ic_action_expand"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
+
+</RelativeLayout>
+

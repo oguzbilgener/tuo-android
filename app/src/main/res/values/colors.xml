@@ -16,6 +16,7 @@
     <drawable name="navigation_drawer_item_default">#e2e2e2</drawable>
 
 	<!-- other navigation colors -->
+
 	<color name="nav_academic_schedule_title_pager_background">#ff6f000a</color>
 	<color name="nav_academic_schedule_title_pager_text">#e2e2e2</color>
 
@@ -23,4 +24,50 @@
 	<color name="nav_academic_network_title_pager_text">#e2e2e2</color>
 
 	<color name="navigation_drawer_item_separator">#ffd6d6d6</color>
+
+    <!-- task item colors -->
+
+    <color name="task_item_background">#eeeeee</color>
+    <color name="task_item_title_overdue">#ff040404</color>
+    <color name="task_item_title_complete">#ff606060</color>
+    <color name="task_item_title_active">@color/task_item_tag_color1</color>
+    <color name="task_item_tag_color1">#ffff1824</color>
+    <color name="task_item_tag_color2">#ff0e07ff</color>
+    <color name="task_item_tag_title_color1">#fff3ffea</color>
+
+    <!-- schedule fragment item colors -->
+
+    <color name="schedule_academic_year_color">#ffff1824</color>
+
+    <!-- note to-do and note photo item colors -->
+
+    <color name="note_todo_unchecked_color">#000000</color>
+    <color name="note_todo_checked_color">#a0a0a0</color>
+
+    <color name="note_photo_title_color">#000000</color>
+    <color name="note_photo_tag_color1">#990000</color>
+    <color name="note_photo_tag_color2">#606060</color>
+    <color name="note_photo_tag_text_color">#ffffff</color>
+
+    <color name="note_voice_title_color">#000000</color>
+    <color name="note_voice_timer_color">#505050</color>
+    <color name="note_voice_tag_color1">#ff1205c1</color>
+    <color name="note_voice_tag_color2">#ff616770</color>
+    <color name="note_voice_tag_text_color">#ffffff</color>
+
+    <color name="note_plain_tag_color1">#ff1205c1</color>
+    <color name="note_plain_tag_color2">#ff616770</color>
+    <color name="note_plain_tag_text_color">#ffffff</color>
+
+    <!-- for add course screen -->
+
+    <color name="add_course_academic_year_color">#ff0f0f</color>
+    <color name="add_course_add_icon_background">#a0a0a0</color>
+    <color name="add_course_add_icon_background_darker">#606060</color>
+
+    <!-- colors for public feed task item -->
+
+    <color name="item_public_feed_course_name_color">#f0c623</color>
+    <color name="item_public_feed_task_description_color">#a0a0a0</color>
+
 </resources>

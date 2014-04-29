@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:id="@+id/calendar_spinner_item_simple" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="@dimen/navigation_spinner_default_height">
+
+    <TextView
+        android:id="@+id/calendar_spinner_item_text"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/navigation_spinner_default_height"
+        android:padding="@dimen/navigation_spinner_default_title_padding"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/navigation_calendar_spinner_default_title_size"
+        android:text="Monthly"/>
+
+    <TextView
+        android:id="@+id/calendar_spinner_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/navigation_spinner_default_height"
+        android:padding="@dimen/navigation_spinner_default_title_padding"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/navigation_spinner_default_title_size"
+        android:text="Date" />
+
+</LinearLayout>

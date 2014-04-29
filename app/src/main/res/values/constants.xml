@@ -2,4 +2,9 @@
 <resources>
 	<string name="INTENT_CALLER_ACTIVITY">intent_caller_activity_123</string>
 	<string name="INTENT_CALLER_HOME">intent_caller_home</string>
+
+	<string name="DATE_PICKER_FROM">date_picker_from</string>
+	<string name="DATE_PICKER_TO">date_picker_to</string>
+	<string name="TIME_PICKER_FROM">time_picker_from</string>
+	<string name="TIME_PICKER_TO">time_picker_to</string>
 </resources>

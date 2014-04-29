@@ -11,9 +11,9 @@
     <string name="title_section_academic_schedule">Schedule</string>
     <string name="title_section_academic_network">Network</string>
 
-	<!-- Activity Names -->
-	<string name="title_activity_academic_network">Academic Network</string>
-	<string name="title_activity_schedule">Academic Schedule</string>
+    <!-- Activity Names -->
+    <string name="title_activity_academic_network">Academic Network</string>
+    <string name="title_activity_schedule">Academic Schedule</string>
 
     <!-- sub navigation (ActionBar Spinner) -->
     <string-array name="title_section_overview_subs">
@@ -21,9 +21,8 @@
         <item>Upcoming</item>
         <item>Overdue</item>
         <item>Completed</item>
-		<item>Tags</item>
+        <item>Tags</item>
     </string-array>
-
     <string-array name="title_section_calendar_subs">
         <item>Daily</item>
         <item>Weekly</item>
@@ -36,13 +35,94 @@
 
     <!-- ActionBar items -->
     <string name="action_settings">Settings</string>
-
     <string name="academic_schedule_section_1">Section 1</string>
     <string name="academic_schedule_section_2">Section 2</string>
     <string name="academic_schedule_section_3">Section 3</string>
-
     <string name="academic_network_section_1">Section 1</string>
     <string name="academic_network_section_2">Section 2</string>
     <string name="academic_network_section_3">Section 3</string>
+
+    <!-- Task item strings -->
+
+    <string name="tag_name">CS 102</string>
+    <string name="tag_name2">lab06</string>
+    <string name="task_title">Task Title</string>
+    <string name="task_description">Task Description</string>
+    <string name="date_active">13:40-17:40</string>
+    <string name="date_overdue">13:40-17:40</string>
+    <string name="date_complete">13:40-17:40</string>
+    <string name="title_activity_add_task">New Task</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_add">Add new</string>
+
+    <!-- Add task screen -->
+    <string name="action_add_task">Add Task</string>
+    <string name="add_task_name_input_hint">Name</string>
+    <string name="add_task_description_input_hint">Description</string>
+    <string name="add_task_time_text_from">FROM</string>
+    <string name="add_task_time_text_to">T0</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Academic schedule screen -->
+    <string name="user_name">Omert Aksoy</string>
+    <string name="user_info">Bilkent University, EE</string>
+
+    <string name="academic_calendar_year">2013-2014 SPRING</string>
+
+    <string name="schedule_course_name">CS 102</string>
+    <string name="schedule_course_description">Algorithms and Programming II</string>
+    <string name="schedule_course_instructor">David Davenport</string>
+
+    <!-- Notes to do and notes photo item strings -->
+
+    <string name="note_todo_title">Configure the server</string>
+    <string name="note_todo_text1">Choose a provider</string>
+    <string name="note_todo_text2">Pay for the server</string>
+    <string name="note_todo_text3">Install Postgres</string>
+    <string name="note_todo_date1">2 Mar 18:42</string>
+
+    <string name="note_photo_title">Homework Q4 Solution</string>
+    <string name="note_photo_tag_name1">MATH 132</string>
+    <string name="note_photo_tag_name2">homework</string>
+    <string name="note_photo_date">2 Mar\n18:42</string>
+
+    <string name="note_voice_title">Presentation: Suggestions of classmates</string>
+    <string name="note_voice_tag_name1">CS 102</string>
+    <string name="note_voice_tag_name2">presentation</string>
+    <string name="note_voice_duration">5:39</string>
+    <string name="note_voice_date">4 Mar\n15:33</string>
+
+    <string name="note_plain_title">Calculus Midterm 2</string>
+    <string name="note_plain_description">stop whatever youre doing and study</string>
+    <string name="note_plain_tag_name1">MATH 102</string>
+    <string name="note_plain_tag_name2">midterm</string>
+    <string name="note_plain_date">24 Apr\n17:33</string>
+
+    <!-- strings for add course -->
+
+    <string name="add_course_course_code">ENG</string>
+    <string name="add_course_course_number">101</string>
+    <string name="add_course_section_number">17</string>
+    <string name="add_course_course_name">Course Name</string>
+    <string name="add_course_academic_year">2013-2014 SPRING</string>
+    <string name="add_course_new_course_edittext">Add New Course</string>
+
+    <!-- strings for add quick note -->
+
+    <string name="item_add_note_edittext_hint">Tap To Add Quick Note!</string>
+
+    <!-- strings for add task -->
+
+    <string name="item_add_task_edittext_hint">Enter task here</string>
+    <string name="item_add_task_date">Friday, 15 May 2014</string>
+    <string name="item_add_task_details_text">DETAILS</string>
+
+    <!-- strings for public feed item -->
+
+    <string name="item_public_feed_course_name">TURK102-13</string>
+    <string name="item_public_feed_task_name">Third Homework</string>
+    <string name="item_public_feed_task_description">Letter to Papa</string>
+    <string name="item_public_feed_task_owner">by Ani Kristo</string>
+    <string name="item_public_feed_task_due_date">Tue, 15 May\n10.30 - 12.30</string>
 
 </resources>

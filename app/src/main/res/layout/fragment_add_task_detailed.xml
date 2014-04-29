@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:orientation="vertical"
+    tools:context="co.uberdev.ultimateorganizer.android.ui.AddTaskActivity$PlaceholderFragment">
+
+
+    <EditText
+		android:id="@+id/add_task_name_input"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:singleLine="true"
+		android:hint="@string/add_task_name_input_hint"
+		android:layout_marginTop="15dp"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		/>
+
+	<EditText
+		android:id="@+id/add_task_description_input"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:singleLine="false"
+		android:minLines="2"
+		android:maxLines="3"
+		android:hint="@string/add_task_description_input_hint"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+
+		/>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:singleLine="true"
+		android:hint="@string/add_task_time_text_from"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		style="?android:attr/listSeparatorTextViewStyle"
+		android:textAllCaps="true"
+		/>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+		<Spinner
+			android:id="@+id/add_task_spinner_from_date"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			/>
+
+		<Spinner
+			android:id="@+id/add_task_spinner_from_time"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			/>
+
+	</LinearLayout>
+
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:hint="@string/add_task_time_text_to"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			style="?android:attr/listSeparatorTextViewStyle"
+			android:textAllCaps="true"
+			/>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+		<Spinner
+				android:id="@+id/add_task_spinner_to_date"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+
+		<Spinner
+				android:id="@+id/add_task_spinner_to_time"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+
+	</LinearLayout>
+
+</LinearLayout>
