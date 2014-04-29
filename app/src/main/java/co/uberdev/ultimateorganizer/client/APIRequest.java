@@ -19,8 +19,8 @@ import org.apache.http.entity.StringEntity;
 
 
 /**
- * Created by ata on 4/9/14.
- */
+* Created by ata on 4/9/14.
+*/
 public class APIRequest {
 
     private final String v1 = "http://api.ultimateapp.co:9000/v1";

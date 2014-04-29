@@ -18,8 +18,8 @@
     <!-- This icon will link to a fragment to set alarm for the task -->
     <ImageView
         android:id="@+id/add_task_alarm_icon"
-        android:layout_width="@dimen/item_add_note_icon_width"
-        android:layout_height="@dimen/item_add_note_icon_height"
+        android:layout_width="@dimen/icon_width"
+        android:layout_height="@dimen/icon_height"
         android:layout_below="@id/add_task_edittext"
         android:layout_alignLeft="@id/add_task_edittext"
         android:src="@drawable/ic_action_alarms"/>

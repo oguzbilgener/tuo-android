@@ -35,7 +35,7 @@ public class AddTaskActivity extends Activity implements DatePickerFragment.Date
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.add_task, menu);
         return true;

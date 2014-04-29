@@ -7,8 +7,8 @@ import co.uberdev.ultimateorganizer.core.CoreJSON;
 import java.io.IOException;
 
 /**
- * Created by ata on 4/9/14.
- */
+* Created by ata on 4/9/14.
+*/
 public class TuoClient{
 
 

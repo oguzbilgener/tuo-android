@@ -57,10 +57,14 @@ public class CoursesListAdapter extends ArrayAdapter<CourseItem> implements View
             viewHolder.courseInstructor = (TextView) view.findViewById(R.id.schedule_course_instructor);
 
             view.setTag(R.id.courseitem_object,viewHolder);
+
+            Utils.log.d( "hmm null");
          }
         else
         {
             view = convertView;
+
+            Utils.log.d( "hmm not null");
         }
 
         // ViewHolder receives tags for the next items
