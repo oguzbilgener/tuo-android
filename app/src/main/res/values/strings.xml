@@ -111,4 +111,10 @@
 
     <string name="item_add_note_edittext_hint">Tap To Add Quick Note!</string>
 
+    <!-- strings for add task -->
+
+    <string name="item_add_task_edittext_hint">Enter task here</string>
+    <string name="item_add_task_date">Friday, 15 May 2014</string>
+    <string name="item_add_task_details_text">DETAILS</string>
+
 </resources>

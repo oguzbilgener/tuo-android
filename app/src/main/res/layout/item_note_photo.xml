@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/note_todo_main_layout_padding">
 
+    <!-- Image for the photo note -->
     <ImageView
         android:id="@+id/iv_photo"
         android:layout_width="wrap_content"
@@ -12,6 +14,7 @@
         android:src="@drawable/homework"
         android:layout_alignParentStart="true"/>
 
+    <!-- Title of the note -->
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
@@ -23,6 +26,7 @@
         android:textColor="@color/note_photo_title_color"
         android:textSize="@dimen/note_todo_title_text_size"/>
 
+    <!-- Tag bar for the note where the related tags will be displayed -->
     <LinearLayout
         android:id="@+id/note_photo_tag_bar"
         android:layout_width="wrap_content"
@@ -61,6 +65,7 @@
 
         </LinearLayout>
 
+    <!-- The date when the note added -->
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"

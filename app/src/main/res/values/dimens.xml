@@ -184,4 +184,14 @@
     <dimen name="item_add_task_edittext_margin_left">20dp</dimen>
     <dimen name="item_add_task_edittext_margin_right">20dp</dimen>
 
+    <dimen name="item_add_task_date_margin_top">15dp</dimen>
+    <dimen name="item_add_task_date_text_size">16sp</dimen>
+
+    <dimen name="item_add_task_tag_margin_top">10dp</dimen>
+    <dimen name="item_add_task_alarm_icon_margin_left">40dp</dimen>
+    <dimen name="item_add_task_details_layout_margin_top">60dp</dimen>
+    <dimen name="item_add_task_expand_button_margin_top">8dp</dimen>
+    <dimen name="item_add_task_details_layout_text_size">20sp</dimen>
+    <dimen name="item_add_task_expand_icon_margin_right">40dp</dimen>
+
 </resources>
