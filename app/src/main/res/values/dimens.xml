@@ -1,4 +1,9 @@
 <resources>
+
+    <!-- ***Note that almost all icons currently employ these dimension values*** -->
+    <dimen name="icon_width">35dp</dimen>
+    <dimen name="icon_height">35dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -177,8 +182,6 @@
 
     <dimen name="item_add_note_edittext_margin_top">30dp</dimen>
 
-    <dimen name="item_add_note_icon_width">35dp</dimen>
-    <dimen name="item_add_note_icon_height">35dp</dimen>
     <dimen name="item_add_note_icon_margin_left">10dp</dimen>
 
     <!-- dimensions for add task -->
@@ -187,4 +190,39 @@
     <dimen name="item_add_task_edittext_margin_left">20dp</dimen>
     <dimen name="item_add_task_edittext_margin_right">20dp</dimen>
 
+    <dimen name="item_add_task_date_margin_top">15dp</dimen>
+    <dimen name="item_add_task_date_text_size">16sp</dimen>
+
+    <dimen name="item_add_task_tag_margin_top">10dp</dimen>
+    <dimen name="item_add_task_alarm_icon_margin_left">40dp</dimen>
+    <dimen name="item_add_task_details_layout_margin_top">60dp</dimen>
+    <dimen name="item_add_task_expand_button_margin_top">8dp</dimen>
+    <dimen name="item_add_task_details_layout_text_size">20sp</dimen>
+    <dimen name="item_add_task_expand_icon_margin_right">40dp</dimen>
+
+    <!-- dimensions for public feed task item -->
+
+    <dimen name="item_public_feed_main_layout_margin_top">10dp</dimen>
+    <dimen name="item_public_feed_main_layout_margin_left">10dp</dimen>
+    <dimen name="item_public_feed_main_layout_margin_right">10dp</dimen>
+    <dimen name="item_public_feed_main_layout_margin_bottom">10dp</dimen>
+
+    <dimen name="item_public_feed_course_name_margin_left">10dp</dimen>
+    <dimen name="item_public_feed_course_name_margin_top">10dp</dimen>
+    <dimen name="item_public_feed_course_name_text_size">14sp</dimen>
+
+    <dimen name="item_public_feed_task_name_margin_top">5dp</dimen>
+    <dimen name="item_public_feed_task_name_text_size">20sp</dimen>
+
+    <dimen name="item_public_feed_task_description_margin_top">5dp</dimen>
+    <dimen name="item_public_feed_task_description_text_size">16sp</dimen>
+
+    <dimen name="item_public_feed_task_owner_margin_top">5dp</dimen>
+
+    <dimen name="item_public_feed_task_owner_low_rating_icon_width">25dp</dimen>
+    <dimen name="item_public_feed_task_owner_low_rating_icon_height">25dp</dimen>
+
+    <dimen name="item_public_feed_task_accept_reject_icon_width">50dp</dimen>
+    <dimen name="item_public_feed_task_accept_reject_icon_height">50dp</dimen>
+    <dimen name="item_public_feed_task_accept_icon_margin_top">60dp</dimen>
 </resources>

@@ -1,7 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+    <!-- !!Notice the margins for the main layout -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginRight="@dimen/item_public_feed_main_layout_margin_right"
+    android:layout_marginTop="@dimen/item_public_feed_main_layout_margin_top"
+    android:layout_marginLeft="@dimen/item_public_feed_main_layout_margin_left"
+    android:layout_marginBottom="@dimen/item_public_feed_main_layout_margin_bottom">
+
+    <!-- Info of the course, department code, course number, section number -->
+    <TextView
+        android:id="@+id/item_public_feed_course_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_public_feed_course_name_margin_left"
+        android:layout_marginTop="@dimen/item_public_feed_course_name_margin_top"
+        android:text="@string/item_public_feed_course_name"
+        android:textColor="@color/item_public_feed_course_name_color"
+        android:textSize="@dimen/item_public_feed_course_name_text_size"/>
+
+    <!-- Task's name -->
+    <TextView
+        android:id="@+id/item_public_feed_task_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_public_feed_course_code"
+        android:layout_alignLeft="@id/item_public_feed_course_code"
+        android:layout_marginTop="@dimen/item_public_feed_task_name_margin_top"
+        android:text="@string/item_public_feed_task_name"
+        android:textSize="@dimen/item_public_feed_task_name_text_size"/>
+
+    <!-- Info about the task -->
+    <TextView
+        android:id="@+id/item_public_feed_task_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/item_public_feed_task_description"
+        android:layout_below="@id/item_public_feed_task_name"
+        android:layout_alignLeft="@id/item_public_feed_task_name"
+        android:layout_marginTop="@dimen/item_public_feed_task_description_margin_top"
+        android:textSize="@dimen/item_public_feed_task_description_text_size"
+        android:textColor="@color/item_public_feed_task_description_color"/>
+
+    <!-- Owner of the task, who submitted the task -->
+    <TextView
+        android:id="@+id/item_public_feed_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_public_feed_task_owner_margin_top"
+        android:text="@string/item_public_feed_task_owner"
+        android:layout_alignLeft="@id/item_public_feed_task_description"
+        android:layout_below="@id/item_public_feed_task_description"
+        android:textColor="@color/item_public_feed_task_description_color"/>
+
+    <!-- An icon to display the rating of the task owner -->
+    <ImageView
+        android:id="@+id/item_public_feed_low_rating_icon"
+        android:layout_width="@dimen/item_public_feed_task_owner_low_rating_icon_width"
+        android:layout_height="@dimen/item_public_feed_task_owner_low_rating_icon_height"
+        android:layout_below="@id/item_public_feed_task_description"
+        android:layout_toRightOf="@id/item_public_feed_owner"
+        android:src="@drawable/ic_action_error"/>
+
+    <!-- Task's due date -->
+    <TextView
+        android:id="@+id/item_public_feed_due_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/item_public_feed_course_code"
+        android:text="@string/item_public_feed_task_due_date"/>
+
+    <!-- This icon will add the task to the user local tasks -->
+    <ImageView
+        android:id="@+id/item_public_feed_accept_icon"
+        android:layout_width="@dimen/item_public_feed_task_accept_reject_icon_width"
+        android:layout_height="@dimen/item_public_feed_task_accept_reject_icon_height"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/item_public_feed_task_accept_icon_margin_top"
+        android:src="@drawable/ic_action_accept_dark"/>
+
+    <!-- This icon will remove the task from the public feed tasks list -->
+    <ImageView
+        android:id="@+id/item_public_feed_reject_icon"
+        android:layout_width="@dimen/item_public_feed_task_accept_reject_icon_width"
+        android:layout_height="@dimen/item_public_feed_task_accept_reject_icon_height"
+        android:layout_alignBottom="@id/item_public_feed_accept_icon"
+        android:layout_toLeftOf="@id/item_public_feed_accept_icon"
+        android:src="@drawable/ic_action_remove"/>
+
+    <!-- ic_action_bad // ic_action_error // ic_action_good // ic_action_important, can use good and
+        bad for thumbs up and thumbs down icons to rate the owner-->
+
 </RelativeLayout>
