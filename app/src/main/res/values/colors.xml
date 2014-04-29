@@ -65,4 +65,9 @@
     <color name="add_course_add_icon_background">#a0a0a0</color>
     <color name="add_course_add_icon_background_darker">#606060</color>
 
+    <!-- colors for public feed task item -->
+
+    <color name="item_public_feed_course_name_color">#f0c623</color>
+    <color name="item_public_feed_task_description_color">#a0a0a0</color>
+
 </resources>

@@ -54,8 +54,8 @@
 
     <ImageView
         android:id="@+id/task_item_expand_icon"
-        android:layout_width="@dimen/task_item_expand_icon_width"
-        android:layout_height="@dimen/task_item_expand_icon_height"
+        android:layout_width="@dimen/icon_width"
+        android:layout_height="@dimen/icon_height"
         android:src="@drawable/ic_action_expand"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"/>
