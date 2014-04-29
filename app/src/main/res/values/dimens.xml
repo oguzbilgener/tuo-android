@@ -21,6 +21,9 @@
 	<dimen name="navigation_spinner_default_title_size">18sp</dimen>
 	<dimen name="navigation_spinner_default_title_padding">10dp</dimen>
 
+    <dimen name="navigation_calendar_spinner_default_title_size">16sp</dimen>
+    <dimen name="navigation_calendar_spinner_default_date_title_size">12sp</dimen>
+
     <!-- task item dimensions -->
 
     <dimen name="task_item_height">120dp</dimen>

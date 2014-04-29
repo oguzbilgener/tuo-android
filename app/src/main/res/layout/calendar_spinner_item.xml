@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout android:id="@+id/calendar_spinner_item" xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:id="@+id/calendar_spinner_item" xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="@dimen/navigation_spinner_default_height">
 
@@ -9,9 +9,10 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/navigation_spinner_default_height"
         android:padding="@dimen/navigation_spinner_default_title_padding"
-        android:layout_gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        android:textSize="@dimen/navigation_spinner_default_title_size"
+        android:textSize="@dimen/navigation_calendar_spinner_default_title_size"
         android:text="Monthly"/>
 
     <TextView
@@ -19,9 +20,12 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/navigation_spinner_default_height"
         android:padding="@dimen/navigation_spinner_default_title_padding"
+        android:layout_alignRight="@id/calendar_spinner_item_text"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
-        android:textSize="@dimen/navigation_spinner_default_title_size"
+        android:textSize="@dimen/navigation_calendar_spinner_default_date_title_size"
         android:text="Date" />
 
-</LinearLayout>
+</RelativeLayout>
