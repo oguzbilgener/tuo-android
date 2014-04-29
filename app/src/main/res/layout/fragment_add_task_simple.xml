@@ -17,7 +17,11 @@
     <ImageView
         android:id="@+id/add_task_alarm_icon"
         android:layout_width="@dimen/icon_width"
+<<<<<<< HEAD
         android:layout_height="@dimen/icon_width"
+=======
+        android:layout_height="@dimen/icon_height"
+>>>>>>> db71e3fbef1da8dabe70e35f03449ab0ba548d28
         android:layout_below="@id/add_task_edittext"
         android:layout_alignLeft="@id/add_task_edittext"
         android:src="@drawable/ic_action_alarms"/>
