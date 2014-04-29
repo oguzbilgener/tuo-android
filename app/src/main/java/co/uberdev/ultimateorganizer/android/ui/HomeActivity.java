@@ -394,9 +394,19 @@ public class HomeActivity extends FragmentActivity
 					pageJustChanged = true;
 					actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 					actionBar.setDisplayShowTitleEnabled(false);
-					mSpinnerAdapter = ArrayAdapter.createFromResource(getHomeActivity(), R.array.title_section_calendar_subs,
-							android.R.layout.simple_spinner_dropdown_item);
-					actionBar.setListNavigationCallbacks(mSpinnerAdapter, getHomeActivity());
+
+                    String[] calendarSpinnerArray = getResources().getStringArray(R.array.title_section_calendar_subs);
+                    ArrayList<String> calendarSpinnerItems = new ArrayList<String>();
+                    for (int i = 0; i < calendarSpinnerArray.length; i++) {
+                        calendarSpinnerItems.add(calendarSpinnerArray[i]);
+                    }
+
+                    Utils.log.w("wut? "+calendarSpinnerItems.size());
+                    mSpinnerAdapter  = new CalendarSpinnerAdapter(getHomeActivity(),  calendarSpinnerItems);
+
+//                    ((ArrayAdapter)mSpinnerAdapter).setDropDownViewResource(R.layout.calendar_spinner_item);
+
+                    actionBar.setListNavigationCallbacks(mSpinnerAdapter, getHomeActivity());
 					break;
 				// Notes
 				case 2:

@@ -24,10 +24,10 @@ public class AddTaskActivity extends Activity implements DatePickerFragment.Date
 		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
 		mOnDatePickResultListener = (DatePickerFragment.DatePickerFragmentCallbacks) fragment;
 
-        setContentView(R.layout.activity_add_task);
+        setContentView(R.layout.fragment_add_task_simple);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, fragment)
+                    .add(R.id.add_task_container, fragment)
                     .commit();
         }
     }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_task_container"
+    android:layout_width="match_parent" android:layout_height="match_parent" />
 
+<<<<<<< HEAD
     <!-- This EditText will take the task's name -->
     <EditText
         android:id="@+id/add_task_edittext"
@@ -116,3 +116,5 @@
         </RelativeLayout>
 
 </RelativeLayout>
+=======
+>>>>>>> e61654508e266ee3996280d0985b0cb7e0811f57
