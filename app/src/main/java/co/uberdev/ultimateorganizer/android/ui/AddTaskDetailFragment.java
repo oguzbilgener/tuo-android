@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +13,13 @@ import android.widget.Button;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.doomonafireball.betterpickers.radialtimepicker.RadialPickerLayout;
 import com.doomonafireball.betterpickers.radialtimepicker.RadialTimePickerDialog;
-import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
@@ -33,7 +32,6 @@ import co.uberdev.ultimateorganizer.android.R;
  */
 public class AddTaskDetailFragment extends Fragment
 		implements 	CalendarDatePickerDialog.OnDateSetListener,
-		RadialTimePickerDialog.OnTimeSetListener,
 		View.OnClickListener
 {
 
@@ -169,7 +167,6 @@ public class AddTaskDetailFragment extends Fragment
 			Calendar fromCalendar = Calendar.getInstance();
 			fromCalendar.setTime(fromDate);
 
-			FragmentManager fm = getParent().getSupportFragmentManager();
 			CalendarDatePickerDialog calendarDatePickerDialog = CalendarDatePickerDialog
 					.newInstance(this, fromCalendar.get(Calendar.YEAR), fromCalendar.get(Calendar.MONTH),
 							fromCalendar.get(Calendar.DAY_OF_MONTH));
@@ -183,8 +180,9 @@ public class AddTaskDetailFragment extends Fragment
 			fromCalendar.setTime(fromDate);
 
 			RadialTimePickerDialog timePickerDialog = RadialTimePickerDialog
-					.newInstance(this, fromCalendar.get(Calendar.HOUR_OF_DAY), fromCalendar.get(Calendar.MINUTE),
+					.newInstance(new FromTimeListener(), fromCalendar.get(Calendar.HOUR_OF_DAY), fromCalendar.get(Calendar.MINUTE),
 							DateFormat.is24HourFormat(getActivity()));
+
 			timePickerDialog.show(getParent().getSupportFragmentManager(), getString(R.string.TIME_PICKER_FROM));
 		}
 		if(id == R.id.add_task_button_to_date)
@@ -202,11 +200,14 @@ public class AddTaskDetailFragment extends Fragment
 		else if(id == R.id.add_task_button_to_time)
 		{
 			// show time picker for to
-			TimePickerBuilder tpb = new TimePickerBuilder()
-					.setFragmentManager(getParent().getSupportFragmentManager())
-					.setStyleResId(R.style.BetterPickersDialogFragment)
-					.setReference(R.string.TIME_PICKER_TO);
-			tpb.show();
+			Calendar toCalendar = Calendar.getInstance();
+			toCalendar.setTime(fromDate);
+
+			RadialTimePickerDialog timePickerDialog = RadialTimePickerDialog
+					.newInstance(new ToTimeListener(), toCalendar.get(Calendar.HOUR_OF_DAY), toCalendar.get(Calendar.MINUTE),
+							DateFormat.is24HourFormat(getActivity()));
+
+			timePickerDialog.show(getParent().getSupportFragmentManager(), getString(R.string.TIME_PICKER_FROM));
 		}
 
 	}
@@ -236,6 +237,7 @@ public class AddTaskDetailFragment extends Fragment
 			fromDate = fromCalendar.getTime();
 
 			// keep the interval between from and to
+			Utils.log.d("SETBACK 1");
 			toDate = new Date(fromDate.getTime() + timeDifference);
 		}
 		else if(tag.equals(getString(R.string.DATE_PICKER_TO)))
@@ -244,6 +246,12 @@ public class AddTaskDetailFragment extends Fragment
 			Calendar toCalendar = Calendar.getInstance();
 			toCalendar.set(year, monthOfYear, dayOfMonth);
 			toDate = toCalendar.getTime();
+
+			if(fromDate.getTime() >= toDate.getTime())
+			{
+				Utils.log.d("SETBACK 2");
+				fromDate = new Date(toDate.getTime() - timeDifference);
+			}
 		}
 
 		fromDateButton.setText(getDateString(fromDate));
@@ -251,43 +259,63 @@ public class AddTaskDetailFragment extends Fragment
 
 		toDateButton.setText(getDateString(toDate));
 		toTimeButton.setText(getTimeString(toDate));
+
+		// update time difference
+		updateTimeDifference();
 	}
 
-	@Override
-	public void onTimeSet(RadialPickerLayout radialPickerLayout, int hourOfDay, int minute)
+
+	public class FromTimeListener implements RadialTimePickerDialog.OnTimeSetListener
 	{
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-		calendar.set(Calendar.MINUTE, minute);
 
-		lastDate = calendar.getTime();
-		String tag = "";
+		@Override
+		public void onTimeSet(RadialPickerLayout radialPickerLayout,  int hourOfDay, int minute)
+		{
+			// literally change the time
+			Calendar fromCalendar = Calendar.getInstance();
+			fromCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+			fromCalendar.set(Calendar.MINUTE, minute);
+			fromDate = fromCalendar.getTime();
 
-//		if(tag.equals(getString(R.string.TIME_PICKER_FROM)))
-//		{
-//			// literally change the time
-//			Calendar fromCalendar = Calendar.getInstance();
-//			fromCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-//			fromCalendar.set(Calendar.MINUTE, minute);
-//			fromDate = fromCalendar.getTime();
-//
-//			// keep the interval between from and to
-//			toDate = new Date(fromDate.getTime() + timeDifference);
-//		}
-//		else if(tag.equals(getString(R.string.TIME_PICKER_TO)))
-//		{
-//			// literally change the time
-//			Calendar toCalendar = Calendar.getInstance();
-//			toCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-//			toCalendar.set(Calendar.MINUTE, minute);
-//			toDate = toCalendar.getTime();
-//		}
-//
-//		fromDateButton.setText(getDateString(fromDate));
-//		fromTimeButton.setText(getTimeString(fromDate));
-//
-//		toDateButton.setText(getDateString(toDate));
-//		toTimeButton.setText(getTimeString(toDate));
+			// keep the interval between from and to
+			if(fromDate.getTime() >= toDate.getTime())
+			{
+				toDate = new Date(fromDate.getTime() + timeDifference);
+			}
+
+			fromDateButton.setText(getDateString(fromDate));
+			fromTimeButton.setText(getTimeString(fromDate));
+
+			toDateButton.setText(getDateString(toDate));
+			toTimeButton.setText(getTimeString(toDate));
+
+			updateTimeDifference();
+		}
+	}
+
+	public class ToTimeListener implements RadialTimePickerDialog.OnTimeSetListener
+	{
+		@Override
+		public void onTimeSet(RadialPickerLayout radialPickerLayout,  int hourOfDay, int minute)
+		{
+			Calendar toCalendar = Calendar.getInstance();
+			toCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+			toCalendar.set(Calendar.MINUTE, minute);
+			toDate = toCalendar.getTime();
+
+			fromDateButton.setText(getDateString(fromDate));
+			fromTimeButton.setText(getTimeString(fromDate));
+
+			toDateButton.setText(getDateString(toDate));
+			toTimeButton.setText(getTimeString(toDate));
+
+			updateTimeDifference();
+		}
+	}
+
+	private void updateTimeDifference()
+	{
+		timeDifference = toDate.getTime() - fromDate.getTime();
 	}
 
 	/**

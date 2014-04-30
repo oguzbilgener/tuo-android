@@ -66,7 +66,7 @@
 			android:layout_height="wrap_content"
 			android:singleLine="true"
 			android:hint="@string/add_task_time_text_to"
-			android:layout_marginLeft="5dp"
+			android:layout_marginLeft="@dimen/"
 			android:layout_marginRight="5dp"
 			style="?android:attr/listSeparatorTextViewStyle"
 			android:textAllCaps="true"
