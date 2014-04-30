@@ -70,4 +70,6 @@
     <color name="item_public_feed_course_name_color">#f0c623</color>
     <color name="item_public_feed_task_description_color">#a0a0a0</color>
 
+	<color name="picker_text_color">#ff636363</color>
+
 </resources>

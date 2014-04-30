@@ -1,26 +1,21 @@
 package co.uberdev.ultimateorganizer.android.models;
 
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
+import co.uberdev.ultimateorganizer.core.CoreReminders;
 import co.uberdev.ultimateorganizer.core.CoreSelectable;
-import co.uberdev.ultimateorganizer.core.CoreTasks;
 
 /**
- * Created by oguzbilgener on 24/04/14.
+ * Created by oguzbilgener on 30/04/14.
  */
-public class Tasks extends CoreTasks implements CoreSelectable
+public class Reminders extends CoreReminders implements CoreSelectable
 {
 	@Override
 	public String getTableName() {
-		return CoreDataRules.tables.tasks;
+		return CoreDataRules.tables.reminders;
 	}
 
 	@Override
 	public boolean loadFromDb(String sqlCriteria, String[] params, int limit) {
-
-		// TODO: literally load tasks from db
-
-		// TODO: parse tags as Tag objects
-
 		return false;
 	}
 

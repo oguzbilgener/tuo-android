@@ -61,6 +61,9 @@
     <string name="add_task_description_input_hint">Description</string>
     <string name="add_task_time_text_from">FROM</string>
     <string name="add_task_time_text_to">T0</string>
+	<string name="add_task_reminders">REMINDERS</string>
+	<string name="add_task_tags">TAGS</string>
+	<string name="add_task_related_tasks">RELATED TASKS</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Academic schedule screen -->

@@ -1,5 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+>
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 	android:orientation="vertical"
@@ -36,8 +41,9 @@
 		android:layout_height="wrap_content"
 		android:singleLine="true"
 		android:hint="@string/add_task_time_text_from"
-		android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp"
+		android:layout_marginLeft="@dimen/sub_line_margin_sides"
+		android:layout_marginRight="@dimen/sub_line_margin_sides"
+		android:layout_marginTop="15dp"
 		style="?android:attr/listSeparatorTextViewStyle"
 		android:textAllCaps="true"
 		/>
@@ -45,18 +51,32 @@
 	<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			android:layout_marginRight="@dimen/sub_line_margin_sides"
 			android:orientation="horizontal">
 
 		<Button
 			android:id="@+id/add_task_button_from_date"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
+			android:layout_weight="0.7"
+			android:padding="@dimen/picker_text_padding"
+			android:paddingLeft="@dimen/picker_text_padding_sides"
+			android:paddingRight="@dimen/picker_text_padding_sides"
+			android:textColor="@color/picker_text_color"
+			android:gravity="center"
 			style="?android:attr/spinnerStyle"/>
 
 		<Button
 			android:id="@+id/add_task_button_from_time"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
+			android:layout_weight="0.3"
+			android:padding="@dimen/picker_text_padding"
+			android:paddingLeft="@dimen/picker_text_padding_sides"
+			android:paddingRight="@dimen/picker_text_padding_sides"
+			android:textColor="@color/picker_text_color"
+			android:gravity="center"
 			style="?android:attr/spinnerStyle"/>
 
 	</LinearLayout>
@@ -66,8 +86,9 @@
 			android:layout_height="wrap_content"
 			android:singleLine="true"
 			android:hint="@string/add_task_time_text_to"
-			android:layout_marginLeft="@dimen/"
-			android:layout_marginRight="5dp"
+			android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			android:layout_marginRight="@dimen/sub_line_margin_sides"
+			android:layout_marginTop="5dp"
 			style="?android:attr/listSeparatorTextViewStyle"
 			android:textAllCaps="true"
 			/>
@@ -75,20 +96,71 @@
 	<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			android:layout_marginRight="@dimen/sub_line_margin_sides"
 			android:orientation="horizontal">
 
 		<Button
 				android:id="@+id/add_task_button_to_date"
-				android:layout_width="wrap_content"
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
+				android:layout_weight="0.7"
+				android:padding="@dimen/picker_text_padding"
+				android:paddingLeft="@dimen/picker_text_padding_sides"
+				android:paddingRight="@dimen/picker_text_padding_sides"
+				android:textColor="@color/picker_text_color"
+				android:gravity="center"
 				style="?android:attr/spinnerStyle"/>
 
 		<Button
 				android:id="@+id/add_task_button_to_time"
-				android:layout_width="wrap_content"
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
+				android:layout_weight="0.3"
+				android:padding="@dimen/picker_text_padding"
+				android:paddingLeft="@dimen/picker_text_padding_sides"
+				android:paddingRight="@dimen/picker_text_padding_sides"
+				android:textColor="@color/picker_text_color"
+				android:gravity="center"
 				style="?android:attr/spinnerStyle"/>
 
 	</LinearLayout>
 
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:hint="@string/add_task_reminders"
+			android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			android:layout_marginRight="@dimen/sub_line_margin_sides"
+			android:layout_marginTop="5dp"
+			style="?android:attr/listSeparatorTextViewStyle"
+			android:textAllCaps="true"
+			/>
+
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:hint="@string/add_task_tags"
+			android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			android:layout_marginRight="@dimen/sub_line_margin_sides"
+			android:layout_marginTop="5dp"
+			style="?android:attr/listSeparatorTextViewStyle"
+			android:textAllCaps="true"
+			/>
+
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:hint="@string/add_task_related_tasks"
+			android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			android:layout_marginRight="@dimen/sub_line_margin_sides"
+			android:layout_marginTop="5dp"
+			style="?android:attr/listSeparatorTextViewStyle"
+			android:textAllCaps="true"
+			/>
+
 </LinearLayout>
+</ScrollView>

@@ -228,8 +228,9 @@
     <dimen name="item_public_feed_task_accept_icon_margin_top">60dp</dimen>
 
 	<!-- picker displays -->
-	<dimen name="picker_text_padding">10dp</dimen>
-	<dimen name="picker_text_size">18sp</dimen>
+	<dimen name="picker_text_padding">20dp</dimen>
+	<dimen name="picker_text_padding_sides">30dp</dimen>
+	<dimen name="picker_text_size">22sp</dimen>
 
     <!-- bottom line height -->
     <!-- bottom line margin top -->

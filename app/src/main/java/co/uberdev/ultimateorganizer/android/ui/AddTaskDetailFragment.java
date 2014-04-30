@@ -303,6 +303,12 @@ public class AddTaskDetailFragment extends Fragment
 			toCalendar.set(Calendar.MINUTE, minute);
 			toDate = toCalendar.getTime();
 
+			// keep the interval between from and to
+			if(fromDate.getTime() >= toDate.getTime())
+			{
+				fromDate = new Date(toDate.getTime() - timeDifference);
+			}
+
 			fromDateButton.setText(getDateString(fromDate));
 			fromTimeButton.setText(getTimeString(fromDate));
 
