@@ -56,7 +56,6 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
 
     public View getItemView(int position,  ViewGroup parent, boolean isOpen)
     {
-        Utils.log.d("ASDASDASD get"+position+" "+list.size());
         if(position >= list.size())
             return null;
 
@@ -76,7 +75,7 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
         // These are int values right now. Need to work on them.
         switch (position) {
             case 0:
-                dateText.setText(toMonthString(calendar.get(Calendar.MONTH)) + " " + calendar.get(Calendar.DAY_OF_MONTH));
+                dateText.setText(Utils.toMonthString(calendar.get(Calendar.MONTH)) + " " + calendar.get(Calendar.DAY_OF_MONTH));
                 break;
             case 1:
                 // :(((((88(((
@@ -95,11 +94,11 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
                 weekEnd.clear(Calendar.SECOND);
                 weekEnd.add(Calendar.DAY_OF_WEEK, 1);
 
-                dateText.setText(weekStart.get(Calendar.DAY_OF_MONTH)+" "+toMonthString(weekStart.get(Calendar.MONDAY)) +
-                    " - "+ weekEnd.get(Calendar.DAY_OF_MONTH)+" "+toMonthString(weekEnd.get(Calendar.MONDAY)));
+                dateText.setText(weekStart.get(Calendar.DAY_OF_MONTH)+" "+Utils.toMonthString(weekStart.get(Calendar.MONDAY)) +
+                    " - "+ weekEnd.get(Calendar.DAY_OF_MONTH)+" "+Utils.toMonthString(weekEnd.get(Calendar.MONDAY)));
                 break;
             case 2:
-                dateText.setText(toMonthString(calendar.get(Calendar.MONTH)));
+                dateText.setText(Utils.toMonthString(calendar.get(Calendar.MONTH)));
                 break;
             case 3:
                 try {
@@ -127,14 +126,7 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
         return view;
     }
 
-    public static String toMonthString(int i) {
-        String[] months = {"January", "February", "March", "April", "May", "June", "July",
-                "August", "September", "October", "November", "December"};
-
-        return months[i];
-    }
-
-    @Override
+	@Override
     public int getItemViewType(int position)
     {
         return 0;

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 	android:orientation="vertical"
-    tools:context="co.uberdev.ultimateorganizer.android.ui.AddTaskActivity$PlaceholderFragment">
+    tools:context=".ui.AddTaskActivity">
 
 
     <EditText
@@ -47,17 +47,17 @@
 			android:layout_height="wrap_content"
 			android:orientation="horizontal">
 
-		<Spinner
-			android:id="@+id/add_task_spinner_from_date"
+		<Button
+			android:id="@+id/add_task_button_from_date"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			/>
+			style="?android:attr/spinnerStyle"/>
 
-		<Spinner
-			android:id="@+id/add_task_spinner_from_time"
+		<Button
+			android:id="@+id/add_task_button_from_time"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			/>
+			style="?android:attr/spinnerStyle"/>
 
 	</LinearLayout>
 
@@ -77,17 +77,17 @@
 			android:layout_height="wrap_content"
 			android:orientation="horizontal">
 
-		<Spinner
-				android:id="@+id/add_task_spinner_to_date"
+		<Button
+				android:id="@+id/add_task_button_to_date"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				/>
+				style="?android:attr/spinnerStyle"/>
 
-		<Spinner
-				android:id="@+id/add_task_spinner_to_time"
+		<Button
+				android:id="@+id/add_task_button_to_time"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				/>
+				style="?android:attr/spinnerStyle"/>
 
 	</LinearLayout>
 

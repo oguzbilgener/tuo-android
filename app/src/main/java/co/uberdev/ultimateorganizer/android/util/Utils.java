@@ -75,4 +75,11 @@ public class Utils
 				"android:switcher:" + viewPager.getId() + ":"
 						+ fragmentPagerAdapter.getItemId(position));
 	}
+
+	public static String toMonthString(int i) {
+		String[] months = {"January", "February", "March", "April", "May", "June", "July",
+				"August", "September", "October", "November", "December"};
+
+		return months[i];
+	}
 }

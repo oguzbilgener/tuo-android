@@ -1,19 +1,17 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
-import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.util.DatePickerFragment;
 
-public class AddTaskActivity extends Activity implements DatePickerFragment.DatePickerFragmentCallbacks, AddTaskDetailFragment.OnFragmentInteractionListener
+public class AddTaskActivity extends FragmentActivity implements AddTaskDetailFragment.OnFragmentInteractionListener
 {
-	private DatePickerFragment.DatePickerFragmentCallbacks mOnDatePickResultListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +19,15 @@ public class AddTaskActivity extends Activity implements DatePickerFragment.Date
 
 		getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.title_section_overview)));
 
-		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
-		mOnDatePickResultListener = (DatePickerFragment.DatePickerFragmentCallbacks) fragment;
+		AddTaskDetailFragment fragment = AddTaskDetailFragment.newInstance();
 
-        setContentView(R.layout.fragment_add_task_simple);
+        setContentView(R.layout.activity_add_task);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.add_task_container, fragment)
                     .commit();
         }
+
     }
 
 
@@ -62,13 +60,17 @@ public class AddTaskActivity extends Activity implements DatePickerFragment.Date
     }
 
 	@Override
-	public void onDateSet(DatePicker view, int year, int month, int day)
-	{
-		mOnDatePickResultListener.onDateSet(view, year, month, day);
-	}
-
-	@Override
 	public void onFragmentInteraction(Uri uri) {
 		// TODO: use this
+	}
+
+	public FragmentManager getSupportFragmentManager()
+	{
+		return super.getSupportFragmentManager();
+	}
+
+	public android.app.FragmentManager getFragmentManager()
+	{
+		return super.getFragmentManager();
 	}
 }
