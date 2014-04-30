@@ -1,6 +1,7 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 
 /**
@@ -28,7 +30,7 @@ public class CoursesListFragment extends Fragment
     private OnFragmentInteractionListener mListener;
 
     private ListView coursesListView;
-    private ArrayList<CourseItem> coursesList;
+    private ArrayList<Course> coursesList;
     private CoursesListAdapter coursesListAdapter;
 
     /**
@@ -52,7 +54,17 @@ public class CoursesListFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
 
-        coursesList = new ArrayList<CourseItem>();
+        coursesList = new ArrayList<Course>();
+        Course course = new Course();
+        course.setCourseTitle("Algorithms and Programming II");
+        course.setInstructorName("David Davenport");
+        course.setDepartmentCode("CS");
+        course.setCourseCode("102");
+        course.setSectionCode(1);
+        course.setCourseColor(Color.parseColor("#ff0000"));
+
+        coursesList.add(course);
+
         coursesListAdapter = new CoursesListAdapter(getActivity(), coursesList);
     }
 
