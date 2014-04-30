@@ -61,12 +61,24 @@ android:layout_height="match_parent">
         android:text="@string/academic_calendar_year"
         android:textColor="@color/schedule_academic_year_color"/>
 
+    <LinearLayout
+        android:id="@+id/our_precious_sub_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sub_line_height"
+        android:background="@color/schedule_academic_year_color"
+        android:layout_below="@id/schedule_academic_year"
+        android:layout_marginTop="@dimen/sub_line_margin_top"
+        android:layout_marginLeft="@dimen/sub_line_margin_sides"
+        android:layout_marginRight="@dimen/sub_line_margin_sides">
+        </LinearLayout>
+
     <ListView
         android:id="@+id/schedule_courses_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/schedule_academic_year"
         android:layout_marginTop="@dimen/schedule_listview_margin_top"
-        />
+        android:layout_marginLeft="@dimen/sub_line_margin_sides"
+        android:layout_marginRight="@dimen/sub_line_margin_sides"/>
 
 </RelativeLayout>

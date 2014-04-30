@@ -99,11 +99,12 @@
     <dimen name="schedule_course_name_margin_top">20dp</dimen>
     <dimen name="schedule_course_name_margin_left">20dp</dimen>
 
-    <dimen name="schedule_course_info_margin_top">20dp</dimen>
+    <dimen name="schedule_course_info_margin_top">10dp</dimen>
     <dimen name="schedule_course_info_margin_left">10dp</dimen>
 
-    <dimen name="schedule_course_instructor_margin_top">10dp</dimen>
+    <dimen name="schedule_course_instructor_margin_top">5dp</dimen>
     <dimen name="schedule_course_instructor_margin_left">10dp</dimen>
+    <dimen name="schedule_course_instructor_padding_bottom">10dp</dimen>
 
     <dimen name="schedule_course_text_size">18sp</dimen>
 
@@ -229,4 +230,11 @@
 	<!-- picker displays -->
 	<dimen name="picker_text_padding">10dp</dimen>
 	<dimen name="picker_text_size">18sp</dimen>
+
+    <!-- bottom line height -->
+    <!-- bottom line margin top -->
+    <dimen name="sub_line_height">1dp</dimen>
+    <dimen name="sub_line_margin_sides">10dp</dimen>
+    <dimen name="sub_line_margin_top">5dp</dimen>
+
 </resources>
