@@ -29,12 +29,26 @@ public class DbHelper extends SQLiteOpenHelper
 				CoreDataRules.columns.tasks.ownerId+" INTEGER, " +
 				CoreDataRules.columns.tasks.taskName+" TEXT, " +
 				CoreDataRules.columns.tasks.taskDesc+" TEXT, " +
-				CoreDataRules.columns.tasks.status+" INT, " +
+				CoreDataRules.columns.tasks.status+" INTEGER, " +
 				CoreDataRules.columns.tasks.tags+" TEXT, " +
+				CoreDataRules.columns.tasks.reminders+" TEXT, "+
+				CoreDataRules.columns.tasks.relatedTasks+" TEXT, " +
+				CoreDataRules.columns.tasks.relatedNotes+" TEXT, " +
+				CoreDataRules.columns.tasks.personal+" INTEGER, " +
 				CoreDataRules.columns.tasks.dateCreated+" INTEGER, " +
 				CoreDataRules.columns.tasks.lastModified+" INTEGER, " +
 				CoreDataRules.columns.tasks.beginDate+" INTEGER, " +
-				CoreDataRules.columns.tasks.endDate+" INTEGER " +
+				CoreDataRules.columns.tasks.endDate+" INTEGER, " +
+				CoreDataRules.columns.tasks.courseCodeCombined+" TEXT, "+
+				CoreDataRules.columns.tasks.taskOwnerNameCombined+" TEXT "+
+				")");
+
+		// create tags table
+		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.tags+" (" +
+				CoreDataRules.columns.tags.id+" INTEGER PRIMARY KEY, " +
+				CoreDataRules.columns.tags.ownerId+" INTEGER, " +
+				CoreDataRules.columns.tags.tagTitle+" TEXT, " +
+				CoreDataRules.columns.tags.color+" INTEGER " +
 				")");
 	}
 
