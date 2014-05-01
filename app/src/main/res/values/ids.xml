@@ -6,5 +6,9 @@
     <item type="id" name="courseitem_object" />
     <item type="id" name="courseitem_index" />
     <item type="id" name="courseitem_id" />
+    <!-- id for task item to be received by PublicFeedAdapter.java -->
+    <item type="id" name="taskitem_object" />
+    <item type="id" name="taskitem_index" />
+    <item type="id" name="taskitem_id" />
 
 </resources>
