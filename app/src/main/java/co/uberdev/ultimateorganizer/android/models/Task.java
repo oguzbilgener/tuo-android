@@ -26,7 +26,7 @@ public class Task extends CoreTask implements CoreStorable
 
 
 	/**
-	 * loads the
+	 * loads the asd
 	 */
 	public void loadRemindersFromDb()
 	{
