@@ -19,6 +19,12 @@ public class Task extends CoreTask implements CoreStorable
 		this.db = db;
 	}
 
+    public Task()
+    {
+        this( null);
+    }
+
+
 	/**
 	 * loads the
 	 */
