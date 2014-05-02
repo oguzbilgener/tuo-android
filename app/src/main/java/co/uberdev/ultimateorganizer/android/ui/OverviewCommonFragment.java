@@ -25,11 +25,11 @@ import co.uberdev.ultimateorganizer.android.models.Task;
 
 public class OverviewCommonFragment extends BaseFragment
 {
-    private OnFragmentInteractionListener mListener;
+    protected OnFragmentInteractionListener mListener;
 
-    private ListView overviewTaskListview;
-    private ArrayList<Task> overviewTaskList;
-    private OverviewTaskAdapter overviewTaskAdapter;
+    protected ListView overviewTaskListview;
+    protected ArrayList<Task> overviewTaskList;
+    protected OverviewTaskAdapter overviewTaskAdapter;
 
     protected static int[] filter = new int[]{Task.STATE_ACTIVE, Task.STATE_ARCHIVED, Task.STATE_COMPLETED, Task.STATE_DELETED};
 

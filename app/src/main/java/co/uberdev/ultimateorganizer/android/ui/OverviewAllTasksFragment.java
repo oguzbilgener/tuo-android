@@ -8,4 +8,6 @@ import co.uberdev.ultimateorganizer.android.models.Task;
 public class OverviewAllTasksFragment extends OverviewCommonFragment
 {
     protected static int[] filter = new int[]{Task.STATE_ACTIVE, Task.STATE_ARCHIVED, Task.STATE_COMPLETED, Task.STATE_DELETED};
+
+
 }
