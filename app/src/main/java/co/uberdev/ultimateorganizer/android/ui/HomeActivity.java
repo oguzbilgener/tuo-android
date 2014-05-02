@@ -462,6 +462,7 @@ public class HomeActivity extends FragmentActivity
                             return OverviewAllTasksFragment.newInstance();
                         case 1:
                         default:
+							// This should not be a base fragment
                             return OverviewBaseFragment.newInstance();
                     }
 				case 1:
