@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -28,7 +29,8 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
 public class HomeActivity extends FragmentActivity
         implements HomeNavigationDrawerFragment.NavigationDrawerCallbacks,
 		ViewPager.OnPageChangeListener,
-		ActionBar.OnNavigationListener {
+		ActionBar.OnNavigationListener,
+        OverviewCommonFragment.OnFragmentInteractionListener{
 
     // Fragment managing the behaviors, interactions and presentation of the navigation drawer.
     private HomeNavigationDrawerFragment mHomeNavigationDrawerFragment;
@@ -200,8 +202,9 @@ public class HomeActivity extends FragmentActivity
 			}
 			return false;
 		}
+        Utils.log.d("onis "+position);
 		// Change the sub navigation item
-		Utils.log.e("hmm "+mSubPageAdapter.changeDisplayedFragment(getCurrentPageIndex(), position));
+        mSubPageAdapter.changeDisplayedFragment(getCurrentPageIndex(), position);
 		return true;
 	}
 
@@ -269,7 +272,12 @@ public class HomeActivity extends FragmentActivity
 		mTitle = mSectionsPagerAdapter.getPageTitle(number);
     }
 
-	/**
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    /**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
 	 */
@@ -449,7 +457,13 @@ public class HomeActivity extends FragmentActivity
 			Utils.log.d("SubPageAdapter getSubItem("+position+", "+subPosition+")");
 			switch(position) {
 				case 0:
-					return OverviewBaseFragment.newInstance();
+                    switch(subPosition) {
+                        case 0:
+                            return OverviewAllTasksFragment.newInstance();
+                        case 1:
+                        default:
+                            return OverviewBaseFragment.newInstance();
+                    }
 				case 1:
 					switch(subPosition) {
 						case 0:

@@ -11,7 +11,7 @@
     <item type="id" name="taskitem_index" />
     <item type="id" name="taskitem_id" />
     <!-- id for task item to be received by OverviewTaskAdapter.java -->
-    <item type="id" name="task_item_active_object" />
-    <item type="id" name="task_item_active_index" />
-    <item type="id" name="task_item_active_id" />
+    <item type="id" name="overview_task_item_object" />
+    <item type="id" name="overview_task_item_index" />
+    <item type="id" name="overview_task_item_id" />
 </resources>

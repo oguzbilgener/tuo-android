@@ -95,5 +95,4 @@ public class Task extends CoreTask implements CoreStorable
 	public boolean remove() {
 		return false;
 	}
-
 }
