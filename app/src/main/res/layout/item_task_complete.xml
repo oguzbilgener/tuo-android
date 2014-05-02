@@ -8,11 +8,20 @@
 
     <CheckBox
         android:id="@+id/task_item_checkbox_complete"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/task_item_checkbox_height"
-        android:text="@string/task_title"
         android:layout_alignParentLeft="true"
-        style="@style/task_item_checkbox_complete"/>
+        style="@style/task_item_checkbox_complete" />
+
+    <TextView
+        android:id="@+id/task_item_task_title_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/task_item_checkbox_complete"
+        android:layout_alignTop="@id/task_item_checkbox_complete"
+        android:layout_marginTop="5dp"
+        android:textSize="24sp"
+        android:text="@string/task_title"/>
 
     <TextView
         android:id="@+id/task_item_description_complete"
