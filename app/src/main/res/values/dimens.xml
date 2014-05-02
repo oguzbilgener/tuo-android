@@ -243,4 +243,8 @@
     <dimen name="sub_line_margin_sides">10dp</dimen>
     <dimen name="sub_line_margin_top">5dp</dimen>
 
+	<!-- reminder -->
+	<dimen name="reminder_item_height">45dp</dimen>
+	<dimen name="reminder_spinner_margin">10dp</dimen>
+
 </resources>
