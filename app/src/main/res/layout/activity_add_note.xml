@@ -14,24 +14,25 @@
     <EditText
         android:id="@+id/add_quick_note"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/item_add_note_edittext_margin_top"
+        android:layout_height="@dimen/item_add_note_edittext_height"
         android:text="@string/item_add_note_edittext_hint"/>
 
     <!-- This icon will switch to add detailed note, with description, due date and remainders
         included -->
     <ImageView
         android:id="@+id/detailed_note_icon"
-        android:layout_width="@dimen/icon_width"
-        android:layout_height="@dimen/icon_height"
+        android:layout_width="@dimen/item_add_note_icon_size"
+        android:layout_height="@dimen/item_add_note_icon_size"
+        android:layout_marginTop="@dimen/item_add_note_expand_icon_margin_top"
+        android:layout_marginLeft="@dimen/item_add_note_expand_icon_margin_left"
         android:layout_below="@id/add_quick_note"
         android:src="@drawable/ic_action_expand"/>
 
     <!-- This icon will switch to add a checkbox style note -->
     <ImageView
         android:id="@+id/checkbox_note_icon"
-        android:layout_width="@dimen/icon_width"
-        android:layout_height="@dimen/icon_height"
+        android:layout_width="@dimen/item_add_note_icon_size"
+        android:layout_height="@dimen/item_add_note_icon_size"
         android:layout_alignTop="@id/detailed_note_icon"
         android:layout_toRightOf="@id/detailed_note_icon"
         android:layout_marginLeft="@dimen/item_add_note_icon_margin_left"
@@ -40,8 +41,8 @@
     <!-- This icon will attach photos, sound clips to the note -->
     <ImageView
         android:id="@+id/attach_note_icon"
-        android:layout_width="@dimen/icon_width"
-        android:layout_height="@dimen/icon_height"
+        android:layout_width="@dimen/item_add_note_icon_size"
+        android:layout_height="@dimen/item_add_note_icon_size"
         android:layout_alignTop="@id/detailed_note_icon"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/item_add_note_icon_margin_left"
@@ -50,8 +51,8 @@
     <!-- This icon will discard the currently initialised note -->
     <ImageView
         android:id="@+id/discard_note_icon"
-        android:layout_width="@dimen/icon_width"
-        android:layout_height="@dimen/icon_height"
+        android:layout_width="@dimen/item_add_note_add_discard_icon_size"
+        android:layout_height="@dimen/item_add_note_add_discard_icon_size"
         android:layout_alignBottom="@id/add_quick_note"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/item_add_note_icon_margin_left"
@@ -60,8 +61,8 @@
     <!-- This icon will save the currently initialised note -->
     <ImageView
         android:id="@+id/add_note_icon"
-        android:layout_width="@dimen/icon_width"
-        android:layout_height="@dimen/icon_height"
+        android:layout_width="@dimen/item_add_note_add_discard_icon_size"
+        android:layout_height="@dimen/item_add_note_add_discard_icon_size"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/item_add_note_icon_margin_left"
         android:src="@drawable/ic_action_accept_dark"/>
