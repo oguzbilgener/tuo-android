@@ -1,10 +1,8 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,28 +11,27 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.android.models.Task;
-import co.uberdev.ultimateorganizer.core.CoreCourse;
-import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
  * Created by dunkuCodder 02/05/2014
  * A simple {@link android.app.Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OverviewTaskFragment.OnFragmentInteractionListener} interface
+ * {@link OverviewCommonFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link OverviewTaskFragment#newInstance} factory method to
+ * Use the {@link OverviewCommonFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 
-public class OverviewTaskFragment extends Fragment
+public class OverviewCommonFragment extends BaseFragment
 {
     private OnFragmentInteractionListener mListener;
 
     private ListView overviewTaskListview;
     private ArrayList<Task> overviewTaskList;
     private OverviewTaskAdapter overviewTaskAdapter;
+
+    protected static int[] filter = new int[]{Task.STATE_ACTIVE, Task.STATE_ARCHIVED, Task.STATE_COMPLETED, Task.STATE_DELETED};
 
     /**
      * Use this factory method to create a new instance of
@@ -44,13 +41,17 @@ public class OverviewTaskFragment extends Fragment
      */
 
     // TODO: Rename and change types and number of parameters
-    public static OverviewTaskFragment newInstance()
+    public static OverviewCommonFragment newInstance()
     {
-        OverviewTaskFragment fragment = new OverviewTaskFragment();
+        OverviewCommonFragment fragment = new OverviewCommonFragment();
         return fragment;
     }
-    public OverviewTaskFragment() {
+    public OverviewCommonFragment() {
         // Required empty public constructor
+    }
+
+    public static int getViewId() {
+        return R.id.base_fragment_frame;
     }
 
     @Override
@@ -62,8 +63,28 @@ public class OverviewTaskFragment extends Fragment
         Task task = new Task();
         task.setTaskName("Uberbasgan!!!");
         task.setTaskDesc("lol");
-        task.setEndDate( 1234567);
+        task.setEndDate(1234567);
+        try{
+            task.setStatus( 2);
+        }
+        catch( Exception e){
+            e.printStackTrace();
+        }
+
         overviewTaskList.add(task);
+        Task task2 = new Task();
+        task2.setTaskName( "sex");
+        task2.setTaskDesc( "amsikgotmeme");
+        task2.setEndDate( 333);
+        try{
+            task2.setStatus(1);
+        }
+        catch( Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
 
         overviewTaskAdapter = new OverviewTaskAdapter(getActivity(), overviewTaskList);
     }
@@ -73,7 +94,7 @@ public class OverviewTaskFragment extends Fragment
     {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_tasks_home, container, false);
 
-        overviewTaskListview = (ListView) rootView.findViewById(R.id.overview_tasks_listview);
+        overviewTaskListview = (ListView) rootView.findViewById(R.id.overview_tasks_list_view);
 
         overviewTaskListview.setAdapter(overviewTaskAdapter);
 

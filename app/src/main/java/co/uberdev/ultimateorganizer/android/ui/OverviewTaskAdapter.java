@@ -46,6 +46,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         protected TextView taskDescription;
         // when the task is due to, such as "Tue, 15 May\n 10.30 - 12.30"
         protected TextView taskDate;
+        // task's status
     }
 
     @Override
@@ -53,17 +54,52 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     {
         View view = null;
 
-        int layoutId = R.layout.item_task_active;
+        int layoutId;
+
+        if(getItemViewType(position) == 1)
+        {
+            layoutId = R.layout.item_task_active;
+        }
+        else if(getItemViewType(position) == 2)
+        {
+            layoutId = R.layout.item_task_overdue;
+        }
+        else if( getItemViewType(position) == 3)
+        {
+            layoutId = R.layout.item_task_complete;
+        }
+        else
+        {
+            Utils.log.d( "hmm else");
+            layoutId = R.layout.item_task_complete;
+        }
 
         if( convertView == null)
         {
             view = inflater.inflate( layoutId, null);
             final ViewHolder viewHolder = new ViewHolder();
 
-            viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title_active);
-            viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_active);
-            viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
-            view.setTag(R.id.task_item_active_object,viewHolder);
+            if(getItemViewType(position) == 1)
+            {
+                viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title_active);
+                viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_active);
+                viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
+                view.setTag(R.id.overview_task_item_object,viewHolder);
+            }
+            else if(getItemViewType(position) == 2)
+            {
+                viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title_overdue);
+                viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_overdue);
+                viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
+                view.setTag(R.id.overview_task_item_object,viewHolder);
+            }
+            else if(getItemViewType(position) == 3)
+            {
+                viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title_complete);
+                viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_complete);
+                viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
+                view.setTag(R.id.overview_task_item_object,viewHolder);
+            }
 
             Utils.log.d( "hmm null");
         }
@@ -75,21 +111,17 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         }
 
         // ViewHolder receives tags for the next items
-        final ViewHolder viewHolder = (ViewHolder) view.getTag(R.id.task_item_active_object);
+        final ViewHolder viewHolder = (ViewHolder) view.getTag(R.id.overview_task_item_object);
 
         // item is set to the given index of the CoursesItem arraylist
         Task item = overviewTaskList.get(position);
 
-        view.setTag(R.id.task_item_active_id, item.getId());
-        view.setTag(R.id.task_item_active_index, position);
+        view.setTag(R.id.overview_task_item_id, item.getId());
+        view.setTag(R.id.overview_task_item_index, position);
 
         viewHolder.taskTitle.setText( item.getTaskName());
         viewHolder.taskDescription.setText( item.getTaskDesc());
         viewHolder.taskDate.setText(item.getEndDate() + "");
-        // DO NOT FORGET TO ADD STATUS ICON FOR THE USER
-//        viewHolder.taskOwnerStatusIcon
-//        viewHolder.taskAcceptIcon.setImageDrawable( getContext().getResources().getDrawable( R.drawable.ic_action_accept_dark));
-//        viewHolder.taskRejectIcon.setImageDrawable( getContext().getResources().getDrawable( R.drawable.ic_action_remove));
 
         return view;
     }
@@ -97,5 +129,41 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public int getItemViewType(int position)
+    {
+        // status deleted
+        if(getItem(position).getStatus() == 0)
+        {
+            return 0;
+        }
+        // status active
+        else if(getItem(position).getStatus() == 1)
+        {
+            return 1;
+        }
+        // status overdue
+        else if(getItem(position).getStatus() == 2)
+        {
+            return 2;
+        }
+        // status archived
+        else if(getItem(position).getStatus() == 3)
+        {
+            return 3;
+        }
+        else
+        {
+            Utils.log.d( "hmmmmmm 4 ?!");
+            return 4;
+        }
+    }
+
+    @Override
+    public int getViewTypeCount()
+    {
+        return 5;
     }
 }
