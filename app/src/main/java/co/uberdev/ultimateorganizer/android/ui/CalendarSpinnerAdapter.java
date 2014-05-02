@@ -71,8 +71,6 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
 
         text.setText(list.get(position));
 
-        // Might be wrong to set the date here. Couldn't think od another way, though.
-        // These are int values right now. Need to work on them.
         switch (position) {
             case 0:
                 dateText.setText(Utils.toMonthString(calendar.get(Calendar.MONTH)) + " " + calendar.get(Calendar.DAY_OF_MONTH));
@@ -99,8 +97,8 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
                 weekEnd.add(Calendar.DAY_OF_WEEK, -1);
 
 
-                dateText.setText(weekStart.get(Calendar.DAY_OF_MONTH)+" "+Utils.toMonthString(weekStart.get(Calendar.MONTH)) +
-                    " - "+ weekEnd.get(Calendar.DAY_OF_MONTH)+" "+Utils.toMonthString(weekEnd.get(Calendar.MONTH)));
+                dateText.setText(Utils.toMonthString(weekStart.get(Calendar.MONTH)) + " "+ weekStart.get(Calendar.DAY_OF_MONTH) +
+                    " - " + Utils.toMonthString(weekEnd.get(Calendar.MONTH)) + " " + weekEnd.get(Calendar.DAY_OF_MONTH));
                 break;
             case 2:
                 dateText.setText(Utils.toMonthString(calendar.get(Calendar.MONTH)));
