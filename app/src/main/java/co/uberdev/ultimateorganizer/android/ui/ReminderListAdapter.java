@@ -15,13 +15,13 @@ import co.uberdev.ultimateorganizer.android.R;
 /**
  * Created by oguzbilgener on 02/05/14.
  */
-public class BlockListAdapter extends ArrayAdapter
+public class ReminderListAdapter extends ArrayAdapter
 {
 	private Context context;
 	private List<?> items;
 	private LayoutInflater inflater;
 	private int resourceId;
-	public BlockListAdapter(Context context, int resource, List<?> objects)
+	public ReminderListAdapter(Context context, int resource, List<?> objects)
 	{
 		super(context, resource, objects);
 		this.context = context;
