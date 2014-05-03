@@ -12,7 +12,11 @@ import co.uberdev.ultimateorganizer.android.models.Task;
 public class OverviewOverdueTasksFragment extends OverviewCommonFragment
 {
 
-
+	public static OverviewOverdueTasksFragment newInstance()
+	{
+		OverviewOverdueTasksFragment fragment = new OverviewOverdueTasksFragment();
+		return fragment;
+	}
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -33,8 +37,8 @@ public class OverviewOverdueTasksFragment extends OverviewCommonFragment
 
         overviewTaskList.add(task);
         Task task2 = new Task();
-        task2.setTaskName( "sex");
-        task2.setTaskDesc( "amsikgotmeme");
+        task2.setTaskName( "qwe");
+        task2.setTaskDesc( "asd");
         task2.setEndDate( 333);
         try{
             task2.setStatus(1);

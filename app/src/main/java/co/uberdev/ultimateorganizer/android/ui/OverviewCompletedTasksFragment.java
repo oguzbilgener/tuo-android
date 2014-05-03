@@ -5,6 +5,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by mozart on 02/05/14.
@@ -13,12 +14,17 @@ public class OverviewCompletedTasksFragment extends OverviewCommonFragment
 {
 
 
+	public static OverviewCompletedTasksFragment newInstance()
+	{
+		OverviewCompletedTasksFragment fragment = new OverviewCompletedTasksFragment();
+		return fragment;
+	}
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
+		Utils.log.d("AAA");
         overviewTaskList = new ArrayList<Task>();
         Task task = new Task();
         task.setTaskName("completedtask");

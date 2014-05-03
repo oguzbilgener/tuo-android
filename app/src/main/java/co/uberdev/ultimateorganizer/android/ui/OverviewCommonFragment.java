@@ -61,7 +61,7 @@ public class OverviewCommonFragment extends BaseFragment
 
         overviewTaskList = new ArrayList<Task>();
         Task task = new Task();
-        task.setTaskName("Uberbasgan!!!");
+        task.setTaskName("xx");
         task.setTaskDesc("lol");
         task.setEndDate(1234567);
         try{
@@ -73,8 +73,8 @@ public class OverviewCommonFragment extends BaseFragment
 
         overviewTaskList.add(task);
         Task task2 = new Task();
-        task2.setTaskName( "sex");
-        task2.setTaskDesc( "amsikgotmeme");
+        task2.setTaskName( "123");
+        task2.setTaskDesc( "`zx");
         task2.setEndDate( 333);
         try{
             task2.setStatus(1);

@@ -116,7 +116,7 @@ public class HomeActivity extends FragmentActivity
 	public void onPause() {
 		Utils.log.i("onPause");
 		// Remember sub navigation positions!
-		mSubPageAdapter.permanantlyStoreSubPositions();
+		mSubPageAdapter.permanentlyStoreSubPositions();
 		super.onPause();
 	}
 
@@ -180,6 +180,8 @@ public class HomeActivity extends FragmentActivity
 			getActionBar().setSelectedNavigationItem(mSubPageAdapter.getCurrentSubPosition(0));
 			firstPageCreated = true;
 			pageJustChanged = false;
+			// needs to display 0:0
+			mSubPageAdapter.changeDisplayedFragment(getCurrentPageIndex(), position);
 		}
 		if(!nextPageCreated) {
 			nextPageCreated = true;
@@ -436,7 +438,7 @@ public class HomeActivity extends FragmentActivity
 		public static final String PREF_SUBNAV_CALENDAR = "sub_navigation_calendar_item_position";
 
 		private int[] positions = new int[]{0, 0, 0};
-		private final int[] subPositionCounts = new int[]{2,4,0};
+		private final int[] subPositionCounts = new int[]{4,4,0};
 
 
 		public SubPageAdapter() {
@@ -460,7 +462,13 @@ public class HomeActivity extends FragmentActivity
                     switch(subPosition) {
                         case 0:
                             return OverviewAllTasksFragment.newInstance();
-                        case 1:
+						case 1:
+							return OverviewUpcomingTasksFragment.newInstance();
+						case 2:
+							return OverviewOverdueTasksFragment.newInstance();
+                        case 3:
+							return OverviewCompletedTasksFragment.newInstance();
+
                         default:
 							// This should not be a base fragment
                             return OverviewBaseFragment.newInstance();
@@ -538,7 +546,7 @@ public class HomeActivity extends FragmentActivity
 			// IO concern. do not write every time a position is changed.
 		}
 
-		public void permanantlyStoreSubPositions() {
+		public void permanentlyStoreSubPositions() {
 			SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getHomeActivity()).edit();
 			editor.putInt(PREF_SUBNAV_OVERVIEW, positions[0]);
 			editor.putInt(PREF_SUBNAV_CALENDAR, positions[1]);
