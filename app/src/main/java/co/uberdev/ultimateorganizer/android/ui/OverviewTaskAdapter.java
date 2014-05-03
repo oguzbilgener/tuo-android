@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
+import co.uberdev.ultimateorganizer.core.CoreTask;
 
 /**
  * Created by dunkuCoder on 02/05/2014
@@ -28,6 +30,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     ArrayList<Task> overviewTaskList;
     LayoutInflater inflater;
     Context context;
+    View.OnClickListener checkboxListener;
 
     public OverviewTaskAdapter(Context context, ArrayList<Task> overviewTaskList)
     {
@@ -46,11 +49,12 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         protected TextView taskDescription;
         // when the task is due to, such as "Tue, 15 May\n 10.30 - 12.30"
         protected TextView taskDate;
-        // task's status
+        // checkbox of the task
+        protected CheckBox checkbox;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
         View view = null;
 
@@ -84,6 +88,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title_active);
                 viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_active);
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
+                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_active);
                 view.setTag(R.id.overview_task_item_object,viewHolder);
             }
             else if(getItemViewType(position) == 2)
@@ -91,6 +96,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title_overdue);
                 viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_overdue);
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
+                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_overdue);
                 view.setTag(R.id.overview_task_item_object,viewHolder);
             }
             else if(getItemViewType(position) == 3)
@@ -98,8 +104,11 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title_complete);
                 viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_complete);
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
+                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_complete);
                 view.setTag(R.id.overview_task_item_object,viewHolder);
             }
+
+            viewHolder.checkbox.setOnClickListener( checkboxListener);
 
             Utils.log.d( "hmm null");
         }
@@ -119,6 +128,45 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         view.setTag(R.id.overview_task_item_id, item.getId());
         view.setTag(R.id.overview_task_item_index, position);
 
+        checkboxListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getItemViewType(position) == 1)
+                {
+                    try {
+                        getItem(position).setStatus(3);
+                    }
+                    catch(CoreTask.BadStateException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    viewHolder.checkbox.setChecked(true);
+                }
+                else if(getItemViewType(position) == 2)
+                {
+                    try{
+                        getItem(position).setStatus(3);
+                    }
+                    catch(CoreTask.BadStateException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    viewHolder.checkbox.setChecked(true);
+                }
+                else if( getItemViewType(position) == 3)
+                {
+                    try{
+                        getItem(position).setStatus(1);
+                    }
+                    catch(CoreTask.BadStateException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    viewHolder.checkbox.setChecked(false);
+                }
+            }
+        };
+
         viewHolder.taskTitle.setText( item.getTaskName());
         viewHolder.taskDescription.setText( item.getTaskDesc());
         viewHolder.taskDate.setText(item.getEndDate() + "");
@@ -127,7 +175,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View view)
+    {
 
     }
 
