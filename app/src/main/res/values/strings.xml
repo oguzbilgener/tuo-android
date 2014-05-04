@@ -52,11 +52,13 @@
     <string name="date_overdue">13:40-17:40</string>
     <string name="date_complete">13:40-17:40</string>
     <string name="title_activity_add_task">New Task</string>
+	<string name="title_activity_edit_task">Edit Task</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_add">Add new</string>
 
     <!-- Add task screen -->
     <string name="action_add_task">Add Task</string>
+	<string name="action_edit_task">Edit Task</string>
     <string name="add_task_name_input_hint">Name</string>
     <string name="add_task_description_input_hint">Description</string>
     <string name="add_task_time_text_from">FROM</string>
