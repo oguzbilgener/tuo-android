@@ -2,13 +2,13 @@ package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.doomonafireball.betterpickers.radialtimepicker.RadialPickerLayout;
@@ -21,25 +21,23 @@ import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Reminder;
+import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.BareListView;
+import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AddTaskDetailFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AddTaskDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
+ *
  *
  */
 public class AddTaskDetailFragment extends Fragment
 		implements 	CalendarDatePickerDialog.OnDateSetListener,
-		View.OnClickListener, ReminderListAdapter.OnItemRemoveClickListener
+		View.OnClickListener, ReminderListAdapter.OnItemRemoveClickListener,
+		FragmentCommunicator
 {
 
 	public static final int MAX_REMINDER_COUNT = 5;
-
-    private OnFragmentInteractionListener mListener;
 
 	private BareListView remindersListView;
 
@@ -48,6 +46,9 @@ public class AddTaskDetailFragment extends Fragment
 	private ArrayList<Reminder> reminders;
 
 	private ViewGroup remindersAddButton;
+
+	private EditText taskNameView;
+	private EditText taskDescriptionView;
 
 	private Button fromDateButton;
 	private Button fromTimeButton;
@@ -59,6 +60,11 @@ public class AddTaskDetailFragment extends Fragment
 	private Date lastDate;
 	// this is the time difference between from and to fields, that should be preserved
 	private long timeDifference;
+
+	private ActivityCommunicator activityCommunicator;
+
+	public static final int MESSAGE_REQUEST_TASK = -99;
+	public static final int MESSAGE_RESPONSE_TASK = -98;
 
     /**
      * Use this factory method to create a new instance of
@@ -127,10 +133,13 @@ public class AddTaskDetailFragment extends Fragment
 		toDateButton.setOnClickListener(this);
 		toTimeButton.setOnClickListener(this);
 
+		taskNameView = (EditText) rootView.findViewById(R.id.add_task_name_input);
+		taskDescriptionView = (EditText) rootView.findViewById(R.id.add_task_description_input);
+
 		Reminder reminder = new Reminder();
 		reminder.setGap(5);
 		reminder.setVibrate(true);
-		reminder.setVibrate(true);
+		reminder.setSound(true);
 
 		reminders.add(reminder);
 
@@ -139,28 +148,16 @@ public class AddTaskDetailFragment extends Fragment
 		return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+		activityCommunicator = (ActivityCommunicator) activity;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+		activityCommunicator = null;
     }
 
 	@Override
@@ -318,6 +315,18 @@ public class AddTaskDetailFragment extends Fragment
 		}
 	}
 
+	@Override
+	public void onMessage(int msgType, Object obj)
+	{
+		switch(msgType)
+		{
+			case MESSAGE_REQUEST_TASK:
+				// Just build the task object and send it to the Activity to use it
+				activityCommunicator.onMessage(MESSAGE_RESPONSE_TASK, buildTask());
+			break;
+		}
+	}
+
 
 	public class FromTimeListener implements RadialTimePickerDialog.OnTimeSetListener
 	{
@@ -378,24 +387,35 @@ public class AddTaskDetailFragment extends Fragment
 		timeDifference = toDate.getTime() - fromDate.getTime();
 	}
 
-	/**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public static interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }
-
 	public AddTaskActivity getParent()
 	{
 		return (AddTaskActivity) getActivity();
+	}
+
+	public Task buildTask()
+	{
+		Task task = new Task();
+
+		task.setTaskName(taskNameView.getText().toString());
+		task.setTaskDesc(taskDescriptionView.getText().toString());
+
+		task.setBeginDate((int)fromDate.getTime());
+		task.setEndDate((int) toDate.getTime());
+
+		UltimateApplication app = (UltimateApplication)getActivity().getApplication();
+
+		for(int i=0;i<reminders.size();i++)
+		{
+			reminders.get(i).setTitle(task.getTaskName());
+			reminders.get(i).setTargetDate(task.getBeginDate() - reminders.get(i).getGap());
+
+			if(app.user != null)
+			{
+				reminders.get(i).setOwnerId(app.user.getId());
+			}
+		}
+
+		return task;
 	}
 
 }

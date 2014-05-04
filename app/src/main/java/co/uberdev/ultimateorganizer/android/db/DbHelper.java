@@ -39,8 +39,10 @@ public class DbHelper extends SQLiteOpenHelper
 				CoreDataRules.columns.tasks.lastModified+" INTEGER, " +
 				CoreDataRules.columns.tasks.beginDate+" INTEGER, " +
 				CoreDataRules.columns.tasks.endDate+" INTEGER, " +
-				CoreDataRules.columns.tasks.courseCodeCombined+" TEXT, "+
-				CoreDataRules.columns.tasks.taskOwnerNameCombined+" TEXT "+
+				CoreDataRules.columns.tasks.course+" TEXT, " +
+				CoreDataRules.columns.tasks.courseId+" INTEGER, " +
+				CoreDataRules.columns.tasks.courseCodeCombined+" TEXT, " +
+				CoreDataRules.columns.tasks.taskOwnerNameCombined+" TEXT " +
 				")");
 
 		// create tags table
@@ -49,6 +51,21 @@ public class DbHelper extends SQLiteOpenHelper
 				CoreDataRules.columns.tags.ownerId+" INTEGER, " +
 				CoreDataRules.columns.tags.tagTitle+" TEXT, " +
 				CoreDataRules.columns.tags.color+" INTEGER " +
+				")");
+
+		// create reminders table
+		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.reminders +" (" +
+				CoreDataRules.columns.reminders.id+" INTEGER PRIMARY KEY, " +
+				CoreDataRules.columns.reminders.targetDate+" INTEGER, "+
+				CoreDataRules.columns.reminders.ownerId+" INTEGER, "+
+				CoreDataRules.columns.reminders.localTaskId+" INTEGER, "+
+				CoreDataRules.columns.reminders.taskId+" INTEGER, "+
+				CoreDataRules.columns.reminders.title+" TEXT, "+
+				CoreDataRules.columns.reminders.details+" TEXT, " +
+				CoreDataRules.columns.reminders.gap+" INTEGER, " +
+				CoreDataRules.columns.reminders.light+" INTEGER, " +
+				CoreDataRules.columns.reminders.vibrate+" INTEGER," +
+				CoreDataRules.columns.reminders.sound+" INTEGER " +
 				")");
 	}
 

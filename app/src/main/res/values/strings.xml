@@ -157,4 +157,9 @@
 		<item>1 week</item>
 	</string-array>
 
+	<string name="msg_unknown_error">Sorry, an unknown error occurred.</string>
+	<string name="msg_cannot_add_task">Sorry, could not save task.</string>
+
+	<string name="msg_success_add_task">Task created.</string>
+
 </resources>

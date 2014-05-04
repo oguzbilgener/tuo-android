@@ -1,7 +1,6 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,7 @@ import android.view.MenuItem;
 
 import co.uberdev.ultimateorganizer.android.R;
 
-public class EditTaskActivity extends FragmentActivity implements AddTaskDetailFragment.OnFragmentInteractionListener
+public class EditTaskActivity extends FragmentActivity
 {
 	// TODO:
 	// Use this class in a different way so that it recieves an existing Task and updates it.
@@ -59,11 +58,6 @@ public class EditTaskActivity extends FragmentActivity implements AddTaskDetailF
         }
         return super.onOptionsItemSelected(item);
     }
-
-	@Override
-	public void onFragmentInteraction(Uri uri) {
-		// TODO: use this
-	}
 
 	public FragmentManager getSupportFragmentManager()
 	{

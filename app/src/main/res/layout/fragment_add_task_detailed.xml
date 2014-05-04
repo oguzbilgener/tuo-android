@@ -67,7 +67,7 @@
 			android:paddingLeft="@dimen/picker_text_padding_sides"
 			android:paddingRight="@dimen/picker_text_padding_sides"
 			android:textColor="@color/picker_text_color"
-			android:gravity="center"
+			android:gravity="center_vertical"
 			style="?android:attr/spinnerStyle"/>
 
 		<Button
@@ -79,7 +79,7 @@
 			android:paddingLeft="@dimen/picker_text_padding_sides"
 			android:paddingRight="@dimen/picker_text_padding_sides"
 			android:textColor="@color/picker_text_color"
-			android:gravity="center"
+			android:gravity="center_vertical"
 			style="?android:attr/spinnerStyle"/>
 
 	</LinearLayout>
@@ -112,7 +112,7 @@
 				android:paddingLeft="@dimen/picker_text_padding_sides"
 				android:paddingRight="@dimen/picker_text_padding_sides"
 				android:textColor="@color/picker_text_color"
-				android:gravity="center"
+				android:gravity="center_vertical"
 				style="?android:attr/spinnerStyle"/>
 
 		<Button
@@ -124,7 +124,7 @@
 				android:paddingLeft="@dimen/picker_text_padding_sides"
 				android:paddingRight="@dimen/picker_text_padding_sides"
 				android:textColor="@color/picker_text_color"
-				android:gravity="center"
+				android:gravity="center_vertical"
 				style="?android:attr/spinnerStyle"/>
 
 	</LinearLayout>
