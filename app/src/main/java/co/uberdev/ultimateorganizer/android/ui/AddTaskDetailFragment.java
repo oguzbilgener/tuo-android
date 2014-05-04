@@ -15,11 +15,13 @@ import com.doomonafireball.betterpickers.radialtimepicker.RadialPickerLayout;
 import com.doomonafireball.betterpickers.radialtimepicker.RadialTimePickerDialog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.util.Utils;
+import co.uberdev.ultimateorganizer.android.models.Reminder;
+import co.uberdev.ultimateorganizer.android.util.BareListView;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
@@ -32,10 +34,20 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
  */
 public class AddTaskDetailFragment extends Fragment
 		implements 	CalendarDatePickerDialog.OnDateSetListener,
-		View.OnClickListener
+		View.OnClickListener, ReminderListAdapter.OnItemRemoveClickListener
 {
 
+	public static final int MAX_REMINDER_COUNT = 5;
+
     private OnFragmentInteractionListener mListener;
+
+	private BareListView remindersListView;
+
+	private ReminderListAdapter remindersAdapter;
+
+	private ArrayList<Reminder> reminders;
+
+	private ViewGroup remindersAddButton;
 
 	private Button fromDateButton;
 	private Button fromTimeButton;
@@ -78,12 +90,25 @@ public class AddTaskDetailFragment extends Fragment
 		toDate = new Date(fromDate.getTime() + timeDifference);
 
 		lastDate = new Date();
+
+		reminders = new ArrayList<Reminder>();
+
+		remindersAdapter = new ReminderListAdapter(getActivity(), R.layout.item_add_task_reminder, reminders);
+		remindersAdapter.setItemRemoveClickListener(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_add_task_detailed, container, false);
+
+		remindersListView = (BareListView) rootView.findViewById(R.id.reminders_list_view);
+
+		remindersListView.setAdapter(remindersAdapter);
+
+		remindersAddButton = (ViewGroup) inflater.inflate(R.layout.button_add_reminder, container, false);
+		remindersListView.setFooter(remindersAddButton);
+		remindersAddButton.setOnClickListener(this);
 
 		fromDateButton = (Button) rootView.findViewById(R.id.add_task_button_from_date);
 		fromTimeButton = (Button) rootView.findViewById(R.id.add_task_button_from_time);
@@ -101,6 +126,15 @@ public class AddTaskDetailFragment extends Fragment
 		fromTimeButton.setOnClickListener(this);
 		toDateButton.setOnClickListener(this);
 		toTimeButton.setOnClickListener(this);
+
+		Reminder reminder = new Reminder();
+		reminder.setGap(5);
+		reminder.setVibrate(true);
+		reminder.setVibrate(true);
+
+		reminders.add(reminder);
+
+		remindersAdapter.notifyDataSetChanged();
 
 		return rootView;
     }
@@ -209,6 +243,15 @@ public class AddTaskDetailFragment extends Fragment
 
 			timePickerDialog.show(getParent().getSupportFragmentManager(), getString(R.string.TIME_PICKER_FROM));
 		}
+		else if(id == R.id.button_add_reminder)
+		{
+			reminders.add(new Reminder());
+			remindersAdapter.notifyDataSetChanged();
+			if(reminders.size() >= MAX_REMINDER_COUNT)
+			{
+				remindersAddButton.setVisibility(View.GONE);
+			}
+		}
 
 	}
 
@@ -237,7 +280,6 @@ public class AddTaskDetailFragment extends Fragment
 			fromDate = fromCalendar.getTime();
 
 			// keep the interval between from and to
-			Utils.log.d("SETBACK 1");
 			toDate = new Date(fromDate.getTime() + timeDifference);
 		}
 		else if(tag.equals(getString(R.string.DATE_PICKER_TO)))
@@ -249,7 +291,6 @@ public class AddTaskDetailFragment extends Fragment
 
 			if(fromDate.getTime() >= toDate.getTime())
 			{
-				Utils.log.d("SETBACK 2");
 				fromDate = new Date(toDate.getTime() - timeDifference);
 			}
 		}
@@ -262,6 +303,19 @@ public class AddTaskDetailFragment extends Fragment
 
 		// update time difference
 		updateTimeDifference();
+	}
+
+	@Override
+	public void onItemRemoveClick(View view, int position)
+	{
+		// user removed a reminder.
+		reminders.remove(position);
+		remindersAdapter.notifyDataSetChanged();
+		// make the add button visible again
+		if(reminders.size() < MAX_REMINDER_COUNT)
+		{
+			remindersAddButton.setVisibility(View.VISIBLE);
+		}
 	}
 
 

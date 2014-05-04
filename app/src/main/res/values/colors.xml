@@ -72,4 +72,6 @@
 
 	<color name="picker_text_color">#ff636363</color>
 
+	<color name="item_add_task_reminder_border_bottom">#ffc3c3c3</color>
+
 </resources>

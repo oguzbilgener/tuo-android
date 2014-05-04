@@ -28,4 +28,5 @@ public class Reminders extends CoreReminders implements CoreSelectable
 	public boolean loadFromDb() {
 		return false;
 	}
+
 }
