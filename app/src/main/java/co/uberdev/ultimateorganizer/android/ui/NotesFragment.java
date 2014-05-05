@@ -30,7 +30,6 @@ public class NotesFragment extends Fragment
     protected ArrayList<Note> noteList;
     protected NotesAdapter noteAdapter;
 
-    protected OnFragmentInteractionListener mListener;
 
 	public NotesFragment()
 	{
@@ -57,7 +56,7 @@ public class NotesFragment extends Fragment
         Note note = new Note();
         note.setNoteTitle("Calculus Time!");
         note.setNoteDescription("stop whatever you're doing and study calculus");
-        note.setDateCreated( 123123321);
+        note.setDateCreated(123123321);
         note.setLastModified( 123123321);
         try{
             note.setStatus( 0);
@@ -114,20 +113,15 @@ public class NotesFragment extends Fragment
     public void onAttach(Activity activity)
     {
         super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+
     }
 
     @Override
     public void onDetach()
     {
         super.onDetach();
-        mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -139,11 +133,7 @@ public class NotesFragment extends Fragment
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener
-    {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }
+
 
     public HomeActivity getHomeActivity()
     {
