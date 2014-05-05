@@ -232,7 +232,7 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			// show time picker for to
 			Calendar toCalendar = Calendar.getInstance();
-			toCalendar.setTime(fromDate);
+			toCalendar.setTime(toDate);
 
 			RadialTimePickerDialog timePickerDialog = RadialTimePickerDialog
 					.newInstance(new ToTimeListener(), toCalendar.get(Calendar.HOUR_OF_DAY), toCalendar.get(Calendar.MINUTE),
@@ -273,6 +273,7 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			// literally change the time
 			Calendar fromCalendar = Calendar.getInstance();
+			fromCalendar.setTime(fromDate);
 			fromCalendar.set(year, monthOfYear, dayOfMonth);
 			fromDate = fromCalendar.getTime();
 
@@ -283,6 +284,7 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			// literally change the time
 			Calendar toCalendar = Calendar.getInstance();
+			toCalendar.setTime(toDate);
 			toCalendar.set(year, monthOfYear, dayOfMonth);
 			toDate = toCalendar.getTime();
 
@@ -336,6 +338,7 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			// literally change the time
 			Calendar fromCalendar = Calendar.getInstance();
+			fromCalendar.setTime(fromDate);
 			fromCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			fromCalendar.set(Calendar.MINUTE, minute);
 			fromDate = fromCalendar.getTime();
@@ -362,6 +365,7 @@ public class AddTaskDetailFragment extends Fragment
 		public void onTimeSet(RadialPickerLayout radialPickerLayout,  int hourOfDay, int minute)
 		{
 			Calendar toCalendar = Calendar.getInstance();
+			toCalendar.setTime(toDate);
 			toCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			toCalendar.set(Calendar.MINUTE, minute);
 			toDate = toCalendar.getTime();
