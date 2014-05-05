@@ -12,7 +12,7 @@ import co.uberdev.ultimateorganizer.core.CoreStorable;
  */
 public class Reminder extends CoreReminder implements CoreStorable
 {
-	private SQLiteDatabase db;
+	private transient SQLiteDatabase db;
 
 	public Reminder(SQLiteDatabase db)
 	{

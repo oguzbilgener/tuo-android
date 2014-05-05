@@ -3,6 +3,7 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +24,13 @@ import co.uberdev.ultimateorganizer.android.models.Task;
  * create an instance of this fragment.
  */
 
-public class OverviewCommonFragment extends BaseFragment
+public class OverviewCommonFragment extends Fragment
 {
     protected OnFragmentInteractionListener mListener;
 
     protected ListView overviewTaskListview;
     protected ArrayList<Task> overviewTaskList;
     protected OverviewTaskAdapter overviewTaskAdapter;
-
-    protected static int[] filter = new int[]{Task.STATE_ACTIVE, Task.STATE_ARCHIVED, Task.STATE_COMPLETED, Task.STATE_DELETED};
 
     /**
      * Use this factory method to create a new instance of
@@ -144,4 +143,8 @@ public class OverviewCommonFragment extends BaseFragment
         public void onFragmentInteraction(Uri uri);
     }
 
+	public HomeActivity getHomeActivity()
+	{
+		return (HomeActivity) getActivity();
+	}
 }

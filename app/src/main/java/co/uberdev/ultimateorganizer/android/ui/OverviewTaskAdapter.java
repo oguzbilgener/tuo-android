@@ -1,24 +1,18 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.Utils;
-import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreTask;
 
 /**
@@ -56,6 +50,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     @Override
     public View getView(final int position, View convertView, ViewGroup parent)
     {
+		Utils.log.w(overviewTaskList.get(position).asJsonString());
         View view = null;
 
         int layoutId;
@@ -108,9 +103,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 view.setTag(R.id.overview_task_item_object,viewHolder);
             }
 
-            viewHolder.checkbox.setOnClickListener( checkboxListener);
-
-            Utils.log.d( "hmm null");
+			if(viewHolder.checkbox != null)
+            	viewHolder.checkbox.setOnClickListener( checkboxListener);
         }
         else
         {

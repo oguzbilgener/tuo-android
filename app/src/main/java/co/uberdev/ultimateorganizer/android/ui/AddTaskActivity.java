@@ -16,6 +16,7 @@ import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 
 public class AddTaskActivity extends FragmentActivity implements ActivityCommunicator
 {
+	private LocalStorage localStorage;
 	private FragmentCommunicator fragmentCommunicator;
 
 	public static final int MESSAGE_SWITCH_TO_DETAILS = -98;
@@ -27,6 +28,8 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
         super.onCreate(savedInstanceState);
 
 		getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.title_section_overview)));
+
+		localStorage = new LocalStorage(this);
 
 		AddTaskDetailFragment fragment = AddTaskDetailFragment.newInstance();
 		fragmentCommunicator = fragment;
@@ -40,6 +43,19 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 
     }
 
+	@Override
+	public void onDestroy()
+	{
+		try
+		{
+			localStorage.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		super.onDestroy();
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,7 +105,7 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 				try
 				{
 					Task enteredTask = (Task) obj;
-					enteredTask.setDb(new LocalStorage(this).getDb());
+					enteredTask.setDb(localStorage.getDb());
 
 					// do all the neccesary insertions.
 
@@ -119,5 +135,10 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 				}
 			break;
 		}
+	}
+
+	public LocalStorage getLocalStorage()
+	{
+		return localStorage;
 	}
 }

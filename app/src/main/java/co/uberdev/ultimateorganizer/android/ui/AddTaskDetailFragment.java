@@ -413,8 +413,9 @@ public class AddTaskDetailFragment extends Fragment
 			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
 
 			for (int i = 0; i < reminders.size(); i++) {
+				Utils.log.d(reminders.get(i).asJsonString());
 				reminders.get(i).setTitle(task.getTaskName());
-				reminders.get(i).setTargetDate((task.getBeginDate())/1000 - reminders.get(i).getGap());
+				reminders.get(i).setTargetDate((task.getBeginDate()/1000) - reminders.get(i).getGap());
 
 				if (app.user != null) {
 					reminders.get(i).setOwnerId(app.user.getId());
