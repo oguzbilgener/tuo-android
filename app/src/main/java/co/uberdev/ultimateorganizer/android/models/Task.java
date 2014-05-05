@@ -3,8 +3,12 @@ package co.uberdev.ultimateorganizer.android.models;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
+import java.util.ArrayList;
+
+import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 import co.uberdev.ultimateorganizer.core.CoreStorable;
+import co.uberdev.ultimateorganizer.core.CoreTags;
 import co.uberdev.ultimateorganizer.core.CoreTask;
 
 /**
@@ -12,18 +16,32 @@ import co.uberdev.ultimateorganizer.core.CoreTask;
  */
 public class Task extends CoreTask implements CoreStorable
 {
-	private SQLiteDatabase db;
+	private transient SQLiteDatabase db;
 	public Task(SQLiteDatabase db)
 	{
 		super();
 		this.db = db;
+		this.course = new CoreCourse();
+		this.tags = new CoreTags();
+		this.relatedNotes = new ArrayList<Long>();
+		this.relatedTasks = new ArrayList<Long>();
+		this.courseCodeCombined = this.course.getCourseCodeCombined();
+		this.courseId = this.course.getId();
+		this.taskOwnerNameCombined = "";
 	}
 
     public Task()
     {
-        this( null);
+        this(null);
     }
 
+	public SQLiteDatabase getDb() {
+		return db;
+	}
+
+	public void setDb(SQLiteDatabase db) {
+		this.db = db;
+	}
 
 	/**
 	 * loads the asd
@@ -67,7 +85,7 @@ public class Task extends CoreTask implements CoreStorable
 					CoreDataRules.columns.tasks.relatedNotes+", "+
 					CoreDataRules.columns.tasks.relatedTasks+", "+
 					CoreDataRules.columns.tasks.taskOwnerNameCombined+" "+
-					") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			int n = 1;
 			SQLiteStatement ss = db.compileStatement(insertSql);

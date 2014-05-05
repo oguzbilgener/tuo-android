@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 
@@ -47,6 +48,8 @@ public class HomeActivity extends FragmentActivity
 	private boolean firstPageCreated;
 	private boolean nextPageCreated;
 	private boolean pageJustChanged;
+
+	private LocalStorage db;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -96,6 +99,8 @@ public class HomeActivity extends FragmentActivity
 		firstPageCreated = false;
 		nextPageCreated = false;
 		pageJustChanged = false;
+
+		db = new LocalStorage(this);
     }
 
 	@Override
@@ -124,6 +129,7 @@ public class HomeActivity extends FragmentActivity
 	public void onDestroy() {
 		// Unregister in-app events
 //		EventBus.getDefault().unregister(this);
+		db.close();
 		super.onDestroy();
 	}
 

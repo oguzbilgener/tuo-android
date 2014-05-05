@@ -9,10 +9,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
-import co.uberdev.ultimateorganizer.android.util.Utils;
 
 public class AddTaskActivity extends FragmentActivity implements ActivityCommunicator
 {
@@ -63,7 +63,7 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 
         if (id == R.id.action_add_task) {
 			// literally add the task, show a toast and return back to HomeActivity
-			finish();
+			fragmentCommunicator.onMessage(AddTaskDetailFragment.MESSAGE_REQUEST_TASK, null);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -85,11 +85,11 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 		switch(msgType)
 		{
 			// fragment
-			case AddTaskDetailFragment.MESSAGE_REQUEST_TASK:
+			case AddTaskDetailFragment.MESSAGE_RESPONSE_TASK:
 				try
 				{
 					Task enteredTask = (Task) obj;
-					Utils.log.d(enteredTask.toString());
+					enteredTask.setDb(new LocalStorage(this).getDb());
 
 					// do all the neccesary insertions.
 
@@ -114,6 +114,7 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 				}
 				catch(Exception e)
 				{
+					Toast.makeText(this, getString(R.string.msg_cannot_add_task), Toast.LENGTH_SHORT).show();
 					e.printStackTrace();
 				}
 			break;

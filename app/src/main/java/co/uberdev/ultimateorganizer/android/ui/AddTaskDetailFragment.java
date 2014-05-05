@@ -26,6 +26,7 @@ import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.BareListView;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  *
@@ -403,20 +404,27 @@ public class AddTaskDetailFragment extends Fragment
 		task.setTaskName(taskNameView.getText().toString());
 		task.setTaskDesc(taskDescriptionView.getText().toString());
 
-		task.setBeginDate((int)fromDate.getTime());
-		task.setEndDate((int) toDate.getTime());
+		task.setBeginDate((int)(fromDate.getTime()/1000));
+		task.setEndDate((int) (toDate.getTime()/1000));
 
-		UltimateApplication app = (UltimateApplication)getActivity().getApplication();
 
-		for(int i=0;i<reminders.size();i++)
+		try
 		{
-			reminders.get(i).setTitle(task.getTaskName());
-			reminders.get(i).setTargetDate(task.getBeginDate() - reminders.get(i).getGap());
+			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
 
-			if(app.user != null)
-			{
-				reminders.get(i).setOwnerId(app.user.getId());
+			for (int i = 0; i < reminders.size(); i++) {
+				reminders.get(i).setTitle(task.getTaskName());
+				reminders.get(i).setTargetDate((task.getBeginDate())/1000 - reminders.get(i).getGap());
+
+				if (app.user != null) {
+					reminders.get(i).setOwnerId(app.user.getId());
+				}
 			}
+		}
+		catch(Exception e)
+		{
+			Utils.log.w(e.toString());
+			e.printStackTrace();
 		}
 
 		return task;

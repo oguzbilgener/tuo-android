@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
 /**
@@ -23,6 +24,7 @@ public class DbHelper extends SQLiteOpenHelper
 	@Override
 	public void onCreate(SQLiteDatabase db)
 	{
+		Utils.log.e("CREATE DB");
 		// create tasks table
 		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.tasks+" (" +
 				CoreDataRules.columns.tasks.id+" INTEGER PRIMARY KEY, " +
