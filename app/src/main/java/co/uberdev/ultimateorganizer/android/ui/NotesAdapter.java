@@ -66,7 +66,7 @@ public class NotesAdapter extends ArrayAdapter<Note> {
             id = R.layout.item_note_photo;
         else if(getItemViewType(position) == getItem(position).NOTE_AUDIO)
             id = R.layout.item_note_voice;
-        else (getItemViewType(position) == getItem(position).NOTE_TODO)
+        else
             id = R.layout.item_note_todo;
 
         if (convertView == null) {
@@ -75,9 +75,53 @@ public class NotesAdapter extends ArrayAdapter<Note> {
 
             if (getItemViewType(position) == getItem(position).NOTE_PLAIN) {
                 viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_plain_title);
-            }
+                viewHolder.date = (TextView) view.findViewById(R.id.note_plain_date);
+                viewHolder.tag1 = (TextView) view.findViewById(R.id.plain_tag_1);
+                viewHolder.tag2 = (TextView) view.findViewById(R.id.plain_tag_2);
+                viewHolder.noteDescription = (TextView) view.findViewById(R.id.note_plain_description);
+                view.setTag(R.id.note_item_object,viewHolder);
 
+            }
+            else if (getItemViewType(position) == getItem(position).NOTE_PHOTO) {
+                viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_photo_title);
+                viewHolder.date = (TextView) view.findViewById(R.id.note_photo_date);
+                viewHolder.tag1 = (TextView) view.findViewById(R.id.note_photo_tag_1);
+                viewHolder.tag2 = (TextView) view.findViewById(R.id.note_photo_tag_2);
+                viewHolder.photo = (ImageView) view.findViewById(R.id.note_photo_photo);
+                view.setTag(R.id.note_item_object,viewHolder);
+            }
+            else if(getItemViewType(position) == getItem(position).NOTE_AUDIO) {
+                viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_voice_title);
+                viewHolder.date = (TextView) view.findViewById(R.id.note_voice_date);
+                viewHolder.tag1 = (TextView) view.findViewById(R.id.voice_tag_1);
+                viewHolder.tag2 = (TextView) view.findViewById(R.id.voice_tag_2);
+
+                // TODO: The audio...
+                view.setTag(R.id.note_item_object,viewHolder);
+            }
+            else if (getItemViewType(position) == getItem(position).NOTE_TODO){
+                viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_todo_title);
+                viewHolder.date = (TextView) view.findViewById(R.id.note_todo_date);
+                viewHolder.checkBox1 = (CheckBox) view.findViewById(R.id.todo_checkbox_1);
+                viewHolder.checkBox2 = (CheckBox) view.findViewById(R.id.todo_checkbox_2);
+                viewHolder.checkBox3 = (CheckBox) view.findViewById(R.id.todo_checkbox_3);
+                view.setTag(R.id.note_item_object,viewHolder);
+            }
         }
+        else
+            view = convertView;
+
+        final ViewHolder viewHolder = (ViewHolder) view.getTag(R.id.note_item_object);
+
+        Note noteItem = noteList.get(position);
+
+        view.setTag(R.id.note_item_id, noteItem.getId());
+        view.setTag(R.id.note_item_index, position);
+
+        viewHolder.noteTitle.setText(noteItem.getNoteTitle());
+        viewHolder.date.setText(noteItem.getLastModified());
+
+        return view;
     }
 
     @Override
