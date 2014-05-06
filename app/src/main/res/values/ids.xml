@@ -6,5 +6,27 @@
     <item type="id" name="courseitem_object" />
     <item type="id" name="courseitem_index" />
     <item type="id" name="courseitem_id" />
+    <!-- id for task item to be received by PublicFeedAdapter.java -->
+    <item type="id" name="taskitem_object" />
+    <item type="id" name="taskitem_index" />
+    <item type="id" name="taskitem_id" />
+    <!-- id for task item to be received by OverviewTaskAdapter.java -->
+    <item type="id" name="overview_task_item_object" />
+    <item type="id" name="overview_task_item_index" />
+    <item type="id" name="overview_task_item_id" />
 
+    <!-- id for note item to be received by NotesAdapter.java -->
+    <item type="id" name="note_item_object" />
+    <item type="id" name="note_item_index" />
+    <item type="id" name="note_item_id" />
+
+	<!-- id for tag of reminder item remove button -->
+	<item type="id" name="add_task_reminder_remove_index" />
+	<item type="id" name="add_task_reminder_spinner_index" />
+	<item type="id" name="add_task_reminder_spinner_type" />
+
+	<item type="id" name="reminder_date_spinner_holder" />
+	<item type="id" name="reminder_type_spinner_holder" />
+
+	<item type="id" name="reminder_label_tag" />
 </resources>

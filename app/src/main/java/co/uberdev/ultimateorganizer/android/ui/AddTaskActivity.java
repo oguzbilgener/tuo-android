@@ -1,37 +1,71 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
-import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
+import android.widget.Toast;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.util.DatePickerFragment;
+import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
+import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 
-public class AddTaskActivity extends Activity implements DatePickerFragment.DatePickerFragmentCallbacks, AddTaskDetailFragment.OnFragmentInteractionListener
+public class AddTaskActivity extends FragmentActivity implements ActivityCommunicator
 {
-	private DatePickerFragment.DatePickerFragmentCallbacks mOnDatePickResultListener;
+	private LocalStorage localStorage;
+	private FragmentCommunicator fragmentCommunicator;
+
+	public static final int MESSAGE_SWITCH_TO_DETAILS = -98;
+	public static final int MESSAGE_TASK_RETRIEVE = -99;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+	{
         super.onCreate(savedInstanceState);
 
 		getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.title_section_overview)));
 
-		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
-		mOnDatePickResultListener = (DatePickerFragment.DatePickerFragmentCallbacks) fragment;
+		localStorage = new LocalStorage(this);
 
-        setContentView(R.layout.fragment_add_task_simple);
+		AddTaskDetailFragment fragment = AddTaskDetailFragment.newInstance();
+		fragmentCommunicator = fragment;
+
+        setContentView(R.layout.activity_add_task);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.add_task_container, fragment)
                     .commit();
         }
+
     }
 
+	@Override
+	public void onDestroy()
+	{
+		try
+		{
+			localStorage.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		super.onDestroy();
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		if(localStorage != null)
+		{
+			localStorage.reopen();
+		}
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,21 +88,67 @@ public class AddTaskActivity extends Activity implements DatePickerFragment.Date
 		}
 
         if (id == R.id.action_add_task) {
-			// literally add the task, show a popup and return back to HomeActivity
-			finish();
+			// literally add the task, show a toast and return back to HomeActivity
+			fragmentCommunicator.onMessage(AddTaskDetailFragment.MESSAGE_REQUEST_TASK, null);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-	@Override
-	public void onDateSet(DatePicker view, int year, int month, int day)
+	public FragmentManager getSupportFragmentManager()
 	{
-		mOnDatePickResultListener.onDateSet(view, year, month, day);
+		return super.getSupportFragmentManager();
+	}
+
+	public android.app.FragmentManager getFragmentManager()
+	{
+		return super.getFragmentManager();
 	}
 
 	@Override
-	public void onFragmentInteraction(Uri uri) {
-		// TODO: use this
+	public void onMessage(int msgType, Object obj)
+	{
+		switch(msgType)
+		{
+			// fragment
+			case AddTaskDetailFragment.MESSAGE_RESPONSE_TASK:
+				try
+				{
+					Task enteredTask = (Task) obj;
+					enteredTask.setDb(localStorage.getDb());
+
+					// do all the neccesary insertions.
+
+					// TODO: insert related tasks, tags etc
+
+					// insert the main task
+					if(enteredTask.insert())
+					{
+						// TODO: sync!
+
+						// show a little success
+						Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
+
+						// Add new task activity can just go back, but this might be different for edit task activity.
+						finish();
+					}
+					else
+					{
+						// db error! do not let the user go
+						Toast.makeText(this, getString(R.string.msg_cannot_add_task), Toast.LENGTH_SHORT).show();
+					}
+				}
+				catch(Exception e)
+				{
+					Toast.makeText(this, getString(R.string.msg_cannot_add_task), Toast.LENGTH_SHORT).show();
+					e.printStackTrace();
+				}
+			break;
+		}
+	}
+
+	public LocalStorage getLocalStorage()
+	{
+		return localStorage;
 	}
 }

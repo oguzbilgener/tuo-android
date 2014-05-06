@@ -29,11 +29,12 @@
 
     <color name="task_item_background">#eeeeee</color>
     <color name="task_item_title_overdue">#ff040404</color>
-    <color name="task_item_title_complete">#ff606060</color>
+    <color name="task_item_title_complete">#ff9a9a9a</color>
     <color name="task_item_title_active">@color/task_item_tag_color1</color>
     <color name="task_item_tag_color1">#ffff1824</color>
     <color name="task_item_tag_color2">#ff0e07ff</color>
     <color name="task_item_tag_title_color1">#fff3ffea</color>
+	<color name="task_item_date_active">#676767</color>
 
     <!-- schedule fragment item colors -->
 
@@ -69,5 +70,9 @@
 
     <color name="item_public_feed_course_name_color">#f0c623</color>
     <color name="item_public_feed_task_description_color">#a0a0a0</color>
+
+	<color name="picker_text_color">#ff636363</color>
+
+	<color name="item_add_task_reminder_border_bottom">#ffe8e8e8</color>
 
 </resources>

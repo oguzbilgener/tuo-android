@@ -56,7 +56,6 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
 
     public View getItemView(int position,  ViewGroup parent, boolean isOpen)
     {
-        Utils.log.d("ASDASDASD get"+position+" "+list.size());
         if(position >= list.size())
             return null;
 
@@ -72,34 +71,37 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
 
         text.setText(list.get(position));
 
-        // Might be wrong to set the date here. Couldn't think od another way, though.
-        // These are int values right now. Need to work on them.
         switch (position) {
             case 0:
-                dateText.setText(toMonthString(calendar.get(Calendar.MONTH)) + " " + calendar.get(Calendar.DAY_OF_MONTH));
+                dateText.setText(Utils.toMonthString(calendar.get(Calendar.MONTH)) + " " + calendar.get(Calendar.DAY_OF_MONTH));
                 break;
             case 1:
-                // :(((((88(((
-//                dateText.setText(calendar.get(Calendar.WEEK_OF_MONTH));
+                // :))))9)))
                 Calendar weekStart = Calendar.getInstance();
                 Calendar weekEnd = Calendar.getInstance();
 
+                weekStart.setFirstDayOfWeek(Calendar.MONDAY);
                 weekStart.set(Calendar.HOUR_OF_DAY, 0);
                 weekStart.clear(Calendar.MILLISECOND);
                 weekStart.clear(Calendar.MINUTE);
                 weekStart.clear(Calendar.SECOND);
+                weekStart.set(Calendar.DAY_OF_WEEK, weekStart.getFirstDayOfWeek());
 
+                weekEnd.setFirstDayOfWeek(Calendar.MONDAY);
                 weekEnd.set(Calendar.HOUR_OF_DAY, 0);
                 weekEnd.clear(Calendar.MILLISECOND);
                 weekEnd.clear(Calendar.MINUTE);
                 weekEnd.clear(Calendar.SECOND);
-                weekEnd.add(Calendar.DAY_OF_WEEK, 1);
+                weekEnd.set(Calendar.DAY_OF_WEEK, weekEnd.getFirstDayOfWeek());
+                weekEnd.add(Calendar.WEEK_OF_YEAR, 1);
+                weekEnd.add(Calendar.DAY_OF_WEEK, -1);
 
-                dateText.setText(weekStart.get(Calendar.DAY_OF_MONTH)+" "+toMonthString(weekStart.get(Calendar.MONDAY)) +
-                    " - "+ weekEnd.get(Calendar.DAY_OF_MONTH)+" "+toMonthString(weekEnd.get(Calendar.MONDAY)));
+
+                dateText.setText(Utils.toMonthString(weekStart.get(Calendar.MONTH)) + " "+ weekStart.get(Calendar.DAY_OF_MONTH) +
+                    " - " + Utils.toMonthString(weekEnd.get(Calendar.MONTH)) + " " + weekEnd.get(Calendar.DAY_OF_MONTH));
                 break;
             case 2:
-                dateText.setText(toMonthString(calendar.get(Calendar.MONTH)));
+                dateText.setText(Utils.toMonthString(calendar.get(Calendar.MONTH)));
                 break;
             case 3:
                 try {
@@ -127,14 +129,7 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
         return view;
     }
 
-    public static String toMonthString(int i) {
-        String[] months = {"January", "February", "March", "April", "May", "June", "July",
-                "August", "September", "October", "November", "December"};
-
-        return months[i];
-    }
-
-    @Override
+	@Override
     public int getItemViewType(int position)
     {
         return 0;

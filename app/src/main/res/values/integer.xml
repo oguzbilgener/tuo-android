@@ -1,4 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="overview_spinner_holder">99963312</integer>
+
+	<!-- never change -->
+	<integer name="reminder_type_silent">0</integer>
+	<integer name="reminder_type_vibration">1</integer>
+	<integer name="reminder_type_ring">2</integer>
+
+	<integer-array name="reminder_types_values">
+		<item>@integer/reminder_type_silent</item>
+		<item>@integer/reminder_type_vibration</item>
+		<item>@integer/reminder_type_ring</item>
+	</integer-array>
+
+	<integer-array name="reminder_before_event_values">
+		<item>0</item>
+		<item>1</item>
+		<item>5</item>
+		<item>10</item>
+		<item>15</item>
+		<item>20</item>
+		<item>30</item>
+		<item>45</item>
+		<item>60</item>
+		<item>120</item>
+		<item>180</item>
+		<item>360</item>
+		<item>720</item>
+		<item>1440</item>
+		<item>2880</item>
+		<item>10080</item>
+	</integer-array>
+
+	<integer name="reminder_type_date">0</integer>
+	<integer name="reminder_type_type">1</integer>
 </resources>

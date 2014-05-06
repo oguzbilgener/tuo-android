@@ -1,64 +1,83 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.app.Fragment;
-import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
+import com.doomonafireball.betterpickers.radialtimepicker.RadialPickerLayout;
+import com.doomonafireball.betterpickers.radialtimepicker.RadialTimePickerDialog;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.util.DatePickerFragment;
-import co.uberdev.ultimateorganizer.android.util.DatePickerSpinnerAdapter;
-import co.uberdev.ultimateorganizer.android.util.SpinnerStateAdapter;
+import co.uberdev.ultimateorganizer.android.models.Reminder;
+import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
+import co.uberdev.ultimateorganizer.android.util.BareListView;
+import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AddTaskDetailFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AddTaskDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
+ *
  *
  */
-public class AddTaskDetailFragment extends Fragment  implements DatePickerFragment.DatePickerFragmentCallbacks, View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class AddTaskDetailFragment extends Fragment
+		implements 	CalendarDatePickerDialog.OnDateSetListener,
+		View.OnClickListener, ReminderListAdapter.OnItemRemoveClickListener,
+		FragmentCommunicator
+{
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+	public static final int MAX_REMINDER_COUNT = 5;
 
-	private DatePickerSpinnerAdapter fromDateSpinnerAdapter;
-	private DatePickerSpinnerAdapter toDateSpinnerAdapter;
+	private BareListView remindersListView;
 
-	private DateSpinnerStateAdapter fromDateStateSpinnerAdapter;
-	private DateSpinnerStateAdapter toDateStateSpinnerAdapter;
+	private ReminderListAdapter remindersAdapter;
 
-    private OnFragmentInteractionListener mListener;
+	private ArrayList<Reminder> reminders;
+
+	private ViewGroup remindersAddButton;
+
+	private EditText taskNameView;
+	private EditText taskDescriptionView;
+
+	private Button fromDateButton;
+	private Button fromTimeButton;
+	private Button toDateButton;
+	private Button toTimeButton;
+
+	private Date fromDate;
+	private Date toDate;
+	private Date lastDate;
+	// this is the time difference between from and to fields, that should be preserved
+	private long timeDifference;
+
+	private ActivityCommunicator activityCommunicator;
+
+	public static final int MESSAGE_REQUEST_TASK = -99;
+	public static final int MESSAGE_RESPONSE_TASK = -98;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment AddTaskDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddTaskDetailFragment newInstance(String param1, String param2) {
+    public static AddTaskDetailFragment newInstance()
+	{
         AddTaskDetailFragment fragment = new AddTaskDetailFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,11 +89,19 @@ public class AddTaskDetailFragment extends Fragment  implements DatePickerFragme
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
-		fromDateSpinnerAdapter = new DatePickerSpinnerAdapter(getActivity());
-		toDateSpinnerAdapter = new DatePickerSpinnerAdapter(getActivity());
+
+		timeDifference = 3600 * 1000; // An hour
+		fromDate = new Date();
+		toDate = new Date(fromDate.getTime() + timeDifference);
+
+		lastDate = new Date();
+
+		reminders = new ArrayList<Reminder>();
+
+		remindersAdapter = new ReminderListAdapter(getActivity(), R.layout.item_add_task_reminder, reminders);
+		remindersAdapter.setItemRemoveClickListener(this);
     }
 
     @Override
@@ -82,102 +109,82 @@ public class AddTaskDetailFragment extends Fragment  implements DatePickerFragme
                              Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_add_task_detailed, container, false);
 
-		Spinner fromDateSpinner = (Spinner) rootView.findViewById(R.id.add_task_spinner_from_date);
-		Spinner fromTimeSpinner = (Spinner) rootView.findViewById(R.id.add_task_spinner_from_time);
+		remindersListView = (BareListView) rootView.findViewById(R.id.reminders_list_view);
 
-		Spinner toDateSpinner = (Spinner) rootView.findViewById(R.id.add_task_spinner_to_date);
-		Spinner toTimeSpinner = (Spinner) rootView.findViewById(R.id.add_task_spinner_to_time);
+		remindersListView.setAdapter(remindersAdapter);
 
-		fromDateStateSpinnerAdapter = new DateSpinnerStateAdapter(fromDateSpinner);
-		toDateStateSpinnerAdapter = new DateSpinnerStateAdapter(toDateSpinner);
+		remindersAddButton = (ViewGroup) inflater.inflate(R.layout.button_add_reminder, container, false);
+		remindersListView.setFooter(remindersAddButton);
+		remindersAddButton.setOnClickListener(this);
 
-		fromDateSpinner.setAdapter(fromDateSpinnerAdapter);
-		toDateSpinner.setAdapter(toDateSpinnerAdapter);
+		fromDateButton = (Button) rootView.findViewById(R.id.add_task_button_from_date);
+		fromTimeButton = (Button) rootView.findViewById(R.id.add_task_button_from_time);
+
+		toDateButton = (Button) rootView.findViewById(R.id.add_task_button_to_date);
+		toTimeButton = (Button) rootView.findViewById(R.id.add_task_button_to_time);
+
+		fromDateButton.setText(getDateString(fromDate));
+		fromTimeButton.setText(getTimeString(fromDate));
+
+		toDateButton.setText(getDateString(toDate));
+		toTimeButton.setText(getTimeString(toDate));
+
+		fromDateButton.setOnClickListener(this);
+		fromTimeButton.setOnClickListener(this);
+		toDateButton.setOnClickListener(this);
+		toTimeButton.setOnClickListener(this);
+
+		taskNameView = (EditText) rootView.findViewById(R.id.add_task_name_input);
+		taskDescriptionView = (EditText) rootView.findViewById(R.id.add_task_description_input);
+
+		Reminder reminder = new Reminder();
+		reminder.setGap(5);
+		reminder.setVibrate(true);
+		reminder.setSound(true);
+
+		reminders.add(reminder);
+
+		remindersAdapter.notifyDataSetChanged();
 
 		return rootView;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+		activityCommunicator = (ActivityCommunicator) activity;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+		activityCommunicator = null;
     }
 
-	private class DateSpinnerStateAdapter extends SpinnerStateAdapter
-	{
-		int id;
-		public DateSpinnerStateAdapter(Spinner spinner)
-		{
-			super(spinner);
-			this.id = spinner.getId();
-		}
-
-		@Override
-		public void onOpen()
-		{
-			if(id == R.id.add_task_spinner_from_date)
-			{
-				// show date picker for from
-				DialogFragment newFragment = new DatePickerFragment();
-				newFragment.show(getFragmentManager(), getString(R.string.DATE_PICKER_FROM));
-			}
-			else if(id == R.id.add_task_spinner_from_time)
-			{
-				// show time picker for from
-			}
-			else if(id == R.id.add_task_spinner_to_date)
-			{
-				// show date picker for to
-				DialogFragment newFragment = new DatePickerFragment();
-				newFragment.show(getFragmentManager(), getString(R.string.DATE_PICKER_TO));
-			}
-		}
-
-		@Override
-		public void onClose()
-		{
-
-		}
-	}
-
 	@Override
-	public void onDateSet(DatePicker view, int year, int month, int day)
+	public void onResume()
 	{
-		int id = view.getId();
+		super.onResume();
+		// Retrieve pickers if possible
 
-		if(id == R.id.add_task_spinner_from_date)
-		{
-			// update date picker for from
-			Calendar cal = Calendar.getInstance();
-			cal.set(Calendar.YEAR, year);
-			cal.set(Calendar.MONTH, month);
-			cal.set(Calendar.DAY_OF_MONTH, day);
-
-			fromDateSpinnerAdapter.updateCalendar(cal);
-		}
-		else if(id == R.id.add_task_spinner_to_time)
-		{
-			// update time picker for from
+		// from date picker
+		CalendarDatePickerDialog fromCalendarDatePickerDialog = (CalendarDatePickerDialog) getParent().getSupportFragmentManager()
+				.findFragmentByTag(getString(R.string.DATE_PICKER_FROM));
+		if (fromCalendarDatePickerDialog != null) {
+			fromCalendarDatePickerDialog.setOnDateSetListener(this);
 		}
 
+		// from time picker
+
+
+		// to date picker
+		CalendarDatePickerDialog toCalendarDatePickerDialog = (CalendarDatePickerDialog) getParent().getSupportFragmentManager()
+				.findFragmentByTag(getString(R.string.DATE_PICKER_TO));
+		if (toCalendarDatePickerDialog != null) {
+			toCalendarDatePickerDialog.setOnDateSetListener(this);
+		}
+
+		// to time picker
 	}
 
 	@Override
@@ -185,22 +192,247 @@ public class AddTaskDetailFragment extends Fragment  implements DatePickerFragme
 	{
 		int id = view.getId();
 
+		if(id == R.id.add_task_button_from_date)
+		{
+			// show date picker for from
+
+			Calendar fromCalendar = Calendar.getInstance();
+			fromCalendar.setTime(fromDate);
+
+			CalendarDatePickerDialog calendarDatePickerDialog = CalendarDatePickerDialog
+					.newInstance(this, fromCalendar.get(Calendar.YEAR), fromCalendar.get(Calendar.MONTH),
+							fromCalendar.get(Calendar.DAY_OF_MONTH));
+			calendarDatePickerDialog.show(getParent().getSupportFragmentManager(), getString(R.string.DATE_PICKER_FROM));
+
+		}
+		else if(id == R.id.add_task_button_from_time)
+		{
+			// show time picker for from
+			Calendar fromCalendar = Calendar.getInstance();
+			fromCalendar.setTime(fromDate);
+
+			RadialTimePickerDialog timePickerDialog = RadialTimePickerDialog
+					.newInstance(new FromTimeListener(), fromCalendar.get(Calendar.HOUR_OF_DAY), fromCalendar.get(Calendar.MINUTE),
+							DateFormat.is24HourFormat(getActivity()));
+
+			timePickerDialog.show(getParent().getSupportFragmentManager(), getString(R.string.TIME_PICKER_FROM));
+		}
+		if(id == R.id.add_task_button_to_date)
+		{
+			// show date picker for to
+			Calendar toCalendar = Calendar.getInstance();
+			toCalendar.setTime(toDate);
+
+			CalendarDatePickerDialog calendarDatePickerDialog = CalendarDatePickerDialog
+					.newInstance(this, toCalendar.get(Calendar.YEAR), toCalendar.get(Calendar.MONTH),
+							toCalendar.get(Calendar.DAY_OF_MONTH));
+			calendarDatePickerDialog.show(getParent().getSupportFragmentManager(), getString(R.string.DATE_PICKER_TO));
+
+		}
+		else if(id == R.id.add_task_button_to_time)
+		{
+			// show time picker for to
+			Calendar toCalendar = Calendar.getInstance();
+			toCalendar.setTime(toDate);
+
+			RadialTimePickerDialog timePickerDialog = RadialTimePickerDialog
+					.newInstance(new ToTimeListener(), toCalendar.get(Calendar.HOUR_OF_DAY), toCalendar.get(Calendar.MINUTE),
+							DateFormat.is24HourFormat(getActivity()));
+
+			timePickerDialog.show(getParent().getSupportFragmentManager(), getString(R.string.TIME_PICKER_FROM));
+		}
+		else if(id == R.id.button_add_reminder)
+		{
+			reminders.add(new Reminder());
+			remindersAdapter.notifyDataSetChanged();
+			if(reminders.size() >= MAX_REMINDER_COUNT)
+			{
+				remindersAddButton.setVisibility(View.GONE);
+			}
+		}
 
 	}
 
-	/**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public static interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }
+	public String getDateString(Date date)
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
+		return dateFormat.format(date);
+	}
+
+	public String getTimeString(Date date)
+	{
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		return timeFormat.format(date);
+	}
+
+	@Override
+	public void onDateSet(CalendarDatePickerDialog calendarDatePickerDialog, int year, int monthOfYear, int dayOfMonth)
+	{
+		String tag = calendarDatePickerDialog.getTag();
+
+		if(tag.equals(getString(R.string.DATE_PICKER_FROM)))
+		{
+			// literally change the time
+			Calendar fromCalendar = Calendar.getInstance();
+			fromCalendar.setTime(fromDate);
+			fromCalendar.set(year, monthOfYear, dayOfMonth);
+			fromDate = fromCalendar.getTime();
+
+			// keep the interval between from and to
+			toDate = new Date(fromDate.getTime() + timeDifference);
+		}
+		else if(tag.equals(getString(R.string.DATE_PICKER_TO)))
+		{
+			// literally change the time
+			Calendar toCalendar = Calendar.getInstance();
+			toCalendar.setTime(toDate);
+			toCalendar.set(year, monthOfYear, dayOfMonth);
+			toDate = toCalendar.getTime();
+
+			if(fromDate.getTime() >= toDate.getTime())
+			{
+				fromDate = new Date(toDate.getTime() - timeDifference);
+			}
+		}
+
+		fromDateButton.setText(getDateString(fromDate));
+		fromTimeButton.setText(getTimeString(fromDate));
+
+		toDateButton.setText(getDateString(toDate));
+		toTimeButton.setText(getTimeString(toDate));
+
+		// update time difference
+		updateTimeDifference();
+	}
+
+	@Override
+	public void onItemRemoveClick(View view, int position)
+	{
+		// user removed a reminder.
+		reminders.remove(position);
+		remindersAdapter.notifyDataSetChanged();
+		// make the add button visible again
+		if(reminders.size() < MAX_REMINDER_COUNT)
+		{
+			remindersAddButton.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void onMessage(int msgType, Object obj)
+	{
+		switch(msgType)
+		{
+			case MESSAGE_REQUEST_TASK:
+				// Just build the task object and send it to the Activity to use it
+				activityCommunicator.onMessage(MESSAGE_RESPONSE_TASK, buildTask());
+			break;
+		}
+	}
+
+
+	public class FromTimeListener implements RadialTimePickerDialog.OnTimeSetListener
+	{
+
+		@Override
+		public void onTimeSet(RadialPickerLayout radialPickerLayout,  int hourOfDay, int minute)
+		{
+			// literally change the time
+			Calendar fromCalendar = Calendar.getInstance();
+			fromCalendar.setTime(fromDate);
+			fromCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+			fromCalendar.set(Calendar.MINUTE, minute);
+			fromDate = fromCalendar.getTime();
+
+			// keep the interval between from and to
+			if(fromDate.getTime() >= toDate.getTime())
+			{
+				toDate = new Date(fromDate.getTime() + timeDifference);
+			}
+
+			fromDateButton.setText(getDateString(fromDate));
+			fromTimeButton.setText(getTimeString(fromDate));
+
+			toDateButton.setText(getDateString(toDate));
+			toTimeButton.setText(getTimeString(toDate));
+
+			updateTimeDifference();
+		}
+	}
+
+	public class ToTimeListener implements RadialTimePickerDialog.OnTimeSetListener
+	{
+		@Override
+		public void onTimeSet(RadialPickerLayout radialPickerLayout,  int hourOfDay, int minute)
+		{
+			Calendar toCalendar = Calendar.getInstance();
+			toCalendar.setTime(toDate);
+			toCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+			toCalendar.set(Calendar.MINUTE, minute);
+			toDate = toCalendar.getTime();
+
+			// keep the interval between from and to
+			if(fromDate.getTime() >= toDate.getTime())
+			{
+				fromDate = new Date(toDate.getTime() - timeDifference);
+			}
+
+			fromDateButton.setText(getDateString(fromDate));
+			fromTimeButton.setText(getTimeString(fromDate));
+
+			toDateButton.setText(getDateString(toDate));
+			toTimeButton.setText(getTimeString(toDate));
+
+			updateTimeDifference();
+		}
+	}
+
+	private void updateTimeDifference()
+	{
+		timeDifference = toDate.getTime() - fromDate.getTime();
+	}
+
+	public AddTaskActivity getParent()
+	{
+		return (AddTaskActivity) getActivity();
+	}
+
+	public Task buildTask()
+	{
+		Task task = new Task();
+
+		task.setTaskName(taskNameView.getText().toString());
+		task.setTaskDesc(taskDescriptionView.getText().toString());
+
+		task.setBeginDate((int)(fromDate.getTime()/1000));
+		task.setEndDate((int) (toDate.getTime()/1000));
+
+		task.setDateCreated(Utils.getUnixTimestamp());
+		task.setLastModified(Utils.getUnixTimestamp());
+
+		try
+		{
+			task.setStatus(Task.STATE_ACTIVE);
+
+			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
+
+			for (int i = 0; i < reminders.size(); i++) {
+				Utils.log.d(reminders.get(i).asJsonString());
+				reminders.get(i).setTitle(task.getTaskName());
+				reminders.get(i).setTargetDate((task.getBeginDate()/1000) - reminders.get(i).getGap());
+
+				if (app.user != null) {
+					reminders.get(i).setOwnerId(app.user.getId());
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			Utils.log.w(e.toString());
+			e.printStackTrace();
+		}
+
+		return task;
+	}
 
 }

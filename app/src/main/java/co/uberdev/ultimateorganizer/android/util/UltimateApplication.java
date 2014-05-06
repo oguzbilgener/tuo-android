@@ -5,10 +5,15 @@ import android.view.ViewConfiguration;
 
 import java.lang.reflect.Field;
 
+import co.uberdev.ultimateorganizer.android.models.User;
+
 /**
  * Created by oguzbilgener on 16/03/14.
  */
-public class UltimateApplication extends Application {
+public class UltimateApplication extends Application
+{
+	public static User user;
+
 	@Override
 	public void onCreate() {
 		// A little hack to force to show overflow menu

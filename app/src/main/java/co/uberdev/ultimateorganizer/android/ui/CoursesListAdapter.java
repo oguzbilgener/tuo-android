@@ -10,19 +10,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 
 /**
  * Created by mozart on 23/04/14.
  */
-public class CoursesListAdapter extends ArrayAdapter<CourseItem> implements View.OnClickListener
+public class CoursesListAdapter extends ArrayAdapter<Course> implements View.OnClickListener
 {
-    ArrayList<CourseItem> coursesList;
+    ArrayList<Course> coursesList;
     LayoutInflater inflater;
     Context context;
 
-    public CoursesListAdapter(Context context, ArrayList<CourseItem> coursesList)
+    public CoursesListAdapter(Context context, ArrayList<Course> coursesList)
     {
         super(context, R.layout.item_courses_list, coursesList);
 
@@ -36,7 +37,7 @@ public class CoursesListAdapter extends ArrayAdapter<CourseItem> implements View
     public static class ViewHolder
     {
         protected TextView courseName;
-        protected TextView courseDescription;
+        protected TextView courseCode;
         protected TextView courseInstructor;
     }
 
@@ -53,7 +54,7 @@ public class CoursesListAdapter extends ArrayAdapter<CourseItem> implements View
             final ViewHolder viewHolder = new ViewHolder();
 
             viewHolder.courseName = (TextView) view.findViewById(R.id.schedule_course_name);
-            viewHolder.courseDescription = (TextView) view.findViewById(R.id.schedule_course_description);
+            viewHolder.courseCode = (TextView) view.findViewById(R.id.schedule_course_code);
             viewHolder.courseInstructor = (TextView) view.findViewById(R.id.schedule_course_instructor);
 
             view.setTag(R.id.courseitem_object,viewHolder);
@@ -71,14 +72,18 @@ public class CoursesListAdapter extends ArrayAdapter<CourseItem> implements View
         final ViewHolder viewHolder = (ViewHolder) view.getTag(R.id.courseitem_object);
 
         // item is set to the given index of the CoursesItem arraylist
-        CourseItem item = coursesList.get(position);
+        Course item = coursesList.get(position);
 
-        view.setTag(R.id.courseitem_id, item.getItemId());
+        view.setTag(R.id.courseitem_id, item.getId());
         view.setTag(R.id.courseitem_index, position);
 
-        viewHolder.courseName.setText(item.getCourseName());
-        viewHolder.courseDescription.setText(item.getCourseDescription());
-        viewHolder.courseInstructor.setText(item.getCourseInstructor());
+        viewHolder.courseCode.setText(item.getDepartmentCode()+" "+item.getCourseCode()+" "+item.getSectionCode());
+        viewHolder.courseName.setText(item.getCourseTitle());
+
+        viewHolder.courseName.setTextColor(item.getCourseColor());
+        viewHolder.courseCode.setTextColor(item.getCourseColor());
+
+        viewHolder.courseInstructor.setText(item.getInstructorName());
 
         return view;
     }

@@ -52,15 +52,20 @@
     <string name="date_overdue">13:40-17:40</string>
     <string name="date_complete">13:40-17:40</string>
     <string name="title_activity_add_task">New Task</string>
+	<string name="title_activity_edit_task">Edit Task</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_add">Add new</string>
 
     <!-- Add task screen -->
     <string name="action_add_task">Add Task</string>
+	<string name="action_edit_task">Edit Task</string>
     <string name="add_task_name_input_hint">Name</string>
     <string name="add_task_description_input_hint">Description</string>
     <string name="add_task_time_text_from">FROM</string>
     <string name="add_task_time_text_to">T0</string>
+	<string name="add_task_reminders">REMINDERS</string>
+	<string name="add_task_tags">TAGS</string>
+	<string name="add_task_related_tasks">RELATED TASKS</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Academic schedule screen -->
@@ -124,5 +129,41 @@
     <string name="item_public_feed_task_description">Letter to Papa</string>
     <string name="item_public_feed_task_owner">by Ani Kristo</string>
     <string name="item_public_feed_task_due_date">Tue, 15 May\n10.30 - 12.30</string>
+
+	<!-- reminder type displays -->
+	<string-array name="reminder_types_keys">
+		<item>Silent</item>
+		<item>Vibrate</item>
+		<item>Loud</item>
+	</string-array>
+
+	<!-- reminder date displays -->
+	<string-array name="reminder_before_event_keys">
+		<item>right away</item>
+		<item>1 minute</item>
+		<item>5 minutes</item>
+		<item>10 minutes</item>
+		<item>15 minutes</item>
+		<item>20 minutes</item>
+		<item>30 minutes</item>
+		<item>45 minutes</item>
+		<item>1 hour</item>
+		<item>2 hours</item>
+		<item>3 hours</item>
+		<item>6 hours</item>
+		<item>12 hours</item>
+		<item>24 hours</item>
+		<item>2 days</item>
+		<item>1 week</item>
+	</string-array>
+
+	<string name="msg_unknown_error">Sorry, an unknown error occurred.</string>
+	<string name="msg_cannot_add_task">Sorry, could not save task.</string>
+
+	<string name="msg_success_add_task">Task created.</string>
+
+	<string name="today_capital">Today</string>
+	<string name="yesterday_capital">Yesterday</string>
+	<string name="tomorrow_capital">Tomorrow</string>
 
 </resources>

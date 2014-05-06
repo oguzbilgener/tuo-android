@@ -8,6 +8,8 @@
 			android:id="@+id/date_picker_display_text"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:gravity="center_vertical"/>
+			android:gravity="center_vertical"
+			android:padding="@dimen/picker_text_padding"
+			/>
 
 </LinearLayout>

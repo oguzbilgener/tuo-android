@@ -9,6 +9,16 @@ import co.uberdev.ultimateorganizer.core.CoreUser;
  */
 public class User extends CoreUser implements CoreStorable
 {
+	protected long localId;
+
+	public long getLocalId() {
+		return localId;
+	}
+
+	public void setLocalId(long localId) {
+		this.localId = localId;
+	}
+
 	@Override
 	public String getTableName() {
 		return CoreDataRules.tables.users;

@@ -9,49 +9,49 @@ import android.os.Bundle;
 public class OverviewBaseFragment extends BaseFragment
 {
 
-	// Required empty constructor
-	public OverviewBaseFragment()
-	{
+    // Required empty constructor
+    public OverviewBaseFragment()
+    {
 
-	}
+    }
 
-	public static OverviewBaseFragment newInstance() {
-		OverviewBaseFragment fragment = new OverviewBaseFragment();
-		Bundle args = new Bundle();
-		fragment.setArguments(args);
-		return fragment;
-	}
+    public static OverviewBaseFragment newInstance() {
+        OverviewBaseFragment fragment = new OverviewBaseFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+    }
 
-	@Override
-	public void onResume()
-	{
-		super.onResume();
+    @Override
+    public void onResume()
+    {
+        super.onResume();
 
 //		EventBus.getDefault().register(this);
-	}
+    }
 
-	@Override
-	public void onPause()
-	{
-		super.onPause();
+    @Override
+    public void onPause()
+    {
+        super.onPause();
 
 //		EventBus.getDefault().unregister(this);
-	}
+    }
 
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-	}
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
 
-	@Override
-	public void onDetach()
-	{
-		super.onDetach();
-	}
+    @Override
+    public void onDetach()
+    {
+        super.onDetach();
+    }
 }
