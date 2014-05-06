@@ -2,6 +2,7 @@ package co.uberdev.ultimateorganizer.android.util;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -66,6 +67,18 @@ public class BareListView extends LinearLayout implements BareListDataListener
 	{
 		this.footer.removeAllViews();
 		this.footer.addView(footerView);
+	}
+
+	public void setHeaderVisible(boolean visible)
+	{
+		int flag = visible ? View.VISIBLE : View.GONE;
+		this.header.setVisibility(flag);
+	}
+
+	public void setFooterVisible(boolean visible)
+	{
+		int flag = visible ? View.VISIBLE : View.GONE;
+		this.header.setVisibility(flag);
 	}
 
 	public ArrayAdapter getAdapter()
