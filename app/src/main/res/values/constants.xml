@@ -7,4 +7,6 @@
 	<string name="DATE_PICKER_TO">date_picker_to</string>
 	<string name="TIME_PICKER_FROM">time_picker_from</string>
 	<string name="TIME_PICKER_TO">time_picker_to</string>
+
+	<string name="INTENT_DETAILS_TASK_LOCAL_ID">intent_details_task_id</string>
 </resources>

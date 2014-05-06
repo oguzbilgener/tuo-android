@@ -34,7 +34,6 @@ public class OverviewAllTasksFragment extends OverviewCommonFragment
 		overviewTaskList.clear();
 		overviewTaskList.addAll(allTasks.toTaskArrayList());
 		overviewTaskAdapter.notifyDataSetChanged();
-		allTasks.toTaskArrayList();
 	}
 
 }

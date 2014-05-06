@@ -134,7 +134,7 @@ public class AddTaskDetailFragment extends Fragment
 				(int) Utils.getPixelsByDp(getActivity(),
 				getResources().getDimension(R.dimen.add_task_tags_input_height))
 		);
-		params.setMargins((int) Utils.getPixelsByDp(getActivity(),getResources().getDimension(R.dimen.sub_line_margin_sides) ));
+//		params.setMargins((int) Utils.getPixelsByDp(getActivity(),getResources().getDimension(R.dimen.sub_line_margin_sides) ));
 		tagInput.setLayoutParams(params);
 		tagInput.setId(R.id.add_task_tag_input);
 		tagInput.setHint(getString(R.string.tag_input_hint));

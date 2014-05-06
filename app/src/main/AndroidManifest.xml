@@ -49,6 +49,16 @@
 					android:name="android.support.PARENT_ACTIVITY"
 					android:value="HomeActivity" />
 		</activity>
+
+		<activity
+				android:name="co.uberdev.ultimateorganizer.android.ui.TaskDetailActivity"
+				android:label="@string/title_activity_task_details"
+				android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
+			<meta-data
+					android:name="android.support.PARENT_ACTIVITY"
+					android:value="HomeActivity" />
+		</activity>
+
     </application>
 
 </manifest>
