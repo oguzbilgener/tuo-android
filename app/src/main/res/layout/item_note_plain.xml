@@ -2,12 +2,12 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/note_plain_main_layout_width"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/note_plain_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/note_plain_title_margin_left"
         android:layout_marginTop="@dimen/note_plain_title_margin_top"
@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/note_plain_description"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/note_plain_title"
         android:layout_alignLeft="@id/note_plain_title"

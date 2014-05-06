@@ -6,8 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.origamilabs.library.views.StaggeredGridView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -20,7 +19,7 @@ import co.uberdev.ultimateorganizer.android.models.Note;
 public class NotesFragment extends Fragment
 {
 
-    protected StaggeredGridView noteListview;
+    protected ListView noteListView;
     protected ArrayList<Note> noteList;
     protected NotesAdapter noteAdapter;
 
@@ -60,18 +59,19 @@ public class NotesFragment extends Fragment
         }
 
         noteList.add(note);
+
         Note note2 = new Note();
-        note2.setNoteTitle("fizik cok boktan");
+        note2.setNoteTitle("Fizik çok boktan");
         note2.setDateCreated(73321);
         note2.setLastModified( 123123321);
+
         try{
             note2.setStatus( 1);
         }
         catch( Exception e){
             e.printStackTrace();
         }
-
-
+        noteList.add(note2);
 
         noteAdapter = new NotesAdapter(getActivity(), noteList);
     }
@@ -96,8 +96,8 @@ public class NotesFragment extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View rootView = inflater.inflate(R.layout.fragment_notes, container, false);
-        noteListview = (StaggeredGridView) rootView.findViewById(R.id.staggered_grid);
-        noteListview.setAdapter(noteAdapter);
+        noteListView = (ListView) rootView.findViewById(R.id.notes_list_view);
+        noteListView.setAdapter(noteAdapter);
 		return rootView;
 	}
 
