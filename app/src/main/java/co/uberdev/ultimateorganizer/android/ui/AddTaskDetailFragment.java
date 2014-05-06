@@ -404,10 +404,17 @@ public class AddTaskDetailFragment extends Fragment
 		task.setTaskName(taskNameView.getText().toString());
 		task.setTaskDesc(taskDescriptionView.getText().toString());
 
+		SimpleDateFormat fo = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
+		Utils.log.d(fo.format(fromDate));
+		Utils.log.d(fo.format(toDate));
+
 		task.setBeginDate((int)(fromDate.getTime()/1000));
 		task.setEndDate((int) (toDate.getTime()/1000));
 
-		task.setDateCreated(Utils.getUnixTimestamp());
+		if(task.getDateCreated() <= 0)
+		{
+			task.setDateCreated(Utils.getUnixTimestamp());
+		}
 		task.setLastModified(Utils.getUnixTimestamp());
 
 		try
@@ -417,7 +424,6 @@ public class AddTaskDetailFragment extends Fragment
 			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
 
 			for (int i = 0; i < reminders.size(); i++) {
-				Utils.log.d(reminders.get(i).asJsonString());
 				reminders.get(i).setTitle(task.getTaskName());
 				reminders.get(i).setTargetDate((task.getBeginDate()/1000) - reminders.get(i).getGap());
 
