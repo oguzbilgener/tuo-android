@@ -6,7 +6,7 @@
     android:padding="@dimen/note_todo_main_layout_padding">
 
     <TextView
-        android:id="@+id/tv_name1"
+        android:id="@+id/note_todo_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -15,10 +15,10 @@
         android:textColor="@color/note_todo_unchecked_color"/>
 
     <CheckBox
-        android:id="@+id/cb_1"
+        android:id="@+id/todo_checkbox_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_name1"
+        android:layout_below="@id/note_todo_title"
         android:layout_marginTop="@dimen/note_todo_item_margin_top"
         android:checked="true"
         android:text="@string/note_todo_text1"
@@ -26,10 +26,10 @@
         android:textColor="@color/note_todo_checked_color"/>
 
     <CheckBox
-        android:id="@+id/cb_2"
+        android:id="@+id/todo_checkbox_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cb_1"
+        android:layout_below="@id/todo_checkbox_1"
         android:layout_marginTop="@dimen/note_todo_item_margin_top"
         android:checked="true"
         android:text="@string/note_todo_text2"
@@ -37,10 +37,10 @@
         android:textColor="@color/note_todo_checked_color"/>
 
     <CheckBox
-        android:id="@+id/cb_3"
+        android:id="@+id/todo_checkbox_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cb_2"
+        android:layout_below="@id/todo_checkbox_2"
         android:layout_marginTop="@dimen/note_todo_item_margin_top"
         android:checked="false"
         android:text="@string/note_todo_text3"
@@ -48,10 +48,11 @@
         android:textSize="@dimen/note_todo_checkbox_text_size"/>
 
     <TextView
+        android:id="@+id/note_todo_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/cb_3"
+        android:layout_below="@id/todo_checkbox_2"
         android:text="@string/note_todo_date1"/>
 
 </RelativeLayout>
