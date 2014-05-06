@@ -1,64 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/task_item"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-	android:padding="@dimen/task_item_padding">
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+	<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		style="@style/task_item"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="@dimen/task_item_padding">
 
-    <CheckBox
-        android:id="@+id/task_item_checkbox_overdue"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/task_item_checkbox_height"
-        android:layout_alignParentLeft="true"
-        style="@style/task_item_checkbox_overdue_style" />
+		<CheckBox
+			android:id="@+id/task_item_checkbox_overdue"
+			android:layout_width="wrap_content"
+			android:layout_height="@dimen/task_item_checkbox_height"
+			android:layout_alignParentLeft="true"
+			style="@style/task_item_checkbox_overdue_style" />
 
-    <TextView
-        android:id="@+id/task_item_task_title_overdue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/task_item_checkbox_overdue"
-        android:layout_alignTop="@id/task_item_checkbox_overdue"
-        android:layout_marginTop="5dp"
-        android:textSize="24sp"
-        android:text="@string/task_title"/>
-
-    <TextView
-        android:id="@+id/task_item_description_overdue"
-		android:layout_below="@id/task_item_checkbox_overdue"
-        style="@style/task_item_description_overdue"/>
-
-	<!-- horizontal tag list -->
-	<co.uberdev.ultimateorganizer.android.util.BareListView
-			android:id="@+id/task_item_tag_bar"
+		<TextView
+			android:id="@+id/task_item_task_title_overdue"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/task_item_description_active"
-			android:layout_alignParentLeft="true"
-			android:orientation="horizontal" />
+			android:layout_toRightOf="@id/task_item_checkbox_overdue"
+			android:layout_alignTop="@id/task_item_checkbox_overdue"
+			android:layout_marginTop="5dp"
+			android:textSize="24sp"
+			android:text="@string/task_title"/>
 
-    <TextView
-        android:id="@+id/task_item_date"
-        android:layout_width="@dimen/task_item_date_width"
-        android:layout_height="@dimen/task_item_date_height"
-        android:layout_toRightOf="@id/task_item_tag_bar"
-        android:layout_marginBottom="@dimen/task_item_date_margin_bottom"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        style="@style/task_item_date_overdue"/>
+		<TextView
+			android:id="@+id/task_item_description_overdue"
+			android:layout_below="@id/task_item_checkbox_overdue"
+			style="@style/task_item_description_overdue"/>
 
-    <ImageView
-        android:id="@+id/task_item_alert_icon"
-        android:src="@drawable/ic_action_warning"
-        android:layout_width="@dimen/icon_width"
-        android:layout_height="@dimen/icon_height"
-        android:layout_above="@id/task_item_date"
-        android:layout_alignParentRight="true"/>
+		<!-- horizontal tag list -->
+		<co.uberdev.ultimateorganizer.android.util.BareListView
+				android:id="@+id/task_item_tag_bar"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/task_item_description_active"
+				android:layout_alignParentLeft="true"
+				android:orientation="horizontal" />
 
-	<ImageButton
-			android:id="@+id/task_item_expand_icon"
-			style="@style/task_item_context_button"/>
+		<TextView
+			android:id="@+id/task_item_date"
+			android:layout_width="@dimen/task_item_date_width"
+			android:layout_height="@dimen/task_item_date_height"
+			android:layout_toRightOf="@id/task_item_tag_bar"
+			android:layout_marginBottom="@dimen/task_item_date_margin_bottom"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+			style="@style/task_item_date_overdue"/>
 
-</RelativeLayout>
+		<ImageView
+			android:id="@+id/task_item_alert_icon"
+			android:src="@drawable/ic_action_warning"
+			android:layout_width="@dimen/icon_width"
+			android:layout_height="@dimen/icon_height"
+			android:layout_above="@id/task_item_date"
+			android:layout_alignParentRight="true"/>
 
+		<ImageButton
+				android:id="@+id/task_item_expand_icon"
+				style="@style/task_item_context_button"/>
+
+	</RelativeLayout>
+</LinearLayout>
