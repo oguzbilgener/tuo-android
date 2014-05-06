@@ -19,11 +19,19 @@ public class OverviewAllTasksFragment extends OverviewCommonFragment
 	{
 		super.onCreate(savedInstanceState);
 
+
+		overviewTaskAdapter = new OverviewTaskAdapter(getActivity(), overviewTaskList);
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+
 		Tasks allTasks = new Tasks(getHomeActivity().getLocalStorage().getDb());
 		allTasks.loadAllAliveTasks();
 
 		overviewTaskList = allTasks.toTaskArrayList();
-		overviewTaskAdapter = new OverviewTaskAdapter(getActivity(), overviewTaskList);
 	}
 
 }

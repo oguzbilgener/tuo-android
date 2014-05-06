@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Task;
@@ -164,12 +165,14 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 
         viewHolder.taskTitle.setText( item.getTaskName());
         viewHolder.taskDescription.setText( item.getTaskDesc());
+		Utils.log.d("&&&&& "+(item.getEndDate()-item.getBeginDate()));
 		if(Utils.isDateToday(item.getBeginDate()))
 		{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			Utils.log.d(dateFormat.format(new Date(item.getBeginDate())));
 			viewHolder.taskDate.setText(
 					context.getString(R.string.today_capital) + "\n" +
-					dateFormat.format(item.getBeginDate()) + "-" + dateFormat.format(item.getEndDate())
+					dateFormat.format(new Date(item.getBeginDate())) + "-" + dateFormat.format(new Date(item.getEndDate()))
 			);
 		}
 		else if(Utils.isDateYesterday(item.getBeginDate()))
@@ -177,7 +180,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 			viewHolder.taskDate.setText(
 					context.getString(R.string.yesterday_capital) + "\n" +
-							dateFormat.format(item.getBeginDate()) + "-" + dateFormat.format(item.getEndDate())
+					dateFormat.format(new Date(item.getBeginDate())) + "-" + dateFormat.format(new Date(item.getEndDate()))
 			);
 		}
 		else if(Utils.isDateTomorrow(item.getBeginDate()))
@@ -185,15 +188,15 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 			viewHolder.taskDate.setText(
 					context.getString(R.string.tomorrow_capital) + "\n" +
-							dateFormat.format(item.getBeginDate()) + "-" + dateFormat.format(item.getEndDate())
+					dateFormat.format(new Date(item.getBeginDate())) + "-" + dateFormat.format(new Date(item.getEndDate()))
 			);
 		}
 		else
 		{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
 			viewHolder.taskDate.setText(
-					dateFormat.format(item.getBeginDate()) + "-\n" +
-					dateFormat.format(item.getEndDate())
+					dateFormat.format(new Date(item.getBeginDate())) + "-\n" +
+					dateFormat.format(new Date(item.getEndDate()))
 			);
 		}
 
