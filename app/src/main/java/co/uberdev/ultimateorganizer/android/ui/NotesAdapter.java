@@ -119,7 +119,7 @@ public class NotesAdapter extends ArrayAdapter<Note> {
         view.setTag(R.id.note_item_index, position);
 
         viewHolder.noteTitle.setText(noteItem.getNoteTitle());
-        viewHolder.date.setText(noteItem.getLastModified());
+//        viewHolder.date.setText(noteItem.getLastModified());
 
         return view;
     }
