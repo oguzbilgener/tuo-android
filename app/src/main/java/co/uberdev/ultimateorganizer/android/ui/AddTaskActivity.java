@@ -13,6 +13,7 @@ import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 public class AddTaskActivity extends FragmentActivity implements ActivityCommunicator
 {
@@ -129,6 +130,7 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 
 							// show a little success
 							Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
+							Utils.log.d("inserted. now finish");
 
 							// Add new task activity can just go back, but this might be different for edit task activity.
 							finish();

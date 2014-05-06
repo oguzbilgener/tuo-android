@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
@@ -186,11 +187,30 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 		}
 		else
 		{
-			SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
-			viewHolder.taskDate.setText(
-					dateFormat.format(new Date((long)item.getBeginDate()*1000)) + "-\n" +
-					dateFormat.format(new Date((long)item.getEndDate()*1000))
-			);
+			Date beginDate = new Date((long)item.getBeginDate()*1000);
+			Date endDate = new Date((long)item.getBeginDate()*1000);
+			Calendar beginCalendar = Calendar.getInstance();
+			beginCalendar.setTime(beginDate);
+			Calendar endCalendar = Calendar.getInstance();
+			endCalendar.setTime(endDate);
+
+			if(beginCalendar.get(Calendar.DAY_OF_MONTH) == endCalendar.get(Calendar.DAY_OF_MONTH))
+			{
+				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
+				SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+				viewHolder.taskDate.setText(
+						dateFormat.format(beginDate) + "\n" +
+							timeFormat.format(beginDate) + " - " + timeFormat.format(endDate)
+				);
+			}
+			else
+			{
+				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
+				viewHolder.taskDate.setText(
+						dateFormat.format(new Date((long) item.getBeginDate() * 1000)) + "-\n" +
+								dateFormat.format(new Date((long) item.getEndDate() * 1000))
+				);
+			}
 		}
 
         return view;
