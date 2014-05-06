@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/task_item"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/task_item_height">
+    android:layout_height="@dimen/task_item_height"
+	android:padding="@dimen/task_item_padding">
 
     <CheckBox
         android:id="@+id/task_item_checkbox_active"
@@ -19,17 +20,12 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/task_item_checkbox_active"
         android:layout_alignTop="@id/task_item_checkbox_active"
-        android:layout_marginTop="5dp"
         android:textSize="24sp"
         android:text="@string/task_title"/>
 
     <TextView
         android:id="@+id/task_item_description_active"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/task_item_description_height"
 		android:layout_below="@id/task_item_checkbox_active"
-		android:title="asdasdasdasdasd"
-		android:textColor="#000"
         style="@style/task_item_description_active"/>
 
 	<!-- horizontal tag list -->

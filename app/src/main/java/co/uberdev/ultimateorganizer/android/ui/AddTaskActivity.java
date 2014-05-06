@@ -115,27 +115,31 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 				try
 				{
 					Task enteredTask = (Task) obj;
-					enteredTask.setDb(localStorage.getDb());
-
-					// do all the neccesary insertions.
-
-					// TODO: insert related tasks, tags etc
-
-					// insert the main task
-					if(enteredTask.insert())
+					if(!enteredTask.isEmpty())
 					{
-						// TODO: sync!
+						enteredTask.setDb(localStorage.getDb());
 
-						// show a little success
-						Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
+						// do all the neccesary insertions.
 
-						// Add new task activity can just go back, but this might be different for edit task activity.
-						finish();
+						// TODO: insert related tasks, tags etc
+
+						// insert the main task
+						if (enteredTask.insert()) {
+							// TODO: sync!
+
+							// show a little success
+							Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
+
+							// Add new task activity can just go back, but this might be different for edit task activity.
+							finish();
+						} else {
+							// db error! do not let the user go
+							Toast.makeText(this, getString(R.string.msg_cannot_add_task), Toast.LENGTH_SHORT).show();
+						}
 					}
 					else
 					{
-						// db error! do not let the user go
-						Toast.makeText(this, getString(R.string.msg_cannot_add_task), Toast.LENGTH_SHORT).show();
+						finish();
 					}
 				}
 				catch(Exception e)

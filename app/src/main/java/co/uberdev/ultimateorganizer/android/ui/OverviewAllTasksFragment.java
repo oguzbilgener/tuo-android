@@ -31,7 +31,9 @@ public class OverviewAllTasksFragment extends OverviewCommonFragment
 		Tasks allTasks = new Tasks(getHomeActivity().getLocalStorage().getDb());
 		allTasks.loadAllAliveTasks();
 
-		overviewTaskList = allTasks.toTaskArrayList();
+		overviewTaskList.clear();
+		overviewTaskList.addAll(allTasks.toTaskArrayList());
+		allTasks.toTaskArrayList();
 	}
 
 }

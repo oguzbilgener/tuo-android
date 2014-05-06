@@ -52,7 +52,6 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     @Override
     public View getView(final int position, View convertView, ViewGroup parent)
     {
-		Utils.log.w(overviewTaskList.get(position).asJsonString());
         View view = null;
 
         int layoutId;
@@ -86,7 +85,6 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_active);
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
                 viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_active);
-                view.setTag(R.id.overview_task_item_object,viewHolder);
             }
             else if(getItemViewType(position) == 2)
             {
@@ -94,7 +92,6 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_overdue);
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
                 viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_overdue);
-                view.setTag(R.id.overview_task_item_object,viewHolder);
             }
             else if(getItemViewType(position) == 3)
             {
@@ -102,8 +99,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_complete);
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
                 viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_complete);
-                view.setTag(R.id.overview_task_item_object,viewHolder);
             }
+			view.setTag(R.id.overview_task_item_object,viewHolder);
 
 			if(viewHolder.checkbox != null)
             	viewHolder.checkbox.setOnClickListener( checkboxListener);
@@ -111,8 +108,6 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         else
         {
             view = convertView;
-
-            Utils.log.d( "hmm not null");
         }
 
         // ViewHolder receives tags for the next items

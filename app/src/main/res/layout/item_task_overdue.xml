@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/task_item"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/task_item_height">
+    android:layout_height="@dimen/task_item_height"
+	android:padding="@dimen/task_item_padding">
 
     <CheckBox
         android:id="@+id/task_item_checkbox_overdue"
@@ -25,8 +26,7 @@
 
     <TextView
         android:id="@+id/task_item_description_overdue"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/task_item_description_height"
+		android:layout_below="@id/task_item_checkbox_overdue"
         style="@style/task_item_description_overdue"/>
 
 	<!-- horizontal tag list -->
