@@ -255,4 +255,17 @@
 	<dimen name="expand_button_margin_top">10dp</dimen>
 	<dimen name="task_item_padding">10dp</dimen>
 
+	<dimen name="button_add_reminder_height">40dp</dimen>
+	<dimen name="button_add_reminder_plus_width">20dp</dimen>
+	<dimen name="button_add_reminder_plus_height">20dp</dimen>
+	<dimen name="button_add_reminder_text_margin_left">10dp</dimen>
+	<dimen name="button_add_reminder_text_size">14sp</dimen>
+
+	<dimen name="added_tag_margin_horizontal">8dp</dimen>
+	<dimen name="added_tag_margin_vertical">5dp</dimen>
+	<dimen name="added_tag_remove_button_height">40dp</dimen>
+	<dimen name="added_tag_remove_button_width">40dp</dimen>
+
+	<dimen name="add_task_tags_input_height">20dp</dimen>
+
 </resources>

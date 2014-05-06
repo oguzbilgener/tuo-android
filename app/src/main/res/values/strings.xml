@@ -166,4 +166,6 @@
 	<string name="yesterday_capital">Yesterday</string>
 	<string name="tomorrow_capital">Tomorrow</string>
 
+	<string name="tag_input_hint">enter a tag name...</string>
+
 </resources>

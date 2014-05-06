@@ -29,4 +29,7 @@
 	<item type="id" name="reminder_type_spinner_holder" />
 
 	<item type="id" name="reminder_label_tag" />
+
+	<item type="id" name="add_task_tag_input" />
+	<item type="id" name="add_task_tag_remove_index" />
 </resources>

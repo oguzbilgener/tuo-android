@@ -3,7 +3,6 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.os.Bundle;
 
 import co.uberdev.ultimateorganizer.android.models.Tasks;
-import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by oguzbilgener on 24/04/14.
@@ -28,8 +27,6 @@ public class OverviewAllTasksFragment extends OverviewCommonFragment
 	public void onResume()
 	{
 		super.onResume();
-
-		Utils.log.d("overview all tasks fragment resume");
 
 		Tasks allTasks = new Tasks(getHomeActivity().getLocalStorage().getDb());
 		allTasks.loadAllAliveTasks();

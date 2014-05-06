@@ -9,6 +9,11 @@ import co.uberdev.ultimateorganizer.core.CoreTag;
  */
 public class Tag extends CoreTag implements CoreStorable
 {
+	public Tag()
+	{
+		name = "";
+		color = 0;
+	}
 	@Override
 	public String getTableName() {
 		return CoreDataRules.tables.tags;

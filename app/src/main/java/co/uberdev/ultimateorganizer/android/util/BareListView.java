@@ -46,7 +46,7 @@ public class BareListView extends LinearLayout implements BareListDataListener
 			return null;
 	}
 
-	public void setHeader(ViewGroup headerView)
+	public void setHeader(View headerView)
 	{
 		// remove the header view and add the new header to beginning
 		this.header.removeAllViews();
@@ -61,7 +61,7 @@ public class BareListView extends LinearLayout implements BareListDataListener
 			return null;
 	}
 
-	public void setFooter(ViewGroup footerView)
+	public void setFooter(View footerView)
 	{
 		this.footer.removeAllViews();
 		this.footer.addView(footerView);
