@@ -17,6 +17,11 @@ public class LocalStorage
 		db = helper.getWritableDatabase();
 	}
 
+	public void reopen()
+	{
+		db = helper.getWritableDatabase();
+	}
+
 	public void close()
 	{
 		try

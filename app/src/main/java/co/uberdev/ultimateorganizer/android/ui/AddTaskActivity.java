@@ -57,6 +57,16 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 		super.onDestroy();
 	}
 
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		if(localStorage != null)
+		{
+			localStorage.reopen();
+		}
+	}
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

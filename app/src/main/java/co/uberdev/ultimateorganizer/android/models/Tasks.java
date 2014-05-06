@@ -150,12 +150,49 @@ public class Tasks extends CoreTasks implements CoreSelectable
 		return false;
 	}
 
+	/**
+	 * Loads all the alive (not deleted/archived) tasks to be shown in Overview / All Tasks
+	 * @return
+	 */
 	public boolean loadAllAliveTasks()
 	{
 		String sqlCriteria = " "+CoreDataRules.columns.tasks.status+" = ? OR "+
 				CoreDataRules.columns.tasks.status+" = ? ORDER BY "+CoreDataRules.columns.tasks.beginDate;
 		String[] params = new String[] { Integer.toString(Task.STATE_ACTIVE), Integer.toString(Task.STATE_COMPLETED) };
 
+		return loadFromDb(sqlCriteria, params, 0);
+	}
+
+	/**
+	 * Loads all the overdue tasks to be shown in Overview / Overdue
+	 * @return
+	 */
+	public boolean loadOverdueTasks()
+	{
+		String sqlCriteria = " "+CoreDataRules.columns.tasks.status+" = ? AND "+
+				CoreDataRules.columns.tasks.endDate+" < ? ORDER BY "+CoreDataRules.columns.tasks.beginDate;
+		String[] params = new String[] {Integer.toString(Task.STATE_ACTIVE), Integer.toString(Utils.getUnixTimestamp())};
+		return loadFromDb(sqlCriteria, params, 0);
+	}
+
+	/**
+	 * Loads all the completed tasks to be shown in Overview / Completed
+	 * @return
+	 */
+	public boolean loadCompletedTasks()
+	{
+		String sqlCriteria = " "+CoreDataRules.columns.tasks.status+" = ? "+
+				" ORDER BY "+CoreDataRules.columns.tasks.beginDate;
+		String[] params = new String[] {Integer.toString(Task.STATE_COMPLETED)};
+		return loadFromDb(sqlCriteria, params, 0);
+	}
+
+	public boolean loadUpcomingTasks()
+	{
+		String sqlCriteria = " "+CoreDataRules.columns.tasks.status+" = ? AND "+
+				CoreDataRules.columns.tasks.beginDate+" > ? "+
+				" ORDER BY "+CoreDataRules.columns.tasks.beginDate;
+		String[] params = new String[] {Integer.toString(Task.STATE_ACTIVE), Integer.toString(Utils.getUnixTimestamp())};
 		return loadFromDb(sqlCriteria, params, 0);
 	}
 

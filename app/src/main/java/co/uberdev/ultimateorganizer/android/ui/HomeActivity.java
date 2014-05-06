@@ -106,6 +106,10 @@ public class HomeActivity extends FragmentActivity
 	@Override
 	public void onResume() {
 		super.onResume();
+		if(localStorage != null)
+		{
+			localStorage.reopen();
+		}
 		// Indicate the latest navigation item in the navigation drawer
 		mHomeNavigationDrawerFragment.getmNavigationItemAdapter().setSelectedNavigationItem(mViewPager.getCurrentItem());
 	}
