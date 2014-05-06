@@ -115,13 +115,6 @@ public class Tasks extends CoreTasks implements CoreSelectable
 					task.setBeginDate(loader.getInt(loader.getColumnIndex(CoreDataRules.columns.tasks.beginDate)));
 					task.setEndDate(loader.getInt(loader.getColumnIndex(CoreDataRules.columns.tasks.endDate)));
 
-					int nowTime = Utils.getUnixTimestamp();
-
-					if(task.getEndDate() < nowTime)
-					{
-//						task.setStatus(Task.S);
-					}
-
 					this.add(task);
 
 					loader.moveToNext();
