@@ -407,9 +407,13 @@ public class AddTaskDetailFragment extends Fragment
 		task.setBeginDate((int)(fromDate.getTime()/1000));
 		task.setEndDate((int) (toDate.getTime()/1000));
 
+		task.setDateCreated(Utils.getUnixTimestamp());
+		task.setLastModified(Utils.getUnixTimestamp());
 
 		try
 		{
+			task.setStatus(Task.STATE_ACTIVE);
+
 			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
 
 			for (int i = 0; i < reminders.size(); i++) {

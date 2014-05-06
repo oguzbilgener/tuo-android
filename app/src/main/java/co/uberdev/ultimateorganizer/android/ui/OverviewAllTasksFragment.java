@@ -22,7 +22,9 @@ public class OverviewAllTasksFragment extends OverviewCommonFragment
 		super.onCreate(savedInstanceState);
 
 		Tasks allTasks = new Tasks(getHomeActivity().getLocalStorage().getDb());
-		allTasks.loadAllTasks();
+		allTasks.loadAllAliveTasks();
+
+		Utils.log.d("tasks count "+allTasks.size());
 
 		overviewTaskList = allTasks.toTaskArrayList();
 		for(Task t : overviewTaskList)

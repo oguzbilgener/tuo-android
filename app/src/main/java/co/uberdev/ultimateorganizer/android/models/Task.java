@@ -17,6 +17,9 @@ import co.uberdev.ultimateorganizer.core.CoreTask;
 public class Task extends CoreTask implements CoreStorable
 {
 	private transient SQLiteDatabase db;
+
+	private long localId;
+
 	public Task(SQLiteDatabase db)
 	{
 		super();
@@ -41,6 +44,16 @@ public class Task extends CoreTask implements CoreStorable
 
 	public void setDb(SQLiteDatabase db) {
 		this.db = db;
+	}
+
+	public long getLocalId()
+	{
+		return localId;
+	}
+
+	public void setLocalId(long localId)
+	{
+		this.localId = localId;
 	}
 
 	/**
@@ -69,6 +82,7 @@ public class Task extends CoreTask implements CoreStorable
 		if(db != null)
 		{
 			String insertSql = "INSERT INTO "+getTableName()+" (" +
+					CoreDataRules.columns.tasks.serverId+", "+
 					CoreDataRules.columns.tasks.ownerId+", " +
 					CoreDataRules.columns.tasks.taskName+", " +
 					CoreDataRules.columns.tasks.taskDesc+", " +
@@ -85,10 +99,11 @@ public class Task extends CoreTask implements CoreStorable
 					CoreDataRules.columns.tasks.relatedNotes+", "+
 					CoreDataRules.columns.tasks.relatedTasks+", "+
 					CoreDataRules.columns.tasks.taskOwnerNameCombined+" "+
-					") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			int n = 1;
 			SQLiteStatement ss = db.compileStatement(insertSql);
+			ss.bindLong(n++, getId());
 			ss.bindLong(n++, getOwnerId());
 			ss.bindString(n++, getTaskName());
 			ss.bindString(n++, getTaskDesc());
@@ -133,7 +148,13 @@ public class Task extends CoreTask implements CoreStorable
 	}
 
 	@Override
-	public boolean remove() {
+	public boolean remove()
+	{
+		if(db != null && localId > 0)
+		{
+			String removeSql = "DELETE FROM "+CoreDataRules.tables.tasks+" WHERE id = "+localId;
+			// TODO: complete this.
+		}
 		return false;
 	}
 }

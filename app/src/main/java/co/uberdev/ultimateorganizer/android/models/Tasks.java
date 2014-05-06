@@ -68,7 +68,8 @@ public class Tasks extends CoreTasks implements CoreSelectable
 				while(!loader.isAfterLast())
 				{
 					Task task = new Task();
-					task.setId(loader.getLong(loader.getColumnIndex(CoreDataRules.columns.tasks.id)));
+					task.setId(loader.getLong(loader.getColumnIndex(CoreDataRules.columns.tasks.serverId))); // task id = sqlite server id
+					task.setLocalId(loader.getLong(loader.getColumnIndex(CoreDataRules.columns.tasks.id))); // local id = sqlite id
 					task.setTaskName(loader.getString(loader.getColumnIndex(CoreDataRules.columns.tasks.taskName)));
 					task.setTaskDesc(loader.getString(loader.getColumnIndex(CoreDataRules.columns.tasks.taskDesc)));
 					task.setOwnerId(loader.getLong(loader.getColumnIndex(CoreDataRules.columns.tasks.ownerId)));
@@ -149,9 +150,13 @@ public class Tasks extends CoreTasks implements CoreSelectable
 		return false;
 	}
 
-	public boolean loadAllTasks() {
-		// TODO: make this work
-		return false;
+	public boolean loadAllAliveTasks()
+	{
+		String sqlCriteria = " "+CoreDataRules.columns.tasks.status+" = ? OR "+
+				CoreDataRules.columns.tasks.status+" = ? ORDER BY "+CoreDataRules.columns.tasks.beginDate;
+		String[] params = new String[] { Integer.toString(Task.STATE_ACTIVE), Integer.toString(Task.STATE_COMPLETED) };
+
+		return loadFromDb(sqlCriteria, params, 0);
 	}
 
 	public ArrayList<Task> toTaskArrayList()

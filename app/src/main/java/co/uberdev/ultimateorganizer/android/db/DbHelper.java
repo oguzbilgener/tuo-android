@@ -27,7 +27,8 @@ public class DbHelper extends SQLiteOpenHelper
 		Utils.log.e("CREATE DB");
 		// create tasks table
 		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.tasks+" (" +
-				CoreDataRules.columns.tasks.id+" INTEGER PRIMARY KEY, " +
+				CoreDataRules.columns.tasks.id+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+				CoreDataRules.columns.tasks.serverId+" INTEGER, "+
 				CoreDataRules.columns.tasks.ownerId+" INTEGER, " +
 				CoreDataRules.columns.tasks.taskName+" TEXT, " +
 				CoreDataRules.columns.tasks.taskDesc+" TEXT, " +
@@ -49,7 +50,8 @@ public class DbHelper extends SQLiteOpenHelper
 
 		// create tags table
 		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.tags+" (" +
-				CoreDataRules.columns.tags.id+" INTEGER PRIMARY KEY, " +
+				CoreDataRules.columns.tags.id+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+				CoreDataRules.columns.tags.serverId+" INTEGER, "+
 				CoreDataRules.columns.tags.ownerId+" INTEGER, " +
 				CoreDataRules.columns.tags.tagTitle+" TEXT, " +
 				CoreDataRules.columns.tags.color+" INTEGER " +
@@ -57,7 +59,8 @@ public class DbHelper extends SQLiteOpenHelper
 
 		// create reminders table
 		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.reminders +" (" +
-				CoreDataRules.columns.reminders.id+" INTEGER PRIMARY KEY, " +
+				CoreDataRules.columns.reminders.id+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+				CoreDataRules.columns.reminders.serverId+" INTEGER, "+
 				CoreDataRules.columns.reminders.targetDate+" INTEGER, "+
 				CoreDataRules.columns.reminders.ownerId+" INTEGER, "+
 				CoreDataRules.columns.reminders.localTaskId+" INTEGER, "+
@@ -69,6 +72,9 @@ public class DbHelper extends SQLiteOpenHelper
 				CoreDataRules.columns.reminders.vibrate+" INTEGER," +
 				CoreDataRules.columns.reminders.sound+" INTEGER " +
 				")");
+
+		// create notes table
+		// TODO
 	}
 
 	@Override
