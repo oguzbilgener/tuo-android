@@ -162,4 +162,8 @@
 
 	<string name="msg_success_add_task">Task created.</string>
 
+	<string name="today_capital">Today</string>
+	<string name="yesterday_capital">Yesterday</string>
+	<string name="tomorrow_capital">Tomorrow</string>
+
 </resources>

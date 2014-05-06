@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
@@ -163,7 +164,38 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 
         viewHolder.taskTitle.setText( item.getTaskName());
         viewHolder.taskDescription.setText( item.getTaskDesc());
-        viewHolder.taskDate.setText(item.getEndDate() + "");
+		if(Utils.isDateToday(item.getBeginDate()))
+		{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			viewHolder.taskDate.setText(
+					context.getString(R.string.today_capital) + "\n" +
+					dateFormat.format(item.getBeginDate()) + "-" + dateFormat.format(item.getEndDate())
+			);
+		}
+		else if(Utils.isDateYesterday(item.getBeginDate()))
+		{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			viewHolder.taskDate.setText(
+					context.getString(R.string.yesterday_capital) + "\n" +
+							dateFormat.format(item.getBeginDate()) + "-" + dateFormat.format(item.getEndDate())
+			);
+		}
+		else if(Utils.isDateTomorrow(item.getBeginDate()))
+		{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			viewHolder.taskDate.setText(
+					context.getString(R.string.tomorrow_capital) + "\n" +
+							dateFormat.format(item.getBeginDate()) + "-" + dateFormat.format(item.getEndDate())
+			);
+		}
+		else
+		{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
+			viewHolder.taskDate.setText(
+					dateFormat.format(item.getBeginDate()) + "-\n" +
+					dateFormat.format(item.getEndDate())
+			);
+		}
 
         return view;
     }
