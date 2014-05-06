@@ -48,7 +48,6 @@
 
     <dimen name="task_item_title_size">24sp</dimen>
     <dimen name="task_item_checkbox_height">40dp</dimen>
-    <dimen name="task_item_description_height">20dp</dimen>
     <dimen name="task_item_tag_height">30dp</dimen>
 
     <dimen name="task_item_tag_bar_margin_top">15dp</dimen>
@@ -254,5 +253,6 @@
 	<dimen name="tag_textsize">8sp</dimen>
 
 	<dimen name="expand_button_margin_top">10dp</dimen>
+	<dimen name="task_item_padding">10dp</dimen>
 
 </resources>

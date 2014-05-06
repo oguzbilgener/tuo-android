@@ -68,8 +68,8 @@ public class Tasks extends CoreTasks implements CoreSelectable
 				while(!loader.isAfterLast())
 				{
 					Task task = new Task();
-					task.setId(loader.getLong(loader.getColumnIndex(CoreDataRules.columns.tasks.serverId))); // task id = sqlite server id
-					task.setLocalId(loader.getLong(loader.getColumnIndex(CoreDataRules.columns.tasks.id))); // local id = sqlite id
+					task.setLocalId(loader.getLong(loader.getColumnIndex(CoreDataRules.columns.tasks.localId))); // local id = sqlite id
+					task.setId(loader.getLong(loader.getColumnIndex(CoreDataRules.columns.tasks.id))); // task id = server id
 					task.setTaskName(loader.getString(loader.getColumnIndex(CoreDataRules.columns.tasks.taskName)));
 					task.setTaskDesc(loader.getString(loader.getColumnIndex(CoreDataRules.columns.tasks.taskDesc)));
 					task.setOwnerId(loader.getLong(loader.getColumnIndex(CoreDataRules.columns.tasks.ownerId)));
@@ -114,13 +114,6 @@ public class Tasks extends CoreTasks implements CoreSelectable
 					task.setLastModified(loader.getInt(loader.getColumnIndex(CoreDataRules.columns.tasks.lastModified)));
 					task.setBeginDate(loader.getInt(loader.getColumnIndex(CoreDataRules.columns.tasks.beginDate)));
 					task.setEndDate(loader.getInt(loader.getColumnIndex(CoreDataRules.columns.tasks.endDate)));
-
-					int nowTime = Utils.getUnixTimestamp();
-
-					if(task.getEndDate() < nowTime)
-					{
-//						task.setStatus(Task.S);
-					}
 
 					this.add(task);
 

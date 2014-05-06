@@ -22,10 +22,16 @@ public class OverviewCompletedTasksFragment extends OverviewCommonFragment
     {
         super.onCreate(savedInstanceState);
 
+        overviewTaskAdapter = new OverviewTaskAdapter(getActivity(), overviewTaskList);
+    }
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
 		Tasks completedTasks = new Tasks(getHomeActivity().getLocalStorage().getDb());
 		completedTasks.loadCompletedTasks();
 
-		overviewTaskList = completedTasks.toTaskArrayList();
-        overviewTaskAdapter = new OverviewTaskAdapter(getActivity(), overviewTaskList);
-    }
+		overviewTaskList.addAll(completedTasks.toTaskArrayList());
+	}
 }

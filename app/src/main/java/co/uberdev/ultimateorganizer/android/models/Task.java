@@ -18,8 +18,6 @@ public class Task extends CoreTask implements CoreStorable
 {
 	private transient SQLiteDatabase db;
 
-	private long localId;
-
 	public Task(SQLiteDatabase db)
 	{
 		super();
@@ -44,16 +42,6 @@ public class Task extends CoreTask implements CoreStorable
 
 	public void setDb(SQLiteDatabase db) {
 		this.db = db;
-	}
-
-	public long getLocalId()
-	{
-		return localId;
-	}
-
-	public void setLocalId(long localId)
-	{
-		this.localId = localId;
 	}
 
 	/**
@@ -82,7 +70,7 @@ public class Task extends CoreTask implements CoreStorable
 		if(db != null)
 		{
 			String insertSql = "INSERT INTO "+getTableName()+" (" +
-					CoreDataRules.columns.tasks.serverId+", "+
+					CoreDataRules.columns.tasks.id+", "+
 					CoreDataRules.columns.tasks.ownerId+", " +
 					CoreDataRules.columns.tasks.taskName+", " +
 					CoreDataRules.columns.tasks.taskDesc+", " +

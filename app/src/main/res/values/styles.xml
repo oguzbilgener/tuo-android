@@ -117,8 +117,8 @@
     </style>
 
     <style name="task_item_description_overdue">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/task_item_description_height</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_below">@id/task_item_checkbox_overdue</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginLeft">@dimen/task_item_description_margin_left</item>
@@ -126,16 +126,16 @@
     </style>
 
     <style name="task_item_description_active">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/task_item_description_height</item>
+		<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginLeft">@dimen/task_item_description_margin_left</item>
         <item name="android:layout_marginRight">@dimen/task_item_description_margin_right</item>
     </style>
 
     <style name="task_item_description_complete">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/task_item_description_height</item>
+		<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_below">@id/task_item_checkbox_complete</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginLeft">@dimen/task_item_description_margin_left</item>
