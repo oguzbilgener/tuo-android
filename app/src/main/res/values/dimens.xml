@@ -106,7 +106,7 @@
     <dimen name="schedule_course_instructor_margin_left">10dp</dimen>
     <dimen name="schedule_course_instructor_padding_bottom">10dp</dimen>
 
-    <dimen name="schedule_course_text_size">18sp</dimen>
+    <dimen name="schedule_course_text_size">16sp</dimen>
 
     <!-- note to-do and note photo dimensions -->
 

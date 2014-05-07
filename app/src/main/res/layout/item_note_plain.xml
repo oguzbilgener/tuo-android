@@ -1,75 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
+    android:id="@+id/item_note_plain_outer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="false">
 
-    <TextView
-        android:id="@+id/note_plain_title"
+    <RelativeLayout
+        android:id="@+id/item_note_plain_inner_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/note_plain_title_margin_left"
-        android:layout_marginTop="@dimen/note_plain_title_margin_top"
-        android:text="@string/note_plain_title"
-        android:textSize="@dimen/note_plain_title_text_size"/>
-
-    <TextView
-        android:id="@+id/note_plain_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/note_plain_title"
-        android:layout_alignLeft="@id/note_plain_title"
-        android:text="@string/note_plain_description"
-        android:textSize="@dimen/note_plain_description_text_size"/>
-
-    <LinearLayout
-        android:id="@+id/note_plain_tag_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/note_plain_description"
-        android:layout_marginTop="@dimen/note_plain_tag_bar_margin_top"
-        android:layout_alignLeft="@id/note_plain_description"
-        android:orientation="horizontal">
+        style="@style/task_item"
+        android:padding="@dimen/task_item_padding"
+        android:background="@drawable/card_selector"
+        android:clickable="true">
 
         <TextView
-            android:id="@+id/plain_tag_1"
-            android:layout_width="wrap_content"
+            android:id="@+id/note_plain_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/note_plain_tag_margin_left"
-            android:paddingLeft="@dimen/note_plain_tag_text_padding"
-            android:paddingTop="@dimen/note_plain_tag_text_padding"
-            android:paddingRight="@dimen/note_plain_tag_text_padding"
-            android:paddingBottom="@dimen/note_plain_tag_text_padding"
-            android:text="@string/note_plain_tag_name1"
-            android:textSize="@dimen/note_plain_tag_text_size"
-            android:background="@color/note_plain_tag_color1"
-            android:textColor="@color/note_plain_tag_text_color"/>
+            android:layout_marginLeft="@dimen/note_plain_title_margin_left"
+            android:layout_marginTop="@dimen/note_plain_title_margin_top"
+            android:text="@string/note_plain_title"
+            android:textSize="@dimen/note_plain_title_text_size"/>
 
         <TextView
-            android:id="@+id/plain_tag_2"
+            android:id="@+id/note_plain_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/note_plain_title"
+            android:layout_alignLeft="@id/note_plain_title"
+            android:text="@string/note_plain_description"
+            android:textSize="@dimen/note_plain_description_text_size"/>
+
+        <LinearLayout
+            android:id="@+id/note_plain_tag_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/note_plain_tag_margin_left"
-            android:paddingLeft="@dimen/note_plain_tag_text_padding"
-            android:paddingTop="@dimen/note_plain_tag_text_padding"
-            android:paddingRight="@dimen/note_plain_tag_text_padding"
-            android:paddingBottom="@dimen/note_plain_tag_text_padding"
-            android:text="@string/note_plain_tag_name2"
-            android:textSize="@dimen/note_plain_tag_text_size"
-            android:background="@color/note_plain_tag_color2"
-            android:textColor="@color/note_plain_tag_text_color"/>
+            android:layout_below="@id/note_plain_description"
+            android:layout_marginTop="@dimen/note_plain_tag_bar_margin_top"
+            android:layout_alignLeft="@id/note_plain_description"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/plain_tag_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/note_plain_tag_margin_left"
+                android:paddingLeft="@dimen/note_plain_tag_text_padding"
+                android:paddingTop="@dimen/note_plain_tag_text_padding"
+                android:paddingRight="@dimen/note_plain_tag_text_padding"
+                android:paddingBottom="@dimen/note_plain_tag_text_padding"
+                android:text="@string/note_plain_tag_name1"
+                android:textSize="@dimen/note_plain_tag_text_size"
+                android:background="@color/note_plain_tag_color1"
+                android:textColor="@color/note_plain_tag_text_color"/>
 
-    <TextView
-        android:id="@+id/note_plain_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/note_plain_description"
-        android:layout_marginLeft="@dimen/note_plain_date_margin_left"
-        android:textSize="@dimen/note_plain_date_text_size"
-        android:text="@string/note_plain_date"/>
+            <TextView
+                android:id="@+id/plain_tag_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/note_plain_tag_margin_left"
+                android:paddingLeft="@dimen/note_plain_tag_text_padding"
+                android:paddingTop="@dimen/note_plain_tag_text_padding"
+                android:paddingRight="@dimen/note_plain_tag_text_padding"
+                android:paddingBottom="@dimen/note_plain_tag_text_padding"
+                android:text="@string/note_plain_tag_name2"
+                android:textSize="@dimen/note_plain_tag_text_size"
+                android:background="@color/note_plain_tag_color2"
+                android:textColor="@color/note_plain_tag_text_color"/>
 
-</RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/note_plain_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/note_plain_description"
+            android:layout_marginLeft="@dimen/note_plain_date_margin_left"
+            android:textSize="@dimen/note_plain_date_text_size"
+            android:text="@string/note_plain_date"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
