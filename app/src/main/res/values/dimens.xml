@@ -266,6 +266,8 @@
 	<dimen name="added_tag_remove_button_height">40dp</dimen>
 	<dimen name="added_tag_remove_button_width">40dp</dimen>
 
-	<dimen name="add_task_tags_input_height">20dp</dimen>
+	<dimen name="add_task_tags_input_height">16dp</dimen>
+	<dimen name="add_task_tags_input_margin_horizontal">4dp</dimen>
+	<dimen name="add_task_tags_input_margin_vertical">0dp</dimen>
 
 </resources>

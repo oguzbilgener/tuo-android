@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.InputType;
 import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -94,7 +95,6 @@ public class AddTaskDetailFragment extends Fragment
     // TODO: Rename and change types and number of parameters
     public static AddTaskDetailFragment newInstance()
 	{
-		Utils.log.d("B");
         AddTaskDetailFragment fragment = new AddTaskDetailFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -106,7 +106,6 @@ public class AddTaskDetailFragment extends Fragment
 		if(context == null || editableTask == null)
 			return newInstance();
 
-		Utils.log.d("A");
 		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
 		fragment.editableTask = editableTask;
 		// Store task json string in arguments just in case a fragment is resurrected from background
@@ -161,11 +160,15 @@ public class AddTaskDetailFragment extends Fragment
 				(int) Utils.getPixelsByDp(getActivity(),
 				getResources().getDimension(R.dimen.add_task_tags_input_height))
 		);
-//		params.setMargins((int) Utils.getPixelsByDp(getActivity(),getResources().getDimension(R.dimen.sub_line_margin_sides) ));
+		int tagInputMarginHorizontal = (int) Utils.getPixelsByDp(getActivity(),getResources().getDimension(R.dimen.add_task_tags_input_margin_horizontal) );
+		int tagInputMarginVertical = (int) Utils.getPixelsByDp(getActivity(),getResources().getDimension(R.dimen.add_task_tags_input_margin_vertical) );
+		params.setMargins(tagInputMarginHorizontal, tagInputMarginVertical, tagInputMarginHorizontal, tagInputMarginVertical);
+
 		tagInput.setLayoutParams(params);
 		tagInput.setId(R.id.add_task_tag_input);
 		tagInput.setHint(getString(R.string.tag_input_hint));
 		tagInput.setSingleLine(true);
+		tagInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
 		tagInput.setOnEditorActionListener(this);
 
@@ -415,9 +418,14 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			if(keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_ENDCALL)
 			{
+				String tagName = ((EditText) v).getText().toString();
+				// Do not let user to enter the same tag
+				if(tagsListContainsTagName(tagName))
+				{
+					return false;
+				}
 				Tag tag = new Tag();
-				tag.setName(((EditText) v).getText().toString());
-				Utils.log.d(tag.getName()+" "+Utils.colorForTagStr(tag.getName()));
+				tag.setName(tagName);
 				tag.setColor(Utils.colorForTagStr(tag.getName()));
 				v.setText("");
 				tags.add(tag);
@@ -590,7 +598,25 @@ public class AddTaskDetailFragment extends Fragment
 			this.remindersAdapter.notifyDataSetChanged();
 		}
 
-		// refresh the views!
+
+		if(task.getTags() != null)
+		{
+			for( int i = 0; i < task.getTags().size(); i++)
+			{
+				this.tags.add((Tag) task.getTags().get(i));
+			}
+			this.tagsAdapter.notifyDataSetChanged();
+		}
+	}
+
+	public boolean tagsListContainsTagName(String name)
+	{
+		for(int i=0;i<tags.size();i++)
+		{
+			if(tags.get(i).getName().equalsIgnoreCase(name))
+				return true;
+		}
+		return false;
 	}
 
 }

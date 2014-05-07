@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 
 import java.util.ArrayList;
 
+import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 import co.uberdev.ultimateorganizer.core.CoreStorable;
@@ -118,16 +119,20 @@ public class Task extends CoreTask implements CoreStorable
 				// time to insert reminders one by one
 				if(this.reminders != null)
 				{
-					for (int i = 0; i < reminders.size(); i++) {
-						((Reminder) reminders.get(i)).insert();
+					for (int i = 0; i < reminders.size(); i++)
+					{
+						boolean res = ((Reminder) reminders.get(i)).insert();
+						Utils.log.d(res+" "+i);
 					}
 				}
 
 				// insert tags one by one
 				if(this.tags != null)
 				{
-					for (int i = 0; i < tags.size(); i++) {
-						((Tag) tags.get(i)).insert();
+					for (int i = 0; i < tags.size(); i++)
+					{
+						boolean res = ((Tag) tags.get(i)).insert();
+						Utils.log.d(res+" "+i);
 					}
 				}
 

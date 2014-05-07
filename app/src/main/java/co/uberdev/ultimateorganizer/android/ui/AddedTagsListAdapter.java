@@ -1,7 +1,6 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Tag;
 import co.uberdev.ultimateorganizer.android.util.BareListDataDelegate;
 import co.uberdev.ultimateorganizer.android.util.BareListDataListener;
-import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by oguzbilgener on 02/05/14.
@@ -65,8 +63,6 @@ public class AddedTagsListAdapter extends ArrayAdapter<Tag>
 		TextView tagTextView = (TextView) itemView.findViewById(R.id.text_add_task_tag);
 
 		tagTextView.setText(items.get(position).getName());
-		tagTextView.setTextColor(Color.parseColor("#ad0000"));
-		Utils.log.d("color "+items.get(position).getColor());
 		tagLayout.setBackgroundColor(items.get(position).getColor());
 
 		return itemView;

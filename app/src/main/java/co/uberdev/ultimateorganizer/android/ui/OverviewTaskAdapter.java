@@ -80,7 +80,6 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         }
         else
         {
-            Utils.log.d( "hmm else");
             layoutId = R.layout.item_task_complete;
         }
 

@@ -150,56 +150,73 @@ public class Utils
 	// yep, fake
 	public static int colorForTagStr(String tag)
 	{
-		if(tag.equals("tag"))
+		if(tag.equalsIgnoreCase("tag"))
 		{
 			return Color.parseColor("#000000");
 		}
-		else if(tag.equals("lol"))
+		else if(tag.equalsIgnoreCase("lol"))
 		{
 			return Color.parseColor("#b2b2b2");
 		}
-		else if(tag.equals("CS 102"))
+		else if(tag.equalsIgnoreCase("CS 102"))
 		{
 			return Color.parseColor("#008CBA");
 		}
-		else if(tag.equals("ENG 102"))
+		else if(tag.equalsIgnoreCase("ENG 102"))
 		{
 			return Color.parseColor("#BA7300");
 		}
-		else if(tag.equals("MATH 102"))
+		else if(tag.equalsIgnoreCase("MATH 102"))
 		{
 			return Color.parseColor("#0019BA");
 		}
-		else if(tag.equals("MATH 132"))
+		else if(tag.equalsIgnoreCase("MATH 132"))
 		{
 			return Color.parseColor("#7000BA");
 		}
-		else if(tag.equals("PHYS 102"))
+		else if(tag.equalsIgnoreCase("PHYS 102"))
 		{
 			return Color.parseColor("#308F00");
 		}
-		else if(tag.equals("TURK 102"))
+		else if(tag.equalsIgnoreCase("TURK 102"))
 		{
 			return Color.parseColor("#8F001A");
 		}
-		else if(tag.equals("Lab"))
+		else if(tag.equalsIgnoreCase("Lab"))
 		{
 			return Color.parseColor("#777777");
 		}
-		else if(tag.equals("presentation"))
+		else if(tag.equalsIgnoreCase("presentation"))
 		{
 			return Color.parseColor("#008F7C");
 		}
-		else if(tag.equals("date"))
+		else if(tag.equalsIgnoreCase("date"))
 		{
 			return Color.parseColor("#8F005D");
 		}
-		else if(tag.equals("programming"))
+		else if(tag.equalsIgnoreCase("programming"))
 		{
 			return Color.parseColor("#8F8500");
 		}
 
-		return 255;
+		return Color.parseColor(getRandomColorString());
 	}
+
+	public static String getRandomColorString()
+	{
+		String cs = "#";
+		for(int i=0;i<6;i++)
+		{
+			cs += getRandomColorChar();
+		}
+		return cs;
+	}
+
+	public static char getRandomColorChar()
+	{
+		String digits = "0123456789abcdef";
+		return digits.charAt((int)(Math.random()*digits.length()));
+	}
+
 
 }

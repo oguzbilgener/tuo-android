@@ -178,11 +178,15 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 
 				editableTask.setDb(localStorage.getDb());
 
-				if(editableTask.getId() != 0)
+				if(editableTask.getLocalId() != 0)
 				{
 					if(editableTask.insert())
 					{
 						// TODO: sync!
+						if(editableTask.getId() != 0)
+						{
+							// only sync if we have a server id
+						}
 
 						Toast.makeText(this, getString(R.string.edit_task_success), Toast.LENGTH_SHORT).show();
 						// let the user go
