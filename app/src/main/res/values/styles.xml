@@ -191,11 +191,12 @@
 	<style name="task_item_context_button">
 		<item name="android:layout_width">@dimen/expand_button_width</item>
 		<item name="android:layout_height">@dimen/expand_button_height</item>
-		<item name="android:src">@drawable/ic_action_expand</item>
+		<item name="android:src">@drawable/ic_action_overflow_selector</item>
 		<item name="android:layout_alignParentRight">true</item>
 		<item name="android:layout_alignParentTop">true</item>
 		<item name="android:layout_marginTop">@dimen/expand_button_margin_top</item>
 		<item name="android:background">@android:color/transparent</item>
+		<item name="android:clickable">true</item>
 	</style>
 
 </resources>

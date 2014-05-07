@@ -3,10 +3,13 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -52,6 +55,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 		public TextView taskDate;
         // checkbox of the task
 		public CheckBox checkbox;
+
+		public ImageButton menuButton;
     }
 
     @Override
@@ -106,12 +111,16 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_complete);
             }
 			viewHolder.taskItemLayout = (RelativeLayout) view.findViewById(R.id.task_item_layout);
+			viewHolder.menuButton = (ImageButton) view.findViewById(R.id.task_item_expand_icon);
+
 			view.setTag(R.id.overview_task_item_object,viewHolder);
+			viewHolder.menuButton.setTag(R.id.task_item_position, position);
 
 			if(viewHolder.checkbox != null)
             	viewHolder.checkbox.setOnClickListener( checkboxListener);
 
 			viewHolder.taskItemLayout.setOnClickListener(this);
+			viewHolder.menuButton.setOnClickListener(this);
         }
         else
         {
@@ -228,7 +237,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     }
 
     @Override
-    public void onClick(View view)
+    public void onClick(final View view)
     {
 		if(view.getId() == R.id.task_item_layout)
 		{
@@ -245,6 +254,34 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 				Utils.log.w("could not get position from view");
 				e.printStackTrace();
 			}
+		}
+		else if(view.getId() == R.id.task_item_expand_icon)
+		{
+			PopupMenu menu = new PopupMenu(getContext(), view);
+			menu.getMenuInflater().inflate(R.menu.task_item_overflow_menu, menu.getMenu());
+
+			menu.show();
+
+			// ugly inline click listener. no other choice
+			menu.setOnMenuItemClickListener( new PopupMenu.OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(MenuItem item)
+				{
+					switch(item.getItemId())
+					{
+						case R.id.menu_task_edit:
+							// user pressed edit menu item
+							openTaskForEdit(getPositionByTaskItem(view));
+							return true;
+
+						case R.id.menu_task_delete:
+							// user pressed delete menu item
+
+							return false;
+					}
+					return false;
+				}
+			});
 		}
     }
 
@@ -287,6 +324,15 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 	public int getPositionByTaskItem(View view)
 	{
 		return (Integer) view.getTag(R.id.task_item_position);
+	}
+
+	public void openTaskForEdit(int position)
+	{
+		long localId = overviewTaskList.get(position).getLocalId();
+		Intent editIntent = new Intent(context, EditTaskActivity.class);
+		editIntent.putExtra(context.getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID), localId);
+
+		context.startActivity(editIntent);
 	}
 
 }

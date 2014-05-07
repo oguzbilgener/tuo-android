@@ -93,6 +93,7 @@ public class AddTaskDetailFragment extends Fragment
     // TODO: Rename and change types and number of parameters
     public static AddTaskDetailFragment newInstance()
 	{
+		Utils.log.d("B");
         AddTaskDetailFragment fragment = new AddTaskDetailFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -101,6 +102,7 @@ public class AddTaskDetailFragment extends Fragment
 
 	public static AddTaskDetailFragment newInstance(Context context, Task editableTask)
 	{
+		Utils.log.d("A");
 		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
 		fragment.editableTask = editableTask;
 		// Store task json string in arguments just in case a fragment is resurrected from background
@@ -136,17 +138,6 @@ public class AddTaskDetailFragment extends Fragment
 
 		tagsAdapter = new AddedTagsListAdapter(getActivity(), R.layout.item_add_task_tag, tags);
 		tagsAdapter.setItemRemoveClickListener(this);
-
-		if(editableTask != null)
-		{
-			try {
-				fillFromTask(editableTask);
-			} catch (Exception e) {
-				e.printStackTrace();
-				// show an error toast
-				Toast.makeText(getActivity(), getString(R.string.edit_task_unknown_error), Toast.LENGTH_SHORT).show();
-			}
-		}
     }
 
     @Override
@@ -200,14 +191,27 @@ public class AddTaskDetailFragment extends Fragment
 		taskNameView = (EditText) rootView.findViewById(R.id.add_task_name_input);
 		taskDescriptionView = (EditText) rootView.findViewById(R.id.add_task_description_input);
 
-		Reminder reminder = new Reminder();
-		reminder.setGap(5);
-		reminder.setVibrate(true);
-		reminder.setSound(true);
+		if(editableTask != null)
+		{
+			try {
+				fillFromTask(editableTask);
+			} catch (Exception e) {
+				e.printStackTrace();
+				// show an error toast
+				Toast.makeText(getActivity(), getString(R.string.edit_task_unknown_error), Toast.LENGTH_SHORT).show();
+			}
+		}
+		else
+		{
+			Reminder reminder = new Reminder();
+			reminder.setGap(5);
+			reminder.setVibrate(true);
+			reminder.setSound(true);
 
-		reminders.add(reminder);
+			reminders.add(reminder);
 
-		remindersAdapter.notifyDataSetChanged();
+			remindersAdapter.notifyDataSetChanged();
+		}
 
 		return rootView;
     }
@@ -568,10 +572,12 @@ public class AddTaskDetailFragment extends Fragment
 		fromDate = new Date((long)task.getBeginDate()*1000);
 		toDate = new Date((long)task.getEndDate()*1000);
 
-		// fill reminders
-		for(int i=0; i<task.getReminders().size(); i++)
+		if(task.getReminders() != null)
 		{
-			this.reminders.add((Reminder)task.getReminders().get(i));
+			// fill reminders
+			for (int i = 0; i < task.getReminders().size(); i++) {
+				this.reminders.add((Reminder) task.getReminders().get(i));
+			}
 		}
 
 		// refresh the views!
