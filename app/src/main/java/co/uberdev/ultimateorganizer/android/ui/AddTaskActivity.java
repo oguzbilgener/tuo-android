@@ -122,7 +122,7 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 
 						// do all the neccesary insertions.
 
-						// TODO: insert related tasks, tags etc
+						// TODO: insert related tasks
 
 						// insert the main task
 						if (enteredTask.insert())

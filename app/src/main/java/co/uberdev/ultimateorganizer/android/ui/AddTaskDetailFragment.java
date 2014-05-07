@@ -38,6 +38,7 @@ import co.uberdev.ultimateorganizer.android.util.ReminderManager;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreReminders;
+import co.uberdev.ultimateorganizer.core.CoreTags;
 
 /**
  *
@@ -88,13 +89,7 @@ public class AddTaskDetailFragment extends Fragment
 	public static final int MESSAGE_REQUEST_TASK = -99;
 	public static final int MESSAGE_RESPONSE_TASK = -98;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment AddTaskDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static AddTaskDetailFragment newInstance()
 	{
         AddTaskDetailFragment fragment = new AddTaskDetailFragment();
@@ -574,6 +569,15 @@ public class AddTaskDetailFragment extends Fragment
 
 				task.addReminder(reminders.get(i));
 			}
+
+			// flush the old tags
+			task.setTags(new CoreTags());
+
+			// add the tags
+			for(int i = 0; i < tags.size(); i++)
+			{
+				task.addTag(tags.get(i));
+			}
 		}
 		catch(Exception e)
 		{
@@ -581,12 +585,7 @@ public class AddTaskDetailFragment extends Fragment
 			e.printStackTrace();
 		}
 
-		// add the tags
-		for(int i = 0; i < tags.size(); i++)
-		{
-			if(!task.getTags().contains(tags.get(i)))
-				task.addTag(tags.get(i));
-		}
+
 
 		return task;
 	}
@@ -604,7 +603,6 @@ public class AddTaskDetailFragment extends Fragment
 		fromDateButton.setText(getDateString(fromDate));
 		fromTimeButton.setText(getTimeString(fromDate));
 
-		// TODO: make sure reminders are retrieved
 		// they do not seem to be inserted into db
 		if(task.getReminders() != null)
 		{
