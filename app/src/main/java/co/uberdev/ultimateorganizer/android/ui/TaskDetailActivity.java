@@ -13,11 +13,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.Toast;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.models.Tasks;
+import co.uberdev.ultimateorganizer.android.util.Utils;
+import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
-public class TaskDetailActivity extends FragmentActivity {
+public class TaskDetailActivity extends FragmentActivity
+{
+    private LocalStorage localStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,33 @@ public class TaskDetailActivity extends FragmentActivity {
                     .add(R.id.container, TaskDetailFragment.newInstance())
                     .commit();
         }
+
+        localStorage = new LocalStorage(this);
+
+        if (getIntent().getExtras() != null
+                && getIntent().getExtras().containsKey(getResources().getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID))
+                )
+        {
+
+
+            long localId = (Long) getIntent().getExtras().getLong(getResources().getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID));
+            Utils.log.d("LocalId: "+localId);
+            Tasks tasksResult = new Tasks(localStorage.getDb());
+            tasksResult.loadFromDb(CoreDataRules.columns.tasks.localId + " = ? ", new String[] { String.valueOf(localId) }, 0);
+
+            if (tasksResult.size() > 0)
+            {
+                Task taskToShow = (Task) tasksResult.get(0);
+            }
+            else
+            {
+                Toast.makeText(this, getString(R.string.task_not_found_error_message), Toast.LENGTH_SHORT).show();
+                // finish the activity
+                finish();
+            }
+        }
+
+
     }
 
 
@@ -50,4 +84,17 @@ public class TaskDetailActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onResume()
+    {
+        super.onResume();
+
+        if (localStorage != null)
+            localStorage.reopen();
+    }
+
+    public void onDestroy()
+    {
+        localStorage.close();
+        super.onDestroy();
+    }
 }

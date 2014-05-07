@@ -165,6 +165,8 @@
 
 	<string name="tag_input_hint">enter a tag name...</string>
 
+
+    <string name="task_not_found_error_message">Could not find specified Task</string>
 	<string name="edit_task_no_task">No task specified.</string>
 	<string name="edit_task_unknown_error">Something went wrong.</string>
 	<string name="edit_task_success">Edited task.</string>
