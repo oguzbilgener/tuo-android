@@ -2,6 +2,7 @@ package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.KeyEvent;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.doomonafireball.betterpickers.radialtimepicker.RadialPickerLayout;
@@ -23,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.android.models.Reminder;
 import co.uberdev.ultimateorganizer.android.models.Tag;
 import co.uberdev.ultimateorganizer.android.models.Task;
@@ -44,6 +47,7 @@ public class AddTaskDetailFragment extends Fragment
 {
 
 	public static final int MAX_REMINDER_COUNT = 5;
+	public static final int MAX_RELATED_TASK_COUNT = 5;
 
 	private BareListView remindersListView;
 	private BareListView tagsListView;
@@ -53,6 +57,10 @@ public class AddTaskDetailFragment extends Fragment
 
 	private ArrayList<Reminder> reminders;
 	private ArrayList<Tag> tags;
+	private ArrayList<Task> relatedTasks;
+
+	public Task editableTask;
+	private Course relatedCourse;
 
 	private ViewGroup remindersAddButton;
 	private EditText tagInput;
@@ -90,6 +98,19 @@ public class AddTaskDetailFragment extends Fragment
         fragment.setArguments(args);
         return fragment;
     }
+
+	public static AddTaskDetailFragment newInstance(Context context, Task editableTask)
+	{
+		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
+		fragment.editableTask = editableTask;
+		// Store task json string in arguments just in case a fragment is resurrected from background
+		String taskJsonStr = editableTask.asJsonString();
+		Bundle args = new Bundle();
+		args.putString(context.getString(R.string.ARGS_TASK_JSON_OBJECT), taskJsonStr);
+		fragment.setArguments(args);
+		return fragment;
+	}
+
     public AddTaskDetailFragment() {
         // Required empty public constructor
     }
@@ -115,6 +136,17 @@ public class AddTaskDetailFragment extends Fragment
 
 		tagsAdapter = new AddedTagsListAdapter(getActivity(), R.layout.item_add_task_tag, tags);
 		tagsAdapter.setItemRemoveClickListener(this);
+
+		if(editableTask != null)
+		{
+			try {
+				fillFromTask(editableTask);
+			} catch (Exception e) {
+				e.printStackTrace();
+				// show an error toast
+				Toast.makeText(getActivity(), getString(R.string.edit_task_unknown_error), Toast.LENGTH_SHORT).show();
+			}
+		}
     }
 
     @Override
@@ -142,7 +174,7 @@ public class AddTaskDetailFragment extends Fragment
 
 		tagInput.setOnEditorActionListener(this);
 
-		tagsListView.setHeader(tagInput);
+		tagsListView.setFooter(tagInput);
 
 		remindersAddButton = (ViewGroup) inflater.inflate(R.layout.button_add_reminder, container, false);
 		remindersListView.setFooter(remindersAddButton);
@@ -377,6 +409,7 @@ public class AddTaskDetailFragment extends Fragment
 			{
 				Tag tag = new Tag();
 				tag.setName(((EditText) v).getText().toString());
+				Utils.log.d(tag.getName()+" "+Utils.colorForTagStr(tag.getName()));
 				tag.setColor(Utils.colorForTagStr(tag.getName()));
 				v.setText("");
 				tags.add(tag);
@@ -456,7 +489,30 @@ public class AddTaskDetailFragment extends Fragment
 
 	public Task buildTask()
 	{
-		Task task = new Task();
+		// Try to retrieve the task object form editableTask.
+		// If not, try arguments
+		// If there is still no task, we cannot do anything but creating a new task object.
+		// Then it will not be an edit action of course.
+		Bundle args = getArguments();
+		Task task;
+		if(editableTask == null && !args.containsKey(getString(R.string.ARGS_TASK_JSON_OBJECT)))
+		{
+			task = new Task();
+		}
+		else if(editableTask != null)
+		{
+			task = editableTask;
+		}
+		else
+		{
+			String taskStr = args.getString(getString(R.string.ARGS_TASK_JSON_OBJECT));
+			task = Task.fromJson(taskStr, Task.class);
+			if(task == null)
+			{
+				Utils.log.w("editable task string could not be parsed");
+				task = new Task();
+			}
+		}
 
 		task.setTaskName(taskNameView.getText().toString());
 		task.setTaskDesc(taskDescriptionView.getText().toString());
@@ -500,6 +556,25 @@ public class AddTaskDetailFragment extends Fragment
 		}
 
 		return task;
+	}
+
+	public void fillFromTask(Task task)
+	{
+		// fill name and description
+		taskNameView.setText(task.getTaskName());
+		taskDescriptionView.setText(task.getTaskDesc());
+
+		// fill dates
+		fromDate = new Date((long)task.getBeginDate()*1000);
+		toDate = new Date((long)task.getEndDate()*1000);
+
+		// fill reminders
+		for(int i=0; i<task.getReminders().size(); i++)
+		{
+			this.reminders.add((Reminder)task.getReminders().get(i));
+		}
+
+		// refresh the views!
 	}
 
 }

@@ -66,6 +66,7 @@
     <string name="add_task_time_text_to">T0</string>
 	<string name="add_task_reminders">REMINDERS</string>
 	<string name="add_task_tags">TAGS</string>
+	<string name="add_task_course">RELATED COURSE</string>
 	<string name="add_task_related_tasks">RELATED TASKS</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -168,5 +169,9 @@
 	<string name="tomorrow_capital">Tomorrow</string>
 
 	<string name="tag_input_hint">enter a tag name...</string>
+
+	<string name="edit_task_no_task">No task specified.</string>
+	<string name="edit_task_unknown_error">Something went wrong.</string>
+	<string name="edit_task_success">Edited task.</string>
 
 </resources>

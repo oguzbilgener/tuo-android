@@ -125,7 +125,8 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 						// TODO: insert related tasks, tags etc
 
 						// insert the main task
-						if (enteredTask.insert()) {
+						if (enteredTask.insert())
+						{
 							// TODO: sync!
 
 							// show a little success
@@ -134,7 +135,9 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 
 							// Add new task activity can just go back, but this might be different for edit task activity.
 							finish();
-						} else {
+						}
+						else
+						{
 							// db error! do not let the user go
 							Toast.makeText(this, getString(R.string.msg_cannot_add_task), Toast.LENGTH_SHORT).show();
 						}
