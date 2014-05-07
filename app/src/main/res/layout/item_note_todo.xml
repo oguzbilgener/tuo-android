@@ -4,7 +4,8 @@
     android:id="@+id/item_note_todo_outer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="false">
 
     <RelativeLayout
         android:id="@+id/item_note_todo_inner_layout"

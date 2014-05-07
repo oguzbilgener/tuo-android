@@ -4,10 +4,11 @@
     android:id="@+id/item_note_plain_outer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="false">
 
     <RelativeLayout
-        android:id="@+id/item_note_plain_innter_layout"
+        android:id="@+id/item_note_plain_inner_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/task_item"
