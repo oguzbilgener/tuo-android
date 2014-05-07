@@ -180,8 +180,9 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 
 				if(editableTask.getLocalId() != 0)
 				{
-					if(editableTask.insert())
+					if(editableTask.update())
 					{
+						Utils.log.d("updated task");
 						// TODO: sync!
 						if(editableTask.getId() != 0)
 						{
@@ -204,6 +205,7 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 					// insert the main task
 					if (editableTask.insert())
 					{
+						Utils.log.d("inserted task");
 						// TODO: sync!
 
 						// show a little success

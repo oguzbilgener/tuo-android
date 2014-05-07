@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
-import co.uberdev.ultimateorganizer.core.CoreReminders;
 import co.uberdev.ultimateorganizer.core.CoreSelectable;
 import co.uberdev.ultimateorganizer.core.CoreTags;
 import co.uberdev.ultimateorganizer.core.CoreTasks;
@@ -76,10 +75,13 @@ public class Tasks extends CoreTasks implements CoreSelectable
 					task.setStatus((int) loader.getLong(loader.getColumnIndex(CoreDataRules.columns.tasks.status)));
 
 					// parse tags and set
-					CoreTags tags = CoreTags.fromJson(loader.getString(
+					Tag[] tags = CoreTags.fromJson(loader.getString(
 							loader.getColumnIndex(CoreDataRules.columns.tasks.tags)
-						), CoreTags.class);
-					task.setTags(tags);
+						), Tag[].class);
+					for(int i=0; i<tags.length;i++)
+					{
+						task.addTag(tags[i]);
+					}
 
 					// parse related task ids
 					ArrayList relatedTaskIds = new Gson().fromJson(loader.getString(
@@ -97,9 +99,11 @@ public class Tasks extends CoreTasks implements CoreSelectable
 					task.setPersonal(personal == 1);
 
 					// parse reminders and set
-					task.setReminders(CoreReminders.fromJson(loader.getString(
-							loader.getColumnIndex(CoreDataRules.columns.tasks.reminders)
-					), CoreReminders.class));
+					Reminder[] reminders = new Gson().fromJson(loader.getString(loader.getColumnIndex(CoreDataRules.columns.tasks.reminders)), Reminder[].class);
+					for(int i=0; i<reminders.length;i++)
+					{
+						task.addReminder(reminders[i]);
+					}
 
 					// parse course and set
 					task.setCourse(CoreCourse.fromJson(loader.getString(

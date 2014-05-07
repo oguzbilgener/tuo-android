@@ -3,6 +3,9 @@
     package="co.uberdev.ultimateorganizer.android" >
 
     <uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="co.uberdev.ultimateorganizer.android.util.UltimateApplication"
@@ -57,6 +60,8 @@
 					android:name="android.support.PARENT_ACTIVITY"
 					android:value="HomeActivity" />
 		</activity>
+
+		<receiver android:name="co.uberdev.ultimateorganizer.android.util.AlarmReceiver" />
 
     </application>
 

@@ -34,6 +34,7 @@ import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.BareListView;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.ReminderManager;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreReminders;
@@ -543,7 +544,11 @@ public class AddTaskDetailFragment extends Fragment
 		}
 		task.setLastModified(Utils.getUnixTimestamp());
 
-		// TODO: remove old reminders from AlarmManager
+		// remove old reminders from AlarmManager
+		for (int i=0; i<reminders.size(); i++)
+		{
+			ReminderManager.cancel(getActivity(), reminders.get(i));
+		}
 
 		try
 		{
@@ -551,21 +556,23 @@ public class AddTaskDetailFragment extends Fragment
 
 			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
 
+			// flush the old reminders
 			task.setReminders(new CoreReminders());
 
-			for (int i = 0; i < reminders.size(); i++)
+			// add new reminders one by one to task object
+			for (int i=0; i<reminders.size(); i++)
 			{
 				reminders.get(i).setTitle(task.getTaskName());
-				reminders.get(i).setTargetDate((task.getBeginDate()/1000) - reminders.get(i).getGap());
+				reminders.get(i).setTargetDate(task.getBeginDate() - reminders.get(i).getGap());
 
 				if (app.user != null) {
 					reminders.get(i).setOwnerId(app.user.getId());
 				}
 
+				// add new reminder to alarm manager
+				ReminderManager.remind(getActivity(), task, reminders.get(i));
+
 				task.addReminder(reminders.get(i));
-
-				// TODO: add new reminder to alarm manager
-
 			}
 		}
 		catch(Exception e)
@@ -613,7 +620,7 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			for( int i = 0; i < task.getTags().size(); i++)
 			{
-				this.tags.add(new Tag(task.getTags().get(i)));
+				this.tags.add((Tag) task.getTags().get(i));
 			}
 			this.tagsAdapter.notifyDataSetChanged();
 		}

@@ -43,7 +43,8 @@ public class DbHelper extends SQLiteOpenHelper
 				CoreDataRules.columns.tasks.course+" TEXT, " +
 				CoreDataRules.columns.tasks.courseId+" INTEGER, " +
 				CoreDataRules.columns.tasks.courseCodeCombined+" TEXT, " +
-				CoreDataRules.columns.tasks.taskOwnerNameCombined+" TEXT " +
+				CoreDataRules.columns.tasks.taskOwnerNameCombined+" TEXT, " +
+				CoreDataRules.columns.tasks.alarmIndex+" INTEGER "+
 				")");
 
 		// create tags table
@@ -55,21 +56,22 @@ public class DbHelper extends SQLiteOpenHelper
 				CoreDataRules.columns.tags.color+" INTEGER " +
 				")");
 
-		// create reminders table
-		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.reminders +" (" +
-				CoreDataRules.columns.reminders.localId+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-				CoreDataRules.columns.reminders.id+" INTEGER, "+
-				CoreDataRules.columns.reminders.targetDate+" INTEGER, "+
-				CoreDataRules.columns.reminders.ownerId+" INTEGER, "+
-				CoreDataRules.columns.reminders.localTaskId+" INTEGER, "+
-				CoreDataRules.columns.reminders.taskId+" INTEGER, "+
-				CoreDataRules.columns.reminders.title+" TEXT, "+
-				CoreDataRules.columns.reminders.details+" TEXT, " +
-				CoreDataRules.columns.reminders.gap+" INTEGER, " +
-				CoreDataRules.columns.reminders.light+" INTEGER, " +
-				CoreDataRules.columns.reminders.vibrate+" INTEGER," +
-				CoreDataRules.columns.reminders.sound+" INTEGER " +
-				")");
+// no need to create a new table for reminder!!
+//		// create reminders table
+//		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.reminders +" (" +
+//				CoreDataRules.columns.reminders.localId+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+//				CoreDataRules.columns.reminders.id+" INTEGER, "+
+//				CoreDataRules.columns.reminders.targetDate+" INTEGER, "+
+//				CoreDataRules.columns.reminders.ownerId+" INTEGER, "+
+//				CoreDataRules.columns.reminders.localTaskId+" INTEGER, "+
+//				CoreDataRules.columns.reminders.taskId+" INTEGER, "+
+//				CoreDataRules.columns.reminders.title+" TEXT, "+
+//				CoreDataRules.columns.reminders.details+" TEXT, " +
+//				CoreDataRules.columns.reminders.gap+" INTEGER, " +
+//				CoreDataRules.columns.reminders.light+" INTEGER, " +
+//				CoreDataRules.columns.reminders.vibrate+" INTEGER," +
+//				CoreDataRules.columns.reminders.sound+" INTEGER " +
+//				")");
 
 		// create notes table
 		// TODO

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 
 import java.util.ArrayList;
 
+import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 import co.uberdev.ultimateorganizer.core.CoreStorable;
@@ -18,6 +19,11 @@ import co.uberdev.ultimateorganizer.core.CoreUtils;
 public class Task extends CoreTask implements CoreStorable
 {
 	private transient SQLiteDatabase db;
+	/**
+	 * alarmIndex field keeps the next free id for a reminder.
+	 *
+	 */
+	private int alarmIndex;
 
 	public Task(SQLiteDatabase db)
 	{
@@ -30,6 +36,7 @@ public class Task extends CoreTask implements CoreStorable
 		this.courseCodeCombined = this.course.getCourseCodeCombined();
 		this.courseId = this.course.getId();
 		this.taskOwnerNameCombined = "";
+		this.alarmIndex = 1;
 	}
 
     public Task()
@@ -45,19 +52,14 @@ public class Task extends CoreTask implements CoreStorable
 		this.db = db;
 	}
 
-	/**
-	 * loads the asd
-	 */
-	public void loadRemindersFromDb()
+	public int getNextAlarmIndex()
 	{
-		Reminders reminders = new Reminders();
-		// TODO: test this
-		reminders.loadFromDb(
-				CoreDataRules.columns.tasks.ownerId+" = ?",
-				new String[]{Long.toString(this.ownerId)},
-				0);
-		// pass the reference
-		this.reminders = reminders;
+		return alarmIndex++;
+	}
+
+	public long	getNextAlarmId()
+	{
+		return localId * 100 + getNextAlarmIndex();
 	}
 
 	@Override
@@ -88,8 +90,10 @@ public class Task extends CoreTask implements CoreStorable
 						CoreDataRules.columns.tasks.personal + ", " +
 						CoreDataRules.columns.tasks.relatedNotes + ", " +
 						CoreDataRules.columns.tasks.relatedTasks + ", " +
-						CoreDataRules.columns.tasks.taskOwnerNameCombined + " " +
-						") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+						CoreDataRules.columns.tasks.taskOwnerNameCombined + ", " +
+						CoreDataRules.columns.tasks.reminders+", "+
+						CoreDataRules.columns.tasks.alarmIndex +" "+
+						") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 				int n = 1;
 				SQLiteStatement ss = db.compileStatement(insertSql);
@@ -110,21 +114,25 @@ public class Task extends CoreTask implements CoreStorable
 				ss.bindString(n++, CoreUtils.longArrayListToJson(getRelatedNotes()));
 				ss.bindString(n++, CoreUtils.longArrayListToJson(getRelatedTasks()));
 				ss.bindString(n++, getTaskOwnerNameCombined());
+				ss.bindString(n++, getReminders().asJsonString());
+				ss.bindLong(n++, alarmIndex);
+
+				Utils.log.i(getReminders().asJsonString());
 
 				ss.execute();
 				ss.close();
 
-				// now insert should be complete
-				// time to insert reminders one by one
-				if(this.reminders != null)
-				{
-					for (int i = 0; i < reminders.size(); i++)
-					{
-						Reminder reminder = (Reminder) reminders.get(i);
-						reminder.setDb(getDb());
-						reminder.insert();
-					}
-				}
+//				// now insert should be complete
+//				// time to insert reminders one by one
+//				if(this.reminders != null)
+//				{
+//					for (int i = 0; i < reminders.size(); i++)
+//					{
+//						Reminder reminder = (Reminder) reminders.get(i);
+//						reminder.setDb(getDb());
+//						reminder.insert();
+//					}
+//				}
 
 				// insert tags one by one
 				// TODO insert tags into a seperate database to be able to filter tasks by tags
@@ -157,21 +165,24 @@ public class Task extends CoreTask implements CoreStorable
 				String updateSql = "UPDATE " + CoreDataRules.tables.tasks + " SET " +
 						CoreDataRules.columns.tasks.id + " = ?, " +
 						CoreDataRules.columns.tasks.ownerId + " = ? , " +
+						CoreDataRules.columns.tasks.taskName + " = ? , " +
+						CoreDataRules.columns.tasks.taskDesc + " = ? , " +
+						CoreDataRules.columns.tasks.status + " = ? , " +
+						CoreDataRules.columns.tasks.tags + " = ? , " +
+						CoreDataRules.columns.tasks.dateCreated + " = ? , " +
+						CoreDataRules.columns.tasks.lastModified + " = ? , " +
 						CoreDataRules.columns.tasks.beginDate + " = ? , " +
+						CoreDataRules.columns.tasks.endDate + " = ? , " +
 						CoreDataRules.columns.tasks.courseId + " = ? , " +
 						CoreDataRules.columns.tasks.course + " = ? , " +
 						CoreDataRules.columns.tasks.courseCodeCombined + " = ? , " +
-						CoreDataRules.columns.tasks.dateCreated + " = ? , " +
-						CoreDataRules.columns.tasks.endDate + " = ? , " +
 						CoreDataRules.columns.tasks.personal + " = ? , " +
 						CoreDataRules.columns.tasks.relatedNotes + " = ? , " +
 						CoreDataRules.columns.tasks.relatedTasks + " = ? , " +
-						CoreDataRules.columns.tasks.status + " = ? , " +
-						CoreDataRules.columns.tasks.tags + " = ? , " +
-						CoreDataRules.columns.tasks.taskDesc + " = ? , " +
-						CoreDataRules.columns.tasks.taskName + " = ? , " +
-						CoreDataRules.columns.tasks.taskOwnerNameCombined + " = ? " +
-						" WHERE " + CoreDataRules.columns.tasks.localId + " = " + getId();
+						CoreDataRules.columns.tasks.taskOwnerNameCombined + " = ?, " +
+						CoreDataRules.columns.tasks.reminders+" = ?, "+
+						CoreDataRules.columns.tasks.alarmIndex +" = ? "+
+						" WHERE " + CoreDataRules.columns.tasks.localId + " = ?";
 
 				SQLiteStatement ss = db.compileStatement(updateSql);
 				ss.bindLong(n++, getId());
@@ -184,13 +195,17 @@ public class Task extends CoreTask implements CoreStorable
 				ss.bindLong(n++, getLastModified());
 				ss.bindLong(n++, getBeginDate());
 				ss.bindLong(n++, getEndDate());
+				ss.bindLong(n++, getCourseId());
 				ss.bindString(n++, getCourse().asJsonString());
 				ss.bindString(n++, getCourseCodeCombined());
-				ss.bindLong(n++, getCourseId());
 				ss.bindLong(n++, personal ? 1 : 0);
 				ss.bindString(n++, CoreUtils.longArrayListToJson(getRelatedNotes()));
 				ss.bindString(n++, CoreUtils.longArrayListToJson(getRelatedTasks()));
 				ss.bindString(n++, getTaskOwnerNameCombined());
+				ss.bindString(n++, getReminders().asJsonString());
+				ss.bindLong(n++, alarmIndex);
+
+				ss.bindLong(n++, getLocalId());
 
 				ss.execute();
 				ss.close();

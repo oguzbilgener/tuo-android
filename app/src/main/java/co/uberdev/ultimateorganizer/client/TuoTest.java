@@ -1,9 +1,12 @@
 package co.uberdev.ultimateorganizer.client;
 
-import co.uberdev.ultimateorganizer.core.*;
-
-
 import java.io.IOException;
+
+import co.uberdev.ultimateorganizer.core.CoreAttachment;
+import co.uberdev.ultimateorganizer.core.CoreCourse;
+import co.uberdev.ultimateorganizer.core.CoreNote;
+import co.uberdev.ultimateorganizer.core.CoreTask;
+import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
  * Created by ata on 4/16/14.
