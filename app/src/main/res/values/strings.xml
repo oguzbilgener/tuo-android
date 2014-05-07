@@ -52,28 +52,26 @@
     <string name="date_overdue">13:40-17:40</string>
     <string name="date_complete">13:40-17:40</string>
     <string name="title_activity_add_task">New Task</string>
-	<string name="title_activity_edit_task">Edit Task</string>
+    <string name="title_activity_edit_task">Edit Task</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_add">Add new</string>
 
     <!-- Add task screen -->
     <string name="action_add_task">Add Task</string>
-	<string name="action_edit_task">Edit Task</string>
+    <string name="action_edit_task">Edit Task</string>
     <string name="add_task_name_input_hint">Name</string>
     <string name="add_task_description_input_hint">Description</string>
     <string name="add_task_time_text_from">FROM</string>
     <string name="add_task_time_text_to">T0</string>
-	<string name="add_task_reminders">REMINDERS</string>
-	<string name="add_task_tags">TAGS</string>
-	<string name="add_task_related_tasks">RELATED TASKS</string>
+    <string name="add_task_reminders">REMINDERS</string>
+    <string name="add_task_tags">TAGS</string>
+    <string name="add_task_related_tasks">RELATED TASKS</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Academic schedule screen -->
     <string name="user_name">Omert Aksoy</string>
     <string name="user_info">Bilkent University, EE</string>
-
     <string name="academic_calendar_year">2013-2014 SPRING</string>
-
     <string name="schedule_course_name">CS 102</string>
     <string name="schedule_course_description">Algorithms and Programming II</string>
     <string name="schedule_course_instructor">David Davenport</string>
@@ -85,18 +83,15 @@
     <string name="note_todo_text2">Pay for the server</string>
     <string name="note_todo_text3">Install Postgres</string>
     <string name="note_todo_date1">2 Mar 18:42</string>
-
     <string name="note_photo_title">Homework Q4 Solution</string>
     <string name="note_photo_tag_name1">MATH 132</string>
     <string name="note_photo_tag_name2">homework</string>
     <string name="note_photo_date">2 Mar\n18:42</string>
-
     <string name="note_voice_title">Presentation: Suggestions of classmates</string>
     <string name="note_voice_tag_name1">CS 102</string>
     <string name="note_voice_tag_name2">presentation</string>
     <string name="note_voice_duration">5:39</string>
     <string name="note_voice_date">4 Mar\n15:33</string>
-
     <string name="note_plain_title">Calculus Midterm 2</string>
     <string name="note_plain_description">stop whatever youre doing and study</string>
     <string name="note_plain_tag_name1">MATH 102</string>
@@ -130,40 +125,39 @@
     <string name="item_public_feed_task_owner">by Ani Kristo</string>
     <string name="item_public_feed_task_due_date">Tue, 15 May\n10.30 - 12.30</string>
 
-	<!-- reminder type displays -->
-	<string-array name="reminder_types_keys">
-		<item>Silent</item>
-		<item>Vibrate</item>
-		<item>Loud</item>
-	</string-array>
+    <!-- reminder type displays -->
+    <string-array name="reminder_types_keys">
+        <item>Silent</item>
+        <item>Vibrate</item>
+        <item>Loud</item>
+    </string-array>
 
-	<!-- reminder date displays -->
-	<string-array name="reminder_before_event_keys">
-		<item>right away</item>
-		<item>1 minute</item>
-		<item>5 minutes</item>
-		<item>10 minutes</item>
-		<item>15 minutes</item>
-		<item>20 minutes</item>
-		<item>30 minutes</item>
-		<item>45 minutes</item>
-		<item>1 hour</item>
-		<item>2 hours</item>
-		<item>3 hours</item>
-		<item>6 hours</item>
-		<item>12 hours</item>
-		<item>24 hours</item>
-		<item>2 days</item>
-		<item>1 week</item>
-	</string-array>
+    <!-- reminder date displays -->
+    <string-array name="reminder_before_event_keys">
+        <item>right away</item>
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>30 minutes</item>
+        <item>45 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>12 hours</item>
+        <item>24 hours</item>
+        <item>2 days</item>
+        <item>1 week</item>
+    </string-array>
 
-	<string name="msg_unknown_error">Sorry, an unknown error occurred.</string>
-	<string name="msg_cannot_add_task">Sorry, could not save task.</string>
-
-	<string name="msg_success_add_task">Task created.</string>
-
-	<string name="today_capital">Today</string>
-	<string name="yesterday_capital">Yesterday</string>
-	<string name="tomorrow_capital">Tomorrow</string>
+    <string name="msg_unknown_error">Sorry, an unknown error occurred.</string>
+    <string name="msg_cannot_add_task">Sorry, could not save task.</string>
+    <string name="msg_success_add_task">Task created.</string>
+    <string name="today_capital">Today</string>
+    <string name="yesterday_capital">Yesterday</string>
+    <string name="tomorrow_capital">Tomorrow</string>
+    <string name="title_activity_task_detail">TaskDetailActivity</string>
 
 </resources>
