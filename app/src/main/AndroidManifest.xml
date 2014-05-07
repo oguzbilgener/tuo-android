@@ -58,6 +58,15 @@
 					android:value="HomeActivity" />
 		</activity>
 
+        <activity
+            android:name="co.uberdev.ultimateorganizer.android.ui.AddCourseActivity"
+            android:label="@string/title_activity_add_course"
+            android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.ScheduleActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ScheduleActivity" />
+        </activity>
+
     </application>
 
 </manifest>

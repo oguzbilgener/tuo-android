@@ -3,6 +3,7 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -81,6 +82,14 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
         if (id == R.id.action_settings) {
             return true;
         }
+
+        if ( id == R.id.action_add_course)
+        {
+            Intent startIntent;
+            startIntent = new Intent(this, AddCourseActivity.class);
+            startActivity(startIntent);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -168,6 +177,8 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
             return tv;
         }
     }
+
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {

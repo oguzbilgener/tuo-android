@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- TextView displays the current semester -->
+    <TextView
+        android:id="@+id/add_course_academic_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/academic_calendar_year"
+        android:layout_marginLeft="@dimen/item_add_course_year_margin_left"
+        android:layout_alignLeft="@id/add_course_academic_year"
+        android:paddingLeft="@dimen/item_add_course_year_padding_left"
+        android:layout_marginRight="@dimen/item_add_course_year_margin_right"
+        android:layout_marginTop="@dimen/item_add_course_year_margin_top"
+        android:textSize="@dimen/item_add_course_year_text_size"
+        android:textColor="@color/add_course_academic_year_color"/>
+
+    <!-- 1dp-thick LinearLayout to put a red line under the current semester -->
+    <LinearLayout
+        android:id="@+id/add_course_academic_year_underline"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_add_course_year_bottom_line_height"
+        android:layout_alignLeft="@id/add_course_academic_year"
+        android:layout_alignRight="@id/add_course_academic_year"
+        android:background="@color/add_course_academic_year_color"
+        android:layout_below="@id/add_course_academic_year">
+    </LinearLayout>
+
+    <!-- This EditText will take the department name, such as MATH, MBG or ECON -->
+    <EditText
+        android:id="@+id/add_course_department_name_edittext"
+        style="@style/add_course_edittext"
+        android:layout_width="@dimen/item_add_course_edittext_width2"
+        android:layout_height="@dimen/item_add_course_edittext_height"
+        android:layout_below="@id/add_course_academic_year_underline"
+        android:layout_alignLeft="@id/add_course_academic_year_underline"
+        android:layout_marginTop="@dimen/item_add_course_course_name_edittext_margin_top"
+        android:hint="@string/add_course_course_code">
+    </EditText>
+
+    <!-- This EditText will take course code, such as 101 for ENG101 or 223 for CS223 -->
+    <EditText
+        android:id="@+id/add_course_course_no_edittext"
+        style="@style/add_course_edittext"
+        android:layout_width="@dimen/item_add_course_edittext_width"
+        android:layout_height="@dimen/item_add_course_edittext_height"
+        android:layout_below="@id/add_course_academic_year_underline"
+        android:layout_toRightOf="@id/add_course_department_name_edittext"
+        android:layout_alignTop="@id/add_course_department_name_edittext"
+        android:hint="@string/add_course_course_number">
+    </EditText>
+
+    <!-- This EditText will take section number, such as 13 for MATH102-13 or 64 for ENG102-64 -->
+    <EditText
+        android:id="@+id/add_course_section_no_edittext"
+        style="@style/add_course_edittext"
+        android:layout_width="@dimen/item_add_course_edittext_width"
+        android:layout_height="@dimen/item_add_course_edittext_height"
+        android:layout_below="@id/add_course_academic_year_underline"
+        android:layout_toRightOf="@id/add_course_course_no_edittext"
+        android:layout_alignTop="@id/add_course_department_name_edittext"
+        android:hint="@string/add_course_section_number">
+    </EditText>
+
+    <!-- Notice the plus sign has a gray background color, it is to fit with UI Design report -->
+
+    <!-- This EditText will take what the user calls the course, that, it will have smart suggestion
+        after the user fills the three EditTexts above, for example CS102-01 will suggest the course
+        name CS102-01 Algorithms and Programming II Sir Davenport -->
+    <EditText
+        android:id="@+id/add_course_course_name_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_add_course_course_name_edittext_margin_top"
+        android:layout_below="@id/add_course_section_no_edittext"
+        android:layout_alignLeft="@id/add_course_academic_year_underline"
+        android:layout_alignRight="@id/add_course_academic_year_underline"
+        android:hint="@string/add_course_course_name"/>
+
+    <EditText
+        android:id="@+id/add_course_instructor_name_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_add_course_course_name_edittext_margin_top"
+        android:layout_below="@id/add_course_course_name_edittext"
+        android:layout_alignLeft="@id/add_course_academic_year_underline"
+        android:layout_alignRight="@id/add_course_academic_year_underline"
+        android:hint="@string/add_course_instructor_name"/>
+
+    <!-- reminders list -->
+    <co.uberdev.ultimateorganizer.android.util.BareListView
+        android:id="@+id/add_course_course_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_course_instructor_name_edittext"
+        android:orientation="vertical" />
+
+</RelativeLayout>

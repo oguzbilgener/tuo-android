@@ -8,8 +8,16 @@
 	<string name="TIME_PICKER_FROM">time_picker_from</string>
 	<string name="TIME_PICKER_TO">time_picker_to</string>
 
-	<string name="INTENT_DETAILS_TASK_LOCAL_ID">intent_details_task_id</string>
-	<string name="INTENT_DETAILS_TASK_JSON_OBJECT">intent_details_task_json_object</string>
+    <string name="INTENT_DETAILS_TASK_JSON_OBJECT">intent_details_task_json_object</string>
+    <string name="INTENT_DETAILS_TASK_LOCAL_ID">intent_details_task_id</string>
 
 	<string name="ARGS_TASK_JSON_OBJECT">args_task_json_object</string>
+
+    <!-- Strings for AddCourseFragment.java -->
+
+    <string name="ARGS_COURSE_JSON_OBJECT">args_course_json_object</string>
+
+    <string name="INTENT_DETAILS_COURSE_JSON_OBJECT">intent_details_course_json_object</string>
+    <string name="INTENT_DETAILS_COURSE_LOCAL_ID">intent_details_course_id</string>
+
 </resources>
