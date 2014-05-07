@@ -2,7 +2,6 @@ package co.uberdev.ultimateorganizer.android.ui;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +16,7 @@ import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
-public class EditTaskActivity extends FragmentActivity implements ActivityCommunicator
+public class EditTaskActivity extends AddTaskActivity implements ActivityCommunicator
 {
 	private FragmentCommunicator fragmentCommunicator;
 	private LocalStorage localStorage;
@@ -49,7 +48,7 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 					Long localId = extras.getLong(keyForTaskByLocalId);
 
 					// fetch task details from database
-					Tasks matchingTasks = new Tasks();
+					Tasks matchingTasks = new Tasks(localStorage.getDb());
 					matchingTasks.loadFromDb(CoreDataRules.columns.tasks.localId+" = ?", new String[]{String.valueOf(localId)}, 0);
 					if(matchingTasks.size() > 0)
 					{
@@ -83,8 +82,11 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 		catch(Exception e)
 		{
 			if(e.getMessage() != null)
-				Utils.log.d(e.getMessage());
-			Toast.makeText(this, getString(R.string.edit_task_no_task), Toast.LENGTH_SHORT).show();
+				Utils.log.w(e.getMessage());
+			else
+				Utils.log.w(e.getMessage());
+
+				Toast.makeText(this, getString(R.string.edit_task_no_task), Toast.LENGTH_SHORT).show();
 		}
 		finally
 		{

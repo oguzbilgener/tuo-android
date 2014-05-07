@@ -171,4 +171,8 @@
 	<string name="edit_task_unknown_error">Something went wrong.</string>
 	<string name="edit_task_success">Edited task.</string>
 
+	<string name="title_menu_task_edit">Edit</string>
+	<string name="title_menu_task_delete">Delete</string>
+
+
 </resources>
