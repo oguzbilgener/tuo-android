@@ -6,25 +6,94 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.models.Tasks;
+import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
+import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.Utils;
+import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
-public class EditTaskActivity extends FragmentActivity
+public class EditTaskActivity extends FragmentActivity implements ActivityCommunicator
 {
+	private FragmentCommunicator fragmentCommunicator;
 	private LocalStorage localStorage;
+	private Task editedTask;
 
 	// TODO:
 	// Use this class in a different way so that it recieves an existing Task and updates it.
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+	{
         super.onCreate(savedInstanceState);
 
 		getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.title_section_overview)));
 
 		localStorage = new LocalStorage(this);
 
-		AddTaskDetailFragment fragment = AddTaskDetailFragment.newInstance();
+		AddTaskDetailFragment fragment = null;
+		// check for intent extras
+		try
+		{
+			Bundle extras = getIntent().getExtras();
+			if(extras != null)
+			{
+				String keyForTaskByLocalId = getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID);
+				String keyForTaskByJsonObject = getString(R.string.INTENT_DETAILS_TASK_JSON_OBJECT);
+
+				if(extras.containsKey(keyForTaskByLocalId))
+				{
+					Long localId = extras.getLong(keyForTaskByLocalId);
+
+					// fetch task details from database
+					Tasks matchingTasks = new Tasks();
+					matchingTasks.loadFromDb(CoreDataRules.columns.tasks.localId+" = ?", new String[]{String.valueOf(localId)}, 0);
+					if(matchingTasks.size() > 0)
+					{
+						editedTask = (Task) matchingTasks.get(0);
+					}
+					else
+					{
+						throw new Exception("no task found with local id " + localId);
+					}
+				}
+				else if(extras.containsKey(keyForTaskByJsonObject))
+				{
+					String taskJson = extras.getString(keyForTaskByJsonObject);
+					editedTask = Task.fromJson(taskJson, Task.class);
+				}
+				else
+				{
+					throw new Exception("no id or task object found in intent extras");
+				}
+
+				if(editedTask != null)
+				{
+					fragment = AddTaskDetailFragment.newInstance(this, editedTask);
+				}
+				else
+				{
+					throw new Exception("edited task is still null");
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			if(e.getMessage() != null)
+				Utils.log.d(e.getMessage());
+			Toast.makeText(this, getString(R.string.edit_task_no_task), Toast.LENGTH_SHORT).show();
+		}
+		finally
+		{
+			if (fragment == null)
+				fragment = AddTaskDetailFragment.newInstance();
+		}
+
+		fragmentCommunicator = fragment;
+
 
         setContentView(R.layout.activity_add_task);
         if (savedInstanceState == null) {
@@ -32,6 +101,8 @@ public class EditTaskActivity extends FragmentActivity
                     .add(R.id.add_task_container, fragment)
                     .commit();
         }
+
+
 
     }
 
@@ -84,8 +155,8 @@ public class EditTaskActivity extends FragmentActivity
 		}
 
         if (id == R.id.action_add_task) {
-			// literally add the task, show a popup and return back to HomeActivity
-			finish();
+			// Ask the fragment to pass the task object
+			fragmentCommunicator.onMessage(AddTaskDetailFragment.MESSAGE_REQUEST_TASK, null);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -99,5 +170,60 @@ public class EditTaskActivity extends FragmentActivity
 	public android.app.FragmentManager getFragmentManager()
 	{
 		return super.getFragmentManager();
+	}
+
+	@Override
+	public void onMessage(int msgType, Object obj)
+	{
+		switch(msgType)
+		{
+			case AddTaskDetailFragment.MESSAGE_RESPONSE_TASK:
+
+				Task editableTask = (Task) obj;
+
+				Utils.log.d(editableTask.toString());
+
+				editableTask.setDb(localStorage.getDb());
+
+				if(editableTask.getId() != 0)
+				{
+					if(editableTask.insert())
+					{
+						// TODO: sync!
+
+						Toast.makeText(this, getString(R.string.edit_task_success), Toast.LENGTH_SHORT).show();
+						// let the user go
+						finish();
+					}
+					else
+					{
+						// display error
+						Toast.makeText(this, getString(R.string.edit_task_unknown_error), Toast.LENGTH_SHORT).show();
+					}
+				}
+				else
+				{
+					// no id? then we have to create a new task in order not to lose data
+					// insert the main task
+					if (editableTask.insert())
+					{
+						// TODO: sync!
+
+						// show a little success
+						Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
+						Utils.log.d("inserted. now finish");
+
+						// Add new task activity can just go back, but this might be different for edit task activity.
+						finish();
+					}
+					else
+					{
+						// db error! do not let the user go
+						Toast.makeText(this, getString(R.string.msg_cannot_add_task), Toast.LENGTH_SHORT).show();
+					}
+				}
+
+				break;
+		}
 	}
 }

@@ -148,6 +148,34 @@
 			android:layout_height="wrap_content"
 			android:orientation="vertical" />
 
+
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:hint="@string/add_task_course"
+			android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			android:layout_marginRight="@dimen/sub_line_margin_sides"
+			android:layout_marginTop="5dp"
+			style="?android:attr/listSeparatorTextViewStyle"
+			android:textAllCaps="true"
+			/>
+	<!-- related course view -->
+	<LinearLayout
+			android:id="@+id/add_task_course_view"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			android:layout_marginRight="@dimen/sub_line_margin_sides"
+			android:orientation="vertical">
+
+		<Spinner
+			android:id="@+id/add_task_course_spinner"
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content" />
+
+	</LinearLayout>
+
 	<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
