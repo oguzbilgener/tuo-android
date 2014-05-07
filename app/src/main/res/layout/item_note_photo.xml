@@ -1,78 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
+    android:id="@+id/item_note_photo_outer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/note_todo_main_layout_padding">
+    android:layout_height="wrap_content">
 
-    <!-- Image for the photo note -->
-    <ImageView
-        android:id="@+id/note_photo_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/homework"
-        android:layout_alignParentStart="true"/>
-
-    <!-- Title of the note -->
-    <TextView
-        android:id="@+id/note_photo_title"
+    <RelativeLayout
+        android:id="@+id/item_note_photo_inner_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/note_photo_photo"
-        android:layout_alignLeft="@id/note_photo_photo"
-        android:layout_alignRight="@id/note_photo_photo"
-        android:text="@string/note_photo_title"
-        android:textColor="@color/note_photo_title_color"
-        android:textSize="@dimen/note_todo_title_text_size"/>
+        android:layout_height="match_parent"
+        style="@style/task_item"
+        android:padding="@dimen/task_item_padding"
+        android:background="@drawable/card_selector"
+        android:clickable="true">
 
-    <!-- Tag bar for the note where the related tags will be displayed -->
-    <LinearLayout
-        android:id="@+id/note_photo_tag_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/note_photo_title"
-        android:layout_alignLeft="@id/note_photo_photo"
-        android:layout_marginTop="@dimen/note_photo_tag_bar_margin_top"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/note_photo_tag_1"
+        <!-- Image for the photo note -->
+        <ImageView
+            android:id="@+id/note_photo_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/note_photo_tag_margin_left"
-            android:paddingLeft="@dimen/note_photo_tag_text_padding"
-            android:paddingTop="@dimen/note_photo_tag_text_padding"
-            android:paddingRight="@dimen/note_photo_tag_text_padding"
-            android:paddingBottom="@dimen/note_photo_tag_text_padding"
-            android:text="@string/note_photo_tag_name1"
-            android:textSize="@dimen/note_photo_tag_text_size"
-            android:background="@color/note_photo_tag_color1"
-            android:textColor="@color/note_photo_tag_text_color"/>
+            android:src="@drawable/homework"
+            android:layout_alignParentStart="true"/>
 
+        <!-- Title of the note -->
         <TextView
-            android:id="@+id/note_photo_tag_2"
+            android:id="@+id/note_photo_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/note_photo_photo"
+            android:layout_alignLeft="@id/note_photo_photo"
+            android:layout_alignRight="@id/note_photo_photo"
+            android:text="@string/note_photo_title"
+            android:textColor="@color/note_photo_title_color"
+            android:textSize="@dimen/note_todo_title_text_size"/>
+
+        <!-- Tag bar for the note where the related tags will be displayed -->
+        <LinearLayout
+            android:id="@+id/note_photo_tag_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/note_photo_tag_margin_left"
-            android:paddingLeft="@dimen/note_photo_tag_text_padding"
-            android:paddingTop="@dimen/note_photo_tag_text_padding"
-            android:paddingRight="@dimen/note_photo_tag_text_padding"
-            android:paddingBottom="@dimen/note_photo_tag_text_padding"
-            android:text="@string/note_photo_tag_name2"
-            android:textSize="@dimen/note_photo_tag_text_size"
-            android:background="@color/note_photo_tag_color2"
-            android:textColor="@color/note_photo_tag_text_color"/>
+            android:layout_below="@id/note_photo_title"
+            android:layout_alignLeft="@id/note_photo_photo"
+            android:layout_marginTop="@dimen/note_photo_tag_bar_margin_top"
+            android:orientation="horizontal">
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/note_photo_tag_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/note_photo_tag_margin_left"
+                android:paddingLeft="@dimen/note_photo_tag_text_padding"
+                android:paddingTop="@dimen/note_photo_tag_text_padding"
+                android:paddingRight="@dimen/note_photo_tag_text_padding"
+                android:paddingBottom="@dimen/note_photo_tag_text_padding"
+                android:text="@string/note_photo_tag_name1"
+                android:textSize="@dimen/note_photo_tag_text_size"
+                android:background="@color/note_photo_tag_color1"
+                android:textColor="@color/note_photo_tag_text_color"/>
 
-    <!-- The date when the note added -->
-    <TextView
-        android:id="@+id/note_photo_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/note_photo_title"
-        android:layout_alignRight="@id/note_photo_photo"
-        android:text="@string/note_photo_date"/>
+            <TextView
+                android:id="@+id/note_photo_tag_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/note_photo_tag_margin_left"
+                android:paddingLeft="@dimen/note_photo_tag_text_padding"
+                android:paddingTop="@dimen/note_photo_tag_text_padding"
+                android:paddingRight="@dimen/note_photo_tag_text_padding"
+                android:paddingBottom="@dimen/note_photo_tag_text_padding"
+                android:text="@string/note_photo_tag_name2"
+                android:textSize="@dimen/note_photo_tag_text_size"
+                android:background="@color/note_photo_tag_color2"
+                android:textColor="@color/note_photo_tag_text_color"/>
 
-</RelativeLayout>
+            </LinearLayout>
+
+        <!-- The date when the note added -->
+        <TextView
+            android:id="@+id/note_photo_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/note_photo_title"
+            android:layout_alignRight="@id/note_photo_photo"
+            android:text="@string/note_photo_date"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
