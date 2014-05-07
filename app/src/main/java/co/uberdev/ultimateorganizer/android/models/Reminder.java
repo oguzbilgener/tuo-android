@@ -1,5 +1,6 @@
 package co.uberdev.ultimateorganizer.android.models;
 
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
@@ -24,6 +25,14 @@ public class Reminder extends CoreReminder implements CoreStorable
 		this(null);
 	}
 
+	public SQLiteDatabase getDb() {
+		return db;
+	}
+
+	public void setDb(SQLiteDatabase db) {
+		this.db = db;
+	}
+
 	@Override
 	public String getTableName() {
 		return CoreDataRules.tables.reminders;
@@ -34,36 +43,42 @@ public class Reminder extends CoreReminder implements CoreStorable
 	{
 		if(db != null)
 		{
-			String insertSql = "INSERT INTO "+getTableName()+" (" +
-					CoreDataRules.columns.reminders.targetDate+", "+
-					CoreDataRules.columns.reminders.taskId+", "+
-					CoreDataRules.columns.reminders.ownerId+", "+
-					CoreDataRules.columns.reminders.localTaskId+", "+
-					CoreDataRules.columns.reminders.gap+", "+
-					CoreDataRules.columns.reminders.title+", "+
-					CoreDataRules.columns.reminders.details+", "+
-					CoreDataRules.columns.reminders.vibrate+", "+
-					CoreDataRules.columns.reminders.sound+", "+
-					CoreDataRules.columns.reminders.light+" "+
-					") VALUES (?,?,?,?,?,?,?,?)";
+			try {
+				String insertSql = "INSERT INTO " + getTableName() + " (" +
+						CoreDataRules.columns.reminders.targetDate + ", " +
+						CoreDataRules.columns.reminders.taskId + ", " +
+						CoreDataRules.columns.reminders.ownerId + ", " +
+						CoreDataRules.columns.reminders.localTaskId + ", " +
+						CoreDataRules.columns.reminders.gap + ", " +
+						CoreDataRules.columns.reminders.title + ", " +
+						CoreDataRules.columns.reminders.details + ", " +
+						CoreDataRules.columns.reminders.vibrate + ", " +
+						CoreDataRules.columns.reminders.sound + ", " +
+						CoreDataRules.columns.reminders.light + " " +
+						") VALUES (?,?,?,?,?,?,?,?,?,?)";
 
-			int n = 1;
-			SQLiteStatement ss = db.compileStatement(insertSql);
-			ss.bindLong(n++, getTargetDate());
-			ss.bindLong(n++, getOwnerId());
-			ss.bindLong(n++, getLocalTaskId());
-			ss.bindLong(n++, getTaskId());
-			ss.bindLong(n++, getGap());
-			ss.bindString(n++, getTitle());
-			ss.bindString(n++, getDetails());
-			ss.bindLong(n++, isVibrate() ? 1 : 0);
-			ss.bindLong(n++, isSound() ? 1 : 0);
-			ss.bindLong(n++, isLight() ? 1 : 0);
+				int n = 1;
+				SQLiteStatement ss = db.compileStatement(insertSql);
+				ss.bindLong(n++, getTargetDate());
+				ss.bindLong(n++, getOwnerId());
+				ss.bindLong(n++, getLocalTaskId());
+				ss.bindLong(n++, getTaskId());
+				ss.bindLong(n++, getGap());
+				ss.bindString(n++, getTitle());
+				ss.bindString(n++, getDetails());
+				ss.bindLong(n++, isVibrate() ? 1 : 0);
+				ss.bindLong(n++, isSound() ? 1 : 0);
+				ss.bindLong(n++, isLight() ? 1 : 0);
 
-			ss.execute();
-			ss.close();
+				ss.execute();
+				ss.close();
 
-			return true;
+				return true;
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
 		}
 		return false;
 	}

@@ -36,6 +36,7 @@ import co.uberdev.ultimateorganizer.android.util.BareListView;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
+import co.uberdev.ultimateorganizer.core.CoreReminders;
 
 /**
  *
@@ -416,11 +417,11 @@ public class AddTaskDetailFragment extends Fragment
 	{
 		if(v.getId() == R.id.add_task_tag_input)
 		{
-			if(keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_ENDCALL)
+			if(keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_ENDCALL || keyCode == 0)
 			{
-				String tagName = ((EditText) v).getText().toString();
+				String tagName = ((EditText) v).getText().toString().trim();
 				// Do not let user to enter the same tag
-				if(tagsListContainsTagName(tagName))
+				if(tagName.isEmpty() || tagsListContainsTagName(tagName))
 				{
 					return false;
 				}
@@ -542,11 +543,15 @@ public class AddTaskDetailFragment extends Fragment
 		}
 		task.setLastModified(Utils.getUnixTimestamp());
 
+		// TODO: remove old reminders from AlarmManager
+
 		try
 		{
 			task.setStatus(Task.STATE_ACTIVE);
 
 			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
+
+			task.setReminders(new CoreReminders());
 
 			for (int i = 0; i < reminders.size(); i++)
 			{
@@ -556,6 +561,11 @@ public class AddTaskDetailFragment extends Fragment
 				if (app.user != null) {
 					reminders.get(i).setOwnerId(app.user.getId());
 				}
+
+				task.addReminder(reminders.get(i));
+
+				// TODO: add new reminder to alarm manager
+
 			}
 		}
 		catch(Exception e)
@@ -603,7 +613,7 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			for( int i = 0; i < task.getTags().size(); i++)
 			{
-				this.tags.add((Tag) task.getTags().get(i));
+				this.tags.add(new Tag(task.getTags().get(i)));
 			}
 			this.tagsAdapter.notifyDataSetChanged();
 		}

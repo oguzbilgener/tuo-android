@@ -14,6 +14,18 @@ public class Tag extends CoreTag implements CoreStorable
 		name = "";
 		color = 0;
 	}
+
+	public Tag(CoreTag coreTag)
+	{
+		setName(coreTag.getName());
+		setColor(coreTag.getColor());
+		setLocalId(coreTag.getLocalId());
+		setOwnerId(coreTag.getOwnerId());
+		setId(coreTag.getLocalId());
+	}
+
+
+
 	@Override
 	public String getTableName() {
 		return CoreDataRules.tables.tags;
