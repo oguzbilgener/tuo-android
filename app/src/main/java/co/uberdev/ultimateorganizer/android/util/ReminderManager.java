@@ -19,6 +19,12 @@ public class ReminderManager
 {
 	public static void remind(Context context, Task task, Reminder reminder)
 	{
+		// do not set alarms for too close or past times
+		if(reminder.getTargetDate()*1000 < Utils.getUnixTimestamp() + 60000)
+		{
+			return;
+		}
+
 		long reminderId = task.getNextAlarmId();
 		reminder.setAlarmId(reminderId);
 
