@@ -14,6 +14,7 @@
     <!-- Activity Names -->
     <string name="title_activity_academic_network">Academic Network</string>
     <string name="title_activity_schedule">Academic Schedule</string>
+	<string name="title_activity_task_details">Task Details</string>
 
     <!-- sub navigation (ActionBar Spinner) -->
     <string-array name="title_section_overview_subs">
@@ -159,5 +160,7 @@
     <string name="yesterday_capital">Yesterday</string>
     <string name="tomorrow_capital">Tomorrow</string>
     <string name="title_activity_task_detail">TaskDetailActivity</string>
+
+	<string name="tag_input_hint">enter a tag name...</string>
 
 </resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="match_parent"
+			  android:layout_height="@dimen/reminder_item_height"
+			  android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			  android:layout_marginRight="@dimen/sub_line_margin_sides"
+			  android:background="@drawable/item_add_task_reminder">
+
+	<LinearLayout
+			android:id="@+id/layout_add_task_tag"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_centerVertical="true"
+			android:background="#ad0000"
+			android:paddingLeft="@dimen/added_tag_margin_horizontal"
+			android:paddingRight="@dimen/added_tag_margin_horizontal"
+			android:paddingTop="@dimen/added_tag_margin_vertical"
+			android:paddingBottom="@dimen/added_tag_margin_vertical">
+
+		<TextView
+				android:id="@+id/text_add_task_tag"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/white"
+				android:text="CS 102" />
+
+	</LinearLayout>
+
+	<ImageButton
+		android:id="@+id/button_remove_tag"
+		android:layout_width="@dimen/added_tag_remove_button_width"
+		android:layout_height="@dimen/added_tag_remove_button_height"
+		android:layout_alignParentRight="true"
+		android:layout_centerVertical="true"
+		android:src="@drawable/ic_action_remove"
+		android:layout_margin="@dimen/reminder_spinner_margin"
+		style="?android:attr/buttonBarButtonStyle"
+		/>
+
+
+</RelativeLayout>

@@ -1,15 +1,18 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
@@ -37,16 +40,18 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public static class ViewHolder
+	private class ViewHolder
     {
+		// the outer layout that listens clicks
+		public RelativeLayout taskItemLayout;
         // task's title such as "Third Homework"
-        protected TextView taskTitle;
+		public TextView taskTitle;
         // more info about the task such as "Letter to His Papa"
-        protected TextView taskDescription;
+		public TextView taskDescription;
         // when the task is due to, such as "Tue, 15 May\n 10.30 - 12.30"
-        protected TextView taskDate;
+		public TextView taskDate;
         // checkbox of the task
-        protected CheckBox checkbox;
+		public CheckBox checkbox;
     }
 
     @Override
@@ -100,10 +105,13 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
                 viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_complete);
             }
+			viewHolder.taskItemLayout = (RelativeLayout) view.findViewById(R.id.task_item_layout);
 			view.setTag(R.id.overview_task_item_object,viewHolder);
 
 			if(viewHolder.checkbox != null)
             	viewHolder.checkbox.setOnClickListener( checkboxListener);
+
+			viewHolder.taskItemLayout.setOnClickListener(this);
         }
         else
         {
@@ -113,12 +121,16 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         // ViewHolder receives tags for the next items
         final ViewHolder viewHolder = (ViewHolder) view.getTag(R.id.overview_task_item_object);
 
-        // item is set to the given index of the CoursesItem arraylist
+		viewHolder.taskItemLayout.setTag(R.id.task_item_position, position);
+
+		// item is set to the given index of the CoursesItem arraylist
         Task item = overviewTaskList.get(position);
 
+		// set tags for the outer layout. we won't be using it at the moment though
         view.setTag(R.id.overview_task_item_id, item.getId());
         view.setTag(R.id.overview_task_item_index, position);
 
+		// TODO: move this click listener outside.
         checkboxListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,14 +172,12 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 
         viewHolder.taskTitle.setText( item.getTaskName());
         viewHolder.taskDescription.setText( item.getTaskDesc());
-		Utils.log.d("&&&&& "+(item.getEndDate()-item.getBeginDate()));
 		if(Utils.isDateToday(item.getBeginDate()))
 		{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-			Utils.log.d(dateFormat.format(new Date(item.getBeginDate())));
 			viewHolder.taskDate.setText(
 					context.getString(R.string.today_capital) + "\n" +
-					dateFormat.format(new Date(item.getBeginDate())) + "-" + dateFormat.format(new Date(item.getEndDate()))
+					dateFormat.format(new Date((long)item.getBeginDate()*1000)) + " - " + dateFormat.format(new Date((long)item.getEndDate()*1000))
 			);
 		}
 		else if(Utils.isDateYesterday(item.getBeginDate()))
@@ -175,7 +185,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 			viewHolder.taskDate.setText(
 					context.getString(R.string.yesterday_capital) + "\n" +
-					dateFormat.format(new Date(item.getBeginDate())) + "-" + dateFormat.format(new Date(item.getEndDate()))
+					dateFormat.format(new Date((long)item.getBeginDate()*1000)) + " - " + dateFormat.format(new Date((long)item.getEndDate()*1000))
 			);
 		}
 		else if(Utils.isDateTomorrow(item.getBeginDate()))
@@ -183,16 +193,35 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 			viewHolder.taskDate.setText(
 					context.getString(R.string.tomorrow_capital) + "\n" +
-					dateFormat.format(new Date(item.getBeginDate())) + "-" + dateFormat.format(new Date(item.getEndDate()))
+					dateFormat.format(new Date((long)item.getBeginDate()*1000)) + " - " + dateFormat.format(new Date((long)item.getEndDate()*1000))
 			);
 		}
 		else
 		{
-			SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
-			viewHolder.taskDate.setText(
-					dateFormat.format(new Date(item.getBeginDate())) + "-\n" +
-					dateFormat.format(new Date(item.getEndDate()))
-			);
+			Date beginDate = new Date((long)item.getBeginDate()*1000);
+			Date endDate = new Date((long)item.getBeginDate()*1000);
+			Calendar beginCalendar = Calendar.getInstance();
+			beginCalendar.setTime(beginDate);
+			Calendar endCalendar = Calendar.getInstance();
+			endCalendar.setTime(endDate);
+
+			if(beginCalendar.get(Calendar.DAY_OF_MONTH) == endCalendar.get(Calendar.DAY_OF_MONTH))
+			{
+				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
+				SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+				viewHolder.taskDate.setText(
+						dateFormat.format(beginDate) + "\n" +
+							timeFormat.format(beginDate) + " - " + timeFormat.format(endDate)
+				);
+			}
+			else
+			{
+				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
+				viewHolder.taskDate.setText(
+						dateFormat.format(new Date((long) item.getBeginDate() * 1000)) + "-\n" +
+								dateFormat.format(new Date((long) item.getEndDate() * 1000))
+				);
+			}
 		}
 
         return view;
@@ -201,7 +230,22 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     @Override
     public void onClick(View view)
     {
-
+		if(view.getId() == R.id.task_item_layout)
+		{
+			try
+			{
+				Intent openTaskDetailsIntent = new Intent(context, TaskDetailActivity.class);
+				openTaskDetailsIntent.putExtra(
+						context.getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID),
+						overviewTaskList.get(getPositionByTaskItem(view)).getLocalId());
+				context.startActivity(openTaskDetailsIntent);
+			}
+			catch(Exception e)
+			{
+				Utils.log.w("could not get position from view");
+				e.printStackTrace();
+			}
+		}
     }
 
     @Override
@@ -237,6 +281,12 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     @Override
     public int getViewTypeCount()
     {
-        return 5;
+        return 4;
     }
+
+	public int getPositionByTaskItem(View view)
+	{
+		return (Integer) view.getTag(R.id.task_item_position);
+	}
+
 }

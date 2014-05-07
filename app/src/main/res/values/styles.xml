@@ -83,9 +83,9 @@
     <!-- styles for task items -->
 
     <style name="task_item">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:background">@color/task_item_background</item>
-        <item name="android:layout_height">@dimen/task_item_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/card_selector</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/task_item_margin_top</item>
         <item name="android:layout_marginBottom">@dimen/task_item_margin_bottom</item>
         <item name="android:layout_marginLeft">@dimen/task_item_margin_left</item>
@@ -96,24 +96,18 @@
         <item name="android:textSize">@dimen/task_item_title_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/task_item_title_overdue</item>
-        <item name="android:checked">false</item>
-        <item name="android:background">@color/task_item_background</item>
     </style>
 
     <style name="task_item_checkbox_complete">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/task_item_title_size</item>
         <item name="android:textColor">@color/task_item_title_complete</item>
-        <item name="android:checked">true</item>
-        <item name="android:background">@color/task_item_background</item>
     </style>
 
     <style name="task_item_checkbox_active">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/task_item_title_size</item>
         <item name="android:textColor">@color/task_item_title_active</item>
-        <item name="android:checked">false</item>
-        <item name="android:background">@color/task_item_background</item>
     </style>
 
     <style name="task_item_description_overdue">

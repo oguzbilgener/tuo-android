@@ -3,20 +3,20 @@
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@+id/button_add_reminder"
 		android:layout_width="match_parent"
-		android:layout_height="40dp"
+		android:layout_height="@dimen/button_add_reminder_height"
 		android:orientation="horizontal"
 		android:gravity="center"
 		android:clickable="true"
 		style="?android:attr/buttonBarButtonStyle" >
 	<ImageView
-			android:layout_width="20dp"
-			android:layout_height="20dp"
+			android:layout_width="@dimen/button_add_reminder_plus_width"
+			android:layout_height="@dimen/button_add_reminder_plus_height"
 			android:src="@drawable/ic_action_new_dark"/>
 	<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="New Reminder"
-			android:layout_marginLeft="10dp"
-			android:textSize="14sp"/>
+			android:layout_marginLeft="@dimen/button_add_reminder_text_margin_left"
+			android:textSize="@dimen/button_add_reminder_text_size"/>
 
 </LinearLayout>

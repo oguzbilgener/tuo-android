@@ -33,7 +33,7 @@ public class OverviewAllTasksFragment extends OverviewCommonFragment
 
 		overviewTaskList.clear();
 		overviewTaskList.addAll(allTasks.toTaskArrayList());
-		allTasks.toTaskArrayList();
+		overviewTaskAdapter.notifyDataSetChanged();
 	}
 
 }

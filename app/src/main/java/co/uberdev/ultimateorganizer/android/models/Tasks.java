@@ -55,7 +55,6 @@ public class Tasks extends CoreTasks implements CoreSelectable
 		{
 			if(db != null)
 			{
-				Utils.log.e(sqlCriteria);
 				String sqlString = "SELECT * FROM "+CoreDataRules.tables.tasks;
 				if(params.length > 0)
 					sqlString +=  " WHERE "+sqlCriteria;

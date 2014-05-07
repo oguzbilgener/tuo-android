@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.doomonafireball.betterpickers.radialtimepicker.RadialPickerLayout;
@@ -21,6 +24,7 @@ import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Reminder;
+import co.uberdev.ultimateorganizer.android.models.Tag;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.BareListView;
@@ -35,18 +39,23 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
 public class AddTaskDetailFragment extends Fragment
 		implements 	CalendarDatePickerDialog.OnDateSetListener,
 		View.OnClickListener, ReminderListAdapter.OnItemRemoveClickListener,
-		FragmentCommunicator
+		AddedTagsListAdapter.OnItemRemoveClickListener,
+		FragmentCommunicator, TextView.OnEditorActionListener
 {
 
 	public static final int MAX_REMINDER_COUNT = 5;
 
 	private BareListView remindersListView;
+	private BareListView tagsListView;
 
 	private ReminderListAdapter remindersAdapter;
+	private AddedTagsListAdapter tagsAdapter;
 
 	private ArrayList<Reminder> reminders;
+	private ArrayList<Tag> tags;
 
 	private ViewGroup remindersAddButton;
+	private EditText tagInput;
 
 	private EditText taskNameView;
 	private EditText taskDescriptionView;
@@ -99,9 +108,13 @@ public class AddTaskDetailFragment extends Fragment
 		lastDate = new Date();
 
 		reminders = new ArrayList<Reminder>();
+		tags = new ArrayList<Tag>();
 
 		remindersAdapter = new ReminderListAdapter(getActivity(), R.layout.item_add_task_reminder, reminders);
 		remindersAdapter.setItemRemoveClickListener(this);
+
+		tagsAdapter = new AddedTagsListAdapter(getActivity(), R.layout.item_add_task_tag, tags);
+		tagsAdapter.setItemRemoveClickListener(this);
     }
 
     @Override
@@ -110,8 +123,26 @@ public class AddTaskDetailFragment extends Fragment
 		View rootView = inflater.inflate(R.layout.fragment_add_task_detailed, container, false);
 
 		remindersListView = (BareListView) rootView.findViewById(R.id.reminders_list_view);
+		tagsListView = (BareListView) rootView.findViewById(R.id.tags_list_view);
 
 		remindersListView.setAdapter(remindersAdapter);
+		tagsListView.setAdapter(tagsAdapter);
+
+		tagInput = new EditText(getActivity());
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				(int) Utils.getPixelsByDp(getActivity(),
+				getResources().getDimension(R.dimen.add_task_tags_input_height))
+		);
+//		params.setMargins((int) Utils.getPixelsByDp(getActivity(),getResources().getDimension(R.dimen.sub_line_margin_sides) ));
+		tagInput.setLayoutParams(params);
+		tagInput.setId(R.id.add_task_tag_input);
+		tagInput.setHint(getString(R.string.tag_input_hint));
+		tagInput.setSingleLine(true);
+
+		tagInput.setOnEditorActionListener(this);
+
+		tagsListView.setHeader(tagInput);
 
 		remindersAddButton = (ViewGroup) inflater.inflate(R.layout.button_add_reminder, container, false);
 		remindersListView.setFooter(remindersAddButton);
@@ -306,7 +337,7 @@ public class AddTaskDetailFragment extends Fragment
 	}
 
 	@Override
-	public void onItemRemoveClick(View view, int position)
+	public void onReminderRemoveClick(View view, int position)
 	{
 		// user removed a reminder.
 		reminders.remove(position);
@@ -319,6 +350,13 @@ public class AddTaskDetailFragment extends Fragment
 	}
 
 	@Override
+	public void onTagRemoveClick(View view, int position)
+	{
+		tags.remove(position);
+		tagsAdapter.notifyDataSetChanged();
+	}
+
+	@Override
 	public void onMessage(int msgType, Object obj)
 	{
 		switch(msgType)
@@ -328,6 +366,25 @@ public class AddTaskDetailFragment extends Fragment
 				activityCommunicator.onMessage(MESSAGE_RESPONSE_TASK, buildTask());
 			break;
 		}
+	}
+
+	@Override
+	public boolean onEditorAction(TextView v, int keyCode, KeyEvent event)
+	{
+		if(v.getId() == R.id.add_task_tag_input)
+		{
+			if(keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_ENDCALL)
+			{
+				Tag tag = new Tag();
+				tag.setName(((EditText) v).getText().toString());
+				tag.setColor(Utils.colorForTagStr(tag.getName()));
+				v.setText("");
+				tags.add(tag);
+				tagsAdapter.notifyDataSetChanged();
+				return true;
+			}
+		}
+		return false;
 	}
 
 
@@ -407,7 +464,10 @@ public class AddTaskDetailFragment extends Fragment
 		task.setBeginDate((int)(fromDate.getTime()/1000));
 		task.setEndDate((int) (toDate.getTime()/1000));
 
-		task.setDateCreated(Utils.getUnixTimestamp());
+		if(task.getDateCreated() <= 0)
+		{
+			task.setDateCreated(Utils.getUnixTimestamp());
+		}
 		task.setLastModified(Utils.getUnixTimestamp());
 
 		try
@@ -416,8 +476,8 @@ public class AddTaskDetailFragment extends Fragment
 
 			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
 
-			for (int i = 0; i < reminders.size(); i++) {
-				Utils.log.d(reminders.get(i).asJsonString());
+			for (int i = 0; i < reminders.size(); i++)
+			{
 				reminders.get(i).setTitle(task.getTaskName());
 				reminders.get(i).setTargetDate((task.getBeginDate()/1000) - reminders.get(i).getGap());
 
@@ -430,6 +490,13 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			Utils.log.w(e.toString());
 			e.printStackTrace();
+		}
+
+		// add the tags
+		for(int i = 0; i < tags.size(); i++)
+		{
+			if(!task.getTags().contains(tags.get(i)))
+				task.addTag(tags.get(i));
 		}
 
 		return task;

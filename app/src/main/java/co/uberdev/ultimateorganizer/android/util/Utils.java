@@ -1,6 +1,7 @@
 package co.uberdev.ultimateorganizer.android.util;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -144,6 +145,61 @@ public class Utils
 			return true;
 		}
 		return false;
+	}
+
+	// yep, fake
+	public static int colorForTagStr(String tag)
+	{
+		if(tag.equals("tag"))
+		{
+			return Color.parseColor("#000000");
+		}
+		else if(tag.equals("lol"))
+		{
+			return Color.parseColor("#b2b2b2");
+		}
+		else if(tag.equals("CS 102"))
+		{
+			return Color.parseColor("#008CBA");
+		}
+		else if(tag.equals("ENG 102"))
+		{
+			return Color.parseColor("#BA7300");
+		}
+		else if(tag.equals("MATH 102"))
+		{
+			return Color.parseColor("#0019BA");
+		}
+		else if(tag.equals("MATH 132"))
+		{
+			return Color.parseColor("#7000BA");
+		}
+		else if(tag.equals("PHYS 102"))
+		{
+			return Color.parseColor("#308F00");
+		}
+		else if(tag.equals("TURK 102"))
+		{
+			return Color.parseColor("#8F001A");
+		}
+		else if(tag.equals("Lab"))
+		{
+			return Color.parseColor("#777777");
+		}
+		else if(tag.equals("presentation"))
+		{
+			return Color.parseColor("#008F7C");
+		}
+		else if(tag.equals("date"))
+		{
+			return Color.parseColor("#8F005D");
+		}
+		else if(tag.equals("programming"))
+		{
+			return Color.parseColor("#8F8500");
+		}
+
+		return 255;
 	}
 
 }

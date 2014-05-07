@@ -124,7 +124,7 @@ public class ReminderListAdapter extends ArrayAdapter<Reminder>
 				// pass this event to the ItemRemoveClickListener, if exists.
 				if(itemRemoveClickListener != null)
 				{
-					itemRemoveClickListener.onItemRemoveClick(v, position);
+					itemRemoveClickListener.onReminderRemoveClick(v, position);
 				}
 			}
 			catch(Exception e)
@@ -359,6 +359,6 @@ public class ReminderListAdapter extends ArrayAdapter<Reminder>
 
 	public interface OnItemRemoveClickListener
 	{
-		public void onItemRemoveClick(View view, int position);
+		public void onReminderRemoveClick(View view, int position);
 	}
 }

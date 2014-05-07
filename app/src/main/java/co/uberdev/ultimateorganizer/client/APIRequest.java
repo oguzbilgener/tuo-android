@@ -10,8 +10,8 @@ import java.io.IOException;
 
 
 /**
-* Created by ata on 4/9/14.
-*/
+ * Created by ata on 4/9/14.
+ */
 public class APIRequest {
 
     private final String v1 = "http://api.ultimateapp.co:9000/v1";
@@ -26,7 +26,6 @@ public class APIRequest {
 
     }
 
-    // TODO: build a regular json object for login and use the normal request method
     //TODO: HTTPS!!!!!!
 
 
@@ -34,7 +33,7 @@ public class APIRequest {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(URL);
 
-//        post.setEntity(new StringEntity(requestBody, ContentType.create("application/json")));
+        post.setEntity(null/*new StringEntity(requestBody, ContentType.create("application/json"))*/);
         HttpResponse response = client.execute(post);
 
 
@@ -43,17 +42,12 @@ public class APIRequest {
 
         APIResult result = new APIResult(response);
 
+        System.out.println(result.getResponseCode());
+
+
 
         return result;
     }
 
-    public HttpResponse request()
-    {
-
-        HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost(URL);
-
-        return null;
-    }
 
 }
