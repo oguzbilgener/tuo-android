@@ -12,6 +12,7 @@
     <color name="title_section_task_details">#ff00a850</color>
 
     <color name="task_details_name_background">#cd5c5c</color>
+	<color name="title_section_edit_task">#718400</color>
 
 	<color name="navigation_drawer_bg_default">#e2e2e2</color>
     <drawable name="navigation_drawer_item_pressed">#ffa5a5a5</drawable>

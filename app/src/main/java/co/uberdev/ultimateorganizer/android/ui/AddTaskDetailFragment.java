@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -102,6 +103,9 @@ public class AddTaskDetailFragment extends Fragment
 
 	public static AddTaskDetailFragment newInstance(Context context, Task editableTask)
 	{
+		if(context == null || editableTask == null)
+			return newInstance();
+
 		Utils.log.d("A");
 		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
 		fragment.editableTask = editableTask;
@@ -486,9 +490,9 @@ public class AddTaskDetailFragment extends Fragment
 		timeDifference = toDate.getTime() - fromDate.getTime();
 	}
 
-	public AddTaskActivity getParent()
+	public FragmentActivity getParent()
 	{
-		return (AddTaskActivity) getActivity();
+		return (FragmentActivity) getActivity();
 	}
 
 	public Task buildTask()
@@ -572,12 +576,18 @@ public class AddTaskDetailFragment extends Fragment
 		fromDate = new Date((long)task.getBeginDate()*1000);
 		toDate = new Date((long)task.getEndDate()*1000);
 
+		fromDateButton.setText(getDateString(fromDate));
+		fromTimeButton.setText(getTimeString(fromDate));
+
+		// TODO: make sure reminders are retrieved
+		// they do not seem to be inserted into db
 		if(task.getReminders() != null)
 		{
 			// fill reminders
 			for (int i = 0; i < task.getReminders().size(); i++) {
 				this.reminders.add((Reminder) task.getReminders().get(i));
 			}
+			this.remindersAdapter.notifyDataSetChanged();
 		}
 
 		// refresh the views!

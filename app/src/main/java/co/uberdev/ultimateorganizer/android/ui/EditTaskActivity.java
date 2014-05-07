@@ -2,6 +2,7 @@ package co.uberdev.ultimateorganizer.android.ui;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +17,7 @@ import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
-public class EditTaskActivity extends AddTaskActivity implements ActivityCommunicator
+public class EditTaskActivity extends FragmentActivity implements ActivityCommunicator
 {
 	private FragmentCommunicator fragmentCommunicator;
 	private LocalStorage localStorage;
@@ -29,11 +30,11 @@ public class EditTaskActivity extends AddTaskActivity implements ActivityCommuni
 	{
         super.onCreate(savedInstanceState);
 
-		getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.title_section_overview)));
+		getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.title_section_edit_task)));
 
 		localStorage = new LocalStorage(this);
 
-		AddTaskDetailFragment fragment = null;
+		AddTaskDetailFragment fragment;
 		// check for intent extras
 		try
 		{
@@ -69,11 +70,7 @@ public class EditTaskActivity extends AddTaskActivity implements ActivityCommuni
 					throw new Exception("no id or task object found in intent extras");
 				}
 
-				if(editedTask != null)
-				{
-					fragment = AddTaskDetailFragment.newInstance(this, editedTask);
-				}
-				else
+				if(editedTask == null)
 				{
 					throw new Exception("edited task is still null");
 				}
@@ -88,14 +85,8 @@ public class EditTaskActivity extends AddTaskActivity implements ActivityCommuni
 
 				Toast.makeText(this, getString(R.string.edit_task_no_task), Toast.LENGTH_SHORT).show();
 		}
-		finally
-		{
-			if (fragment == null)
-				fragment = AddTaskDetailFragment.newInstance();
-		}
-
+		fragment = AddTaskDetailFragment.newInstance(this, editedTask);
 		fragmentCommunicator = fragment;
-
 
         setContentView(R.layout.activity_add_task);
         if (savedInstanceState == null) {

@@ -116,12 +116,14 @@ public class Task extends CoreTask implements CoreStorable
 
 				// now insert should be complete
 				// time to insert reminders one by one
-				for (int i = 0; i < reminders.size(); i++) {
+				for (int i = 0; i < reminders.size(); i++)
+				{
 					((Reminder) reminders.get(i)).insert();
 				}
 
 				// insert tags one by one
-				for (int i = 0; i < tags.size(); i++) {
+				for (int i = 0; i < tags.size(); i++)
+				{
 					((Tag) tags.get(i)).insert();
 				}
 
@@ -129,7 +131,6 @@ public class Task extends CoreTask implements CoreStorable
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
 				e.printStackTrace();
 			}
 		}
