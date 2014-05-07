@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -30,17 +31,15 @@ public class TaskDetailActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, TaskDetailFragment.newInstance())
-                    .commit();
-        }
+
+        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.title_section_task_details)));
 
         localStorage = new LocalStorage(this);
 
+        Task taskToShow = null;
+
         if (getIntent().getExtras() != null
-                && getIntent().getExtras().containsKey(getResources().getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID))
-                )
+                && getIntent().getExtras().containsKey(getResources().getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID)))
         {
 
 
@@ -51,7 +50,7 @@ public class TaskDetailActivity extends FragmentActivity
 
             if (tasksResult.size() > 0)
             {
-                Task taskToShow = (Task) tasksResult.get(0);
+                taskToShow = (Task) tasksResult.get(0);
             }
             else
             {
@@ -59,6 +58,14 @@ public class TaskDetailActivity extends FragmentActivity
                 // finish the activity
                 finish();
             }
+        }
+        if(taskToShow == null)
+            taskToShow = null;
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, TaskDetailFragment.newInstance(this, taskToShow))
+                    .commit();
         }
 
 

@@ -6,46 +6,43 @@
 
     tools:context="co.uberdev.ultimateorganizer.android.ui.TaskDetailFragment">
 
-    <TextView
-        android:id="@+id/task_title"
+    <RelativeLayout
+        android:id="@+id/task_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/task_title"
-        android:textSize="30dp"
-        android:background="#9400d3"
-        android:textColor="@color/white"
-        android:padding="10dp"/>
+        android:background="@color/task_details_name_background"
+        android:paddingBottom="10dp">
 
-    <TextView
-        android:id="@+id/task_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/task_title"
-        android:text="@string/task_description"
-        android:textSize="15dp"
-        android:background="#9400d3"
-        android:textColor="@color/white"
-        android:paddingLeft="10dp"
-        android:paddingBottom="5dp"
-        />
+        <TextView
+            android:id="@+id/task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_title"
+            android:textSize="30dp"
+            android:textColor="@color/white"
+            android:padding="10dp"/>
 
+        <TextView
+            android:id="@+id/task_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/task_title"
+            android:text="@string/task_description"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            />
+
+
+    </RelativeLayout>
     <TextView
-        android:id="@+id/task_from_date"
+        android:id="@+id/task_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/task_description"
-        android:text="From: 25 Mar 2014 16:40"
+        android:layout_below="@id/task_name_layout"
+        android:text="Yesterday \n15:30-16:30"
         android:layout_alignParentRight="true"
-        android:padding="8dp"
-        />
-
-    <TextView
-        android:id="@+id/task_to_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/task_from_date"
-        android:layout_alignParentRight="true"
-        android:text="To: 25 Mar 2014 17:30"
         android:padding="8dp"
         />
 
@@ -54,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/task_to_date"
+        android:layout_below="@id/task_date"
         android:layout_marginTop="10dp"/>
 
 </RelativeLayout>

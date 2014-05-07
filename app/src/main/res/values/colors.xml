@@ -9,6 +9,10 @@
 	<color name="title_section_academic_network">#ff5c2986</color>
     <color name="title_section_items_text_color">#000000</color>
 
+    <color name="title_section_task_details">#ff00a850</color>
+
+    <color name="task_details_name_background">#cd5c5c</color>
+
 	<color name="navigation_drawer_bg_default">#e2e2e2</color>
     <drawable name="navigation_drawer_item_pressed">#ffa5a5a5</drawable>
     <drawable name="navigation_drawer_item_selected">#ffdcdcdc</drawable>
