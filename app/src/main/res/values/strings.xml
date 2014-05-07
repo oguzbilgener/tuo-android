@@ -74,6 +74,7 @@
     <!-- Academic schedule screen -->
     <string name="user_name">Omert Aksoy</string>
     <string name="user_info">Bilkent University, EE</string>
+    <string name="action_add_course">Add Course</string>
     <string name="academic_calendar_year">2013-2014 SPRING</string>
     <string name="schedule_course_name">CS 102</string>
     <string name="schedule_course_description">Algorithms and Programming II</string>
