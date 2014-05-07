@@ -43,6 +43,10 @@
     <string name="academic_network_section_2">Section 2</string>
     <string name="academic_network_section_3">Section 3</string>
 
+    <!-- Course item strings -->
+
+    <string name="title_activity_add_course">New Course</string>
+
     <!-- Task item strings -->
 
     <string name="tag_name">CS 102</string>
@@ -107,7 +111,8 @@
     <string name="add_course_course_code">ENG</string>
     <string name="add_course_course_number">101</string>
     <string name="add_course_section_number">17</string>
-    <string name="add_course_course_name">Course Name</string>
+    <string name="add_course_course_name">Composition and Writing I</string>
+    <string name="add_course_instructor_name">Dr. Anita L. Akkas</string>
     <string name="add_course_academic_year">2013-2014 SPRING</string>
     <string name="add_course_new_course_edittext">Add New Course</string>
 
@@ -159,6 +164,8 @@
     <string name="msg_unknown_error">Sorry, an unknown error occurred.</string>
     <string name="msg_cannot_add_task">Sorry, could not save task.</string>
     <string name="msg_success_add_task">Task created.</string>
+    <string name="msg_cannot_add_course">Sorry, could not save course.</string>
+    <string name="msg_success_add_course">Course created.</string>
     <string name="today_capital">Today</string>
     <string name="yesterday_capital">Yesterday</string>
     <string name="tomorrow_capital">Tomorrow</string>
@@ -171,6 +178,11 @@
 	<string name="edit_task_no_task">No task specified.</string>
 	<string name="edit_task_unknown_error">Something went wrong.</string>
 	<string name="edit_task_success">Edited task.</string>
+
+    <string name="edit_course_unknown_error">Something went wrong.</string>
+    <string name="course_not_found_error_message">Could not find specified Course</string>
+    <string name="edit_course_no_course">No course specified.</string>
+    <string name="edit_course_success">Edited course.</string>
 
 	<string name="title_menu_task_edit">Edit</string>
 	<string name="title_menu_task_delete">Delete</string>
