@@ -469,8 +469,12 @@ public class AddTaskDetailFragment extends Fragment
 		switch(msgType)
 		{
 			case MESSAGE_REQUEST_TASK:
-				// Just build the task object and send it to the Activity to use it
-				activityCommunicator.onMessage(MESSAGE_RESPONSE_TASK, buildTask());
+				// do no do anything if task name is empty
+				if(!taskNameView.getText().toString().isEmpty())
+				{
+					// Just build the task object and send it to the Activity to use it
+					activityCommunicator.onMessage(MESSAGE_RESPONSE_TASK, buildTask());
+				}
 			break;
 
 			case MESSAGE_RESULT_SUB_TASK:
@@ -581,7 +585,7 @@ public class AddTaskDetailFragment extends Fragment
 		// Then it will not be an edit action of course.
 		Bundle args = getArguments();
 		Task task;
-		if(editableTask == null && !args.containsKey(getString(R.string.ARGS_TASK_JSON_OBJECT)))
+		if(editableTask == null && (args == null || !args.containsKey(getString(R.string.ARGS_TASK_JSON_OBJECT))))
 		{
 			task = new Task();
 		}
@@ -647,9 +651,22 @@ public class AddTaskDetailFragment extends Fragment
 			task.setTags(new CoreTags());
 
 			// add the tags
-			for(int i = 0; i < tags.size(); i++)
+			for(int i=0; i<tags.size(); i++)
 			{
 				task.addTag(tags.get(i));
+			}
+
+
+			if(subTasks != null && subTasks.size() > 0)
+			{
+				// flush the old sub tasks
+				task.setRelatedTasks(new ArrayList<Long>());
+
+				for(int i=0; i<subTasks.size(); i++)
+				{
+					// form relation!
+					task.getRelatedTasks().add(subTasks.get(i).getLocalId());
+				}
 			}
 		}
 		catch(Exception e)
@@ -658,6 +675,7 @@ public class AddTaskDetailFragment extends Fragment
 			e.printStackTrace();
 		}
 
+		Utils.log.d("built task: \n"+task);
 
 
 		return task;

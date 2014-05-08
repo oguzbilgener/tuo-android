@@ -119,8 +119,10 @@ public class Task extends CoreTask implements CoreStorable
 
 				Utils.log.i(getReminders().asJsonString());
 
-				ss.execute();
+				long localId = ss.executeInsert();
 				ss.close();
+
+				setLocalId(localId);
 
 //				// now insert should be complete
 //				// time to insert reminders one by one
