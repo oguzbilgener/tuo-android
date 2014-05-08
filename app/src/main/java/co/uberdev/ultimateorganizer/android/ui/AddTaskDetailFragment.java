@@ -478,7 +478,7 @@ public class AddTaskDetailFragment extends Fragment
 			break;
 
 			case MESSAGE_RESULT_SUB_TASK:
-
+				useSubTaskObject(obj);
 			break;
 		}
 	}
