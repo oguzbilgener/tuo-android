@@ -16,7 +16,7 @@
 
 	<string name="ALARM_DATA_REMINDER">alarm_data_reminder</string>
 
-    <!-- Strings for AddCourseFragment.java -->
+    <!-- strings for AddCourseFragment.java -->
 
     <string name="ARGS_COURSE_JSON_OBJECT">args_course_json_object</string>
 
