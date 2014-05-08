@@ -56,6 +56,29 @@ public class DbHelper extends SQLiteOpenHelper
 				CoreDataRules.columns.tags.color+" INTEGER " +
 				")");
 
+		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.courses+" (" +
+				CoreDataRules.columns.courses.localId+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+				CoreDataRules.columns.courses.id+" INTEGER, " +
+				CoreDataRules.columns.courses.ownerId+" INTEGER, " +
+				CoreDataRules.columns.courses.title+" TEXT, " +
+				CoreDataRules.columns.courses.semester+" TEXT, " +
+				CoreDataRules.columns.courses.departmentCode+" TEXT, " +
+				CoreDataRules.columns.courses.courseCode+" TEXT, " +
+				CoreDataRules.columns.courses.sectionCode+" INTEGER, " +
+				CoreDataRules.columns.courses.instructor_name+" TEXT " +
+				")");
+
+		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.notes+" ( " +
+				CoreDataRules.columns.notes.localId+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+				CoreDataRules.columns.notes.id+" INTEGER, " +
+				CoreDataRules.columns.notes.ownerId+" INTEGER, " +
+				CoreDataRules.columns.notes.content+" TEXT, " +
+				CoreDataRules.columns.notes.dateCreated+" INTEGER, " +
+				CoreDataRules.columns.notes.lastModified+" INTEGER, " +
+				CoreDataRules.columns.notes.attachment+" TEXT, " +
+				CoreDataRules.columns.notes.relatedTaskID+" INTEGER " +
+				")");
+
 // no need to create a new table for reminder!!
 //		// create reminders table
 //		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.reminders +" (" +
