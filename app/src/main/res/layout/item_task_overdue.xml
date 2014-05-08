@@ -11,26 +11,29 @@
 		android:layout_height="wrap_content"
 		android:padding="@dimen/task_item_padding">
 
+		<ImageButton
+				android:id="@+id/task_item_expand_icon"
+				style="@style/task_item_context_button"/>
+
 		<CheckBox
 			android:id="@+id/task_item_checkbox_overdue"
 			android:layout_width="wrap_content"
 			android:layout_height="@dimen/task_item_checkbox_height"
 			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
 			style="@style/task_item_checkbox_overdue_style" />
 
 		<TextView
 			android:id="@+id/task_item_task_title_overdue"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/task_item_task_title"
 			android:layout_toRightOf="@id/task_item_checkbox_overdue"
-			android:layout_alignTop="@id/task_item_checkbox_overdue"
-			android:layout_marginTop="5dp"
-			android:textSize="18sp"
+			android:layout_toLeftOf="@id/task_item_expand_icon"
+			android:layout_alignParentTop="true"
 			android:text="@string/task_title"/>
 
 		<TextView
 			android:id="@+id/task_item_description_overdue"
-			android:layout_below="@id/task_item_checkbox_overdue"
+			android:layout_below="@id/task_item_task_title_overdue"
 			style="@style/task_item_description_overdue"/>
 
 		<!-- horizontal tag list -->
@@ -60,9 +63,6 @@
 			android:layout_above="@id/task_item_date"
 			android:layout_alignParentRight="true"/>
 
-		<ImageButton
-				android:id="@+id/task_item_expand_icon"
-				style="@style/task_item_context_button"/>
 
 	</RelativeLayout>
 </LinearLayout>

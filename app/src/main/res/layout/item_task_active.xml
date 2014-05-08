@@ -12,25 +12,29 @@
 		android:padding="@dimen/task_item_padding"
 		android:clickable="true">
 
+		<ImageButton
+				android:id="@+id/task_item_expand_icon"
+				style="@style/task_item_context_button"/>
+
 		<CheckBox
 			android:id="@+id/task_item_checkbox_active"
 			android:layout_width="wrap_content"
 			android:layout_height="@dimen/task_item_checkbox_height"
 			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
 			style="@style/task_item_checkbox_active" />
 
 		<TextView
 			android:id="@+id/task_item_task_title_active"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/task_item_task_title"
 			android:layout_toRightOf="@id/task_item_checkbox_active"
-			android:layout_alignTop="@id/task_item_checkbox_active"
-			android:textSize="18sp"
+			android:layout_toLeftOf="@id/task_item_expand_icon"
+			android:layout_alignParentTop="true"
 			android:text="@string/task_title"/>
 
 		<TextView
 			android:id="@+id/task_item_description_active"
-			android:layout_below="@id/task_item_checkbox_active"
+			android:layout_below="@id/task_item_task_title_active"
 			style="@style/task_item_description_active"/>
 
 		<!-- horizontal tag list -->
@@ -51,9 +55,6 @@
 			android:text="lol"
 			style="@style/task_item_date_active"/>
 
-		<ImageButton
-				android:id="@+id/task_item_expand_icon"
-				style="@style/task_item_context_button"/>
 
 	</RelativeLayout>
 </LinearLayout>
