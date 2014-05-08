@@ -16,13 +16,12 @@
 
 	<string name="ALARM_DATA_REMINDER">alarm_data_reminder</string>
 
-    <!-- Strings for AddCourseFragment.java -->
+    <!-- strings for AddCourseFragment.java -->
 
     <string name="ARGS_COURSE_JSON_OBJECT">args_course_json_object</string>
 
     <string name="INTENT_DETAILS_COURSE_JSON_OBJECT">intent_details_course_json_object</string>
     <string name="INTENT_DETAILS_COURSE_LOCAL_ID">intent_details_course_id</string>
-
 
     <string name="PREF_SEMESTER_CODE">20141</string>
     <string name="PREF_SEMSTER_DESC">2014-2015 FALL</string>

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Course;
+import co.uberdev.ultimateorganizer.android.models.Courses;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 
 /**
@@ -122,6 +123,24 @@ public class CoursesListFragment extends Fragment
     {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        Courses allCourses = new Courses(getParent().getLocalStorage().getDb());
+        allCourses.loadAllCourses();
+
+        coursesList.clear();
+        coursesList.addAll(allCourses.toCourseArrayList());
+        coursesListAdapter.notifyDataSetChanged();
+    }
+
+    public ScheduleActivity getParent()
+    {
+        return (ScheduleActivity) getActivity();
     }
 
 }
