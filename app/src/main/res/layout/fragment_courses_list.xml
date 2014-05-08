@@ -58,7 +58,7 @@ android:layout_height="match_parent">
         android:layout_marginLeft="@dimen/schedule_academic_year_margin_left"
         android:textSize="@dimen/schedule_academic_year_text_size"
         android:textStyle="bold"
-        android:text="@string/academic_calendar_year"
+        android:text="@string/PREF_SEMSTER_DESC"
         android:textColor="@color/schedule_academic_year_color"/>
 
     <LinearLayout
@@ -69,7 +69,8 @@ android:layout_height="match_parent">
         android:layout_below="@id/schedule_academic_year"
         android:layout_marginTop="@dimen/sub_line_margin_top"
         android:layout_marginLeft="@dimen/sub_line_margin_sides"
-        android:layout_marginRight="@dimen/sub_line_margin_sides">
+        android:layout_marginRight="@dimen/sub_line_margin_sides"
+        android:orientation="horizontal">
         </LinearLayout>
 
     <ListView

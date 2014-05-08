@@ -54,8 +54,8 @@ public class AddCourseFragment extends Fragment implements FragmentCommunicator
 
     private ActivityCommunicator activityCommunicator;
 
-    public static final int MESSAGE_REQUEST_TASK = -99;
-    public static final int MESSAGE_RESPONSE_TASK = -98;
+    public static final int MESSAGE_REQUEST_COURSE = -99;
+    public static final int MESSAGE_RESPONSE_COURSE = -98;
 
     /**
      * Use this factory method to create a new instance of
@@ -167,7 +167,12 @@ public class AddCourseFragment extends Fragment implements FragmentCommunicator
 
         course.setDepartmentCode(departmentCode.getText().toString());
         course.setCourseCode(courseNumber.getText().toString());
-        course.setSectionCode(Integer.parseInt(sectionNumber.getText().toString()));
+
+        course.setCourseSemester(getString(R.string.PREF_SEMESTER_CODE));
+        String sectionNumberStr = sectionNumber.getText().toString();
+        course.setSectionCode(Integer.parseInt(sectionNumberStr != null && !sectionNumberStr.isEmpty() ? sectionNumberStr : "0"));
+
+
         course.setCourseTitle(courseName.getText().toString());
         course.setInstructorName(instructorName.getText().toString());
 
@@ -188,9 +193,8 @@ public class AddCourseFragment extends Fragment implements FragmentCommunicator
     public void onMessage(int msgType, Object obj) {
         switch(msgType)
         {
-            case MESSAGE_REQUEST_TASK:
-                // Just build the task object and send it to the Activity to use it
-                activityCommunicator.onMessage(MESSAGE_RESPONSE_TASK, buildCourse());
+            case MESSAGE_REQUEST_COURSE:
+                activityCommunicator.onMessage(MESSAGE_RESPONSE_COURSE, buildCourse());
                 break;
         }
     }

@@ -17,6 +17,7 @@ public class Note extends CoreNote implements CoreStorable
     public Note(SQLiteDatabase db) {
         super();
         this.db = db;
+        this.content = "";
     }
 
     public Note()
@@ -42,14 +43,14 @@ public class Note extends CoreNote implements CoreStorable
 		if(db != null) {
             try {
                 String insertSql = "INSERT INTO " + getTableName() + " (" +
-                    CoreDataRules.columns.notes.localId + " INTEGER, " +
-                    CoreDataRules.columns.notes.id + " INTEGER, " +
-                    CoreDataRules.columns.notes.ownerId + " INTEGER, " +
-                    CoreDataRules.columns.notes.content + " TEXT, " +
-                    CoreDataRules.columns.notes.dateCreated + " INTEGER, " +
-                    CoreDataRules.columns.notes.lastModified + " INTEGER, " +
-                    CoreDataRules.columns.notes.attachment + " TEXT, " +
-                    CoreDataRules.columns.notes.relatedTaskID + " INTEGER " +
+                    CoreDataRules.columns.notes.localId + ", " +
+                    CoreDataRules.columns.notes.id + ", " +
+                    CoreDataRules.columns.notes.ownerId + ", " +
+                    CoreDataRules.columns.notes.content + ", " +
+                    CoreDataRules.columns.notes.dateCreated + ", " +
+                    CoreDataRules.columns.notes.lastModified + ", " +
+                    CoreDataRules.columns.notes.attachment + ", " +
+                    CoreDataRules.columns.notes.relatedTaskID + " " +
                     ") VALUES (?,?,?,?,?,?,?,?)";
 
 
