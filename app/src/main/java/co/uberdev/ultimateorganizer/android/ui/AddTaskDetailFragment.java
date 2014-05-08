@@ -347,6 +347,7 @@ public class AddTaskDetailFragment extends Fragment
 			Calendar fromCalendar = Calendar.getInstance();
 			fromCalendar.setTime(fromDate);
 			fromCalendar.set(year, monthOfYear, dayOfMonth);
+			fromCalendar.set(Calendar.SECOND, 0);
 			fromDate = fromCalendar.getTime();
 
 			// keep the interval between from and to
@@ -358,6 +359,7 @@ public class AddTaskDetailFragment extends Fragment
 			Calendar toCalendar = Calendar.getInstance();
 			toCalendar.setTime(toDate);
 			toCalendar.set(year, monthOfYear, dayOfMonth);
+			toCalendar.set(Calendar.SECOND, 0);
 			toDate = toCalendar.getTime();
 
 			if(fromDate.getTime() >= toDate.getTime())
@@ -445,6 +447,7 @@ public class AddTaskDetailFragment extends Fragment
 			fromCalendar.setTime(fromDate);
 			fromCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			fromCalendar.set(Calendar.MINUTE, minute);
+			fromCalendar.set(Calendar.SECOND, 0);
 			fromDate = fromCalendar.getTime();
 
 			// keep the interval between from and to
@@ -472,6 +475,7 @@ public class AddTaskDetailFragment extends Fragment
 			toCalendar.setTime(toDate);
 			toCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			toCalendar.set(Calendar.MINUTE, minute);
+			toCalendar.set(Calendar.SECOND, 0);
 			toDate = toCalendar.getTime();
 
 			// keep the interval between from and to
@@ -558,7 +562,7 @@ public class AddTaskDetailFragment extends Fragment
 			for (int i=0; i<reminders.size(); i++)
 			{
 				reminders.get(i).setTitle(task.getTaskName());
-				reminders.get(i).setTargetDate(task.getBeginDate() - reminders.get(i).getGap());
+				reminders.get(i).setTargetDate(task.getBeginDate() - reminders.get(i).getGap()*60);
 
 				if (app.user != null) {
 					reminders.get(i).setOwnerId(app.user.getId());

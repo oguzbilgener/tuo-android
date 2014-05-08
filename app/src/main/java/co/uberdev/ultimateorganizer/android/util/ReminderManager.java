@@ -36,7 +36,7 @@ public class ReminderManager
 
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		alarmManager.set(AlarmManager.RTC_WAKEUP, reminder.getTargetDate()*1000, sender);
-		Utils.log.d("remind "+reminder+" "+new SimpleDateFormat("HH:mm:ss").format(new Date((long)reminder.getTargetDate()*1000)));
+		Utils.log.d("remind "+reminder+" "+new SimpleDateFormat("HH:mm:ss").format(new Date(reminder.getTargetDate()*1000)));
 	}
 
 	public static void cancel(Context context, Reminder reminder)
