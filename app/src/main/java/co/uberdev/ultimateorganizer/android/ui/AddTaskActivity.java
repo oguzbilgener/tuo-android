@@ -1,5 +1,6 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -154,6 +155,26 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 				}
 			break;
 		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		// There is only one result to this activity which comes from AddSubTaskActivity
+		if(data != null)
+		{
+			Bundle extras = data.getExtras();
+			if (extras != null) {
+				String taskStr = extras.getString(getString(R.string.INTENT_RESULT_SUB_TASK_OBJECT));
+
+				Task subTask = Task.fromJson(taskStr, Task.class);
+
+				Utils.log.d("onActivityResult subTask: \n " + subTask.asJsonString());
+
+				fragmentCommunicator.onMessage(AddTaskDetailFragment.MESSAGE_RESULT_SUB_TASK, subTask);
+			}
+		}
+		// unless the intent is empty
 	}
 
 	public LocalStorage getLocalStorage()

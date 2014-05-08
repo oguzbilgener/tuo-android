@@ -131,6 +131,7 @@
 	</LinearLayout>
 
 	<TextView
+			android:id="@+id/title_reminders_list"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:singleLine="true"
@@ -151,6 +152,7 @@
 
 
 	<TextView
+			android:id="@+id/title_course_list"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:singleLine="true"
@@ -178,6 +180,7 @@
 	</LinearLayout>
 
 	<TextView
+			android:id="@+id/title_tags_list"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:singleLine="true"
@@ -197,6 +200,7 @@
 			android:orientation="vertical" />
 
 	<TextView
+			android:id="@+id/title_sub_tasks_list"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:singleLine="true"
@@ -207,6 +211,13 @@
 			style="?android:attr/listSeparatorTextViewStyle"
 			android:textAllCaps="true"
 			/>
+
+	<!-- related tasks list -->
+	<co.uberdev.ultimateorganizer.android.util.BareListView
+			android:id="@+id/sub_tasks_list_view"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical" />
 
 </LinearLayout>
 </ScrollView>
