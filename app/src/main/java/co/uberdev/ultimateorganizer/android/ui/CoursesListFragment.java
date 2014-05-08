@@ -61,6 +61,7 @@ public class CoursesListFragment extends Fragment
         course.setDepartmentCode("CS");
         course.setCourseCode("102");
         course.setSectionCode(1);
+        course.setCourseSemester(getString(R.string.PREF_SEMESTER_CODE));
         course.setCourseColor(Color.parseColor("#ff0000"));
 
         coursesList.add(course);

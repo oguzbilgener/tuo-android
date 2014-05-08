@@ -26,7 +26,7 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
     private FragmentCommunicator fragmentCommunicator;
 
     public static final int MESSAGE_SWITCH_TO_DETAILS = -98;
-    public static final int MESSAGE_TASK_RETRIEVE = -99;
+    public static final int MESSAGE_COURSE_RETRIEVE = -99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -95,7 +95,7 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
 
         if (id == R.id.action_add_course) {
             // literally add the course, show a toast and return back to HomeActivity
-            fragmentCommunicator.onMessage(AddCourseFragment.MESSAGE_REQUEST_TASK, null);
+            fragmentCommunicator.onMessage(AddCourseFragment.MESSAGE_REQUEST_COURSE, null);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -117,13 +117,13 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
         switch(msgType)
         {
             // fragment
-            case AddCourseFragment.MESSAGE_RESPONSE_TASK:
+            case AddCourseFragment.MESSAGE_RESPONSE_COURSE:
                 try
                 {
                     Course enteredCourse = (Course) obj;
-//                    if(!enteredCourse.isEmpty())
-//                    {
-//                        enteredCourse.setDb(localStorage.getDb());
+                    if(!enteredCourse.isEmpty())
+                    {
+                        enteredCourse.setDb(localStorage.getDb());
 
                         // do all the neccesary insertions.
 
@@ -144,11 +144,11 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
                             // db error! do not let the user go
                             Toast.makeText(this, getString(R.string.msg_cannot_add_course), Toast.LENGTH_SHORT).show();
                         }
-//                    }
-//                    else
-//                    {
-//                        finish();
-//                    }
+                    }
+                    else
+                    {
+                        finish();
+                    }
                 }
                 catch(Exception e)
                 {
