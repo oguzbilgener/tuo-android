@@ -1,5 +1,8 @@
 package co.uberdev.ultimateorganizer.android.models;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 import co.uberdev.ultimateorganizer.core.CoreNote;
 import co.uberdev.ultimateorganizer.core.CoreStorable;
@@ -9,6 +12,25 @@ import co.uberdev.ultimateorganizer.core.CoreStorable;
  */
 public class Note extends CoreNote implements CoreStorable
 {
+    private transient SQLiteDatabase db;
+
+    public Note(SQLiteDatabase db) {
+        super();
+        this.db = db;
+    }
+
+    public Note()
+    {
+        this(null);
+    }
+
+    public SQLiteDatabase getDb() {
+        return db;
+    }
+
+    public void setDb(SQLiteDatabase db) {
+        this.db = db;
+    }
 
 	@Override
 	public String getTableName() {
@@ -17,16 +39,93 @@ public class Note extends CoreNote implements CoreStorable
 
 	@Override
 	public boolean insert() {
-		return false;
+		if(db != null) {
+            try {
+                String insertSql = "INSERT INTO " + getTableName() + " (" +
+                    CoreDataRules.columns.notes.localId + " INTEGER, " +
+                    CoreDataRules.columns.notes.id + " INTEGER, " +
+                    CoreDataRules.columns.notes.ownerId + " INTEGER, " +
+                    CoreDataRules.columns.notes.content + " TEXT, " +
+                    CoreDataRules.columns.notes.dateCreated + " INTEGER, " +
+                    CoreDataRules.columns.notes.lastModified + " INTEGER, " +
+                    CoreDataRules.columns.notes.attachment + " TEXT, " +
+                    CoreDataRules.columns.notes.relatedTaskID + " INTEGER " +
+                    ") VALUES (?,?,?,?,?,?,?,?)";
+
+
+                int n = 1;
+                SQLiteStatement ss = db.compileStatement(insertSql);
+                ss.bindLong(n++, getLocalId());
+                ss.bindLong(n++, getId());
+                ss.bindLong(n++, getOwnerId());
+                ss.bindString(n++, getContent());
+                ss.bindLong(n++, getDateCreated());
+                ss.bindLong(n++, getLastModified());
+                ss.bindString(n++, getAttachment().asJsonString());
+                ss.bindLong(n++, getRelatedTaskId());
+
+                ss.execute();
+                ss.close();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return false;
 	}
 
 	@Override
 	public boolean update() {
-		return false;
+        if(db != null)
+        {
+            try
+            {
+                int n = 1;
+                String updateSql = "UPDATE " + CoreDataRules.tables.notes + " SET " +
+                    CoreDataRules.columns.notes.localId + " = ?, " +
+                    CoreDataRules.columns.notes.id + " = ?, " +
+                    CoreDataRules.columns.notes.ownerId + " = ? , " +
+                    CoreDataRules.columns.notes.content + " = ? , " +
+                    CoreDataRules.columns.notes.dateCreated + " = ? , " +
+                    CoreDataRules.columns.notes.lastModified + " = ? , " +
+                    CoreDataRules.columns.notes.attachment + " = ? , " +
+                    CoreDataRules.columns.notes.relatedTaskID + " = ? , " +
+                    " WHERE " + CoreDataRules.columns.notes.localId + " = ?";
+
+                SQLiteStatement ss = db.compileStatement(updateSql);
+                ss.bindLong(n++, getLocalId());
+                ss.bindLong(n++, getId());
+                ss.bindLong(n++, getOwnerId());
+                ss.bindString(n++, getContent());
+                ss.bindLong(n++, getDateCreated());
+                ss.bindLong(n++, getLastModified());
+                ss.bindString(n++, getAttachment().asJsonString());
+                ss.bindLong(n++, getRelatedTaskId());
+
+                ss.bindLong(n++, getLocalId());
+
+                ss.execute();
+                ss.close();
+
+                return true;
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
 	}
 
 	@Override
 	public boolean remove() {
-		return false;
+        if(db != null && localId > 0)
+        {
+            String removeSql = "DELETE FROM "+CoreDataRules.tables.notes+" WHERE id = "+localId;
+            // TODO: complete this.
+        }
+        return false;
 	}
 }
