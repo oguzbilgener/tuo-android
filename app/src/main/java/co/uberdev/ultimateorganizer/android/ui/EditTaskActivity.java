@@ -142,7 +142,8 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 		Bundle extras = getIntent().getExtras();
-		if(id == android.R.id.home && extras != null && extras.getString(getString(R.string.INTENT_CALLER_ACTIVITY)) != null) {
+		if(id == android.R.id.home)
+		{
 			finish();
 			return true;
 		}

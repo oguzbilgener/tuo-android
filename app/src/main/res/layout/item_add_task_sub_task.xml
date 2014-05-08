@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="match_parent"
+			  android:layout_height="@dimen/reminder_item_height"
+			  android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			  android:layout_marginRight="@dimen/sub_line_margin_sides"
+			  android:background="@drawable/item_add_task_reminder">
+
+
+
+	<ImageButton
+		android:id="@+id/button_remove_task"
+		android:layout_width="@dimen/added_tag_remove_button_width"
+		android:layout_height="@dimen/added_tag_remove_button_height"
+		android:layout_alignParentRight="true"
+		android:layout_centerVertical="true"
+		android:src="@drawable/ic_action_remove"
+		android:layout_margin="@dimen/reminder_spinner_margin"
+		style="?android:attr/buttonBarButtonStyle"
+		/>
+
+
+</RelativeLayout>

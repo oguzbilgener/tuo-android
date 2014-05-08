@@ -3,6 +3,7 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
@@ -48,26 +49,33 @@ public class AddTaskDetailFragment extends Fragment
 		implements 	CalendarDatePickerDialog.OnDateSetListener,
 		View.OnClickListener, ReminderListAdapter.OnItemRemoveClickListener,
 		AddedTagsListAdapter.OnItemRemoveClickListener,
+		SubTasksListAdapter.OnItemRemoveClickListener,
 		FragmentCommunicator, TextView.OnEditorActionListener
 {
 
 	public static final int MAX_REMINDER_COUNT = 5;
 	public static final int MAX_RELATED_TASK_COUNT = 5;
 
+	public static final int REQUEST_CODE_NEW_SUB_TASK = 1337;
+
 	private BareListView remindersListView;
 	private BareListView tagsListView;
+	private BareListView subTasksListView;
 
 	private ReminderListAdapter remindersAdapter;
 	private AddedTagsListAdapter tagsAdapter;
+	private SubTasksListAdapter subTasksAdapter;
 
 	private ArrayList<Reminder> reminders;
 	private ArrayList<Tag> tags;
-	private ArrayList<Task> relatedTasks;
+	private ArrayList<Task> subTasks;
 
 	public Task editableTask;
+	public Task parentTask;
 	private Course relatedCourse;
 
 	private ViewGroup remindersAddButton;
+	private ViewGroup subTaskAddButton;
 	private EditText tagInput;
 
 	private EditText taskNameView;
@@ -88,7 +96,7 @@ public class AddTaskDetailFragment extends Fragment
 
 	public static final int MESSAGE_REQUEST_TASK = -99;
 	public static final int MESSAGE_RESPONSE_TASK = -98;
-
+	public static final int MESSAGE_RESULT_SUB_TASK = -91;
 
     public static AddTaskDetailFragment newInstance()
 	{
@@ -110,6 +118,13 @@ public class AddTaskDetailFragment extends Fragment
 		Bundle args = new Bundle();
 		args.putString(context.getString(R.string.ARGS_TASK_JSON_OBJECT), taskJsonStr);
 		fragment.setArguments(args);
+		return fragment;
+	}
+
+	public static AddTaskDetailFragment newInstanceWithParentTask(Context context, Task parentTask)
+	{
+		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
+		fragment.parentTask = parentTask;
 		return fragment;
 	}
 
@@ -138,6 +153,9 @@ public class AddTaskDetailFragment extends Fragment
 
 		tagsAdapter = new AddedTagsListAdapter(getActivity(), R.layout.item_add_task_tag, tags);
 		tagsAdapter.setItemRemoveClickListener(this);
+
+		subTasksAdapter = new SubTasksListAdapter(getActivity(), R.layout.item_add_task_sub_task, subTasks);
+		subTasksAdapter.setItemRemoveClickListener(this);
     }
 
     @Override
@@ -147,10 +165,13 @@ public class AddTaskDetailFragment extends Fragment
 
 		remindersListView = (BareListView) rootView.findViewById(R.id.reminders_list_view);
 		tagsListView = (BareListView) rootView.findViewById(R.id.tags_list_view);
+		subTasksListView = (BareListView) rootView.findViewById(R.id.sub_tasks_list_view);
 
 		remindersListView.setAdapter(remindersAdapter);
 		tagsListView.setAdapter(tagsAdapter);
+//		subTasksListView.setAdapter(subTasksAdapter);
 
+		// Create tag input
 		tagInput = new EditText(getActivity());
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,
@@ -171,9 +192,15 @@ public class AddTaskDetailFragment extends Fragment
 
 		tagsListView.setFooter(tagInput);
 
+		// Create reminders add button
 		remindersAddButton = (ViewGroup) inflater.inflate(R.layout.button_add_reminder, container, false);
 		remindersListView.setFooter(remindersAddButton);
 		remindersAddButton.setOnClickListener(this);
+
+		// Create sub tasks add button
+		subTaskAddButton = (ViewGroup) inflater.inflate(R.layout.button_add_sub_task, container, false);
+		subTasksListView.setFooter(subTaskAddButton);
+		subTaskAddButton.setOnClickListener(this);
 
 		fromDateButton = (Button) rootView.findViewById(R.id.add_task_button_from_date);
 		fromTimeButton = (Button) rootView.findViewById(R.id.add_task_button_from_time);
@@ -215,6 +242,22 @@ public class AddTaskDetailFragment extends Fragment
 			reminders.add(reminder);
 
 			remindersAdapter.notifyDataSetChanged();
+		}
+
+		if(parentTask != null)
+		{
+			subTasksListView.setVisibility(View.GONE);
+			tagsListView.setVisibility(View.GONE);
+			rootView.findViewById(R.id.add_task_course_view).setVisibility(View.GONE);
+
+			rootView.findViewById(R.id.title_course_list).setVisibility(View.GONE);
+			rootView.findViewById(R.id.title_tags_list).setVisibility(View.GONE);
+			rootView.findViewById(R.id.title_sub_tasks_list).setVisibility(View.GONE);
+		}
+		else if(editableTask != null)
+		{
+			subTasksListView.setVisibility(View.GONE);
+			rootView.findViewById(R.id.title_sub_tasks_list).setVisibility(View.GONE);
 		}
 
 		return rootView;
@@ -288,7 +331,7 @@ public class AddTaskDetailFragment extends Fragment
 
 			timePickerDialog.show(getParent().getSupportFragmentManager(), getString(R.string.TIME_PICKER_FROM));
 		}
-		if(id == R.id.add_task_button_to_date)
+		else if(id == R.id.add_task_button_to_date)
 		{
 			// show date picker for to
 			Calendar toCalendar = Calendar.getInstance();
@@ -321,7 +364,17 @@ public class AddTaskDetailFragment extends Fragment
 				remindersAddButton.setVisibility(View.GONE);
 			}
 		}
+		else if(id == R.id.button_add_sub_task)
+		{
+			Intent addSubTaskIntent = new Intent(getActivity(), AddSubTaskActivity.class);
 
+			Task temporaryParentTask = new Task();
+			temporaryParentTask.setTaskName(taskNameView.getText().toString());
+			temporaryParentTask.setTaskDesc(taskNameView.getText().toString());
+			addSubTaskIntent.putExtra(getString(R.string.INTENT_DETAILS_TASK_JSON_OBJECT), temporaryParentTask.asJsonString());
+
+			getActivity().startActivityForResult(addSubTaskIntent, REQUEST_CODE_NEW_SUB_TASK);
+		}
 	}
 
 	public String getDateString(Date date)
@@ -399,6 +452,18 @@ public class AddTaskDetailFragment extends Fragment
 	}
 
 	@Override
+	public void onSubTaskRemoveClick(View view, int position)
+	{
+		subTasks.remove(position);
+		subTasksAdapter.notifyDataSetChanged();
+
+		if(subTasks.size() < MAX_RELATED_TASK_COUNT)
+		{
+			subTaskAddButton.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
 	public void onMessage(int msgType, Object obj)
 	{
 		switch(msgType)
@@ -406,6 +471,10 @@ public class AddTaskDetailFragment extends Fragment
 			case MESSAGE_REQUEST_TASK:
 				// Just build the task object and send it to the Activity to use it
 				activityCommunicator.onMessage(MESSAGE_RESPONSE_TASK, buildTask());
+			break;
+
+			case MESSAGE_RESULT_SUB_TASK:
+
 			break;
 		}
 	}
@@ -562,7 +631,7 @@ public class AddTaskDetailFragment extends Fragment
 			for (int i=0; i<reminders.size(); i++)
 			{
 				reminders.get(i).setTitle(task.getTaskName());
-				reminders.get(i).setTargetDate(task.getBeginDate() - reminders.get(i).getGap()*60);
+				reminders.get(i).setTargetDate(task.getBeginDate() - reminders.get(i).getGap() * 60);
 
 				if (app.user != null) {
 					reminders.get(i).setOwnerId(app.user.getId());
@@ -625,6 +694,30 @@ public class AddTaskDetailFragment extends Fragment
 				this.tags.add((Tag) task.getTags().get(i));
 			}
 			this.tagsAdapter.notifyDataSetChanged();
+		}
+	}
+
+	private void useSubTaskObject(Object subTaskObj)
+	{
+		try
+		{
+			Task subTask = (Task) subTaskObj;
+
+			subTasks.add(subTask);
+
+			if(subTasks.size() == MAX_RELATED_TASK_COUNT)
+			{
+				subTaskAddButton.setVisibility(View.GONE);
+			}
+		}
+		catch(Exception e)
+		{
+			if(e.getMessage() != null)
+				Utils.log.w(e.getMessage());
+			else
+				Utils.log.w(e.toString());
+
+			Toast.makeText(getActivity(), getString(R.string.add_subtask_no_relation_error), Toast.LENGTH_SHORT).show();
 		}
 	}
 
