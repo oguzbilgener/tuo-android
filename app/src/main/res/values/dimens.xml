@@ -54,12 +54,15 @@
     <dimen name="task_item_tag_bar_margin_left">10dp</dimen>
     <dimen name="task_item_tag_bar_width">250dp</dimen>
     <dimen name="task_item_tag_bar_height">30dp</dimen>
-    <dimen name="task_item_tag_text_size">18sp</dimen>
+    <dimen name="task_item_tag_text_size">10sp</dimen>
     <dimen name="task_item_tag_padding_left">5dp</dimen>
     <dimen name="task_item_tag_padding_right">5dp</dimen>
     <dimen name="task_item_tag_padding_top">3dp</dimen>
-    <dimen name="task_item_tag_padding_bottom">15dp</dimen>
-    <dimen name="task_item_tag_margin_right">8dp</dimen>
+    <dimen name="task_item_tag_padding_bottom">3dp</dimen>
+	<dimen name="task_item_tag_margin_top">2dp</dimen>
+	<dimen name="task_item_tag_margin_right">2dp</dimen>
+	<dimen name="task_item_tag_margin_bottom">2dp</dimen>
+    <dimen name="task_item_tag_margin_left">2dp</dimen>
 
     <dimen name="task_item_date_width">171dp</dimen>
     <dimen name="task_item_date_height">40dp</dimen>
@@ -251,6 +254,8 @@
 	<dimen name="reminder_spinner_margin">6dp</dimen>
 
 	<dimen name="tag_textsize">8sp</dimen>
+	<dimen name="tag_margins">2dp</dimen>
+	<dimen name="tag_paddings">2dp</dimen>
 
 	<dimen name="expand_button_margin_top">0dp</dimen>
 	<dimen name="task_item_padding">10dp</dimen>

@@ -93,6 +93,8 @@ public class BareListView extends LinearLayout implements BareListDataListener
 		try
 		{
 			((BareListDataDelegate) adapter).setDataListener(this);
+
+			reloadList();
 		}
 		catch(ClassCastException e)
 		{

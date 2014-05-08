@@ -27,11 +27,6 @@ public class AddedTagsListAdapter extends ArrayAdapter<Tag>
 	private LayoutInflater inflater;
 	private int resourceId;
 
-	private String[] dateKeys;
-	private int[] dateValues;
-	private String[] typeKeys;
-	private int[] typeValues;
-
 	private BareListDataListener dataListener;
 
 	private OnItemRemoveClickListener itemRemoveClickListener;

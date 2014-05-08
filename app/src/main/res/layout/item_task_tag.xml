@@ -2,18 +2,14 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/task_item_tag_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
 	android:clickable="true">
 
     <TextView
-        android:id="@+id/task_item_tag_1"
+        android:id="@+id/task_item_tag"
         style="@style/task_item_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tag_name"
-        android:background="@color/task_item_tag_color1"
-		android:textSize="@dimen/tag_textsize"
         android:clickable="false"/>
 
 </RelativeLayout>

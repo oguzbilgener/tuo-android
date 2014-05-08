@@ -137,12 +137,16 @@
     </style>
 
     <style name="task_item_tag">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
         <item name="android:paddingRight">@dimen/task_item_tag_padding_right</item>
         <item name="android:paddingLeft">@dimen/task_item_tag_padding_left</item>
         <item name="android:paddingTop">@dimen/task_item_tag_padding_top</item>
-        <item name="android:layout_marginRight">@dimen/task_item_tag_margin_right</item>
+        <item name="android:layout_marginTop">@dimen/task_item_tag_margin_top</item>
+		<item name="android:layout_marginRight">@dimen/task_item_tag_margin_right</item>
+		<item name="android:layout_marginBottom">@dimen/task_item_tag_margin_bottom</item>
+		<item name="android:layout_marginLeft">@dimen/task_item_tag_margin_left</item>
         <item name="android:textSize">@dimen/task_item_tag_text_size</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/task_item_tag_title_color1</item>
     </style>
 

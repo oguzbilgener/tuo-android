@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.util.BareListView;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreTask;
 
@@ -60,6 +62,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         public ImageView alertIcon;
 
 		public ImageButton menuButton;
+
+		public BareListView tagsList;
     }
 
     @Override
@@ -124,6 +128,11 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 
 			viewHolder.taskItemLayout.setOnClickListener(this);
 			viewHolder.menuButton.setOnClickListener(this);
+
+			viewHolder.tagsList = (BareListView) view.findViewById(R.id.task_item_tag_bar);
+			viewHolder.tagsList.setHeaderVisible(false);
+			viewHolder.tagsList.setFooterVisible(false);
+			viewHolder.tagsList.setOrientation(LinearLayout.HORIZONTAL);
         }
         else
         {
@@ -235,6 +244,12 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 				);
 			}
 		}
+
+		TaskItemTagsListAdapter tagsListAdapter = TaskItemTagsListAdapter.fromCoreTags(
+				getContext(), R.layout.item_task_tag, overviewTaskList.get(position).getTags()
+		);
+
+		viewHolder.tagsList.setAdapter(tagsListAdapter);
 
         return view;
     }
