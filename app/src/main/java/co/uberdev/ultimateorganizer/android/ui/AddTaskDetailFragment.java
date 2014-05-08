@@ -147,6 +147,7 @@ public class AddTaskDetailFragment extends Fragment
 
 		reminders = new ArrayList<Reminder>();
 		tags = new ArrayList<Tag>();
+		subTasks = new ArrayList<Task>();
 
 		remindersAdapter = new ReminderListAdapter(getActivity(), R.layout.item_add_task_reminder, reminders);
 		remindersAdapter.setItemRemoveClickListener(this);

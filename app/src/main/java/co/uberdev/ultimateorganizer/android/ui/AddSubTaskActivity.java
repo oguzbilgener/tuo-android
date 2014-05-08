@@ -116,8 +116,6 @@ public class AddSubTaskActivity extends FragmentActivity implements ActivityComm
 		{
 			finish();
 		}
-
-		// add_subtask_unknown_no_parent_task
     }
 
 	@Override
