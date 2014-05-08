@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,6 +57,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         // checkbox of the task
 		public CheckBox checkbox;
 
+        public ImageView alertIcon;
+
 		public ImageButton menuButton;
     }
 
@@ -101,6 +104,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_overdue);
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
                 viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_overdue);
+                viewHolder.alertIcon = (ImageView) view.findViewById(R.id.task_item_alert_icon);
             }
             else if(getItemViewType(position) == 3)
             {
@@ -275,7 +279,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 
 						case R.id.menu_task_delete:
 							// user pressed delete menu item
-
+                            // TODO add the method to delete the item
 							return false;
 					}
 					return false;

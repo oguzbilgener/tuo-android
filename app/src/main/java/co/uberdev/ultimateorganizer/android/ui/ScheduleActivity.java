@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 public class ScheduleActivity extends Activity implements CoursesListFragment.OnFragmentInteractionListener {
@@ -38,6 +39,8 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
      */
     ViewPager mViewPager;
 
+    private LocalStorage localStorage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,7 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
         mViewPager = (ViewPager) findViewById(R.id.schedulePager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        localStorage = new LocalStorage(this);
     }
 
 
@@ -185,4 +189,8 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
 
     }
 
+    public LocalStorage getLocalStorage()
+    {
+        return localStorage;
+    }
 }
