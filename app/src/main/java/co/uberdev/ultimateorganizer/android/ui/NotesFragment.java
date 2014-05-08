@@ -12,13 +12,14 @@ import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Note;
+import co.uberdev.ultimateorganizer.android.models.Notes;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by oguzbilgener on 15/03/14.
  */
 public class NotesFragment extends Fragment
 {
-
     protected ListView noteListView;
     protected ArrayList<Note> noteList;
     protected NotesAdapter noteAdapter;
@@ -62,6 +63,7 @@ public class NotesFragment extends Fragment
 
         Note note2 = new Note();
         note2.setNoteTitle("Fizik çok boktan");
+        note2.setContent("asdf");
         note2.setDateCreated(73321);
         note2.setLastModified( 123123321);
 
@@ -72,6 +74,15 @@ public class NotesFragment extends Fragment
             e.printStackTrace();
         }
         noteList.add(note2);
+
+        note2.setDb(getHomeActivity().getLocalStorage().getDb());
+        note2.insert();
+
+        Notes fromdb = new Notes(getHomeActivity().getLocalStorage().getDb());
+
+        fromdb.loadFromDb(null, new String[] {}, 0);
+
+        Utils.log.i(fromdb.asJsonString());
 
         noteAdapter = new NotesAdapter(getActivity(), noteList);
     }
