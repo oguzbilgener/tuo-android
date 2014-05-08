@@ -25,7 +25,7 @@
 			android:layout_height="wrap_content"
 			android:layout_toRightOf="@id/task_item_checkbox_active"
 			android:layout_alignTop="@id/task_item_checkbox_active"
-			android:textSize="24sp"
+			android:textSize="18sp"
 			android:text="@string/task_title"/>
 
 		<TextView

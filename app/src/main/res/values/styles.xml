@@ -92,48 +92,40 @@
         <item name="android:layout_marginRight">@dimen/task_item_margin_right</item>
     </style>
 
-    <style name="task_item_checkbox_overdue_style">
-        <item name="android:textSize">@dimen/task_item_title_size</item>
-        <item name="android:textStyle">bold</item>
+	<style name="task_item_checkbox">
+		<item name="android:textStyle">bold</item>
+		<item name="android:textSize">@dimen/task_item_title_size</item>
+		<item name="android:textColor">@color/task_item_title_active</item>
+	</style>
+
+    <style name="task_item_checkbox_overdue_style" parent="@style/task_item_checkbox">
         <item name="android:textColor">@color/task_item_title_overdue</item>
     </style>
 
-    <style name="task_item_checkbox_complete">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/task_item_title_size</item>
+    <style name="task_item_checkbox_complete" parent="@style/task_item_checkbox">
         <item name="android:textColor">@color/task_item_title_complete</item>
     </style>
 
-    <style name="task_item_checkbox_active">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/task_item_title_size</item>
+    <style name="task_item_checkbox_active" parent="@style/task_item_checkbox">
         <item name="android:textColor">@color/task_item_title_active</item>
     </style>
 
-    <style name="task_item_description_overdue">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_below">@id/task_item_checkbox_overdue</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:layout_marginLeft">@dimen/task_item_description_margin_left</item>
-        <item name="android:layout_marginRight">@dimen/task_item_description_margin_right</item>
+	<style name="task_item_description">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:layout_marginLeft">@dimen/task_item_description_margin_left</item>
+		<item name="android:layout_marginRight">@dimen/task_item_description_margin_right</item>
+	</style>
+
+    <style name="task_item_description_overdue" parent="@style/task_item_description">
+
     </style>
 
-    <style name="task_item_description_active">
-		<item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:layout_marginLeft">@dimen/task_item_description_margin_left</item>
-        <item name="android:layout_marginRight">@dimen/task_item_description_margin_right</item>
+    <style name="task_item_description_active" parent="@style/task_item_description">
     </style>
 
-    <style name="task_item_description_complete">
-		<item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_below">@id/task_item_checkbox_complete</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:layout_marginLeft">@dimen/task_item_description_margin_left</item>
-        <item name="android:layout_marginRight">@dimen/task_item_description_margin_right</item>
+    <style name="task_item_description_complete" parent="@style/task_item_description">
     </style>
 
     <style name="task_item_tag">
@@ -146,31 +138,24 @@
         <item name="android:textColor">@color/task_item_tag_title_color1</item>
     </style>
 
-    <style name="task_item_date_active">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
+	<style name="task_item_date">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_marginBottom">@dimen/task_item_date_margin_bottom</item>
+		<item name="android:paddingTop">@dimen/task_item_date_padding_top</item>
+		<item name="android:textSize">@dimen/task_item_date_text_size</item>
+	</style>
+
+    <style name="task_item_date_active" parent="@style/task_item_date">
         <item name="android:textColor">@color/task_item_date_active</item>
-        <item name="android:paddingTop">@dimen/task_item_date_padding_top</item>
-        <item name="android:textSize">@dimen/task_item_date_text_size</item>
     </style>
 
-    <style name="task_item_date_overdue">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
-		<item name="android:layout_marginBottom">@dimen/task_item_date_margin_bottom</item>
+    <style name="task_item_date_overdue" parent="@style/task_item_date">
         <item name="android:textColor">@color/task_item_tag_color1</item>
-        <item name="android:paddingTop">@dimen/task_item_date_padding_top</item>
-        <item name="android:textSize">@dimen/task_item_date_text_size</item>
     </style>
 
-    <style name="task_item_date_complete">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
-		<item name="android:layout_marginBottom">@dimen/task_item_date_margin_bottom</item>
+    <style name="task_item_date_complete" parent="@style/task_item_date">
         <item name="android:textColor">@color/task_item_title_complete</item>
-        <item name="android:paddingTop">@dimen/task_item_date_padding_top</item>
-        <item name="android:textSize">@dimen/task_item_date_text_size</item>
     </style>
 
     <style name="alert_image">
