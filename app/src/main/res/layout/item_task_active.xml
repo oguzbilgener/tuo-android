@@ -17,7 +17,7 @@
 				style="@style/task_item_context_button"/>
 
 		<CheckBox
-			android:id="@+id/task_item_checkbox_active"
+			android:id="@+id/task_item_checkbox"
 			android:layout_width="wrap_content"
 			android:layout_height="@dimen/task_item_checkbox_height"
 			android:layout_alignParentLeft="true"
@@ -25,16 +25,16 @@
 			style="@style/task_item_checkbox_active" />
 
 		<TextView
-			android:id="@+id/task_item_task_title_active"
+			android:id="@+id/task_item_task_title"
 			style="@style/task_item_task_title"
-			android:layout_toRightOf="@id/task_item_checkbox_active"
+			android:layout_toRightOf="@id/task_item_checkbox"
 			android:layout_toLeftOf="@id/task_item_expand_icon"
 			android:layout_alignParentTop="true"
 			android:text="@string/task_title"/>
 
 		<TextView
-			android:id="@+id/task_item_description_active"
-			android:layout_below="@id/task_item_task_title_active"
+			android:id="@+id/task_item_description"
+			android:layout_below="@id/task_item_task_title"
 			style="@style/task_item_description_active"/>
 
 		<!-- horizontal tag list -->
@@ -42,7 +42,7 @@
 				android:id="@+id/task_item_tag_bar"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_below="@id/task_item_description_active"
+				android:layout_below="@id/task_item_description"
 				android:layout_alignParentLeft="true"
 				android:orientation="horizontal" />
 
@@ -51,7 +51,7 @@
 			android:layout_marginBottom="@dimen/task_item_date_margin_bottom"
 			android:layout_alignParentBottom="true"
 			android:layout_alignParentRight="true"
-			android:layout_below="@id/task_item_description_active"
+			android:layout_below="@id/task_item_description"
 			android:text="lol"
 			style="@style/task_item_date_active"/>
 

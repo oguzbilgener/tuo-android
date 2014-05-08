@@ -93,25 +93,25 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 
             if(getItemViewType(position) == 1)
             {
-                viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title_active);
-                viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_active);
+                viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title);
+                viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description);
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
-                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_active);
+                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox);
             }
             else if(getItemViewType(position) == 2)
             {
-                viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title_overdue);
-                viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_overdue);
+                viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title);
+                viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description);
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
-                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_overdue);
+                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox);
                 viewHolder.alertIcon = (ImageView) view.findViewById(R.id.task_item_alert_icon);
             }
             else if(getItemViewType(position) == 3)
             {
-                viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title_complete);
-                viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description_complete);
+                viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title);
+                viewHolder.taskDescription = (TextView) view.findViewById(R.id.task_item_description);
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
-                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox_complete);
+                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox);
             }
 			viewHolder.taskItemLayout = (RelativeLayout) view.findViewById(R.id.task_item_layout);
 			viewHolder.menuButton = (ImageButton) view.findViewById(R.id.task_item_expand_icon);
