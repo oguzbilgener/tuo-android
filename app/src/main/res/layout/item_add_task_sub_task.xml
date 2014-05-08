@@ -2,15 +2,33 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  android:layout_width="match_parent"
-			  android:layout_height="@dimen/reminder_item_height"
+			  android:layout_height="@dimen/sub_task_item_height"
 			  android:layout_marginLeft="@dimen/sub_line_margin_sides"
 			  android:layout_marginRight="@dimen/sub_line_margin_sides"
 			  android:background="@drawable/item_add_task_reminder">
 
+	<TextView
+		android:id="@+id/sub_task_title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:layout_marginTop="12dp"
+		android:textSize="14sp"
+		/>
 
+	<TextView
+			android:id="@+id/sub_task_date"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_below="@id/sub_task_title"
+			android:layout_marginTop="4dp"
+			android:textSize="10sp"
+			/>
 
 	<ImageButton
-		android:id="@+id/button_remove_task"
+		android:id="@+id/button_remove_sub_task"
 		android:layout_width="@dimen/added_tag_remove_button_width"
 		android:layout_height="@dimen/added_tag_remove_button_height"
 		android:layout_alignParentRight="true"

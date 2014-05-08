@@ -270,4 +270,6 @@
 	<dimen name="add_task_tags_input_margin_horizontal">4dp</dimen>
 	<dimen name="add_task_tags_input_margin_vertical">0dp</dimen>
 
+	<dimen name="sub_task_item_height">55dp</dimen>
+
 </resources>

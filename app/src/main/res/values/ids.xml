@@ -32,6 +32,7 @@
 
 	<item type="id" name="add_task_tag_input" />
 	<item type="id" name="add_task_tag_remove_index" />
+	<item type="id" name="add_task_sub_task_remove_index" />
 
 	<item type="id" name="task_item_position" />
 </resources>

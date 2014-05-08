@@ -170,7 +170,7 @@ public class AddTaskDetailFragment extends Fragment
 
 		remindersListView.setAdapter(remindersAdapter);
 		tagsListView.setAdapter(tagsAdapter);
-//		subTasksListView.setAdapter(subTasksAdapter);
+		subTasksListView.setAdapter(subTasksAdapter);
 
 		// Create tag input
 		tagInput = new EditText(getActivity());
@@ -723,6 +723,7 @@ public class AddTaskDetailFragment extends Fragment
 			Task subTask = (Task) subTaskObj;
 
 			subTasks.add(subTask);
+			subTasksAdapter.notifyDataSetChanged();
 
 			if(subTasks.size() == MAX_RELATED_TASK_COUNT)
 			{

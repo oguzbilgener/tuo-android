@@ -5,13 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.BareListDataDelegate;
 import co.uberdev.ultimateorganizer.android.util.BareListDataListener;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by oguzbilgener on 02/05/14.
@@ -23,11 +29,6 @@ public class SubTasksListAdapter extends ArrayAdapter<Task>
 	private List<Task> items;
 	private LayoutInflater inflater;
 	private int resourceId;
-
-	private String[] dateKeys;
-	private int[] dateValues;
-	private String[] typeKeys;
-	private int[] typeValues;
 
 	private BareListDataListener dataListener;
 
@@ -49,17 +50,70 @@ public class SubTasksListAdapter extends ArrayAdapter<Task>
 	{
 		ViewGroup itemView = (ViewGroup) inflater.inflate(resourceId, parent, false);
 
-//		ImageButton removeButton =  (ImageButton) itemView.findViewById(R.id.button_remove_tag);
-//		// save position info in button to distinguish remove button clicks
-//		removeButton.setTag(R.id.add_task_tag_remove_index, position);
-//		// listen for remove button clicks first, distinguish them and pass them to the listener
-//		removeButton.setOnClickListener(this);
-//
-//		LinearLayout tagLayout = (LinearLayout) itemView.findViewById(R.id.layout_add_task_tag);
-//		TextView tagTextView = (TextView) itemView.findViewById(R.id.text_add_task_tag);
-//
-//		tagTextView.setText(items.get(position).getName());
-//		tagLayout.setBackgroundColor(items.get(position).getColor());
+		ImageButton removeButton =  (ImageButton) itemView.findViewById(R.id.button_remove_sub_task);
+		// save position info in button to distinguish remove button clicks
+		removeButton.setTag(R.id.add_task_sub_task_remove_index, position);
+		// listen for remove button clicks first, distinguish them and pass them to the listener
+		removeButton.setOnClickListener(this);
+
+		TextView subTaskTitleView = (TextView) itemView.findViewById(R.id.sub_task_title);
+		subTaskTitleView.setText(items.get(position).getTaskName());
+
+		TextView subTaskDateView = (TextView) itemView.findViewById(R.id.sub_task_date);
+
+		// copy-paste code :(
+		if(Utils.isDateToday(items.get(position).getBeginDate()))
+		{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			subTaskDateView.setText(
+					context.getString(R.string.today_capital) + "\n" +
+							dateFormat.format(new Date((long)items.get(position).getBeginDate()*1000)) + " - " + dateFormat.format(new Date((long)items.get(position).getEndDate()*1000))
+			);
+		}
+		else if(Utils.isDateYesterday(items.get(position).getBeginDate()))
+		{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			subTaskDateView.setText(
+					context.getString(R.string.yesterday_capital) + " " +
+							dateFormat.format(new Date((long)items.get(position).getBeginDate()*1000)) + " - " + dateFormat.format(new Date((long)items.get(position).getEndDate()*1000))
+			);
+		}
+		else if(Utils.isDateTomorrow(items.get(position).getBeginDate()))
+		{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			subTaskDateView.setText(
+					context.getString(R.string.tomorrow_capital) + " " +
+							dateFormat.format(new Date((long)items.get(position).getBeginDate()*1000)) + " - " + dateFormat.format(new Date((long)items.get(position).getEndDate()*1000))
+			);
+		}
+		else
+		{
+			Date beginDate = new Date((long)items.get(position).getBeginDate()*1000);
+			Date endDate = new Date((long)items.get(position).getBeginDate()*1000);
+			Calendar beginCalendar = Calendar.getInstance();
+			beginCalendar.setTime(beginDate);
+			Calendar endCalendar = Calendar.getInstance();
+			endCalendar.setTime(endDate);
+
+			if(beginCalendar.get(Calendar.DAY_OF_MONTH) == endCalendar.get(Calendar.DAY_OF_MONTH))
+			{
+				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
+				SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+				subTaskDateView.setText(
+						dateFormat.format(beginDate) + " " +
+								timeFormat.format(beginDate) + " - " + timeFormat.format(endDate)
+				);
+			}
+			else
+			{
+				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
+				subTaskDateView.setText(
+						dateFormat.format(new Date((long) items.get(position).getBeginDate() * 1000)) + " - " +
+								dateFormat.format(new Date((long) items.get(position).getEndDate() * 1000))
+				);
+			}
+		}
+
 
 		return itemView;
 	}
@@ -88,11 +142,11 @@ public class SubTasksListAdapter extends ArrayAdapter<Task>
 	@Override
 	public void onClick(View v)
 	{
-		if(v.getId() == R.id.button_remove_tag)
+		if(v.getId() == R.id.button_remove_sub_task)
 		{
 			try
 			{
-				int position = (Integer)v.getTag(R.id.add_task_tag_remove_index);
+				int position = (Integer)v.getTag(R.id.add_task_sub_task_remove_index);
 
 				// pass this event to the ItemRemoveClickListener, if exists.
 				if(itemRemoveClickListener != null)
