@@ -10,7 +10,7 @@
         android:id="@+id/add_course_academic_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/academic_calendar_year"
+        android:text="@string/PREF_SEMSTER_DESC"
         android:layout_marginLeft="@dimen/item_add_course_year_margin_left"
         android:layout_alignLeft="@id/add_course_academic_year"
         android:paddingLeft="@dimen/item_add_course_year_padding_left"

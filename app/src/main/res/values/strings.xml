@@ -36,10 +36,10 @@
 
     <!-- ActionBar items -->
     <string name="action_settings">Settings</string>
-    <string name="academic_schedule_section_1">Section 1</string>
+    <string name="academic_schedule_section_1">Courses</string>
     <string name="academic_schedule_section_2">Section 2</string>
     <string name="academic_schedule_section_3">Section 3</string>
-    <string name="academic_network_section_1">Section 1</string>
+    <string name="academic_network_section_1">Public Feed</string>
     <string name="academic_network_section_2">Section 2</string>
     <string name="academic_network_section_3">Section 3</string>
 
