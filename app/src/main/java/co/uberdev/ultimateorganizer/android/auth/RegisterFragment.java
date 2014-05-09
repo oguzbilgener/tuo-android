@@ -71,10 +71,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener
             Bundle credentials = new Bundle();
             credentials.putString(getString(R.string.REGISTER_EMAIL), emailField.getText().toString());
             credentials.putString(getString(R.string.REGISTER_PASSWORD), passwordField.getText().toString());
-            credentials.putString(getString(R.string.REGISTER_FIRST_NAME), passwordField.getText().toString());
-            credentials.putString(getString(R.string.REGISTER_LAST_NAME), passwordField.getText().toString());
-            credentials.putString(getString(R.string.REGISTER_SCHOOL_NAME), passwordField.getText().toString());
-            credentials.putString(getString(R.string.REGISTER_DEPARTMENT_NAME), passwordField.getText().toString());
+            credentials.putString(getString(R.string.REGISTER_FIRST_NAME), firstNameField.getText().toString());
+            credentials.putString(getString(R.string.REGISTER_LAST_NAME), lastNameField.getText().toString());
+            credentials.putString(getString(R.string.REGISTER_SCHOOL_NAME), schoolNameField.getText().toString());
+            credentials.putString(getString(R.string.REGISTER_DEPARTMENT_NAME), departmentNameField.getText().toString());
             activityCommunicator.onMessage(RegisterActivity.MESSAGE_REGISTER_CLICK, credentials);
         }
     }
