@@ -199,4 +199,8 @@
 
 	<string name="not_connected">Not connected to Cloud</string>
 
+	<string name="no_network">No network connection</string>
+	<string name="invalid_login">Invalid login</string>
+	<string name="unknown_error">Unknown error</string>
+
 </resources>

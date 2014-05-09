@@ -28,5 +28,10 @@
 
 	<string name="INTENT_RESULT_SUB_TASK_OBJECT">intent_result_sub_task_object</string>
 
+	<string name="LOGIN_EMAIL">login_email</string>
+	<string name="LOGIN_PASSWORD">login_password</string>
+
+	<string name="PREFS_USER_OBJ">prefs_user_obj</string>
+
 
 </resources>

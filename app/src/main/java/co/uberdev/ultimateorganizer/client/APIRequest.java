@@ -1,21 +1,17 @@
 package co.uberdev.ultimateorganizer.client;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.entity.StringEntity;
-
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 
 /**
@@ -43,22 +39,35 @@ public class APIRequest {
         //CloseableHttpClient client = HttpClients.createDefault();
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(URL);
+		StringEntity se = new StringEntity(requestBody);
 
-        post.setEntity(new StringEntity(requestBody, ContentType.create("application/json")));
-        HttpResponse response = client.execute(post);
+		post.setEntity(se);
+
+		post.setHeader("Accept", "application/json");
+		post.setHeader("Content-type", "application/json");
+
+		HttpResponse response = client.execute(post);
 
 
-
-        System.out.println(URL+ httpMethod + requestBody);
+//        Utils.log.d(URL+ httpMethod + requestBody);
 
         APIResult result = new APIResult(response);
 
-        System.out.println(result.getResponseCode());
-
-
+        Utils.log.d(String.valueOf(result.getResponseCode()));
 
         return result;
     }
 
+	private static String convertInputStreamToString(InputStream inputStream) throws IOException
+	{
+		BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+		String line = "";
+		String result = "";
+		while((line = bufferedReader.readLine()) != null)
+			result += line;
+
+		inputStream.close();
+		return result;
+	}
 
 }

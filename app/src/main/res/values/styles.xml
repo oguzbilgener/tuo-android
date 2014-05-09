@@ -5,6 +5,7 @@
 		<item name="android:actionDropDownStyle">@style/DropDownNav.UltimateTheme</item>
 		<item name="android:textViewStyle">@style/TextViewStyle.UltimateTheme</item>
 		<item name="android:actionBarStyle">@style/ActionBar.UltimateTheme</item>
+		<item name="android:indeterminateProgressStyle">@android:style/Widget.Holo.Light.ProgressBar.Horizontal</item>
     </style>
 
 	<style name="UltimateTheme.TransparentActionBar" parent="@style/UltimateTheme">
@@ -13,7 +14,7 @@
 		<item name="android:actionBarStyle">@style/ActionBar.Transparent.UltimateTheme</item>
 	</style>
 
-	<style name="UltimateTheme.Auth" parent="@style/UltimateTheme">
+	<style name="UltimateTheme.Auth" parent="@style/UltimateTheme.TransparentActionBar">
 		<item name="android:windowBackground">@drawable/auth_bg_repeat</item>
 	</style>
 

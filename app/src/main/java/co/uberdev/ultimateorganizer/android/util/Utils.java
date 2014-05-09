@@ -1,7 +1,9 @@
 package co.uberdev.ultimateorganizer.android.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -218,5 +220,27 @@ public class Utils
 		return digits.charAt((int)(Math.random()*digits.length()));
 	}
 
-
+	public static boolean isNetworkAvailable(Context context)
+	{
+		try
+		{
+			ConnectivityManager con=(ConnectivityManager)context.getSystemService(Activity.CONNECTIVITY_SERVICE);
+			try
+			{
+				return con.getActiveNetworkInfo().isConnectedOrConnecting();
+			}
+			catch(Exception e) {
+				boolean wifi=con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected();
+				boolean mobile=con.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected();
+				if(wifi || mobile) {
+					return true;
+				}
+				return false;
+			}
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
 }
