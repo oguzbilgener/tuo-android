@@ -140,6 +140,9 @@ public class BareListView extends LinearLayout implements BareListDataListener
 	public void setOrientation(int orientation)
 	{
 		super.setOrientation(orientation);
-		listContainer.setOrientation(orientation);
+		if(listContainer != null)
+		{
+			listContainer.setOrientation(orientation);
+		}
 	}
 }
