@@ -199,6 +199,12 @@ public class AddSubTaskActivity extends FragmentActivity implements ActivityComm
 
 					// TODO: insert related tasks, tags etc
 
+					// add new reminders to alarm manager
+					for(int i=0; i<subTask.getReminders().size(); i++)
+					{
+						ReminderManager.remind(this, subTask, (Reminder) subTask.getReminders().get(i));
+					}
+
 					// insert the main task
 					if(subTask.insert())
 					{
@@ -206,12 +212,6 @@ public class AddSubTaskActivity extends FragmentActivity implements ActivityComm
 
 						// show a little success
 						Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
-
-						// add new reminders to alarm manager
-						for(int i=0; i<subTask.getReminders().size(); i++)
-						{
-							ReminderManager.remind(this, subTask, (Reminder) subTask.getReminders().get(i));
-						}
 
 						// set a result to pass the task object via intent and go back to main AddTaskActivity
 						Intent resultIntent = new Intent();

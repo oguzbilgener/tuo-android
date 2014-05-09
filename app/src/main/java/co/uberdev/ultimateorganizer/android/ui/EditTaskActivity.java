@@ -183,6 +183,12 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 
 				if(editableTask.getLocalId() != 0)
 				{
+					// add new reminders to alarm manager
+					for(int i=0; i<editableTask.getReminders().size(); i++)
+					{
+						ReminderManager.remind(this, editableTask, (Reminder) editableTask.getReminders().get(i));
+					}
+
 					if(editableTask.update())
 					{
 						Utils.log.d("updated task");
@@ -190,12 +196,6 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 						if(editableTask.getId() != 0)
 						{
 							// only sync if we have a server id
-						}
-
-						// add new reminders to alarm manager
-						for(int i=0; i<editableTask.getReminders().size(); i++)
-						{
-							ReminderManager.remind(this, editableTask, (Reminder) editableTask.getReminders().get(i));
 						}
 
 						Toast.makeText(this, getString(R.string.edit_task_success), Toast.LENGTH_SHORT).show();

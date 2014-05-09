@@ -125,7 +125,11 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 
 						// do all the neccesary insertions.
 
-						// TODO: insert related tasks
+						// add new reminders to alarm manager
+						for(int i=0; i<enteredTask.getReminders().size(); i++)
+						{
+							ReminderManager.remind(this, enteredTask, (Reminder) enteredTask.getReminders().get(i));
+						}
 
 						// insert the main task
 						if (enteredTask.insert())
@@ -135,12 +139,6 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 							// show a little success
 							Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
 							Utils.log.d("inserted. now finish");
-
-							// add new reminders to alarm manager
-							for(int i=0; i<enteredTask.getReminders().size(); i++)
-							{
-								ReminderManager.remind(this, enteredTask, (Reminder) enteredTask.getReminders().get(i));
-							}
 
 							// Add new task activity can just go back, but this might be different for edit task activity.
 							finish();
