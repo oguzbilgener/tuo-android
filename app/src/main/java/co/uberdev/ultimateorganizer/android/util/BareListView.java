@@ -14,7 +14,7 @@ public class BareListView extends LinearLayout implements BareListDataListener
 {
 	private ArrayAdapter adapter;
 	private ViewGroup header;
-	private ViewGroup listContainer;
+	private LinearLayout listContainer;
 	private ViewGroup footer;
 
 	public BareListView(Context context, AttributeSet attrs)
@@ -25,7 +25,6 @@ public class BareListView extends LinearLayout implements BareListDataListener
 		listContainer = new LinearLayout(context);
 		LinearLayout.LayoutParams listLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		listContainer.setLayoutParams(listLayoutParams);
-		((LinearLayout)listContainer).setOrientation(LinearLayout.VERTICAL);
 
 		header = new LinearLayout(context);
 		header.setLayoutParams(listLayoutParams);
@@ -131,6 +130,13 @@ public class BareListView extends LinearLayout implements BareListDataListener
 	{
 		// replace view at position with its latest state
 		listContainer.removeViewAt(position);
-		listContainer.addView(adapter.getView(position, null, listContainer));
+		listContainer.addView(adapter.getView(position, null, listContainer), position);
+	}
+
+	@Override
+	public void setOrientation(int orientation)
+	{
+		super.setOrientation(orientation);
+		listContainer.setOrientation(orientation);
 	}
 }

@@ -5,11 +5,12 @@
 	android:id="@+id/task_item_tag_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+	style="@style/task_item_tag_layout"
 	android:clickable="true">
 
     <TextView
         android:id="@+id/task_item_tag"
-        style="@style/task_item_tag"
+        style="@style/task_item_tag_text"
         android:clickable="false"/>
 
 </RelativeLayout>

@@ -38,7 +38,6 @@
     <!-- Tag for the task -->
     <TextView
         android:id="@+id/task_item_tag_1"
-        style="@style/task_item_tag"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/task_item_tag_height"
         android:layout_below="@id/add_task_edittext"
@@ -51,7 +50,6 @@
     <!-- Tag for the task -->
     <TextView
         android:id="@+id/task_item_tag_2"
-        style="@style/task_item_tag"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/task_item_tag_height"
         android:layout_alignTop="@id/task_item_tag_1"
