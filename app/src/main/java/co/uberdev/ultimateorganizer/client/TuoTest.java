@@ -1,12 +1,9 @@
 package co.uberdev.ultimateorganizer.client;
 
-import java.io.IOException;
+import co.uberdev.ultimateorganizer.core.*;
 
-import co.uberdev.ultimateorganizer.core.CoreAttachment;
-import co.uberdev.ultimateorganizer.core.CoreCourse;
-import co.uberdev.ultimateorganizer.core.CoreNote;
-import co.uberdev.ultimateorganizer.core.CoreTask;
-import co.uberdev.ultimateorganizer.core.CoreUser;
+
+import java.io.IOException;
 
 /**
  * Created by ata on 4/16/14.
@@ -19,8 +16,6 @@ public class TuoTest {
 
 
 
-
-
         //APIResult register = client.register("ata@gmail.com", "toptop", "Onur", "Okumus", "METU", "CS", 1);
 
 
@@ -30,9 +25,23 @@ public class TuoTest {
         //System.out.print(login.getResponseCode());
 
         CoreUser onurUser = login.getAsUser();
-
+        CoreUser nowitzkiUser = login.getAsUser();
 
         TuoClient client1 = new TuoClient(onurUser.getPublicKey(),onurUser.getSecretToken());
+        TuoClient client2 = new TuoClient(nowitzkiUser.getPublicKey(),nowitzkiUser.getSecretToken());
+
+        CoreCourse coreCourse = new CoreCourse();
+        coreCourse.setCourseSemester("2013-1");
+        coreCourse.setCourseTitle("Discrete and Combinatorial Mathematics");
+        coreCourse.setInstructorName("Laurence John Barker");
+        coreCourse.setSectionCode(1);
+        coreCourse.setDepartmentCode("MATH");
+        coreCourse.setCourseColor(2);
+        coreCourse.setCourseCode("132");
+
+//      client2.insertCourse(coreCourse);
+//      client2.removeCourse(coreCourse);
+//      client2.updateCourse(coreCourse);
 
 
 
@@ -48,7 +57,9 @@ public class TuoTest {
 
 
 
-        //" client1.insertTask(coreTask);
+
+
+        //client1.insertTask(coreTask);
         //client1.removeTask(coreTask);
         //client1.updateTask(coreTask);
 

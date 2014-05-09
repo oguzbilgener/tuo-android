@@ -45,5 +45,8 @@ public class APIResult {
 
     public CoreTasks getAsTasks() throws IOException { return CoreTasks.fromJson(responseBody, CoreTasks.class);    }
 
+    public CoreCourse getAsCourse() throws IOException { return CoreCourse.fromJson(responseBody, CoreCourse.class);    }
+
+    public CoreCourses getAsCourses() throws IOException { return CoreCourses.fromJson(responseBody, CoreCourses.class);    }
 
 }

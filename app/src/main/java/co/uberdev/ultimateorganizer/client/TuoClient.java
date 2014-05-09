@@ -106,6 +106,26 @@ public class TuoClient{
         return null;
     }
 
+    public APIResult insertCourse(CoreCourse toAdd) throws IOException
+    {
+        APIRequest request = prepareRequest("/courses/insert", toAdd.asJsonString(), "POST", true);
+
+        return request.run();
+    }
+
+    public APIResult updateCourse(CoreCourse toUpdate) throws IOException
+    {
+        APIRequest request = prepareRequest("/courses/update", toUpdate.asJsonString(), "POST", true);
+
+        return request.run();
+    }
+
+    public APIResult removeCourse(CoreCourse toRemove) throws IOException
+    {
+        APIRequest request = prepareRequest("/courses/remove", toRemove.asJsonString(), "POST", true);
+
+        return request.run();
+    }
 
     public APIResult insertTask(CoreTask toAdd) throws IOException
     {
