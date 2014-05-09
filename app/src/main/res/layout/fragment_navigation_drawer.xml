@@ -80,7 +80,7 @@
     </LinearLayout>
 
 	<!-- separator -->
-	<LinearLayout android:layout_width="match_parent"
+	<LinearLayout android:id="@+id/navigation_drawer_seperator_schedule" android:layout_width="match_parent"
 				  style="@style/navigation_drawer_item_separator" />
 
 	<!--&lt;!&ndash; separator &ndash;&gt;-->
@@ -107,7 +107,7 @@
     </LinearLayout>
 
 	<!-- separator -->
-	<LinearLayout android:layout_width="match_parent"
+	<LinearLayout android:id="@+id/navigation_drawer_seperator_network" android:layout_width="match_parent"
 				  style="@style/navigation_drawer_item_separator" />
 
 	<!-- Network item -->

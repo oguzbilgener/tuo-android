@@ -85,10 +85,9 @@ public class HomeNavigationDrawerFragment extends Fragment implements View.OnCli
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
-        if (savedInstanceState != null) {
-			Utils.log.w("nav sis not null");
+        if (savedInstanceState != null)
+		{
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
-			Utils.log.e("asd"+mCurrentSelectedPosition);
             mFromSavedInstanceState = true;
         }
 
@@ -205,7 +204,6 @@ public class HomeNavigationDrawerFragment extends Fragment implements View.OnCli
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		// TODO: user the user view for logged in users
 		int headerLayoutId;
 		UltimateApplication app = (UltimateApplication) getActivity().getApplication();
 		if(app.getUser() != null)
@@ -338,8 +336,21 @@ public class HomeNavigationDrawerFragment extends Fragment implements View.OnCli
             navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_overview));
             navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_calendar));
             navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_notes));
-            navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_schedule));
-            navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_network));
+
+			// Display academics only if the user is logged in
+			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
+			if(app.getUser() != null)
+			{
+				navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_schedule));
+				navigationItems.add(rootView.findViewById(R.id.navigation_drawer_item_network));
+			}
+			else
+			{
+				rootView.findViewById(R.id.navigation_drawer_item_schedule).setVisibility(View.GONE);
+				rootView.findViewById(R.id.navigation_drawer_item_network).setVisibility(View.GONE);
+				rootView.findViewById(R.id.navigation_drawer_seperator_schedule).setVisibility(View.GONE);
+				rootView.findViewById(R.id.navigation_drawer_seperator_network).setVisibility(View.GONE);
+			}
 
             for(View item : navigationItems)
             {

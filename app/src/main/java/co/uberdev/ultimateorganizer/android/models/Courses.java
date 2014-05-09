@@ -104,7 +104,7 @@ public class Courses extends CoreCourses implements CoreSelectable {
     public boolean loadAllCourses() {
         String sqlCriteria = "";
 
-        String[] params = new String[7];
+        String[] params = new String[] {};
 
         return loadFromDb(sqlCriteria, params, 0);
     }
