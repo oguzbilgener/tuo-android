@@ -27,6 +27,8 @@ public class UltimateApplication extends Application
 			if(menuKeyField != null) {
 				menuKeyField.setAccessible(true);
 				menuKeyField.setBoolean(config, false);
+
+				retrieveUser();
 			}
 		} catch (Exception ex) {
 			Utils.log.w("cannot force overflow menu");

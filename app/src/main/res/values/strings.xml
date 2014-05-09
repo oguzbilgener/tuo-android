@@ -197,6 +197,8 @@
 	<string name="guest_menu_login">Sign in</string>
 	<string name="guest_menu_register">Sign up</string>
 
+	<string name="user_menu_logout">Sign out</string>
+
 	<string name="not_connected">Not connected to Cloud</string>
 
 	<string name="no_network">No network connection</string>

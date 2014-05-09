@@ -22,11 +22,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.auth.LoginActivity;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
@@ -203,9 +205,26 @@ public class HomeNavigationDrawerFragment extends Fragment implements View.OnCli
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		// TODO: user the user view for logged in users
-		View headerView = inflater.inflate(R.layout.header_guest_navigation_drawer, headerContainer, false);
+		int headerLayoutId;
+		UltimateApplication app = (UltimateApplication) getActivity().getApplication();
+		if(app.getUser() != null)
+		{
+			headerLayoutId = R.layout.header_user_navigation_drawer;
+		}
+		else
+		{
+			headerLayoutId = R.layout.header_guest_navigation_drawer;
+		}
+
+		View headerView = inflater.inflate(headerLayoutId, headerContainer, false);
 		headerContainer.addView(headerView);
 		headerContainer.findViewById(R.id.drawer_auth_expand_button).setOnClickListener(this);
+
+		if(app.getUser() != null)
+		{
+			((TextView)headerContainer.findViewById(R.id.header_user_school)).setText(app.getUser().getSchoolName());
+			((TextView)headerContainer.findViewById(R.id.header_user_realname)).setText(app.getUser().getFirstName()+" "+app.getUser().getLastName());
+		}
     }
 
     private void selectItem(int position) {
@@ -464,8 +483,18 @@ public class HomeNavigationDrawerFragment extends Fragment implements View.OnCli
 		if(view.getId() == R.id.drawer_auth_expand_button)
 		{
 			// open menu
+			int menuID;
+			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
+			if(app.getUser() != null)
+			{
+				menuID = R.menu.drawer_user_expand;
+			}
+			else
+			{
+				menuID = R.menu.drawer_guest_expand;
+			}
 			PopupMenu menu = new PopupMenu(getActivity(), view);
-			menu.getMenuInflater().inflate(R.menu.drawer_guest_expand, menu.getMenu());
+			menu.getMenuInflater().inflate(menuID, menu.getMenu());
 
 			menu.show();
 
@@ -485,6 +514,10 @@ public class HomeNavigationDrawerFragment extends Fragment implements View.OnCli
 							// user pressed register
 							openRegisterScreen();
 							return true;
+
+						case R.id.menu_user_logout:
+							logout();
+							return true;
 					}
 					return false;
 				}
@@ -502,5 +535,15 @@ public class HomeNavigationDrawerFragment extends Fragment implements View.OnCli
 	public void openRegisterScreen()
 	{
 
+	}
+
+	public void logout()
+	{
+		UltimateApplication app = (UltimateApplication) getActivity().getApplication();
+		app.logoutUser();
+
+		Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
+		homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		getActivity().startActivity(homeIntent);
 	}
 }

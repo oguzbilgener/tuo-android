@@ -638,7 +638,8 @@ public class AddTaskDetailFragment extends Fragment
 				reminders.get(i).setTitle(task.getTaskName());
 				reminders.get(i).setTargetDate(task.getBeginDate() - reminders.get(i).getGap() * 60);
 
-				if (app.user != null) {
+				if (app.user != null)
+				{
 					reminders.get(i).setOwnerId(app.user.getId());
 				}
 

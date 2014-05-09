@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@null">
+
+	<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:src="@drawable/bilkent_default"
+			android:adjustViewBounds="true"
+			android:scaleType="centerCrop"
+			/>
+
+	<TextView
+			android:id="@+id/header_user_school"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentBottom="true"
+			android:layout_marginLeft="10dp"
+			android:layout_marginBottom="10dp"
+			android:text="Bilkent University"
+			android:textSize="12sp"
+			android:textColor="@color/white"
+			style="@style/header_user_navigation_drawer_title_text"/>
+
+	<TextView
+			android:id="@+id/header_user_realname"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_marginBottom="10dp"
+			android:layout_marginLeft="10dp"
+			android:layout_above="@id/header_user_school"
+			android:text="Oguz Bilgener"
+			android:textStyle="bold"
+			android:textSize="18sp"
+			android:textColor="@color/white"
+			style="@style/header_user_navigation_drawer_title_text"/>
+
+	<!-- cannot use android attrs with styles. damn. -->
+	<ImageButton
+			android:id="@+id/drawer_auth_expand_button"
+			style="?android:borderlessButtonStyle"
+			android:layout_width="@dimen/auth_expand_button_width"
+			android:layout_height="@dimen/auth_expand_button_height"
+			android:src="@drawable/ic_action_expand_light"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentBottom="true"
+			android:layout_marginTop="@dimen/expand_button_margin_top"
+			android:layout_marginRight="@dimen/expand_button_margin_right"
+			android:layout_marginBottom="@dimen/expand_button_margin_bottom"
+			android:clickable="true"/>
+
+</RelativeLayout>
