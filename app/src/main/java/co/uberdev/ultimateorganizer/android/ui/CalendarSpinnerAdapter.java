@@ -105,11 +105,11 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
                 break;
             case 3:
                 try {
-                    dateText.setText(calendar.get(Calendar.YEAR));
+//                    dateText.setText(calendar.get(Calendar.YEAR));
                 }
                 catch (Exception e)
                 {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
                 break;
         }

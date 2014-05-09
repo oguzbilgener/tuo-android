@@ -21,10 +21,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.BareListView;
 import co.uberdev.ultimateorganizer.android.util.Utils;
-import co.uberdev.ultimateorganizer.core.CoreTask;
 
 /**
  * Created by dunkuCoder on 02/05/2014
@@ -32,10 +32,10 @@ import co.uberdev.ultimateorganizer.core.CoreTask;
  */
 public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnClickListener
 {
-    ArrayList<Task> overviewTaskList;
-    LayoutInflater inflater;
-    Context context;
-    View.OnClickListener checkboxListener;
+    private ArrayList<Task> overviewTaskList;
+    private LayoutInflater inflater;
+    private Context context;
+	private LocalStorage localStorage;
 
     public OverviewTaskAdapter(Context context, ArrayList<Task> overviewTaskList)
     {
@@ -124,7 +124,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 			viewHolder.menuButton.setTag(R.id.task_item_position, position);
 
 			if(viewHolder.checkbox != null)
-            	viewHolder.checkbox.setOnClickListener( checkboxListener);
+            	viewHolder.checkbox.setOnClickListener(this);
 
 			viewHolder.taskItemLayout.setOnClickListener(this);
 			viewHolder.menuButton.setOnClickListener(this);
@@ -143,6 +143,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         final ViewHolder viewHolder = (ViewHolder) view.getTag(R.id.overview_task_item_object);
 
 		viewHolder.taskItemLayout.setTag(R.id.task_item_position, position);
+		viewHolder.checkbox.setTag(R.id.task_item_position, position);
 
 		// item is set to the given index of the CoursesItem arraylist
         Task item = overviewTaskList.get(position);
@@ -150,46 +151,6 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 		// set tags for the outer layout. we won't be using it at the moment though
         view.setTag(R.id.overview_task_item_id, item.getId());
         view.setTag(R.id.overview_task_item_index, position);
-
-		// TODO: move this click listener outside.
-        checkboxListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(getItemViewType(position) == 1)
-                {
-                    try {
-                        getItem(position).setStatus(3);
-                    }
-                    catch(CoreTask.BadStateException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    viewHolder.checkbox.setChecked(true);
-                }
-                else if(getItemViewType(position) == 2)
-                {
-                    try{
-                        getItem(position).setStatus(3);
-                    }
-                    catch(CoreTask.BadStateException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    viewHolder.checkbox.setChecked(true);
-                }
-                else if( getItemViewType(position) == 3)
-                {
-                    try{
-                        getItem(position).setStatus(1);
-                    }
-                    catch(CoreTask.BadStateException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    viewHolder.checkbox.setChecked(false);
-                }
-            }
-        };
 
         viewHolder.taskTitle.setText( item.getTaskName());
         viewHolder.taskDescription.setText( item.getTaskDesc());
@@ -301,34 +262,76 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 				}
 			});
 		}
+		else if(view.getId() == R.id.task_item_checkbox)
+		{
+			try
+			{
+				CheckBox checkBox = (CheckBox) view;
+				int position = (Integer) view.getTag(R.id.task_item_position);
+
+				Task task = overviewTaskList.get(position);
+				int status = task.getStatus();
+
+				// do it in a simple way.
+				if (status == Task.STATE_COMPLETED)
+				{
+					task.setStatus(Task.STATE_ACTIVE);
+					checkBox.setChecked(false);
+				}
+				else
+				{
+					task.setStatus(Task.STATE_COMPLETED);
+					checkBox.setChecked(true);
+				}
+
+				// update the task in the database!
+				if(localStorage != null) {
+					task.setDb(localStorage.getDb());
+					task.update();
+				}
+				else
+				{
+					Utils.log.w("cannot update Task because LocalStorage is null");
+				}
+
+				// TODO: sync
+
+				notifyDataSetChanged();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
     }
 
     @Override
     public int getItemViewType(int position)
     {
         // status deleted
-        if(getItem(position).getStatus() == 0)
+        if(getItem(position).getStatus() == Task.STATE_DELETED)
         {
             return 0;
         }
+		// status overdue
+		else if(getItem(position).getStatus() == Task.STATE_ACTIVE &&
+				Utils.getUnixTimestamp() > getItem(position).getEndDate())
+		{
+			return 2;
+		}
         // status active
-        else if(getItem(position).getStatus() == 1)
+        else if(getItem(position).getStatus() == Task.STATE_ACTIVE)
         {
             return 1;
         }
-        // status overdue
-        else if(getItem(position).getStatus() == 2)
-        {
-            return 2;
-        }
         // status archived
-        else if(getItem(position).getStatus() == 3)
+        else if(getItem(position).getStatus() == Task.STATE_ARCHIVED ||
+				getItem(position).getStatus() == Task.STATE_COMPLETED)
         {
             return 3;
         }
         else
         {
-            Utils.log.d( "hmmmmmm 4 ?!");
             return 4;
         }
     }
@@ -336,7 +339,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     @Override
     public int getViewTypeCount()
     {
-        return 4;
+        return 5;
     }
 
 	public int getPositionByTaskItem(View view)
@@ -351,6 +354,11 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 		editIntent.putExtra(context.getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID), localId);
 
 		context.startActivity(editIntent);
+	}
+
+	public void setLocalStorage(LocalStorage storage)
+	{
+		localStorage = storage;
 	}
 
 }

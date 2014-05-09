@@ -29,6 +29,7 @@
 			android:layout_toRightOf="@id/task_item_checkbox"
 			android:layout_toLeftOf="@id/task_item_expand_icon"
 			android:layout_alignParentTop="true"
+			android:textColor="@color/task_item_title_overdue"
 			android:text="@string/task_title"/>
 
 		<TextView
@@ -40,7 +41,6 @@
 			android:id="@+id/task_item_date"
 			android:layout_width="@dimen/task_item_date_width"
 			android:layout_height="@dimen/task_item_date_height"
-			android:layout_toRightOf="@id/task_item_tag_bar"
 			android:layout_marginBottom="@dimen/task_item_date_margin_bottom"
 			android:layout_alignParentBottom="true"
 			android:layout_alignParentRight="true"

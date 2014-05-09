@@ -21,8 +21,6 @@ public class OverviewCompletedTasksFragment extends OverviewCommonFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-        overviewTaskAdapter = new OverviewTaskAdapter(getActivity(), overviewTaskList);
     }
 
 	@Override
@@ -33,5 +31,6 @@ public class OverviewCompletedTasksFragment extends OverviewCommonFragment
 		completedTasks.loadCompletedTasks();
 
 		overviewTaskList.addAll(completedTasks.toTaskArrayList());
+		overviewTaskAdapter.notifyDataSetChanged();
 	}
 }

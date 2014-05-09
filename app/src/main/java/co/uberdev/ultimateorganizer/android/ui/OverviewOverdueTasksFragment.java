@@ -21,10 +21,18 @@ public class OverviewOverdueTasksFragment extends OverviewCommonFragment
     {
         super.onCreate(savedInstanceState);
 
+
+    }
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+
 		Tasks overdueTasks = new Tasks(getHomeActivity().getLocalStorage().getDb());
 		overdueTasks.loadOverdueTasks();
 
-		overviewTaskList = overdueTasks.toTaskArrayList();
-        overviewTaskAdapter = new OverviewTaskAdapter(getActivity(), overviewTaskList);
-    }
+		overviewTaskList.addAll(overdueTasks.toTaskArrayList());
+		overviewTaskAdapter.notifyDataSetChanged();
+	}
 }

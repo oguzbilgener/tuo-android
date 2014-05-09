@@ -34,7 +34,7 @@
     <!-- task item colors -->
 
     <color name="task_item_background">#eeeeee</color>
-    <color name="task_item_title_overdue">#ff040404</color>
+    <color name="task_item_title_overdue">#ff57000a</color>
     <color name="task_item_title_complete">#ff9a9a9a</color>
     <color name="task_item_title_active">@color/task_item_tag_color1</color>
     <color name="task_item_tag_color1">#ffff1824</color>

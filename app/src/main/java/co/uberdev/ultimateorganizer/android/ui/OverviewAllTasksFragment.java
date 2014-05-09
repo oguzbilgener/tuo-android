@@ -18,9 +18,6 @@ public class OverviewAllTasksFragment extends OverviewCommonFragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
-
-		overviewTaskAdapter = new OverviewTaskAdapter(getActivity(), overviewTaskList);
 	}
 
 	@Override

@@ -61,6 +61,7 @@ public class OverviewCommonFragment extends Fragment
         overviewTaskList = new ArrayList<Task>();
 
         overviewTaskAdapter = new OverviewTaskAdapter(getActivity(), overviewTaskList);
+		overviewTaskAdapter.setLocalStorage(getHomeActivity().getLocalStorage());
     }
 
     @Override

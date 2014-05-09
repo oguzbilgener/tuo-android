@@ -21,6 +21,7 @@
 			android:layout_height="@dimen/task_item_checkbox_height"
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentTop="true"
+			android:checked="true"
 			style="@style/task_item_checkbox_complete" />
 
 		<TextView
@@ -29,6 +30,7 @@
 			android:layout_toRightOf="@id/task_item_checkbox"
 			android:layout_toLeftOf="@id/task_item_expand_icon"
 			android:layout_alignParentTop="true"
+			android:textColor="@color/task_item_title_complete"
 			android:text="@string/task_title"/>
 
 		<TextView
@@ -39,7 +41,6 @@
 
 		<TextView
 			android:id="@+id/task_item_date"
-			android:layout_toRightOf="@id/task_item_tag_bar"
 			android:layout_marginBottom="@dimen/task_item_date_margin_bottom"
 			android:layout_alignParentBottom="true"
 			android:layout_alignParentRight="true"
