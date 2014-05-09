@@ -10,10 +10,12 @@ import android.widget.Toast;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.models.Reminder;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.models.Tasks;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.ReminderManager;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
@@ -188,6 +190,12 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 						if(editableTask.getId() != 0)
 						{
 							// only sync if we have a server id
+						}
+
+						// add new reminders to alarm manager
+						for(int i=0; i<editableTask.getReminders().size(); i++)
+						{
+							ReminderManager.remind(this, editableTask, (Reminder) editableTask.getReminders().get(i));
 						}
 
 						Toast.makeText(this, getString(R.string.edit_task_success), Toast.LENGTH_SHORT).show();

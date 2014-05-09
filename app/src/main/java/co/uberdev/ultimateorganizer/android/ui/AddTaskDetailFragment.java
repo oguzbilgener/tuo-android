@@ -642,9 +642,6 @@ public class AddTaskDetailFragment extends Fragment
 					reminders.get(i).setOwnerId(app.user.getId());
 				}
 
-				// add new reminder to alarm manager
-				ReminderManager.remind(getActivity(), task, reminders.get(i));
-
 				task.addReminder(reminders.get(i));
 			}
 

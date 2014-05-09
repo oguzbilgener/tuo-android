@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.models.Reminder;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.models.Tasks;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.ReminderManager;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
@@ -204,6 +206,12 @@ public class AddSubTaskActivity extends FragmentActivity implements ActivityComm
 
 						// show a little success
 						Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
+
+						// add new reminders to alarm manager
+						for(int i=0; i<subTask.getReminders().size(); i++)
+						{
+							ReminderManager.remind(this, subTask, (Reminder) subTask.getReminders().get(i));
+						}
 
 						// set a result to pass the task object via intent and go back to main AddTaskActivity
 						Intent resultIntent = new Intent();
