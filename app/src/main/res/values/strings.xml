@@ -14,7 +14,7 @@
     <!-- Activity Names -->
     <string name="title_activity_academic_network">Academic Network</string>
     <string name="title_activity_schedule">Academic Schedule</string>
-	<string name="title_activity_task_details">Task Details</string>
+    <string name="title_activity_task_details">Task Details</string>
 
     <!-- sub navigation (ActionBar Spinner) -->
     <string-array name="title_section_overview_subs">
@@ -58,8 +58,8 @@
     <string name="date_complete">13:40-17:40</string>
     <string name="title_activity_add_task">New Task</string>
     <string name="title_activity_edit_task">Edit Task</string>
-	<string name="title_activity_add_sub_task">Relate Task to %s</string>
-	<string name="task">Task</string>
+    <string name="title_activity_add_sub_task">Relate Task to %s</string>
+    <string name="task">Task</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_add">Add new</string>
 
@@ -70,11 +70,10 @@
     <string name="add_task_description_input_hint">Description</string>
     <string name="add_task_time_text_from">FROM</string>
     <string name="add_task_time_text_to">T0</string>
-	<string name="add_task_reminders">REMINDERS</string>
-	<string name="add_task_tags">TAGS</string>
-	<string name="add_task_course">RELATED COURSE</string>
-	<string name="add_task_related_tasks">RELATED TASKS</string>
-
+    <string name="add_task_reminders">REMINDERS</string>
+    <string name="add_task_tags">TAGS</string>
+    <string name="add_task_course">RELATED COURSE</string>
+    <string name="add_task_related_tasks">RELATED TASKS</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Academic schedule screen -->
@@ -172,27 +171,27 @@
     <string name="yesterday_capital">Yesterday</string>
     <string name="tomorrow_capital">Tomorrow</string>
     <string name="title_activity_task_detail">TaskDetailActivity</string>
-
-	<string name="tag_input_hint">enter a tag name...</string>
-
-
+    <string name="tag_input_hint">enter a tag name...</string>
     <string name="task_not_found_error_message">Could not find specified Task</string>
-	<string name="edit_task_no_task">No task specified.</string>
-	<string name="edit_task_unknown_error">Something went wrong.</string>
-	<string name="edit_task_success">Edited task.</string>
-
+    <string name="edit_task_no_task">No task specified.</string>
+    <string name="edit_task_unknown_error">Something went wrong.</string>
+    <string name="edit_task_success">Edited task.</string>
     <string name="edit_course_unknown_error">Something went wrong.</string>
     <string name="course_not_found_error_message">Could not find specified Course</string>
     <string name="edit_course_no_course">No course specified.</string>
     <string name="edit_course_success">Edited course.</string>
+    <string name="add_subtask_no_parent_task">No task specified.</string>
+    <string name="add_subtask_no_relation_error">Could not create relation.</string>
+    <string name="title_menu_task_edit">Edit</string>
+    <string name="title_menu_task_delete">Delete</string>
+    <string name="task_removed">Task removed.</string>
+    <string name="title_activity_login">Ultimate Organizer Cloud</string>
+	<string name="title_activity_register">Ultimate Organizer Cloud</string>
 
-	<string name="add_subtask_no_parent_task">No task specified.</string>
-	<string name="add_subtask_no_relation_error">Could not create relation.</string>
+	<string name="login_hint_email">example@ug.bilkent.edu.tr</string>
+	<string name="login_hint_password">******</string>
 
-	<string name="title_menu_task_edit">Edit</string>
-	<string name="title_menu_task_delete">Delete</string>
-
-	<string name="task_removed">Task removed.</string>
-
+	<string name="login_button">Sign in</string>
+	<string name="register_button">Sign up</string>
 
 </resources>

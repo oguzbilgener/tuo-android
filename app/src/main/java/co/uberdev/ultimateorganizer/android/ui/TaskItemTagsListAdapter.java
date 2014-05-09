@@ -15,7 +15,6 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Tag;
 import co.uberdev.ultimateorganizer.android.util.BareListDataDelegate;
 import co.uberdev.ultimateorganizer.android.util.BareListDataListener;
-import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreTags;
 
 /**
@@ -48,14 +47,12 @@ public class TaskItemTagsListAdapter extends ArrayAdapter<Tag> implements BareLi
 		for(int i=0;i<objects.size();i++)
 			tags.add((Tag)objects.get(i));
 
-		Utils.log.d("ts "+tags.size());
 		return new TaskItemTagsListAdapter(context, resource, tags);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		Utils.log.d("getView "+position);
 		ViewGroup itemView = (ViewGroup) inflater.inflate(resourceId, parent, false);
 
 		RelativeLayout tagLayout = (RelativeLayout) itemView.findViewById(R.id.task_item_tag_layout);

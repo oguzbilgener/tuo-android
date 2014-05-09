@@ -3,9 +3,9 @@
     package="co.uberdev.ultimateorganizer.android" >
 
     <uses-permission android:name="android.permission.VIBRATE" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="co.uberdev.ultimateorganizer.android.util.UltimateApplication"
@@ -42,34 +42,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="HomeActivity" />
         </activity>
-
-		<activity
-				android:name="co.uberdev.ultimateorganizer.android.ui.EditTaskActivity"
-				android:label="@string/title_activity_edit_task"
-				android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
-			<meta-data
-					android:name="android.support.PARENT_ACTIVITY"
-					android:value="HomeActivity" />
-		</activity>
-
-		<activity
-				android:name="co.uberdev.ultimateorganizer.android.ui.AddSubTaskActivity"
-				android:label="@string/title_activity_add_sub_task"
-				android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
-			<meta-data
-					android:name="android.support.PARENT_ACTIVITY"
-					android:value="HomeActivity" />
-		</activity>
-
-		<activity
-				android:name="co.uberdev.ultimateorganizer.android.ui.TaskDetailActivity"
-				android:label="@string/title_activity_task_details"
-				android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
-			<meta-data
-					android:name="android.support.PARENT_ACTIVITY"
-					android:value="HomeActivity" />
-		</activity>
-
+        <activity
+            android:name="co.uberdev.ultimateorganizer.android.ui.EditTaskActivity"
+            android:label="@string/title_activity_edit_task"
+            android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
+        <activity
+            android:name="co.uberdev.ultimateorganizer.android.ui.AddSubTaskActivity"
+            android:label="@string/title_activity_add_sub_task"
+            android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
+        <activity
+            android:name="co.uberdev.ultimateorganizer.android.ui.TaskDetailActivity"
+            android:label="@string/title_activity_task_details"
+            android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
         <activity
             android:name="co.uberdev.ultimateorganizer.android.ui.AddCourseActivity"
             android:label="@string/title_activity_add_course"
@@ -79,8 +75,16 @@
                 android:value="ScheduleActivity" />
         </activity>
 
-		<receiver android:name="co.uberdev.ultimateorganizer.android.util.AlarmReceiver" />
+        <receiver android:name="co.uberdev.ultimateorganizer.android.util.AlarmReceiver" />
 
+        <activity
+            android:name="co.uberdev.ultimateorganizer.android.auth.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.uberdev.ultimateorganizer.android.ui.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

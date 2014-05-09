@@ -7,6 +7,10 @@
 		<item name="android:actionBarStyle">@style/ActionBar.UltimateTheme</item>
     </style>
 
+	<style name="UltimateTheme.Transparent" parent="@style/UltimateTheme">
+		<item name="android:actionBarStyle">@style/ActionBar.Transparent.UltimateTheme</item>
+	</style>
+
 	<style name="DropDownNav.Base.UltimateTheme" parent="@android:style/Widget.Holo.Light.Spinner">
 		<item name="android:background">@drawable/spinner_background_ab_ultimate</item>
 		<item name="android:popupBackground">@drawable/menu_dropdown_panel_ultimate</item>
@@ -25,10 +29,15 @@
 		<item name="android:background">@color/title_navigation_drawer</item>
 		<item name="android:titleTextStyle">@style/ActionBar.TextAppearance.UltimateTheme</item>
 	</style>
+	<style name="ActionBar.Transparent.UltimateTheme" parent="android:Widget.ActionBar">
+		<item name="android:background">@null</item>
+		<item name="android:windowActionBarOverlay">true</item>
+		<item name="android:titleTextStyle">@style/ActionBar.TextAppearance.UltimateTheme</item>
+	</style>
 	<style name="ActionBar.Base.TextAppearance.UltimateTheme" parent="android:TextAppearance.Holo.Widget.ActionBar.Menu">
 		<item name="android:textSize">18sp</item>
 		<item name="android:textColor">#ffffff</item>
-		<!--<item name="android:inputType">textCapWords</item>-->
+		<item name="android:inputType">textCapWords</item>
 		<item name="android:shadowColor">#999999</item>
 		<item name="android:shadowRadius">1</item>
 		<item name="android:shadowDx">1</item>
@@ -198,6 +207,18 @@
 		<item name="android:layout_marginTop">@dimen/expand_button_margin_top</item>
 		<item name="android:background">@android:color/transparent</item>
 		<item name="android:clickable">true</item>
+	</style>
+
+	<style name="auth_box">
+		<item name="android:background">@drawable/card_selector</item>
+		<item name="android:layout_marginTop">10dp</item>
+		<item name="android:layout_marginRight">10dp</item>
+		<item name="android:layout_marginBottom">10dp</item>
+		<item name="android:layout_marginLeft">10dp</item>
+		<item name="android:paddingTop">10dp</item>
+		<item name="android:paddingRight">20dp</item>
+		<item name="android:paddingBottom">20dp</item>
+		<item name="android:paddingLeft">20dp</item>
 	</style>
 
 </resources>

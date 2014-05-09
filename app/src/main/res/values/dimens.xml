@@ -277,4 +277,6 @@
 
 	<dimen name="sub_task_item_height">55dp</dimen>
 
+	<dimen name="margin_between_auth_elements">10dp</dimen>
+
 </resources>
