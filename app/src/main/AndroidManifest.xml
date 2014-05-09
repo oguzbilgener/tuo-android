@@ -87,6 +87,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="co.uberdev.ultimateorganizer.android.ui.HomeActivity" />
         </activity>
+
+        <activity
+            android:name="co.uberdev.ultimateorganizer.android.auth.RegisterActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity"
+            android:theme="@style/UltimateTheme.Auth"
+            android:icon="@null">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.uberdev.ultimateorganizer.android.ui.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

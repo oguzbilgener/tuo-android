@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.auth.LoginActivity;
+import co.uberdev.ultimateorganizer.android.auth.RegisterActivity;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
@@ -527,14 +528,16 @@ public class HomeNavigationDrawerFragment extends Fragment implements View.OnCli
 
 	public void openLoginScreen()
 	{
-		Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
-		loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		getActivity().startActivity(loginIntent);
+        Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        getActivity().startActivity(loginIntent);
 	}
 
 	public void openRegisterScreen()
 	{
-
+        Intent registerIntent = new Intent(getActivity(), RegisterActivity.class);
+        registerIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        getActivity().startActivity(registerIntent);
 	}
 
 	public void logout()

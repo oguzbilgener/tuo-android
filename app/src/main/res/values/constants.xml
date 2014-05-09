@@ -31,6 +31,13 @@
 	<string name="LOGIN_EMAIL">login_email</string>
 	<string name="LOGIN_PASSWORD">login_password</string>
 
+    <string name="REGISTER_EMAIL">register_email</string>
+    <string name="REGISTER_PASSWORD">register_password</string>
+    <string name="REGISTER_FIRST_NAME">register_first_name</string>
+    <string name="REGISTER_LAST_NAME">register_last_name</string>
+    <string name="REGISTER_SCHOOL_NAME">register_school_name</string>
+    <string name="REGISTER_DEPARTMENT_NAME">register_department_name</string>
+
 	<string name="PREFS_USER_OBJ">prefs_user_obj</string>
 
 

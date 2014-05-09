@@ -191,6 +191,13 @@
 	<string name="login_hint_email">example@ug.bilkent.edu.tr</string>
 	<string name="login_hint_password">******</string>
 
+    <string name="register_hint_email">E-Mail "jdoe@ug.bilkent.edu.tr"</string>
+    <string name="register_hint_password">Password</string>
+    <string name="register_hint_first_name">First Name</string>
+    <string name="register_hint_last_name">Last Name</string>
+    <string name="register_hint_school_name">School Name</string>
+    <string name="register_hint_department_code">Department Name "CS"</string>
+
 	<string name="login_button">Sign in</string>
 	<string name="register_button">Sign up</string>
 
