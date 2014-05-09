@@ -35,6 +35,9 @@ public class BareListView extends LinearLayout implements BareListDataListener
 		addView(header);
 		addView(listContainer);
 		addView(footer);
+
+		// Vertical as default
+		setOrientation(LinearLayout.VERTICAL);
 	}
 
 	public ViewGroup getHeader()
