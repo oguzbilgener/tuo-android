@@ -7,30 +7,23 @@
 		<item name="android:actionBarStyle">@style/ActionBar.UltimateTheme</item>
     </style>
 
-	<style name="UltimateTheme.Transparent" parent="@style/UltimateTheme">
+	<style name="UltimateTheme.TransparentActionBar" parent="@style/UltimateTheme">
+		<item name="android:windowBackground">@null</item>
+		<item name="android:windowContentOverlay">@null</item>
 		<item name="android:actionBarStyle">@style/ActionBar.Transparent.UltimateTheme</item>
 	</style>
 
-	<style name="DropDownNav.Base.UltimateTheme" parent="@android:style/Widget.Holo.Light.Spinner">
-		<item name="android:background">@drawable/spinner_background_ab_ultimate</item>
-		<item name="android:popupBackground">@drawable/menu_dropdown_panel_ultimate</item>
-		<item name="android:dropDownSelector">@drawable/selectable_background_ultimate</item>
+	<style name="UltimateTheme.Auth" parent="@style/UltimateTheme">
+		<item name="android:windowBackground">@drawable/auth_bg_repeat</item>
 	</style>
 
-	<style name="DropDownNav.UltimateTheme" parent="DropDownNav.Base.UltimateTheme">
-
-	</style>
-
-	<style name="TextViewStyle.UltimateTheme" parent="android:Widget.TextView">
-
-	</style>
 
 	<style name="ActionBar.UltimateTheme" parent="android:Widget.ActionBar">
 		<item name="android:background">@color/title_navigation_drawer</item>
 		<item name="android:titleTextStyle">@style/ActionBar.TextAppearance.UltimateTheme</item>
 	</style>
 	<style name="ActionBar.Transparent.UltimateTheme" parent="android:Widget.ActionBar">
-		<item name="android:background">@null</item>
+		<item name="android:background">@android:color/transparent</item>
 		<item name="android:windowActionBarOverlay">true</item>
 		<item name="android:titleTextStyle">@style/ActionBar.TextAppearance.UltimateTheme</item>
 	</style>
@@ -46,7 +39,21 @@
 		<item name="android:layout_marginLeft">30dp</item>
 	</style>
 
+	<style name="DropDownNav.Base.UltimateTheme" parent="@android:style/Widget.Holo.Light.Spinner">
+		<item name="android:background">@drawable/spinner_background_ab_ultimate</item>
+		<item name="android:popupBackground">@drawable/menu_dropdown_panel_ultimate</item>
+		<item name="android:dropDownSelector">@drawable/selectable_background_ultimate</item>
+	</style>
+
 	<style name="ActionBar.TextAppearance.UltimateTheme" parent="@style/ActionBar.Base.TextAppearance.UltimateTheme">
+
+	</style>
+
+	<style name="DropDownNav.UltimateTheme" parent="DropDownNav.Base.UltimateTheme">
+
+	</style>
+
+	<style name="TextViewStyle.UltimateTheme" parent="android:Widget.TextView">
 
 	</style>
 
@@ -205,6 +212,7 @@
 		<item name="android:layout_alignParentRight">true</item>
 		<item name="android:layout_alignParentTop">true</item>
 		<item name="android:layout_marginTop">@dimen/expand_button_margin_top</item>
+		<item name="android:padding">@dimen/expand_button_padding</item>
 		<item name="android:background">@android:color/transparent</item>
 		<item name="android:clickable">true</item>
 	</style>
@@ -219,6 +227,19 @@
 		<item name="android:paddingRight">20dp</item>
 		<item name="android:paddingBottom">20dp</item>
 		<item name="android:paddingLeft">20dp</item>
+	</style>
+
+	<style name="drawer_auth_expand_button">
+		<item name="android:layout_width">@dimen/auth_expand_button_width</item>
+		<item name="android:layout_height">@dimen/auth_expand_button_height</item>
+		<item name="android:src">@drawable/ic_action_expand_light</item>
+		<item name="android:layout_alignParentRight">true</item>
+		<item name="android:layout_alignParentBottom">true</item>
+		<item name="android:layout_marginTop">@dimen/expand_button_margin_top</item>
+		<item name="android:layout_marginRight">@dimen/expand_button_margin_right</item>
+		<item name="android:layout_marginBottom">@dimen/expand_button_margin_bottom</item>
+		<item name="android:background">@android:color/transparent</item>
+		<item name="android:clickable">true</item>
 	</style>
 
 </resources>

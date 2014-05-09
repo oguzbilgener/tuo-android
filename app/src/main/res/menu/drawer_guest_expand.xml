@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/menu_guest_login" android:title="@string/guest_menu_login" />
+
+	<item android:id="@+id/menu_guest_register" android:title="@string/guest_menu_register" />
+
+</menu>

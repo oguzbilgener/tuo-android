@@ -194,4 +194,9 @@
 	<string name="login_button">Sign in</string>
 	<string name="register_button">Sign up</string>
 
+	<string name="guest_menu_login">Sign in</string>
+	<string name="guest_menu_register">Sign up</string>
+
+	<string name="not_connected">Not connected to Cloud</string>
+
 </resources>

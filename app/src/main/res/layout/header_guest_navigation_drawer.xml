@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/auth_bg_repeat">
+
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:text="@string/not_connected"
+			android:textColor="@color/white"/>
+
+	<!-- cannot use android attrs with styles. damn. -->
+	<ImageButton
+			android:id="@+id/drawer_auth_expand_button"
+			style="?android:borderlessButtonStyle"
+			android:layout_width="@dimen/auth_expand_button_width"
+			android:layout_height="@dimen/auth_expand_button_height"
+			android:src="@drawable/ic_action_expand_light"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentBottom="true"
+			android:layout_marginTop="@dimen/expand_button_margin_top"
+			android:layout_marginRight="@dimen/expand_button_margin_right"
+			android:layout_marginBottom="@dimen/expand_button_margin_bottom"
+			android:clickable="true"/>
+
+</RelativeLayout>

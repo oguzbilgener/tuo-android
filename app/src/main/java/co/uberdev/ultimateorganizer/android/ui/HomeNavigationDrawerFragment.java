@@ -4,6 +4,7 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
@@ -20,10 +21,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.auth.LoginActivity;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
@@ -31,7 +34,8 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class HomeNavigationDrawerFragment extends Fragment {
+public class HomeNavigationDrawerFragment extends Fragment implements View.OnClickListener
+{
 
     /**
      * Remember the position of the selected item.
@@ -56,6 +60,9 @@ public class HomeNavigationDrawerFragment extends Fragment {
 
     private DrawerLayout mDrawerLayout;
     private View mFragmentContainerView;
+
+	private ViewGroup headerContainer;
+	private LayoutInflater inflater;
 
     private NavigationItemAdapter mNavigationItemAdapter;
 
@@ -98,6 +105,8 @@ public class HomeNavigationDrawerFragment extends Fragment {
             Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mNavigationItemAdapter = new NavigationItemAdapter(rootView);
+		headerContainer = (ViewGroup) rootView.findViewById(R.id.navigation_drawer_header_container);
+		this.inflater = inflater;
        	return rootView;
     }
 
@@ -192,6 +201,11 @@ public class HomeNavigationDrawerFragment extends Fragment {
         });
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+		// TODO: user the user view for logged in users
+		View headerView = inflater.inflate(R.layout.header_guest_navigation_drawer, headerContainer, false);
+		headerContainer.addView(headerView);
+		headerContainer.findViewById(R.id.drawer_auth_expand_button).setOnClickListener(this);
     }
 
     private void selectItem(int position) {
@@ -204,7 +218,6 @@ public class HomeNavigationDrawerFragment extends Fragment {
 	{
         if(mNavigationItemAdapter != null) {
 			mCurrentSelectedPosition = position;
-			Utils.log.d("pos "+mCurrentSelectedPosition);
             mNavigationItemAdapter.setSelectedNavigationItem(position);
         }
 	}
@@ -228,7 +241,6 @@ public class HomeNavigationDrawerFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		Utils.log.e("pos "+mCurrentSelectedPosition);
         outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
     }
 
@@ -276,7 +288,7 @@ public class HomeNavigationDrawerFragment extends Fragment {
 		return (HomeActivity) getActivity();
 	}
 
-    /**
+	/**
      * Callbacks interface that all activities using this fragment must implement.
      */
     public static interface NavigationDrawerCallbacks {
@@ -444,5 +456,51 @@ public class HomeNavigationDrawerFragment extends Fragment {
 	public NavigationItemAdapter getmNavigationItemAdapter()
 	{
 		return mNavigationItemAdapter;
+	}
+
+	@Override
+	public void onClick(View view)
+	{
+		if(view.getId() == R.id.drawer_auth_expand_button)
+		{
+			// open menu
+			PopupMenu menu = new PopupMenu(getActivity(), view);
+			menu.getMenuInflater().inflate(R.menu.drawer_guest_expand, menu.getMenu());
+
+			menu.show();
+
+			// ugly inline click listener. no other choice
+			menu.setOnMenuItemClickListener( new PopupMenu.OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(MenuItem item)
+				{
+					switch(item.getItemId())
+					{
+						case R.id.menu_guest_login:
+							// user pressed login
+							openLoginScreen();
+							return true;
+
+						case R.id.menu_guest_register:
+							// user pressed register
+							openRegisterScreen();
+							return true;
+					}
+					return false;
+				}
+			});
+		}
+	}
+
+	public void openLoginScreen()
+	{
+		Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+		loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		getActivity().startActivity(loginIntent);
+	}
+
+	public void openRegisterScreen()
+	{
+
 	}
 }

@@ -1,13 +1,16 @@
 package co.uberdev.ultimateorganizer.android.auth;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import co.uberdev.ultimateorganizer.android.R;
 
@@ -16,7 +19,14 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+		getWindow().setFormat(PixelFormat.RGBA_8888);
+		requestWindowFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.activity_login);
+		getActionBar().setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP
+				| ActionBar.DISPLAY_SHOW_TITLE);
+
+//		getActionBar().setBackgroundDrawable(null);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())

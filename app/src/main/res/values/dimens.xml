@@ -8,6 +8,9 @@
 	<dimen name="expand_button_width">18dp</dimen>
 	<dimen name="expand_button_height">18dp</dimen>
 
+	<dimen name="auth_expand_button_width">32dp</dimen>
+	<dimen name="auth_expand_button_height">32dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -258,6 +261,10 @@
 	<dimen name="tag_paddings">2dp</dimen>
 
 	<dimen name="expand_button_margin_top">0dp</dimen>
+	<dimen name="expand_button_margin_right">10dp</dimen>
+	<dimen name="expand_button_margin_bottom">10dp</dimen>
+	<dimen name="expand_button_margin_left">0dp</dimen>
+	<dimen name="expand_button_padding">4dp</dimen>
 	<dimen name="task_item_padding">10dp</dimen>
 
 	<dimen name="button_add_reminder_height">40dp</dimen>
