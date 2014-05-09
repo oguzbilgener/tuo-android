@@ -192,5 +192,7 @@
 	<string name="title_menu_task_edit">Edit</string>
 	<string name="title_menu_task_delete">Delete</string>
 
+	<string name="task_removed">Task removed.</string>
+
 
 </resources>

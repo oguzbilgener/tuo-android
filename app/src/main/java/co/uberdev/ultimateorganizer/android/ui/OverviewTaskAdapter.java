@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -255,8 +256,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 
 						case R.id.menu_task_delete:
 							// user pressed delete menu item
-                            // TODO add the method to delete the item
-							return false;
+							removeTask(getPositionByTaskItem(view));
+							return true;
 					}
 					return false;
 				}
@@ -354,6 +355,27 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 		editIntent.putExtra(context.getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID), localId);
 
 		context.startActivity(editIntent);
+	}
+
+	public void removeTask(int position)
+	{
+		Task toBeRemoved = overviewTaskList.get(position);
+		if(toBeRemoved != null && toBeRemoved.getLocalId() != 0 && localStorage != null)
+		{
+			toBeRemoved.setDb(localStorage.getDb());
+			toBeRemoved.remove();
+			toBeRemoved.cancelReminders(context);
+
+			overviewTaskList.remove(position);
+			notifyDataSetChanged();
+
+			// display an informative toast
+			Toast.makeText(context, context.getString(R.string.task_removed), Toast.LENGTH_SHORT).show();
+		}
+		else
+		{
+			Utils.log.w("oops");
+		}
 	}
 
 	public void setLocalStorage(LocalStorage storage)

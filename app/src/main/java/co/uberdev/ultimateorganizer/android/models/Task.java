@@ -1,10 +1,12 @@
 package co.uberdev.ultimateorganizer.android.models;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 import java.util.ArrayList;
 
+import co.uberdev.ultimateorganizer.android.util.ReminderManager;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
@@ -228,9 +230,36 @@ public class Task extends CoreTask implements CoreStorable
 	{
 		if(db != null && localId > 0)
 		{
-			String removeSql = "DELETE FROM "+CoreDataRules.tables.tasks+" WHERE id = "+localId;
-			// TODO: complete this.
+			String removeSql = "DELETE FROM "+CoreDataRules.tables.tasks+" WHERE "+
+					CoreDataRules.columns.tasks.localId+" = ?";
+			SQLiteStatement ss = db.compileStatement(removeSql);
+			ss.bindLong(1, getLocalId());
+
+			ss.execute();
+			ss.close();
+
+
+
+			return true;
 		}
 		return false;
+	}
+
+	public void cancelReminders(Context context)
+	{
+		try
+		{
+			if (reminders != null)
+			{
+				for (int i = 0; i < reminders.size(); i++)
+				{
+					ReminderManager.cancel(context, (Reminder) reminders.get(i));
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
