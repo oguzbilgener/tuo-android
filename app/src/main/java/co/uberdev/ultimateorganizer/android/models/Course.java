@@ -3,15 +3,9 @@ package co.uberdev.ultimateorganizer.android.models;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
-import java.util.ArrayList;
-
-import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 import co.uberdev.ultimateorganizer.core.CoreStorable;
-import co.uberdev.ultimateorganizer.core.CoreTags;
-import co.uberdev.ultimateorganizer.core.CoreTask;
-import co.uberdev.ultimateorganizer.core.CoreUtils;
 
 /**
  * Created by dunkuCoder on 08/05/1014.
@@ -52,7 +46,6 @@ public class Course extends CoreCourse implements CoreStorable
         {
             try {
                 String insertSql = "INSERT INTO " + getTableName() + " (" +
-                        CoreDataRules.columns.courses.localId + ", " +
                         CoreDataRules.columns.courses.id + ", " +
                         CoreDataRules.columns.courses.ownerId + ", " +
                         CoreDataRules.columns.courses.title + ", " +
@@ -61,11 +54,10 @@ public class Course extends CoreCourse implements CoreStorable
                         CoreDataRules.columns.courses.courseCode + ", " +
                         CoreDataRules.columns.courses.sectionCode + ", " +
                         CoreDataRules.columns.courses.instructor_name + " " +
-                        ") VALUES (?,?,?,?,?,?,?,?,?)";
+                        ") VALUES (?,?,?,?,?,?,?,?)";
 
                 int n = 1;
                 SQLiteStatement ss = db.compileStatement(insertSql);
-                ss.bindLong(n++, getLocalId());
                 ss.bindLong(n++, getId());
                 ss.bindLong(n++, getOwnerId());
                 ss.bindString(n++, getCourseTitle());
