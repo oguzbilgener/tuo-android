@@ -1,8 +1,15 @@
 package co.uberdev.ultimateorganizer.client;
 
-import co.uberdev.ultimateorganizer.core.*;
-
 import java.io.IOException;
+
+import co.uberdev.ultimateorganizer.core.CoreCourse;
+import co.uberdev.ultimateorganizer.core.CoreCrypto;
+import co.uberdev.ultimateorganizer.core.CoreDataRules;
+import co.uberdev.ultimateorganizer.core.CoreJSON;
+import co.uberdev.ultimateorganizer.core.CoreNote;
+import co.uberdev.ultimateorganizer.core.CoreTask;
+import co.uberdev.ultimateorganizer.core.CoreUser;
+import co.uberdev.ultimateorganizer.core.CoreUtils;
 
 /**
  * Created by ata on 4/9/14.
@@ -174,6 +181,13 @@ public class TuoClient{
 
         return request.run();
     }
+
+	public APIResult getFeed(CoreUser user) throws IOException
+	{
+		APIRequest request = prepareRequest("/users/feed", user.asJsonString(), "POST", true);
+
+		return request.run();
+	}
 
     public APIResult verifyTask(String msg) throws IOException {
         CoreJSON json = new CoreJSON();
