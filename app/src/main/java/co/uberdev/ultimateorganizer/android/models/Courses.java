@@ -94,14 +94,6 @@ public class Courses extends CoreCourses implements CoreSelectable {
      *
      * @return
      */
-//    public boolean loadAllCourses()
-//    {
-////        String sqlCriteria = " 1 = 1 ORDER BY " +CoreDataRules.columns.courses.departmentCode;
-//
-//        String[] params = new String[] { Integer.toString(Task.STATE_ACTIVE), Integer.toString(Task.STATE_COMPLETED) };
-//
-//        return loadFromDb(sqlCriteria, params, 0);
-//    }
     public boolean loadAllCourses() {
         String sqlCriteria = "";
 

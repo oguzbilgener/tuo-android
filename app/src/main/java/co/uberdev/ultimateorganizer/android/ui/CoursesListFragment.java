@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.android.models.Courses;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 
 /**
  * A simple {@link android.app.Fragment} subclass.
@@ -54,17 +56,6 @@ public class CoursesListFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         coursesList = new ArrayList<Course>();
-//        Course course = new Course();
-//        course.setCourseTitle("Algorithms and Programming II");
-//        course.setInstructorName("David Davenport");
-//        course.setDepartmentCode("CS");
-//        course.setCourseCode("102");
-//        course.setSectionCode(1);
-//        course.setCourseSemester(getString(R.string.PREF_SEMESTER_CODE));
-//        course.setCourseColor(Color.parseColor("#ff0000"));
-//
-//
-//        coursesList.add(course);
 
         coursesListAdapter = new CoursesListAdapter(getActivity(), coursesList);
     }
@@ -73,6 +64,10 @@ public class CoursesListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_courses_list, container, false);
+
+		UltimateApplication app = (UltimateApplication) getActivity().getApplication();
+		((TextView)rootView.findViewById(R.id.schedule_user_name)).setText(app.getUser().getFirstName()+" "+app.getUser().getLastName());
+		((TextView)rootView.findViewById(R.id.schedule_user_info)).setText(app.getUser().getSchoolName()+", "+app.getUser().getDepartmentName());
 
         coursesListView = (ListView) rootView.findViewById(R.id.schedule_courses_listview);
 

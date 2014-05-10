@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Course;
-import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by mozart on 23/04/14.
@@ -75,7 +74,7 @@ public class CoursesListAdapter extends ArrayAdapter<Course> implements View.OnC
 
         viewHolder.courseCode.setText(item.getCourseCodeCombined());
         viewHolder.courseName.setText(item.getCourseTitle());
-		Utils.log.d("color"+item.getCourseColor());
+
 		if(item.getCourseColor() != 0)
 		{
 			viewHolder.courseName.setTextColor(item.getCourseColor());
