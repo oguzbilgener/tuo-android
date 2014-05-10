@@ -697,8 +697,6 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			task.setStatus(Task.STATE_ACTIVE);
 
-			UltimateApplication app = (UltimateApplication) getActivity().getApplication();
-
 			// flush the old reminders
 			task.setReminders(new CoreReminders());
 
@@ -708,9 +706,9 @@ public class AddTaskDetailFragment extends Fragment
 				reminders.get(i).setTitle(task.getTaskName());
 				reminders.get(i).setTargetDate(task.getBeginDate() - reminders.get(i).getGap() * 60);
 
-				if (app.user != null)
+				if (user != null)
 				{
-					reminders.get(i).setOwnerId(app.user.getId());
+					reminders.get(i).setOwnerId(user.getId());
 				}
 
 				task.addReminder(reminders.get(i));
@@ -758,13 +756,17 @@ public class AddTaskDetailFragment extends Fragment
 			{
 				task.setPersonal(true);
 			}
+
+			if(user != null)
+			{
+				task.setOwnerId(user.getId());
+			}
 		}
 		catch(Exception e)
 		{
 			Utils.log.w(e.toString());
 			e.printStackTrace();
 		}
-
 
 		Utils.log.d("built task: \n"+task);
 

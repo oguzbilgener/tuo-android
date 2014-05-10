@@ -15,7 +15,9 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
+import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
  *  created by dunkuCoder 07/07/2014
@@ -24,6 +26,8 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
 public class AddCourseFragment extends Fragment implements FragmentCommunicator
 {
     public Course editableCourse;
+
+	private CoreUser user;
 
     private EditText departmentCode;
     private EditText courseNumber;
@@ -73,6 +77,8 @@ public class AddCourseFragment extends Fragment implements FragmentCommunicator
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+		user = ((UltimateApplication) getActivity().getApplication()).getUser();
     }
 
     @Override
@@ -154,7 +160,12 @@ public class AddCourseFragment extends Fragment implements FragmentCommunicator
         course.setCourseTitle(courseName.getText().toString());
         course.setInstructorName(instructorName.getText().toString());
 
-		course.setCourseColor(Utils.colorForTagStr( course.getDepartmentCode()+" "+course.getCourseCode() ));
+		course.setCourseColor(Utils.colorForTagStr(course.getDepartmentCode() + " " + course.getCourseCode()));
+
+		if(user != null)
+		{
+			course.setOwnerId(user.getId());
+		}
 
         return course;
     }
