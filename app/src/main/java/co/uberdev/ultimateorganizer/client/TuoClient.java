@@ -134,6 +134,13 @@ public class TuoClient{
         return request.run();
     }
 
+	public APIResult listCourses(CoreJSON params) throws IOException
+	{
+		APIRequest request = prepareRequest("/courses/list", params.getAsJsonString(), "POST", true);
+
+		return request.run();
+	}
+
     public APIResult insertTask(CoreTask toAdd) throws IOException
     {
 
@@ -158,6 +165,13 @@ public class TuoClient{
         return request.run();
     }
 
+	public APIResult listTasks(CoreJSON params) throws IOException
+	{
+		APIRequest request = prepareRequest("/tasks/list", params.getAsJsonString(), "POST", true);
+
+		return request.run();
+	}
+
     public APIResult insertNote(CoreNote toAdd) throws IOException
     {
         APIRequest request = prepareRequest("/notes/insert", toAdd.asJsonString(), "POST", true);
@@ -181,6 +195,13 @@ public class TuoClient{
 
         return request.run();
     }
+
+	public APIResult listNotes(CoreJSON params) throws IOException
+	{
+		APIRequest request = prepareRequest("/notes/list", params.getAsJsonString(), "POST", true);
+
+		return request.run();
+	}
 
 	public APIResult getFeed(CoreUser user) throws IOException
 	{
