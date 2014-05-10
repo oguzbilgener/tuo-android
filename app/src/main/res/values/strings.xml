@@ -120,7 +120,7 @@
 
     <!-- strings for add quick note -->
 
-    <string name="item_add_note_edittext_hint">Tap To Add Quick Note!</string>
+    <string name="item_add_note_hint">Tap To Add Note!</string>
 
     <!-- strings for add task -->
 

@@ -12,6 +12,7 @@
     <string name="INTENT_DETAILS_TASK_LOCAL_ID">intent_details_task_id</string>
 
 	<string name="ARGS_TASK_JSON_OBJECT">args_task_json_object</string>
+    <string name="ARGS_NOTE_JSON_OBJECT">args_note_json_object</string>
 
 
 	<string name="ALARM_DATA_REMINDER">alarm_data_reminder</string>
