@@ -168,6 +168,7 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
             }
             else if(result == SUCCESS)
             {
+				Toast.makeText(activity, activity.getString(R.string.register_success), Toast.LENGTH_SHORT).show();
                 activity.finishLogin(authorizedUser);
             }
             else

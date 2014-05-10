@@ -212,4 +212,6 @@
 	<string name="invalid_login">Invalid login</string>
 	<string name="unknown_error">Unknown error</string>
 
+	<string name="register_success">Enjoy the Cloud features!</string>
+
 </resources>
