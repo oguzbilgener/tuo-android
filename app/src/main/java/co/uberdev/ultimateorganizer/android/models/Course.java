@@ -54,7 +54,7 @@ public class Course extends CoreCourse implements CoreStorable
                         CoreDataRules.columns.courses.courseCode + ", " +
                         CoreDataRules.columns.courses.sectionCode + ", " +
                         CoreDataRules.columns.courses.instructor_name + ", " +
-						CoreDataRules.columns.courses.color + ", " +
+						CoreDataRules.columns.courses.color + " " +
                         ") VALUES (?,?,?,?,?,?,?,?,?)";
 
                 int n = 1;
