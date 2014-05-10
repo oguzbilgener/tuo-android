@@ -1,39 +1,37 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.models.Course;
+import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Task;
-import co.uberdev.ultimateorganizer.core.CoreCourse;
+import co.uberdev.ultimateorganizer.android.network.GetPublicFeedTask;
+import co.uberdev.ultimateorganizer.android.network.TaskListener;
+import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
+import co.uberdev.ultimateorganizer.android.util.Utils;
+import co.uberdev.ultimateorganizer.core.CoreTask;
 import co.uberdev.ultimateorganizer.core.CoreUser;
 
-/**
- * A simple {@link android.app.Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PublicFeedFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PublicFeedFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
-public class PublicFeedFragment extends Fragment
+public class PublicFeedFragment extends Fragment implements TaskListener
 {
-    private OnFragmentInteractionListener mListener;
+	private CoreUser user;
+	private LocalStorage localStorage;
 
     private ListView publicFeedListView;
     private ArrayList<Task> publicFeedTasksList;
     private PublicFeedAdapter publicFeedAdapter;
+
+	private ActivityCommunicator activityCommunicator;
 
     /**
      * Use this factory method to create a new instance of
@@ -41,7 +39,6 @@ public class PublicFeedFragment extends Fragment
      *
      * @return A new instance of fragment PublicFeedFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static PublicFeedFragment newInstance()
     {
         PublicFeedFragment fragment = new PublicFeedFragment();
@@ -57,6 +54,9 @@ public class PublicFeedFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         publicFeedTasksList = new ArrayList<Task>();
+
+		user = ((UltimateApplication) getActivity().getApplication()).getUser();
+
         Task task = new Task();
         task.setCourseCodeCombined( "TURK102-13");
         task.setTaskName("Third Homework");
@@ -85,26 +85,21 @@ public class PublicFeedFragment extends Fragment
 
         publicFeedListView.setAdapter(publicFeedAdapter);
 
+		new GetPublicFeedTask(getActivity(), user, this).execute();
+
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri)
-    {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Activity activity)
     {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            activityCommunicator = (ActivityCommunicator) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement ActivityCommunicator");
         }
     }
 
@@ -112,23 +107,58 @@ public class PublicFeedFragment extends Fragment
     public void onDetach()
     {
         super.onDetach();
-        mListener = null;
+        activityCommunicator = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener
-    {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }
+	@Override
+	public void onPreExecute()
+	{
+		if(activityCommunicator != null)
+		{
+			activityCommunicator.onMessage(AcademicNetworkActivity.MESSAGE_LOADING_STARTED, null);
+		}
+	}
 
+	@Override
+	public void onPostExecute(Integer result, Object data)
+	{
+		if(activityCommunicator != null)
+		{
+			activityCommunicator.onMessage(AcademicNetworkActivity.MESSAGE_LOADING_ENDED, null);
+		}
+
+		if(result == GetPublicFeedTask.SUCCESS && data != null)
+		{
+			try
+			{
+				publicFeedTasksList.clear();
+
+				CoreTask[] publicTasks = (CoreTask[]) data;
+				for(int i=0; i<publicTasks.length; i++)
+				{
+					publicFeedTasksList.add((Task)publicTasks[i]);
+				}
+
+				publicFeedAdapter.notifyDataSetChanged();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				Toast.makeText(getActivity(), getString(R.string.unknown_error_public_feed), Toast.LENGTH_SHORT).show();
+			}
+		}
+		else if(result == GetPublicFeedTask.ERROR_NETWORK)
+		{
+			Toast.makeText(getActivity(), getString(R.string.no_network), Toast.LENGTH_SHORT).show();
+		}
+		else if(result == GetPublicFeedTask.ERROR_UNAUTHORIZED)
+		{
+			Toast.makeText(getActivity(), getString(R.string.invalid_login), Toast.LENGTH_SHORT).show();
+		}
+		else
+		{
+			Utils.log.w("Unknown error while loading tasks");
+			Toast.makeText(getActivity(), getString(R.string.unknown_error_public_feed), Toast.LENGTH_SHORT).show();
+		}
+	}
 }

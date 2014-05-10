@@ -3,8 +3,8 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -13,14 +13,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import java.util.Locale;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
-public class AcademicNetworkActivity extends Activity implements PublicFeedFragment.OnFragmentInteractionListener {
+public class AcademicNetworkActivity extends Activity implements ActivityCommunicator
+{
+	public static final int MESSAGE_LOADING_STARTED = 7;
+	public static final int MESSAGE_LOADING_ENDED = 8;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -39,8 +44,11 @@ public class AcademicNetworkActivity extends Activity implements PublicFeedFragm
     ViewPager mViewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+	{
         super.onCreate(savedInstanceState);
+		getWindow().setFormat(PixelFormat.RGBA_8888);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_academic_network);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -85,9 +93,21 @@ public class AcademicNetworkActivity extends Activity implements PublicFeedFragm
         return super.onOptionsItemSelected(item);
     }
 
+	@Override
+	public void onMessage(int msgType, Object obj)
+	{
+		if(msgType == MESSAGE_LOADING_STARTED)
+		{
+			setProgressBarIndeterminateVisibility(true);
+		}
+		else if(msgType == MESSAGE_LOADING_ENDED)
+		{
+			setProgressBarIndeterminateVisibility(false);
+		}
+	}
 
 
-    /**
+	/**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -170,9 +190,5 @@ public class AcademicNetworkActivity extends Activity implements PublicFeedFragm
         }
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 
 }

@@ -218,4 +218,6 @@
 	<string name="course_spinner_default">Pick a course</string>
 	<string name="add_task_public_label">Share this task with classmates</string>
 
+	<string name="unknown_error_public_feed">An error happened while loading public feed.</string>
+
 </resources>

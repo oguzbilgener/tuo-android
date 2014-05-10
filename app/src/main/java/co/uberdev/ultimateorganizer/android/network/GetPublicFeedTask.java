@@ -2,12 +2,9 @@ package co.uberdev.ultimateorganizer.android.network;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.io.IOException;
 
-import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.client.APIResult;
 import co.uberdev.ultimateorganizer.client.TuoClient;
@@ -26,19 +23,20 @@ public class GetPublicFeedTask extends AsyncTask<Void, Integer, Integer>
 
 	private Activity activity;
 	private CoreUser authorizedUser;
-	private Task taskToInsert;
+	private TaskListener taskListener;
+	private CoreTask[] publicTasks;
 
-	public GetPublicFeedTask(Activity activity, CoreUser user, Task task)
+	public GetPublicFeedTask(Activity activity, CoreUser user, TaskListener listener)
 	{
 		this.activity = activity;
 		this.authorizedUser = user;
-		this.taskToInsert = task;
+		this.taskListener = listener;
 	}
 
 	@Override
 	protected void onPreExecute()
 	{
-		Utils.log.w("sending task to server: "+taskToInsert);
+
 	}
 
 	@Override
@@ -48,7 +46,8 @@ public class GetPublicFeedTask extends AsyncTask<Void, Integer, Integer>
 		{
 			TuoClient client = new TuoClient(authorizedUser.getPublicKey(), authorizedUser.getSecretToken());
 
-			APIResult result = client.insertTask(taskToInsert);
+			APIResult result = client.getFeed(authorizedUser);
+			Utils.log.d("public feed response body: \n"+result.getResponseBody());
 
 			if(result.getResponseCode() == APIResult.RESPONSE_UNAUTHORIZED)
 			{
@@ -56,18 +55,18 @@ public class GetPublicFeedTask extends AsyncTask<Void, Integer, Integer>
 			}
 			if(result.getResponseCode() != APIResult.RESPONSE_SUCCESS)
 			{
-				Utils.log.w("insert task HTTP "+result.getResponseCode());
+				Utils.log.w("Get Public Feed HTTP "+result.getResponseCode());
 				return ERROR_UNKNOWN;
 			}
 
-			CoreTask insertedTask = result.getAsTask();
-			if(insertedTask != null)
-			{
-				// update local task with distant task's id
-				taskToInsert.setId(insertedTask.getId());
-				// make a database query to set the id
-				taskToInsert.update();
+			publicTasks = result.getAsTaskArray();
 
+			if(publicTasks != null)
+			{
+				for(CoreTask t : publicTasks)
+				{
+					Utils.log.i(t.asJsonString());
+				}
 				return SUCCESS;
 			}
 			return ERROR_UNKNOWN;
@@ -82,22 +81,9 @@ public class GetPublicFeedTask extends AsyncTask<Void, Integer, Integer>
 	@Override
 	protected void onPostExecute(Integer result)
 	{
-		if(result == ERROR_NETWORK)
+		if(taskListener != null)
 		{
-			// TODO: try inserting later when the device is online
-			Utils.log.w("Could not insert task because there is no internet connection");
-		}
-		else if(result == ERROR_UNAUTHORIZED)
-		{
-			Toast.makeText(activity, activity.getString(R.string.invalid_login), Toast.LENGTH_SHORT).show();
-		}
-		else if(result == SUCCESS)
-		{
-			Utils.log.d("inserted task into server "+taskToInsert.asJsonString());
-		}
-		else
-		{
-			Utils.log.w("Unknown error - "+result);
+			taskListener.onPostExecute(result, publicTasks);
 		}
 	}
 }
