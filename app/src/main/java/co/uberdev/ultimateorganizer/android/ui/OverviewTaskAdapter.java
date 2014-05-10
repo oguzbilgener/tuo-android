@@ -65,6 +65,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 		public ImageButton menuButton;
 
 		public BareListView tagsList;
+
+		public TextView courseLabel;
     }
 
     @Override
@@ -134,6 +136,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 			viewHolder.tagsList.setHeaderVisible(false);
 			viewHolder.tagsList.setFooterVisible(false);
 			viewHolder.tagsList.setOrientation(LinearLayout.HORIZONTAL);
+
+			viewHolder.courseLabel = (TextView) view.findViewById(R.id.task_item_course);
         }
         else
         {
@@ -212,6 +216,24 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 		);
 
 		viewHolder.tagsList.setAdapter(tagsListAdapter);
+
+		if(item.getCourseCodeCombined().isEmpty())
+		{
+			viewHolder.courseLabel.setVisibility(View.GONE);
+		}
+		else
+		{
+			viewHolder.courseLabel.setVisibility(View.VISIBLE);
+			viewHolder.courseLabel.setText(item.getCourse().getDepartmentCode()+" "+item.getCourse().getCourseCode());
+			if(item.getCourse().getCourseColor() != 0)
+			{
+				viewHolder.courseLabel.setTextColor(item.getCourse().getCourseColor());
+			}
+			else
+			{
+				viewHolder.courseLabel.setTextColor(getContext().getResources().getColor(R.color.task_item_course_default));
+			}
+		}
 
         return view;
     }

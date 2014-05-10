@@ -169,12 +169,13 @@
 			android:layout_height="match_parent"
 			android:layout_marginLeft="@dimen/sub_line_margin_sides"
 			android:layout_marginRight="@dimen/sub_line_margin_sides"
+			android:gravity="center"
 			android:orientation="vertical">
 
 		<Spinner
 			android:id="@+id/add_task_course_spinner"
 			 android:layout_width="wrap_content"
-			 android:layout_height="wrap_content" />
+			 android:layout_height="wrap_content"/>
 
 	</LinearLayout>
 
@@ -215,6 +216,42 @@
 			android:id="@+id/sub_tasks_list_view"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content" />
+
+	<TextView
+			android:id="@+id/title_task_privacy"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:hint="@string/add_task_privacy"
+			android:layout_marginLeft="@dimen/sub_line_margin_sides"
+			android:layout_marginRight="@dimen/sub_line_margin_sides"
+			android:layout_marginTop="5dp"
+			style="?android:attr/listSeparatorTextViewStyle"
+			android:textAllCaps="true"
+			/>
+
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="55dp">
+
+			<Switch
+					android:id="@+id/add_task_privacy_switch"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_alignParentRight="true"
+					android:layout_marginRight="@dimen/sub_line_margin_sides"/>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_alignParentLeft="true"
+					android:layout_marginLeft="@dimen/sub_line_margin_sides"
+					android:layout_toLeftOf="@id/add_task_privacy_switch"
+					android:text="@string/add_task_public_label"/>
+
+			</RelativeLayout>
 
 </LinearLayout>
 </ScrollView>

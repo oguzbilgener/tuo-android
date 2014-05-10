@@ -65,7 +65,8 @@ public class DbHelper extends SQLiteOpenHelper
 				CoreDataRules.columns.courses.departmentCode+" TEXT, " +
 				CoreDataRules.columns.courses.courseCode+" TEXT, " +
 				CoreDataRules.columns.courses.sectionCode+" INTEGER, " +
-				CoreDataRules.columns.courses.instructor_name+" TEXT " +
+				CoreDataRules.columns.courses.instructor_name+" TEXT, " +
+				CoreDataRules.columns.courses.color+" INTEGER " +
 				")");
 
 		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.notes+" ( " +

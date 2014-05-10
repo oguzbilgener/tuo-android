@@ -17,6 +17,7 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.ui.HomeActivity;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.client.APIResult;
 import co.uberdev.ultimateorganizer.client.TuoClient;
 import co.uberdev.ultimateorganizer.core.CoreUser;
@@ -89,6 +90,7 @@ public class LoginActivity extends Activity implements ActivityCommunicator
 	private static class LoginTask extends AsyncTask<String, Integer, Integer>
 	{
 		public static int ERROR_NETWORK = 13;
+		public static int ERROR_UNKNOWN = 9;
 		public static int ERROR_UNAUTHORIZED = 10;
 		public static int SUCCESS = 0;
 
@@ -118,6 +120,11 @@ public class LoginActivity extends Activity implements ActivityCommunicator
 			{
 				APIResult result = client.logIn(emailAddress, password);
 
+				if(result.getResponseCode() != APIResult.RESPONSE_SUCCESS)
+				{
+					Utils.log.w("login HTTP "+result.getResponseCode());
+					return ERROR_UNKNOWN;
+				}
 				authorizedUser = result.getAsUser();
 				if(authorizedUser != null)
 				{

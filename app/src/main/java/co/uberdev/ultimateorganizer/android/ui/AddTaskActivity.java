@@ -35,7 +35,7 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 
 		localStorage = new LocalStorage(this);
 
-		AddTaskDetailFragment fragment = AddTaskDetailFragment.newInstance();
+		AddTaskDetailFragment fragment = AddTaskDetailFragment.newInstance(localStorage);
 		fragmentCommunicator = fragment;
 
         setContentView(R.layout.activity_add_task);

@@ -104,7 +104,7 @@ public class AddSubTaskActivity extends FragmentActivity implements ActivityComm
 
 			getActionBar().setTitle(String.format(getString(R.string.title_activity_add_sub_task),activityTitle));
 
-			fragment = AddTaskDetailFragment.newInstanceWithParentTask(this, parentTask);
+			fragment = AddTaskDetailFragment.newInstanceWithParentTask(this, localStorage, parentTask);
 			fragmentCommunicator = fragment;
 
 			setContentView(R.layout.activity_add_task);

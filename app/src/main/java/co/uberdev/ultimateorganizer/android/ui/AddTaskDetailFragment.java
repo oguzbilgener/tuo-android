@@ -12,9 +12,12 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +31,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Course;
+import co.uberdev.ultimateorganizer.android.models.Courses;
 import co.uberdev.ultimateorganizer.android.models.Reminder;
 import co.uberdev.ultimateorganizer.android.models.Tag;
 import co.uberdev.ultimateorganizer.android.models.Task;
@@ -38,8 +43,10 @@ import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.ReminderManager;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
+import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreReminders;
 import co.uberdev.ultimateorganizer.core.CoreTags;
+import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
  *
@@ -50,7 +57,8 @@ public class AddTaskDetailFragment extends Fragment
 		View.OnClickListener, ReminderListAdapter.OnItemRemoveClickListener,
 		AddedTagsListAdapter.OnItemRemoveClickListener,
 		SubTasksListAdapter.OnItemRemoveClickListener,
-		FragmentCommunicator, TextView.OnEditorActionListener
+		FragmentCommunicator, TextView.OnEditorActionListener,
+		AdapterView.OnItemSelectedListener
 {
 
 	public static final int MAX_REMINDER_COUNT = 5;
@@ -58,21 +66,29 @@ public class AddTaskDetailFragment extends Fragment
 
 	public static final int REQUEST_CODE_NEW_SUB_TASK = 1337;
 
+	public LocalStorage localStorage;
+
+	private CoreUser user;
+
 	private BareListView remindersListView;
 	private BareListView tagsListView;
 	private BareListView subTasksListView;
+	private Spinner coursesSpinner;
+	private Switch privacySwitch;
 
 	private ReminderListAdapter remindersAdapter;
 	private AddedTagsListAdapter tagsAdapter;
 	private SubTasksListAdapter subTasksAdapter;
+	private CourseSelectSpinnerAdapter courseAdapter;
 
 	private ArrayList<Reminder> reminders;
 	private ArrayList<Tag> tags;
 	private ArrayList<Task> subTasks;
+	private ArrayList<Course> courses;
 
 	public Task editableTask;
 	public Task parentTask;
-	private Course relatedCourse;
+	private CoreCourse relatedCourse;
 
 	private ViewGroup remindersAddButton;
 	private ViewGroup subTaskAddButton;
@@ -98,20 +114,22 @@ public class AddTaskDetailFragment extends Fragment
 	public static final int MESSAGE_RESPONSE_TASK = -98;
 	public static final int MESSAGE_RESULT_SUB_TASK = -91;
 
-    public static AddTaskDetailFragment newInstance()
+    public static AddTaskDetailFragment newInstance(LocalStorage storage)
 	{
         AddTaskDetailFragment fragment = new AddTaskDetailFragment();
+		fragment.localStorage = storage;
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-	public static AddTaskDetailFragment newInstance(Context context, Task editableTask)
+	public static AddTaskDetailFragment newInstance(Context context, LocalStorage storage, Task editableTask)
 	{
 		if(context == null || editableTask == null)
-			return newInstance();
+			return newInstance(storage);
 
 		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
+		fragment.localStorage = storage;
 		fragment.editableTask = editableTask;
 		// Store task json string in arguments just in case a fragment is resurrected from background
 		String taskJsonStr = editableTask.asJsonString();
@@ -121,9 +139,10 @@ public class AddTaskDetailFragment extends Fragment
 		return fragment;
 	}
 
-	public static AddTaskDetailFragment newInstanceWithParentTask(Context context, Task parentTask)
+	public static AddTaskDetailFragment newInstanceWithParentTask(Context context, LocalStorage storage, Task parentTask)
 	{
 		AddTaskDetailFragment fragment = new AddTaskDetailFragment();
+		fragment.localStorage = storage;
 		fragment.parentTask = parentTask;
 		return fragment;
 	}
@@ -148,6 +167,9 @@ public class AddTaskDetailFragment extends Fragment
 		reminders = new ArrayList<Reminder>();
 		tags = new ArrayList<Tag>();
 		subTasks = new ArrayList<Task>();
+		courses = new ArrayList<Course>();
+
+		relatedCourse = new CoreCourse();
 
 		remindersAdapter = new ReminderListAdapter(getActivity(), R.layout.item_add_task_reminder, reminders);
 		remindersAdapter.setItemRemoveClickListener(this);
@@ -157,6 +179,23 @@ public class AddTaskDetailFragment extends Fragment
 
 		subTasksAdapter = new SubTasksListAdapter(getActivity(), R.layout.item_add_task_sub_task, subTasks);
 		subTasksAdapter.setItemRemoveClickListener(this);
+
+		courseAdapter = new CourseSelectSpinnerAdapter(getActivity(), courses);
+
+		UltimateApplication app = (UltimateApplication) getActivity().getApplication();
+		user = app.getUser();
+
+		// load courses of user if user is logged in
+		if(user != null && localStorage != null)
+		{
+			Courses coursesOfUser = new Courses(localStorage.getDb());
+			coursesOfUser.loadAllCourses();
+
+			courses.add(new Course());
+			courses.addAll(coursesOfUser.toCourseArrayList());
+			courseAdapter.notifyDataSetChanged();
+		}
+
     }
 
     @Override
@@ -167,10 +206,14 @@ public class AddTaskDetailFragment extends Fragment
 		remindersListView = (BareListView) rootView.findViewById(R.id.reminders_list_view);
 		tagsListView = (BareListView) rootView.findViewById(R.id.tags_list_view);
 		subTasksListView = (BareListView) rootView.findViewById(R.id.sub_tasks_list_view);
+		coursesSpinner = (Spinner) rootView.findViewById(R.id.add_task_course_spinner);
+
+		coursesSpinner.setOnItemSelectedListener(this);
 
 		remindersListView.setAdapter(remindersAdapter);
 		tagsListView.setAdapter(tagsAdapter);
 		subTasksListView.setAdapter(subTasksAdapter);
+		coursesSpinner.setAdapter(courseAdapter);
 
 		// Create tag input
 		tagInput = new EditText(getActivity());
@@ -223,6 +266,8 @@ public class AddTaskDetailFragment extends Fragment
 		taskNameView = (EditText) rootView.findViewById(R.id.add_task_name_input);
 		taskDescriptionView = (EditText) rootView.findViewById(R.id.add_task_description_input);
 
+		privacySwitch = (Switch) rootView.findViewById(R.id.add_task_privacy_switch);
+
 		if(editableTask != null)
 		{
 			try {
@@ -259,6 +304,29 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			subTasksListView.setVisibility(View.GONE);
 			rootView.findViewById(R.id.title_sub_tasks_list).setVisibility(View.GONE);
+		}
+
+		if(user == null || localStorage == null)
+		{
+			coursesSpinner.setVisibility(View.GONE);
+			rootView.findViewById(R.id.title_course_list).setVisibility(View.GONE);
+		}
+
+		//
+		else if(relatedCourse != null && courses !=null)
+		{
+			for(int i=0;i<courses.size();i++)
+			{
+				if(relatedCourse.getCourseCodeCombined().equals(courses.get(i).getCourseCodeCombined()))
+				{
+					coursesSpinner.setSelection(i);
+					break;
+				}
+			}
+		}
+		else
+		{
+			coursesSpinner.setSelection(0);
 		}
 
 		return rootView;
@@ -509,7 +577,6 @@ public class AddTaskDetailFragment extends Fragment
 		return false;
 	}
 
-
 	public class FromTimeListener implements RadialTimePickerDialog.OnTimeSetListener
 	{
 
@@ -646,6 +713,10 @@ public class AddTaskDetailFragment extends Fragment
 				task.addReminder(reminders.get(i));
 			}
 
+			// set a related course
+			task.setCourse(relatedCourse);
+			task.setCourseCodeCombined(relatedCourse.getCourseCodeCombined());
+
 			// flush the old tags
 			task.setTags(new CoreTags());
 
@@ -663,9 +734,26 @@ public class AddTaskDetailFragment extends Fragment
 
 				for(int i=0; i<subTasks.size(); i++)
 				{
+					// set the same related course for the sub task
+					subTasks.get(i).setCourse(relatedCourse);
+					// set the same tags for the sub task
+					subTasks.get(i).setTags(task.getTags());
+					// update on the database to remember the relation
+					subTasks.get(i).setDb(localStorage.getDb());
+					subTasks.get(i).update();
+
 					// form relation!
 					task.getRelatedTasks().add(subTasks.get(i).getLocalId());
 				}
+			}
+
+			if(privacySwitch.isChecked())
+			{
+				task.setPersonal(false);
+			}
+			else
+			{
+				task.setPersonal(true);
 			}
 		}
 		catch(Exception e)
@@ -673,6 +761,7 @@ public class AddTaskDetailFragment extends Fragment
 			Utils.log.w(e.toString());
 			e.printStackTrace();
 		}
+
 
 		Utils.log.d("built task: \n"+task);
 
@@ -712,6 +801,17 @@ public class AddTaskDetailFragment extends Fragment
 			}
 			this.tagsAdapter.notifyDataSetChanged();
 		}
+
+		if(task.isPersonal())
+		{
+			privacySwitch.setChecked(false);
+		}
+		else
+		{
+			privacySwitch.setChecked(true);
+		}
+
+		this.relatedCourse =  task.getCourse();
 	}
 
 	private void useSubTaskObject(Object subTaskObj)
@@ -747,6 +847,35 @@ public class AddTaskDetailFragment extends Fragment
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+	{
+		if(parent.getId() == R.id.add_task_course_spinner)
+		{
+			if(position == 0)
+			{
+
+				// Workaround for Android's calling this method late
+				((TextView) view.findViewById(android.R.id.text1)).setText(getString(R.string.course_spinner_default));
+				((TextView) view.findViewById(android.R.id.text2)).setText("");
+			}
+			else
+			{
+
+				// Workaround for Android's calling this method late
+				((TextView)  view.findViewById(android.R.id.text1)).setText(courses.get(position).getCourseCodeCombined());
+				((TextView)  view.findViewById(android.R.id.text2)).setText(courses.get(position).getCourseTitle());
+			}
+			relatedCourse = courses.get(position);
+		}
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> parent)
+	{
+
 	}
 
 }

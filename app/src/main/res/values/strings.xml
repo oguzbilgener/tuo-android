@@ -74,6 +74,7 @@
     <string name="add_task_tags">TAGS</string>
     <string name="add_task_course">RELATED COURSE</string>
     <string name="add_task_related_tasks">RELATED TASKS</string>
+	<string name="add_task_privacy">PRIVACY</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Academic schedule screen -->
@@ -171,7 +172,7 @@
     <string name="yesterday_capital">Yesterday</string>
     <string name="tomorrow_capital">Tomorrow</string>
     <string name="title_activity_task_detail">TaskDetailActivity</string>
-    <string name="tag_input_hint">enter a tag name...</string>
+    <string name="tag_input_hint">enter a tag name…</string>
     <string name="task_not_found_error_message">Could not find specified Task</string>
     <string name="edit_task_no_task">No task specified.</string>
     <string name="edit_task_unknown_error">Something went wrong.</string>
@@ -196,7 +197,7 @@
     <string name="register_hint_first_name">First Name</string>
     <string name="register_hint_last_name">Last Name</string>
     <string name="register_hint_school_name">School Name</string>
-    <string name="register_hint_department_code">Department Name "CS"</string>
+    <string name="register_hint_department_code">Department Code "CS"</string>
 
 	<string name="login_button">Sign in</string>
 	<string name="register_button">Sign up</string>
@@ -211,5 +212,10 @@
 	<string name="no_network">No network connection</string>
 	<string name="invalid_login">Invalid login</string>
 	<string name="unknown_error">Unknown error</string>
+
+	<string name="register_success">Enjoy the Cloud features!</string>
+
+	<string name="course_spinner_default">Pick a course</string>
+	<string name="add_task_public_label">Share this task with classmates</string>
 
 </resources>

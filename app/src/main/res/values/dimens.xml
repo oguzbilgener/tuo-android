@@ -286,4 +286,6 @@
 
 	<dimen name="margin_between_auth_elements">10dp</dimen>
 
+	<dimen name="task_item_course_margin_top">6dp</dimen>
+
 </resources>

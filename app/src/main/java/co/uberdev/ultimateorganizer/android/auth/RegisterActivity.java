@@ -17,6 +17,7 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.ui.HomeActivity;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.client.APIResult;
 import co.uberdev.ultimateorganizer.client.TuoClient;
 import co.uberdev.ultimateorganizer.core.CoreUser;
@@ -97,6 +98,7 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
     private static class RegisterTask extends AsyncTask<String, Integer, Integer>
     {
         public static int ERROR_NETWORK = 13;
+		public static int ERROR_UNKNOWN = 9;
         public static int ERROR_UNAUTHORIZED = 10;
         public static int SUCCESS = 0;
 
@@ -130,7 +132,11 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
             {
                 // TODO birthday ought not to be 0!
                 APIResult result = client.register(emailAddress, password, firstName, lastName, schoolName, departmentName, 0);
-
+				if(result.getResponseCode() != APIResult.RESPONSE_SUCCESS)
+				{
+					Utils.log.w("register HTTP "+result.getResponseCode());
+					return ERROR_UNKNOWN;
+				}
                 authorizedUser = result.getAsUser();
                 if(authorizedUser != null)
                 {
@@ -162,6 +168,7 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
             }
             else if(result == SUCCESS)
             {
+				Toast.makeText(activity, activity.getString(R.string.register_success), Toast.LENGTH_SHORT).show();
                 activity.finishLogin(authorizedUser);
             }
             else

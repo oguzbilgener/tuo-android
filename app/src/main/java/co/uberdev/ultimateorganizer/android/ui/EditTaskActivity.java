@@ -87,7 +87,7 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 
 				Toast.makeText(this, getString(R.string.edit_task_no_task), Toast.LENGTH_SHORT).show();
 		}
-		fragment = AddTaskDetailFragment.newInstance(this, editedTask);
+		fragment = AddTaskDetailFragment.newInstance(this, localStorage, editedTask);
 		fragmentCommunicator = fragment;
 
         setContentView(R.layout.activity_add_task);

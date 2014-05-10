@@ -5,37 +5,16 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.text.InputType;
-import android.text.format.DateFormat;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
-import com.doomonafireball.betterpickers.radialtimepicker.RadialPickerLayout;
-import com.doomonafireball.betterpickers.radialtimepicker.RadialTimePickerDialog;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Course;
-import co.uberdev.ultimateorganizer.android.models.Reminder;
-import co.uberdev.ultimateorganizer.android.models.Tag;
-import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
-import co.uberdev.ultimateorganizer.android.util.BareListView;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
-import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
@@ -172,9 +151,10 @@ public class AddCourseFragment extends Fragment implements FragmentCommunicator
         String sectionNumberStr = sectionNumber.getText().toString();
         course.setSectionCode(Integer.parseInt(sectionNumberStr != null && !sectionNumberStr.isEmpty() ? sectionNumberStr : "0"));
 
-
         course.setCourseTitle(courseName.getText().toString());
         course.setInstructorName(instructorName.getText().toString());
+
+		course.setCourseColor(Utils.colorForTagStr( course.getDepartmentCode()+" "+course.getCourseCode() ));
 
         return course;
     }
