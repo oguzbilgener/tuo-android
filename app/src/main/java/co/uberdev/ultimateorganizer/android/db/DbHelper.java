@@ -81,6 +81,13 @@ public class DbHelper extends SQLiteOpenHelper
 				CoreDataRules.columns.notes.relatedTaskID+" INTEGER " +
 				")");
 
+		db.execSQL("CREATE TABLE "+CoreDataRules.tables.cloned_tasks+" (" +
+				CoreDataRules.columns.cloned_tasks.itemId+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+				CoreDataRules.columns.cloned_tasks.originalId+" INTEGER, " +
+				CoreDataRules.columns.cloned_tasks.cloneId+" INTEGER, " +
+				CoreDataRules.columns.cloned_tasks.cloneLocalId+" INTEGER " +
+				")");
+
 // no need to create a new table for reminder!!
 //		// create reminders table
 //		db.execSQL("CREATE TABLE "+ CoreDataRules.tables.reminders +" (" +
