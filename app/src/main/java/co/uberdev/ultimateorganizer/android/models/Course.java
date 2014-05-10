@@ -89,7 +89,6 @@ public class Course extends CoreCourse implements CoreStorable
             {
                 int n = 1;
                 String updateSql = "UPDATE " + CoreDataRules.tables.tasks + " SET " +
-                        CoreDataRules.columns.courses.localId + " = ?, " +
                         CoreDataRules.columns.courses.id + " = ?, " +
                         CoreDataRules.columns.courses.ownerId + " = ?, " +
                         CoreDataRules.columns.courses.title + " = ?, " +
@@ -101,7 +100,6 @@ public class Course extends CoreCourse implements CoreStorable
                         " WHERE " + CoreDataRules.columns.courses.localId + " = ?";
 
                 SQLiteStatement ss = db.compileStatement(updateSql);
-                ss.bindLong(n++, getLocalId());
                 ss.bindLong(n++, getId());
                 ss.bindLong(n++, getOwnerId());
                 ss.bindString(n++, getCourseTitle());
