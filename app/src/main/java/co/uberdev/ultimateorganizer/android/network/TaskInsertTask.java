@@ -7,6 +7,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.client.APIResult;
@@ -63,10 +64,23 @@ public class TaskInsertTask extends AsyncTask<Void, Integer, Integer>
 			CoreTask insertedTask = result.getAsTask();
 			if(insertedTask != null)
 			{
+				boolean dbOpened = false;
+				// the database in the reference might not be open
+				if(!taskToInsert.getDb().isOpen())
+				{
+					taskToInsert.setDb(new LocalStorage(activity).getDb());
+					dbOpened = true;
+				}
+
 				// update local task with distant task's id
 				taskToInsert.setId(insertedTask.getId());
 				// make a database query to set the id
 				taskToInsert.update();
+
+				if(dbOpened)
+				{
+					taskToInsert.getDb().close();
+				}
 
 				return SUCCESS;
 			}

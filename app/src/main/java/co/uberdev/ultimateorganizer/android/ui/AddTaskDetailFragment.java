@@ -760,6 +760,7 @@ public class AddTaskDetailFragment extends Fragment
 			if(user != null)
 			{
 				task.setOwnerId(user.getId());
+				task.setTaskOwnerNameCombined(user.getFirstName()+" "+user.getLastName());
 			}
 		}
 		catch(Exception e)
