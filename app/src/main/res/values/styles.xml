@@ -153,6 +153,10 @@
     <style name="task_item_description_complete" parent="@style/task_item_description">
     </style>
 
+	<style name="task_item_course">
+		<item name="android:layout_marginTop">@dimen/task_item_course_margin_top</item>
+	</style>
+
     <style name="task_item_tag_text">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
