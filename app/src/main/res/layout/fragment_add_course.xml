@@ -40,6 +40,7 @@
         android:layout_below="@id/add_course_academic_year_underline"
         android:layout_alignLeft="@id/add_course_academic_year_underline"
         android:layout_marginTop="@dimen/item_add_course_course_name_edittext_margin_top"
+		android:inputType="textCapCharacters"
         android:hint="@string/add_course_course_code">
     </EditText>
 
@@ -52,6 +53,7 @@
         android:layout_below="@id/add_course_academic_year_underline"
         android:layout_toRightOf="@id/add_course_department_name_edittext"
         android:layout_alignTop="@id/add_course_department_name_edittext"
+		android:inputType="number"
         android:hint="@string/add_course_course_number">
     </EditText>
 
@@ -64,6 +66,7 @@
         android:layout_below="@id/add_course_academic_year_underline"
         android:layout_toRightOf="@id/add_course_course_no_edittext"
         android:layout_alignTop="@id/add_course_department_name_edittext"
+		android:inputType="number"
         android:hint="@string/add_course_section_number">
     </EditText>
 
@@ -80,6 +83,7 @@
         android:layout_below="@id/add_course_section_no_edittext"
         android:layout_alignLeft="@id/add_course_academic_year_underline"
         android:layout_alignRight="@id/add_course_academic_year_underline"
+		android:inputType="textCapWords"
         android:hint="@string/add_course_course_name"/>
 
     <EditText
@@ -90,6 +94,7 @@
         android:layout_below="@id/add_course_course_name_edittext"
         android:layout_alignLeft="@id/add_course_academic_year_underline"
         android:layout_alignRight="@id/add_course_academic_year_underline"
+		android:inputType="textCapWords"
         android:hint="@string/add_course_instructor_name"/>
 
     <!-- reminders list -->
