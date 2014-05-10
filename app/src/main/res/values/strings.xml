@@ -196,7 +196,7 @@
     <string name="register_hint_first_name">First Name</string>
     <string name="register_hint_last_name">Last Name</string>
     <string name="register_hint_school_name">School Name</string>
-    <string name="register_hint_department_code">Department Name "CS"</string>
+    <string name="register_hint_department_code">Department Code "CS"</string>
 
 	<string name="login_button">Sign in</string>
 	<string name="register_button">Sign up</string>
