@@ -53,8 +53,9 @@ public class Course extends CoreCourse implements CoreStorable
                         CoreDataRules.columns.courses.departmentCode + ", " +
                         CoreDataRules.columns.courses.courseCode + ", " +
                         CoreDataRules.columns.courses.sectionCode + ", " +
-                        CoreDataRules.columns.courses.instructor_name + " " +
-                        ") VALUES (?,?,?,?,?,?,?,?)";
+                        CoreDataRules.columns.courses.instructor_name + ", " +
+						CoreDataRules.columns.courses.color + ", " +
+                        ") VALUES (?,?,?,?,?,?,?,?,?)";
 
                 int n = 1;
                 SQLiteStatement ss = db.compileStatement(insertSql);
@@ -66,6 +67,7 @@ public class Course extends CoreCourse implements CoreStorable
                 ss.bindString(n++, getCourseCode());
                 ss.bindLong(n++, getSectionCode());
                 ss.bindString(n++, getInstructorName());
+				ss.bindLong(n++, getCourseColor());
 
                 ss.execute();
                 ss.close();
@@ -96,7 +98,9 @@ public class Course extends CoreCourse implements CoreStorable
                         CoreDataRules.columns.courses.departmentCode + " = ?, " +
                         CoreDataRules.columns.courses.courseCode + " = ?, " +
                         CoreDataRules.columns.courses.sectionCode + " = ?, " +
-                        CoreDataRules.columns.courses.instructor_name + " = ? " +
+                        CoreDataRules.columns.courses.instructor_name + " = ?, " +
+						CoreDataRules.columns.courses.instructor_name + " = ?, " +
+						CoreDataRules.columns.courses.color + " = ? " +
                         " WHERE " + CoreDataRules.columns.courses.localId + " = ?";
 
                 SQLiteStatement ss = db.compileStatement(updateSql);
@@ -108,6 +112,7 @@ public class Course extends CoreCourse implements CoreStorable
                 ss.bindString(n++, getCourseCode());
                 ss.bindLong(n++, getSectionCode());
                 ss.bindString(n++, getInstructorName());
+				ss.bindLong(n++, getCourseColor());
 
                 ss.execute();
                 ss.close();
