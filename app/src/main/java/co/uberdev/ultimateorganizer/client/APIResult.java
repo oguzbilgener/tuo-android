@@ -16,6 +16,8 @@ public class APIResult {
     public HttpResponse response;
     private String responseBody;
 
+	public static final int RESPONSE_SUCCESS = 200;
+
    public APIResult(HttpResponse response)
    {
        this.response = response;
