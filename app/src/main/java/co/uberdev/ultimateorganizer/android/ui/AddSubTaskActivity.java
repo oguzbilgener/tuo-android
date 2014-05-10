@@ -14,9 +14,11 @@ import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Reminder;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.models.Tasks;
+import co.uberdev.ultimateorganizer.android.network.TaskInsertTask;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.ReminderManager;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
@@ -208,10 +210,11 @@ public class AddSubTaskActivity extends FragmentActivity implements ActivityComm
 					// insert the main task
 					if(subTask.insert())
 					{
-						// TODO: sync!
-
 						// show a little success
 						Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
+
+						// Send this new task to the server
+						new TaskInsertTask(this, ((UltimateApplication) getApplication()).getUser(), subTask).execute();
 
 						// set a result to pass the task object via intent and go back to main AddTaskActivity
 						Intent resultIntent = new Intent();

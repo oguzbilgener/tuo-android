@@ -2,10 +2,18 @@ package co.uberdev.ultimateorganizer.client;
 
 
 
-import co.uberdev.ultimateorganizer.core.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+
 import java.io.IOException;
+
+import co.uberdev.ultimateorganizer.core.CoreCourse;
+import co.uberdev.ultimateorganizer.core.CoreCourses;
+import co.uberdev.ultimateorganizer.core.CoreNote;
+import co.uberdev.ultimateorganizer.core.CoreNotes;
+import co.uberdev.ultimateorganizer.core.CoreTask;
+import co.uberdev.ultimateorganizer.core.CoreTasks;
+import co.uberdev.ultimateorganizer.core.CoreUser;
 
 
 /**
@@ -17,6 +25,7 @@ public class APIResult {
     private String responseBody;
 
 	public static final int RESPONSE_SUCCESS = 200;
+	public static final int RESPONSE_UNAUTHORIZED = 401;
 
    public APIResult(HttpResponse response)
    {

@@ -13,9 +13,11 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Reminder;
 import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.network.TaskInsertTask;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.ReminderManager;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 public class AddTaskActivity extends FragmentActivity implements ActivityCommunicator
@@ -134,11 +136,12 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 						// insert the main task
 						if (enteredTask.insert())
 						{
-							// TODO: sync!
-
 							// show a little success
 							Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
 							Utils.log.d("inserted. now finish");
+
+							// Send this new task to the server
+							new TaskInsertTask(this, ((UltimateApplication) getApplication()).getUser(), enteredTask).execute();
 
 							// Add new task activity can just go back, but this might be different for edit task activity.
 							finish();
