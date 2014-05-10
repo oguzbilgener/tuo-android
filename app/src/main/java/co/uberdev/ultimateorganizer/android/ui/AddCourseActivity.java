@@ -11,9 +11,10 @@ import android.widget.Toast;
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Course;
-import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.network.CourseInsertTask;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
@@ -130,7 +131,8 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
                         // insert the main course
                         if (enteredCourse.insert())
                         {
-                            // TODO: sync!
+							// Send this new course to the server
+							new CourseInsertTask(this, ((UltimateApplication) getApplication()).getUser(), enteredCourse).execute();
 
                             // show a little success
                             Toast.makeText(this, getString(R.string.msg_success_add_course), Toast.LENGTH_SHORT).show();

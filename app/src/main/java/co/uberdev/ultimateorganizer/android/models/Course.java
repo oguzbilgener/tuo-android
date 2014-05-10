@@ -69,8 +69,10 @@ public class Course extends CoreCourse implements CoreStorable
                 ss.bindString(n++, getInstructorName());
 				ss.bindLong(n++, getCourseColor());
 
-                ss.execute();
+                long localId = ss.executeInsert();
                 ss.close();
+
+				setLocalId(localId);
 
                 return true;
             }
@@ -90,7 +92,7 @@ public class Course extends CoreCourse implements CoreStorable
             try
             {
                 int n = 1;
-                String updateSql = "UPDATE " + CoreDataRules.tables.tasks + " SET " +
+                String updateSql = "UPDATE " + getTableName() + " SET " +
                         CoreDataRules.columns.courses.id + " = ?, " +
                         CoreDataRules.columns.courses.ownerId + " = ?, " +
                         CoreDataRules.columns.courses.title + " = ?, " +
@@ -99,7 +101,6 @@ public class Course extends CoreCourse implements CoreStorable
                         CoreDataRules.columns.courses.courseCode + " = ?, " +
                         CoreDataRules.columns.courses.sectionCode + " = ?, " +
                         CoreDataRules.columns.courses.instructor_name + " = ?, " +
-						CoreDataRules.columns.courses.instructor_name + " = ?, " +
 						CoreDataRules.columns.courses.color + " = ? " +
                         " WHERE " + CoreDataRules.columns.courses.localId + " = ?";
 
@@ -114,7 +115,7 @@ public class Course extends CoreCourse implements CoreStorable
                 ss.bindString(n++, getInstructorName());
 				ss.bindLong(n++, getCourseColor());
 
-                ss.execute();
+                ss.executeInsert();
                 ss.close();
 
                 return true;
