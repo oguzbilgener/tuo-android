@@ -199,8 +199,6 @@ public class AddSubTaskActivity extends FragmentActivity implements ActivityComm
 
 					// do all the neccesary insertions.
 
-					// TODO: insert related tasks, tags etc
-
 					// add new reminders to alarm manager
 					for(int i=0; i<subTask.getReminders().size(); i++)
 					{
