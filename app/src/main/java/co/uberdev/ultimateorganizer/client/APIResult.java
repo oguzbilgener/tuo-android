@@ -1,12 +1,12 @@
 package co.uberdev.ultimateorganizer.client;
 
 
-
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
+import co.uberdev.ultimateorganizer.core.Core;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreCourses;
 import co.uberdev.ultimateorganizer.core.CoreNote;
@@ -59,5 +59,13 @@ public class APIResult {
     public CoreCourse getAsCourse() throws IOException { return CoreCourse.fromJson(responseBody, CoreCourse.class);    }
 
     public CoreCourses getAsCourses() throws IOException { return CoreCourses.fromJson(responseBody, CoreCourses.class);    }
+
+	public CoreTask[] getAsTaskArray() throws IOException { return Core.fromJson(responseBody, CoreTask[].class); }
+
+	public CoreCourse[] getAsCourseArray() throws IOException { return Core.fromJson(responseBody, CoreCourse[].class); }
+
+	public CoreUser[] getAsUserArray() throws IOException { return Core.fromJson(responseBody, CoreUser[].class); }
+
+	public CoreNote[] getAsNoteArray() throws IOException { return Core.fromJson(responseBody, CoreNote[].class); }
 
 }
