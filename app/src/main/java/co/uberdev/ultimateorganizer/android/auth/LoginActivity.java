@@ -4,22 +4,16 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.widget.Toast;
-
-import java.io.IOException;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.network.LoginTask;
 import co.uberdev.ultimateorganizer.android.ui.HomeActivity;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
-import co.uberdev.ultimateorganizer.android.util.Utils;
-import co.uberdev.ultimateorganizer.client.APIResult;
-import co.uberdev.ultimateorganizer.client.TuoClient;
 import co.uberdev.ultimateorganizer.core.CoreUser;
 
 public class LoginActivity extends Activity implements ActivityCommunicator
@@ -87,90 +81,7 @@ public class LoginActivity extends Activity implements ActivityCommunicator
 		}
 	}
 
-	private static class LoginTask extends AsyncTask<String, Integer, Integer>
-	{
-		public static int ERROR_NETWORK = 13;
-		public static int ERROR_UNKNOWN = 9;
-		public static int ERROR_UNAUTHORIZED = 10;
-		public static int SUCCESS = 0;
 
-		private LoginActivity activity;
-		private CoreUser authorizedUser;
-
-		public LoginTask(LoginActivity activity)
-		{
-			this.activity = activity;
-		}
-
-		@Override
-		protected void onPreExecute()
-		{
-			activity.setProgressBarIndeterminateVisibility(true);
-		}
-
-		@Override
-		protected Integer doInBackground(String... params)
-		{
-			String emailAddress = params[0];
-			String password = params[1];
-
-			TuoClient client = new TuoClient(null, null);
-
-			try
-			{
-				APIResult result = client.logIn(emailAddress, password);
-
-				if(result.getResponseCode() != APIResult.RESPONSE_SUCCESS)
-				{
-					Utils.log.w("login HTTP "+result.getResponseCode());
-					return ERROR_UNKNOWN;
-				}
-				authorizedUser = result.getAsUser();
-				if(authorizedUser != null)
-				{
-					return SUCCESS;
-				}
-				else
-				{
-					return ERROR_UNAUTHORIZED;
-				}
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-				return ERROR_NETWORK;
-			}
-		}
-
-		@Override
-		public void onProgressUpdate(Integer... values) //publishProgress (Progress... values)
-		{
-			int percent = values[0];
-
-		}
-
-		@Override
-		protected void onPostExecute(Integer result)
-		{
-			activity.setProgressBarIndeterminateVisibility(false);
-			if(result == ERROR_NETWORK)
-			{
-				Toast.makeText(activity, activity.getString(R.string.no_network), Toast.LENGTH_SHORT).show();
-			}
-			else if(result == ERROR_UNAUTHORIZED)
-			{
-				Toast.makeText(activity, activity.getString(R.string.invalid_login), Toast.LENGTH_SHORT).show();
-			}
-			else if(result == SUCCESS)
-			{
-				activity.finishLogin(authorizedUser);
-			}
-			else
-			{
-				Toast.makeText(activity, activity.getString(R.string.unknown_error), Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
 
 	public void finishLogin(CoreUser user)
 	{
