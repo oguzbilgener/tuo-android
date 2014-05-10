@@ -169,12 +169,13 @@
 			android:layout_height="match_parent"
 			android:layout_marginLeft="@dimen/sub_line_margin_sides"
 			android:layout_marginRight="@dimen/sub_line_margin_sides"
+			android:gravity="center"
 			android:orientation="vertical">
 
 		<Spinner
 			android:id="@+id/add_task_course_spinner"
 			 android:layout_width="wrap_content"
-			 android:layout_height="wrap_content" />
+			 android:layout_height="wrap_content"/>
 
 	</LinearLayout>
 

@@ -214,4 +214,6 @@
 
 	<string name="register_success">Enjoy the Cloud features!</string>
 
+	<string name="course_spinner_default">Pick a course</string>
+
 </resources>
