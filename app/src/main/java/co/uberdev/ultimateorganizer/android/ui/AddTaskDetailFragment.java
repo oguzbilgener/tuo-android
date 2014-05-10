@@ -730,7 +730,7 @@ public class AddTaskDetailFragment extends Fragment
 			if(subTasks != null && subTasks.size() > 0)
 			{
 				// flush the old sub tasks
-				task.setRelatedTasks(new ArrayList<Long>());
+				task.setRelatedTasksLocal(new ArrayList<Long>());
 
 				for(int i=0; i<subTasks.size(); i++)
 				{
@@ -743,7 +743,7 @@ public class AddTaskDetailFragment extends Fragment
 					subTasks.get(i).update();
 
 					// form relation!
-					task.getRelatedTasks().add(subTasks.get(i).getLocalId());
+					task.getRelatedTasksLocal().add(subTasks.get(i).getLocalId());
 				}
 			}
 

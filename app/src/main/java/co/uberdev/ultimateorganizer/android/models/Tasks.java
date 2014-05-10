@@ -89,11 +89,17 @@ public class Tasks extends CoreTasks implements CoreSelectable
 					),  new TypeToken<ArrayList<Long>>(){}.getType());
 					task.setRelatedTasks(relatedTaskIds);
 
+					// parse related local task ids
+					ArrayList relatedTaskLocalIds = new Gson().fromJson(loader.getString(
+							loader.getColumnIndex(CoreDataRules.columns.tasks.relatedTasksLocal)
+					),  new TypeToken<ArrayList<Long>>(){}.getType());
+					task.setRelatedTasksLocal(relatedTaskLocalIds);
+
 					// parse related notes ids
 					ArrayList relatedNoteIds = new Gson().fromJson(loader.getString(
 							loader.getColumnIndex(CoreDataRules.columns.tasks.relatedNotes)
 					),  new TypeToken<ArrayList<Long>>(){}.getType());
-					task.setRelatedTasks(relatedNoteIds);
+					task.setRelatedNotes(relatedNoteIds);
 
 					int personal = loader.getInt(loader.getColumnIndex(CoreDataRules.columns.tasks.personal));
 					task.setPersonal(personal == 1);

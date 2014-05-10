@@ -34,6 +34,7 @@ public class DbHelper extends SQLiteOpenHelper
 				CoreDataRules.columns.tasks.tags+" TEXT, " +
 				CoreDataRules.columns.tasks.reminders+" TEXT, "+
 				CoreDataRules.columns.tasks.relatedTasks+" TEXT, " +
+				CoreDataRules.columns.tasks.relatedTasksLocal+" TEXT, " +
 				CoreDataRules.columns.tasks.relatedNotes+" TEXT, " +
 				CoreDataRules.columns.tasks.personal+" INTEGER, " +
 				CoreDataRules.columns.tasks.dateCreated+" INTEGER, " +

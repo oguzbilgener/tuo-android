@@ -35,6 +35,7 @@ public class Task extends CoreTask implements CoreStorable
 		this.tags = new CoreTags();
 		this.relatedNotes = new ArrayList<Long>();
 		this.relatedTasks = new ArrayList<Long>();
+		this.relatedTasksLocal = new ArrayList<Long>();
 		this.courseCodeCombined = this.course.getCourseCodeCombined();
 		this.courseId = this.course.getId();
 		this.taskOwnerNameCombined = "";
@@ -92,10 +93,11 @@ public class Task extends CoreTask implements CoreStorable
 						CoreDataRules.columns.tasks.personal + ", " +
 						CoreDataRules.columns.tasks.relatedNotes + ", " +
 						CoreDataRules.columns.tasks.relatedTasks + ", " +
+						CoreDataRules.columns.tasks.relatedTasksLocal + ", " +
 						CoreDataRules.columns.tasks.taskOwnerNameCombined + ", " +
 						CoreDataRules.columns.tasks.reminders+", "+
 						CoreDataRules.columns.tasks.alarmIndex +" "+
-						") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+						") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 				int n = 1;
 				SQLiteStatement ss = db.compileStatement(insertSql);
@@ -115,6 +117,7 @@ public class Task extends CoreTask implements CoreStorable
 				ss.bindLong(n++, personal ? 1 : 0);
 				ss.bindString(n++, CoreUtils.longArrayListToJson(getRelatedNotes()));
 				ss.bindString(n++, CoreUtils.longArrayListToJson(getRelatedTasks()));
+				ss.bindString(n++, CoreUtils.longArrayListToJson(getRelatedTasksLocal()));
 				ss.bindString(n++, getTaskOwnerNameCombined());
 				ss.bindString(n++, getReminders().asJsonString());
 				ss.bindLong(n++, alarmIndex);
@@ -183,6 +186,7 @@ public class Task extends CoreTask implements CoreStorable
 						CoreDataRules.columns.tasks.personal + " = ? , " +
 						CoreDataRules.columns.tasks.relatedNotes + " = ? , " +
 						CoreDataRules.columns.tasks.relatedTasks + " = ? , " +
+						CoreDataRules.columns.tasks.relatedTasksLocal + " = ? , " +
 						CoreDataRules.columns.tasks.taskOwnerNameCombined + " = ?, " +
 						CoreDataRules.columns.tasks.reminders+" = ?, "+
 						CoreDataRules.columns.tasks.alarmIndex +" = ? "+
@@ -205,6 +209,7 @@ public class Task extends CoreTask implements CoreStorable
 				ss.bindLong(n++, personal ? 1 : 0);
 				ss.bindString(n++, CoreUtils.longArrayListToJson(getRelatedNotes()));
 				ss.bindString(n++, CoreUtils.longArrayListToJson(getRelatedTasks()));
+				ss.bindString(n++, CoreUtils.longArrayListToJson(getRelatedTasksLocal()));
 				ss.bindString(n++, getTaskOwnerNameCombined());
 				ss.bindString(n++, getReminders().asJsonString());
 				ss.bindLong(n++, alarmIndex);
