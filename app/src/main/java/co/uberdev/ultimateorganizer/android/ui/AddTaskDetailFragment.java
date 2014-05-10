@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,7 @@ public class AddTaskDetailFragment extends Fragment
 	private BareListView tagsListView;
 	private BareListView subTasksListView;
 	private Spinner coursesSpinner;
+	private Switch privacySwitch;
 
 	private ReminderListAdapter remindersAdapter;
 	private AddedTagsListAdapter tagsAdapter;
@@ -263,6 +265,8 @@ public class AddTaskDetailFragment extends Fragment
 
 		taskNameView = (EditText) rootView.findViewById(R.id.add_task_name_input);
 		taskDescriptionView = (EditText) rootView.findViewById(R.id.add_task_description_input);
+
+		privacySwitch = (Switch) rootView.findViewById(R.id.add_task_privacy_switch);
 
 		if(editableTask != null)
 		{
@@ -573,7 +577,6 @@ public class AddTaskDetailFragment extends Fragment
 		return false;
 	}
 
-
 	public class FromTimeListener implements RadialTimePickerDialog.OnTimeSetListener
 	{
 
@@ -743,6 +746,15 @@ public class AddTaskDetailFragment extends Fragment
 					task.getRelatedTasks().add(subTasks.get(i).getLocalId());
 				}
 			}
+
+			if(privacySwitch.isChecked())
+			{
+				task.setPersonal(false);
+			}
+			else
+			{
+				task.setPersonal(true);
+			}
 		}
 		catch(Exception e)
 		{
@@ -788,6 +800,15 @@ public class AddTaskDetailFragment extends Fragment
 				this.tags.add((Tag) task.getTags().get(i));
 			}
 			this.tagsAdapter.notifyDataSetChanged();
+		}
+
+		if(task.isPersonal())
+		{
+			privacySwitch.setChecked(false);
+		}
+		else
+		{
+			privacySwitch.setChecked(true);
 		}
 
 		this.relatedCourse =  task.getCourse();
