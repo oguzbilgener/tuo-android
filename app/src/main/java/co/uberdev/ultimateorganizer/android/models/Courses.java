@@ -60,6 +60,7 @@ public class Courses extends CoreCourses implements CoreSelectable {
                     course.setCourseCode(loader.getString(loader.getColumnIndex(CoreDataRules.columns.courses.courseCode)));
                     course.setSectionCode(loader.getInt(loader.getColumnIndex(CoreDataRules.columns.courses.sectionCode)));
                     course.setInstructorName(loader.getString(loader.getColumnIndex(CoreDataRules.columns.courses.instructor_name)));
+					course.setCourseColor(loader.getInt(loader.getColumnIndex(CoreDataRules.columns.courses.color)));
 
                     this.add(course);
 

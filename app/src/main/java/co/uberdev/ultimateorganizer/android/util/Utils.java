@@ -184,6 +184,14 @@ public class Utils
 		{
 			return Color.parseColor("#8F001A");
 		}
+		else if(tag.equalsIgnoreCase("CS 201"))
+		{
+			return Color.parseColor("#001287");
+		}
+		else if(tag.equalsIgnoreCase("CS 223"))
+		{
+			return Color.parseColor("#00876E");
+		}
 		else if(tag.equalsIgnoreCase("Lab"))
 		{
 			return Color.parseColor("#777777");

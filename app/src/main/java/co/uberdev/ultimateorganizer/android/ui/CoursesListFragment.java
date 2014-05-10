@@ -1,10 +1,9 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
-import android.graphics.Color;
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.android.models.Courses;
-import co.uberdev.ultimateorganizer.core.CoreCourse;
 
 /**
  * A simple {@link android.app.Fragment} subclass.
@@ -56,16 +54,17 @@ public class CoursesListFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         coursesList = new ArrayList<Course>();
-        Course course = new Course();
-        course.setCourseTitle("Algorithms and Programming II");
-        course.setInstructorName("David Davenport");
-        course.setDepartmentCode("CS");
-        course.setCourseCode("102");
-        course.setSectionCode(1);
-        course.setCourseSemester(getString(R.string.PREF_SEMESTER_CODE));
-        course.setCourseColor(Color.parseColor("#ff0000"));
-
-        coursesList.add(course);
+//        Course course = new Course();
+//        course.setCourseTitle("Algorithms and Programming II");
+//        course.setInstructorName("David Davenport");
+//        course.setDepartmentCode("CS");
+//        course.setCourseCode("102");
+//        course.setSectionCode(1);
+//        course.setCourseSemester(getString(R.string.PREF_SEMESTER_CODE));
+//        course.setCourseColor(Color.parseColor("#ff0000"));
+//
+//
+//        coursesList.add(course);
 
         coursesListAdapter = new CoursesListAdapter(getActivity(), coursesList);
     }

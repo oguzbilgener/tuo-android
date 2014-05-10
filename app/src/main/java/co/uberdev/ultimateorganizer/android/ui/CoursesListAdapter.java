@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.android.util.Utils;
-import co.uberdev.ultimateorganizer.core.CoreCourse;
 
 /**
  * Created by mozart on 23/04/14.
@@ -58,14 +57,11 @@ public class CoursesListAdapter extends ArrayAdapter<Course> implements View.OnC
             viewHolder.courseInstructor = (TextView) view.findViewById(R.id.schedule_course_instructor);
 
             view.setTag(R.id.courseitem_object,viewHolder);
-
-            Utils.log.d( "hmm null");
          }
         else
         {
             view = convertView;
 
-            Utils.log.d( "hmm not null");
         }
 
         // ViewHolder receives tags for the next items
@@ -77,11 +73,14 @@ public class CoursesListAdapter extends ArrayAdapter<Course> implements View.OnC
         view.setTag(R.id.courseitem_id, item.getId());
         view.setTag(R.id.courseitem_index, position);
 
-        viewHolder.courseCode.setText(item.getDepartmentCode()+" "+item.getCourseCode()+" "+item.getSectionCode());
+        viewHolder.courseCode.setText(item.getCourseCodeCombined());
         viewHolder.courseName.setText(item.getCourseTitle());
-
-        viewHolder.courseName.setTextColor(item.getCourseColor());
-        viewHolder.courseCode.setTextColor(item.getCourseColor());
+		Utils.log.d("color"+item.getCourseColor());
+		if(item.getCourseColor() != 0)
+		{
+			viewHolder.courseName.setTextColor(item.getCourseColor());
+			viewHolder.courseCode.setTextColor(item.getCourseColor());
+		}
 
         viewHolder.courseInstructor.setText(item.getInstructorName());
 
