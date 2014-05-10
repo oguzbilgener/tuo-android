@@ -310,6 +310,9 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			coursesSpinner.setVisibility(View.GONE);
 			rootView.findViewById(R.id.title_course_list).setVisibility(View.GONE);
+
+			rootView.findViewById(R.id.title_task_privacy).setVisibility(View.GONE);
+			rootView.findViewById(R.id.container_task_privacy).setVisibility(View.GONE);
 		}
 
 		//
