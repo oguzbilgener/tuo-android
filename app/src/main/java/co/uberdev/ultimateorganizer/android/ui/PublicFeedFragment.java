@@ -57,22 +57,6 @@ public class PublicFeedFragment extends Fragment implements TaskListener
 
 		user = ((UltimateApplication) getActivity().getApplication()).getUser();
 
-        Task task = new Task();
-        task.setCourseCodeCombined( "TURK102-13");
-        task.setTaskName("Third Homework");
-        task.setTaskDesc("Letter to Papa");
-        task.setTaskOwnerNameCombined("Ani Kristo");
-        task.setEndDate( 1234567);
-        publicFeedTasksList.add(task);
-
-        Task task2 = new Task();
-        task2.setCourseCodeCombined( "CS102-13");
-        task2.setTaskName("Project");
-        task2.setTaskDesc("Finish It");
-        task2.setTaskOwnerNameCombined("Begum Ozcan");
-        task2.setEndDate( 12345367);
-        publicFeedTasksList.add(task2);
-
         publicFeedAdapter = new PublicFeedAdapter(getActivity(), publicFeedTasksList);
     }
 

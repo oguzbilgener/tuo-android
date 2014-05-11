@@ -186,7 +186,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 		else
 		{
 			Date beginDate = new Date((long)item.getBeginDate()*1000);
-			Date endDate = new Date((long)item.getBeginDate()*1000);
+			Date endDate = new Date((long)item.getEndDate()*1000);
 			Calendar beginCalendar = Calendar.getInstance();
 			beginCalendar.setTime(beginDate);
 			Calendar endCalendar = Calendar.getInstance();

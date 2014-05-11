@@ -220,4 +220,6 @@
 
 	<string name="unknown_error_public_feed">An error happened while loading public feed.</string>
 
+	<string name="oops">Oops</string>
+
 </resources>

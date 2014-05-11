@@ -67,7 +67,7 @@
             android:layout_height="@dimen/item_public_feed_task_owner_low_rating_icon_height"
             android:layout_below="@id/item_public_feed_task_description"
             android:layout_toRightOf="@id/item_public_feed_owner"
-            android:src="@drawable/ic_action_error"/>
+            android:src="@drawable/ic_action_error" android:visibility="gone"/> <!-- hidden for now -->
 
         <!-- Task's due date -->
         <TextView
@@ -79,21 +79,23 @@
             android:text="@string/item_public_feed_task_due_date"/>
 
         <!-- This icon will add the task to the user local tasks -->
-        <ImageView
+        <ImageButton
             android:id="@+id/item_public_feed_accept_icon"
             android:layout_width="@dimen/item_public_feed_task_accept_reject_icon_width"
             android:layout_height="@dimen/item_public_feed_task_accept_reject_icon_height"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/item_public_feed_task_accept_icon_margin_top"
+			style="?android:borderlessButtonStyle"
             android:src="@drawable/ic_action_accept_dark"/>
 
         <!-- This icon will remove the task from the public feed tasks list -->
-        <ImageView
+        <ImageButton
             android:id="@+id/item_public_feed_reject_icon"
             android:layout_width="@dimen/item_public_feed_task_accept_reject_icon_width"
             android:layout_height="@dimen/item_public_feed_task_accept_reject_icon_height"
             android:layout_alignBottom="@id/item_public_feed_accept_icon"
             android:layout_toLeftOf="@id/item_public_feed_accept_icon"
+			style="?android:borderlessButtonStyle"
             android:src="@drawable/ic_action_remove"/>
 
         <!-- ic_action_bad // ic_action_error // ic_action_good // ic_action_important, can use good and

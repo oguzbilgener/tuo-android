@@ -25,19 +25,19 @@ public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
 
 	private Activity activity;
 	private CoreUser authorizedUser;
-	private Task taskToInsert;
+	private Task taskToUpdate;
 
 	public TaskUpdateTask(Activity activity, CoreUser user, Task task)
 	{
 		this.activity = activity;
 		this.authorizedUser = user;
-		this.taskToInsert = task;
+		this.taskToUpdate = task;
 	}
 
 	@Override
 	protected void onPreExecute()
 	{
-		Utils.log.w("sending task to server: "+taskToInsert);
+		Utils.log.w("sending task to server: "+ taskToUpdate);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
 		{
 			TuoClient client = new TuoClient(authorizedUser.getPublicKey(), authorizedUser.getSecretToken());
 
-			APIResult result = client.updateTask(taskToInsert);
+			APIResult result = client.updateTask(taskToUpdate);
 
 			if(result.getResponseCode() == APIResult.RESPONSE_UNAUTHORIZED)
 			{
@@ -55,7 +55,7 @@ public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
 			}
 			if(result.getResponseCode() != APIResult.RESPONSE_SUCCESS)
 			{
-				Utils.log.w("insert task HTTP "+result.getResponseCode());
+				Utils.log.w("update task HTTP "+result.getResponseCode());
 				return ERROR_UNKNOWN;
 			}
 
@@ -82,7 +82,7 @@ public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
 		}
 		else if(result == SUCCESS)
 		{
-			Utils.log.d("inserted task into server "+taskToInsert.asJsonString());
+			Utils.log.d("updated task at server " + taskToUpdate.asJsonString());
 		}
 		else
 		{

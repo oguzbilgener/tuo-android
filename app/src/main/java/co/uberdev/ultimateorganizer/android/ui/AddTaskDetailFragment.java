@@ -788,6 +788,9 @@ public class AddTaskDetailFragment extends Fragment
 		fromDateButton.setText(getDateString(fromDate));
 		fromTimeButton.setText(getTimeString(fromDate));
 
+		toDateButton.setText(getDateString(toDate));
+		toTimeButton.setText(getTimeString(toDate));
+
 		// they do not seem to be inserted into db
 		if(task.getReminders() != null)
 		{

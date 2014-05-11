@@ -1,14 +1,20 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Task;
@@ -48,9 +54,9 @@ public class PublicFeedAdapter extends ArrayAdapter<Task> implements View.OnClic
         // such as the user is verified or has a low rating
         protected ImageView taskOwnerStatusIcon;
         // simple tick icon that will add the task into  user's own tasks
-        protected ImageView taskAcceptIcon;
+        protected ImageButton taskAcceptIcon;
         // so that the task will not be seen in the public feed list
-        protected ImageView taskRejectIcon;
+        protected ImageButton taskRejectIcon;
     }
 
     @Override
@@ -72,18 +78,14 @@ public class PublicFeedAdapter extends ArrayAdapter<Task> implements View.OnClic
             viewHolder.taskOwner = (TextView) view.findViewById(R.id.item_public_feed_owner);
             viewHolder.taskDate = (TextView) view.findViewById(R.id.item_public_feed_due_date);
             viewHolder.taskOwnerStatusIcon = (ImageView) view.findViewById(R.id.item_public_feed_low_rating_icon);
-            viewHolder.taskAcceptIcon = (ImageView) view.findViewById(R.id.item_public_feed_accept_icon);
-            viewHolder.taskRejectIcon = (ImageView) view.findViewById(R.id.item_public_feed_reject_icon);
+            viewHolder.taskAcceptIcon = (ImageButton) view.findViewById(R.id.item_public_feed_accept_icon);
+            viewHolder.taskRejectIcon = (ImageButton) view.findViewById(R.id.item_public_feed_reject_icon);
 
             view.setTag(R.id.taskitem_object,viewHolder);
-
-            Utils.log.d( "hmm null");
         }
         else
         {
             view = convertView;
-
-            Utils.log.d( "hmm not null");
         }
 
         // ViewHolder receives tags for the next items
@@ -99,17 +101,94 @@ public class PublicFeedAdapter extends ArrayAdapter<Task> implements View.OnClic
         viewHolder.taskTitle.setText( item.getTaskName());
         viewHolder.taskDescription.setText( item.getTaskDesc());
         viewHolder.taskOwner.setText( "by " + item.getTaskOwnerNameCombined());
-        viewHolder.taskDate.setText(item.getEndDate() + "");
         // DO NOT FORGET TO ADD STATUS ICON FOR THE USER
 //        viewHolder.taskOwnerStatusIcon
         viewHolder.taskAcceptIcon.setImageDrawable( getContext().getResources().getDrawable( R.drawable.ic_action_accept_dark));
         viewHolder.taskRejectIcon.setImageDrawable( getContext().getResources().getDrawable( R.drawable.ic_action_remove));
 
+		viewHolder.taskAcceptIcon.setTag(R.id.task_item_position, position);
+		viewHolder.taskAcceptIcon.setOnClickListener(this);
+
+		if(item.getCourse().getCourseColor() != 0)
+		{
+			Utils.log.w(item.getCourse().getCourseColor()+"");
+			viewHolder.courseName.setTextColor(item.getCourse().getCourseColor());
+		}
+
+		if(Utils.isDateToday(item.getBeginDate()))
+		{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			viewHolder.taskDate.setText(
+					context.getString(R.string.today_capital) + "\n" +
+							dateFormat.format(new Date((long)item.getBeginDate()*1000)) + " - " + dateFormat.format(new Date((long)item.getEndDate()*1000))
+			);
+		}
+		else if(Utils.isDateYesterday(item.getBeginDate()))
+		{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			viewHolder.taskDate.setText(
+					context.getString(R.string.yesterday_capital) + "\n" +
+							dateFormat.format(new Date((long)item.getBeginDate()*1000)) + " - " + dateFormat.format(new Date((long)item.getEndDate()*1000))
+			);
+		}
+		else if(Utils.isDateTomorrow(item.getBeginDate()))
+		{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			viewHolder.taskDate.setText(
+					context.getString(R.string.tomorrow_capital) + "\n" +
+							dateFormat.format(new Date((long)item.getBeginDate()*1000)) + " - " + dateFormat.format(new Date((long)item.getEndDate()*1000))
+			);
+		}
+		else
+		{
+			Date beginDate = new Date((long)item.getBeginDate()*1000);
+			Date endDate = new Date((long)item.getBeginDate()*1000);
+			Calendar beginCalendar = Calendar.getInstance();
+			beginCalendar.setTime(beginDate);
+			Calendar endCalendar = Calendar.getInstance();
+			endCalendar.setTime(endDate);
+
+			if(beginCalendar.get(Calendar.DAY_OF_MONTH) == endCalendar.get(Calendar.DAY_OF_MONTH))
+			{
+				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
+				SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+				viewHolder.taskDate.setText(
+						dateFormat.format(beginDate) + "\n" +
+								timeFormat.format(beginDate) + " - " + timeFormat.format(endDate)
+				);
+			}
+			else
+			{
+				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
+				viewHolder.taskDate.setText(
+						dateFormat.format(new Date((long) item.getBeginDate() * 1000)) + "-\n" +
+								dateFormat.format(new Date((long) item.getEndDate() * 1000))
+				);
+			}
+		}
+
         return view;
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View view)
+	{
+		if(view.getId() == R.id.item_public_feed_accept_icon)
+		{
+			try
+			{
+				int position = (Integer) view.getTag(R.id.task_item_position);
+				Task task = publicFeedTasksList.get(position);
 
+				Intent cloneIntent = new Intent(getContext(), EditTaskActivity.class);
+				cloneIntent.putExtra(getContext().getString(R.string.INTENT_DETAILS_TASK_JSON_OBJECT), task.asJsonString());
+				getContext().startActivity(cloneIntent);
+			}
+			catch(Exception e)
+			{
+				Toast.makeText(getContext(), getContext().getString(R.string.oops), Toast.LENGTH_SHORT).show();;
+				e.printStackTrace();
+			}
+		}
     }
 }

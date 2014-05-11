@@ -59,7 +59,7 @@ public class GetPublicFeedTask extends AsyncTask<Void, Integer, Integer>
 				return ERROR_UNKNOWN;
 			}
 
-			publicTasks = result.getAsTaskArray();
+			publicTasks = result.getAsClientTaskArray();
 
 			if(publicTasks != null)
 			{

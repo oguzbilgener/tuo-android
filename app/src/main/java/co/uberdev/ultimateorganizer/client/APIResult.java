@@ -6,6 +6,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
+import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.core.Core;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreCourses;
@@ -67,5 +68,7 @@ public class APIResult {
 	public CoreUser[] getAsUserArray() throws IOException { return Core.fromJson(responseBody, CoreUser[].class); }
 
 	public CoreNote[] getAsNoteArray() throws IOException { return Core.fromJson(responseBody, CoreNote[].class); }
+
+	public Task[] getAsClientTaskArray() throws IOException { return Core.fromJson(responseBody, Task[].class); }
 
 }
