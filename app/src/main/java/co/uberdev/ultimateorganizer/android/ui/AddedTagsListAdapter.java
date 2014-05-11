@@ -12,18 +12,18 @@ import android.widget.TextView;
 import java.util.List;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.models.Tag;
 import co.uberdev.ultimateorganizer.android.util.BareListDataDelegate;
 import co.uberdev.ultimateorganizer.android.util.BareListDataListener;
+import co.uberdev.ultimateorganizer.core.CoreTag;
 
 /**
  * Created by oguzbilgener on 02/05/14.
  */
-public class AddedTagsListAdapter extends ArrayAdapter<Tag>
+public class AddedTagsListAdapter extends ArrayAdapter<CoreTag>
 		implements BareListDataDelegate, View.OnClickListener
 {
 	private Context context;
-	private List<Tag> items;
+	private List<CoreTag> items;
 	private LayoutInflater inflater;
 	private int resourceId;
 
@@ -31,7 +31,7 @@ public class AddedTagsListAdapter extends ArrayAdapter<Tag>
 
 	private OnItemRemoveClickListener itemRemoveClickListener;
 
-	public AddedTagsListAdapter(Context context, int resource, List<Tag> objects)
+	public AddedTagsListAdapter(Context context, int resource, List<CoreTag> objects)
 	{
 		super(context, resource, objects);
 		this.context = context;

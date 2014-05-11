@@ -141,15 +141,6 @@ public class Task extends CoreTask implements CoreStorable
 //					}
 //				}
 
-				// insert tags one by one
-				// TODO insert tags into a seperate database to be able to filter tasks by tags
-				if(this.tags != null)
-				{
-					for (int i = 0; i < tags.size(); i++)
-					{
-						 ((Tag) tags.get(i)).insert();
-					}
-				}
 
 				return true;
 			}

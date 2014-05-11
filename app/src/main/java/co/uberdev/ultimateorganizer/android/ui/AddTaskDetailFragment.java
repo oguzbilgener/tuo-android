@@ -45,6 +45,7 @@ import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreCourse;
 import co.uberdev.ultimateorganizer.core.CoreReminders;
+import co.uberdev.ultimateorganizer.core.CoreTag;
 import co.uberdev.ultimateorganizer.core.CoreTags;
 import co.uberdev.ultimateorganizer.core.CoreUser;
 
@@ -82,7 +83,7 @@ public class AddTaskDetailFragment extends Fragment
 	private CourseSelectSpinnerAdapter courseAdapter;
 
 	private ArrayList<Reminder> reminders;
-	private ArrayList<Tag> tags;
+	private ArrayList<CoreTag> tags;
 	private ArrayList<Task> subTasks;
 	private ArrayList<Course> courses;
 
@@ -165,7 +166,7 @@ public class AddTaskDetailFragment extends Fragment
 		lastDate = new Date();
 
 		reminders = new ArrayList<Reminder>();
-		tags = new ArrayList<Tag>();
+		tags = new ArrayList<CoreTag>();
 		subTasks = new ArrayList<Task>();
 		courses = new ArrayList<Course>();
 
@@ -806,7 +807,7 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			for( int i = 0; i < task.getTags().size(); i++)
 			{
-				this.tags.add((Tag) task.getTags().get(i));
+				this.tags.add(task.getTags().get(i));
 			}
 			this.tagsAdapter.notifyDataSetChanged();
 		}
