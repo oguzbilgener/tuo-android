@@ -47,6 +47,7 @@ public class TaskInsertTask extends AsyncTask<Void, Integer, Integer>
 	{
 		try
 		{
+			Utils.log.d(authorizedUser.getPublicKey()+" \n "+authorizedUser.getSecretToken());
 			TuoClient client = new TuoClient(authorizedUser.getPublicKey(), authorizedUser.getSecretToken());
 
 			APIResult result = client.insertTask(taskToInsert);
