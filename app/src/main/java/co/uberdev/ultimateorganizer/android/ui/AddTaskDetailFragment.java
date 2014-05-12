@@ -784,6 +784,7 @@ public class AddTaskDetailFragment extends Fragment
 		{
 			// if this is a clone task, do not update it, insert it.
 			task.setId(0);
+			task.setPersonal(true);
 		}
 		Utils.log.d("fillFromTask: "+task.asJsonString());
 
