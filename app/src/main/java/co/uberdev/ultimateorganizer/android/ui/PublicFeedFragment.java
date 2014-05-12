@@ -113,6 +113,11 @@ public class PublicFeedFragment extends Fragment implements TaskListener
 	@Override
 	public void onPostExecute(Integer result, Object data)
 	{
+		if(!isAdded())
+		{
+			// do not let the fragment do things if it is not currently attached.
+			return;
+		}
 		if(activityCommunicator != null)
 		{
 			activityCommunicator.onMessage(AcademicNetworkActivity.MESSAGE_LOADING_ENDED, null);
