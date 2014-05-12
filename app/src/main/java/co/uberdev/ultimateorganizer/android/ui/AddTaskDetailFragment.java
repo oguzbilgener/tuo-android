@@ -109,6 +109,8 @@ public class AddTaskDetailFragment extends Fragment
 	// this is the time difference between from and to fields, that should be preserved
 	private long timeDifference;
 
+	public boolean cloneTask = false;
+
 	private ActivityCommunicator activityCommunicator;
 
 	public static final int MESSAGE_REQUEST_TASK = -99;
@@ -778,6 +780,13 @@ public class AddTaskDetailFragment extends Fragment
 
 	public void fillFromTask(Task task)
 	{
+		if(cloneTask)
+		{
+			// if this is a clone task, do not update it, insert it.
+			task.setId(0);
+		}
+		Utils.log.d("fillFromTask: "+task.asJsonString());
+
 		// fill name and description
 		taskNameView.setText(task.getTaskName());
 		taskDescriptionView.setText(task.getTaskDesc());

@@ -16,7 +16,7 @@ import co.uberdev.ultimateorganizer.core.CoreUser;
 /**
  * Created by oguzbilgener on 10/05/14.
  */
-public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
+public class TaskRemoveTask extends AsyncTask<Void, Integer, Integer>
 {
 	public static int ERROR_NETWORK = 13;
 	public static int ERROR_UNKNOWN = 9;
@@ -25,19 +25,19 @@ public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
 
 	private Activity activity;
 	private CoreUser authorizedUser;
-	private Task taskToUpdate;
+	private Task taskToRemove;
 
-	public TaskUpdateTask(Activity activity, CoreUser user, Task task)
+	public TaskRemoveTask(Activity activity, CoreUser user, Task task)
 	{
 		this.activity = activity;
 		this.authorizedUser = user;
-		this.taskToUpdate = task;
+		this.taskToRemove = task;
 	}
 
 	@Override
 	protected void onPreExecute()
 	{
-		Utils.log.w("sending task to server: "+ taskToUpdate);
+		Utils.log.w("sending task to server: "+ taskToRemove);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
 		{
 			TuoClient client = new TuoClient(authorizedUser.getPublicKey(), authorizedUser.getSecretToken());
 
-			APIResult result = client.updateTask(taskToUpdate);
+			APIResult result = client.removeTask(taskToRemove);
 
 			if(result.getResponseCode() == APIResult.RESPONSE_UNAUTHORIZED)
 			{
@@ -73,8 +73,8 @@ public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
 	{
 		if(result == ERROR_NETWORK)
 		{
-			// TODO: try updating later when the device is online -- or Sync Adapter?
-			Utils.log.w("Could not update task because there is no internet connection");
+			// TODO: try inserting later when the device is online
+			Utils.log.w("Could not remove task because there is no internet connection");
 		}
 		else if(result == ERROR_UNAUTHORIZED)
 		{
@@ -82,7 +82,7 @@ public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
 		}
 		else if(result == SUCCESS)
 		{
-			Utils.log.d("updated task at server " + taskToUpdate.asJsonString());
+			Utils.log.d("removed task from the server " + taskToRemove.asJsonString());
 		}
 		else
 		{

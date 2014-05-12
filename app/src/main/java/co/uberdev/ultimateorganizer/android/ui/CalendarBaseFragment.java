@@ -3,8 +3,6 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.app.Activity;
 import android.os.Bundle;
 
-import co.uberdev.ultimateorganizer.android.util.Utils;
-
 /**
  * Created by oguzbilgener on 15/03/14.
  */
@@ -29,7 +27,6 @@ public class CalendarBaseFragment extends BaseFragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		Utils.log.d("I AM CREATED. ");
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +14,7 @@ import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Reminder;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.models.Tasks;
+import co.uberdev.ultimateorganizer.android.network.TaskInsertTask;
 import co.uberdev.ultimateorganizer.android.network.TaskUpdateTask;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
@@ -26,6 +28,8 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 	private FragmentCommunicator fragmentCommunicator;
 	private LocalStorage localStorage;
 	private Task editedTask;
+
+	private boolean cloneTask = false;
 
 	// TODO:
 	// Use this class in a different way so that it recieves an existing Task and updates it.
@@ -92,18 +96,19 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 		fragment = AddTaskDetailFragment.newInstance(this, localStorage, editedTask);
 		fragmentCommunicator = fragment;
 
+		if(getIntent().getExtras() != null && getIntent().getExtras().containsKey(getString(R.string.INTENT_FROM_PUBLIC_FEED)))
+		{
+			fragment.cloneTask = true;
+			cloneTask = true;
+		}
+
         setContentView(R.layout.activity_add_task);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.add_task_container, fragment)
                     .commit();
         }
-
-
-
     }
-
-
 
 	@Override
 	public void onDestroy()
@@ -216,15 +221,28 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 					// insert the main task
 					if (editableTask.insert())
 					{
-						Utils.log.d("inserted task");
-						// TODO: sync!
+						Utils.log.d("inserted task ["+cloneTask+"]");
 
 						// show a little success
 						Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
 						Utils.log.d("inserted. now finish");
 
+						// Send this new task to the server
+						new TaskInsertTask(this, ((UltimateApplication) getApplication()).getUser(), editableTask).execute();
+
 						// Add new task activity can just go back, but this might be different for edit task activity.
-						finish();
+						if(!cloneTask)
+						{
+							finish();
+						}
+						else
+						{
+							// We have just cloned a task.
+							// return straight to home!
+							Intent homeIntent = new Intent(this, HomeActivity.class);
+							homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+							startActivity(homeIntent);
+						}
 					}
 					else
 					{

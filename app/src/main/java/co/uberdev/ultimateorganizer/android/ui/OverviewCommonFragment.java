@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.network.TaskRemoveTask;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
+import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
  * Created by dunkuCodder 02/05/2014
@@ -24,7 +27,7 @@ import co.uberdev.ultimateorganizer.android.models.Task;
  * create an instance of this fragment.
  */
 
-public class OverviewCommonFragment extends Fragment
+public class OverviewCommonFragment extends Fragment implements OverviewTaskAdapter.OnTaskRemovedListener
 {
     protected OnFragmentInteractionListener mListener;
 
@@ -62,6 +65,8 @@ public class OverviewCommonFragment extends Fragment
 
         overviewTaskAdapter = new OverviewTaskAdapter(getActivity(), overviewTaskList);
 		overviewTaskAdapter.setLocalStorage(getHomeActivity().getLocalStorage());
+
+		overviewTaskAdapter.setOnTaskRemovedListener(this);
     }
 
     @Override
@@ -103,7 +108,18 @@ public class OverviewCommonFragment extends Fragment
         mListener = null;
     }
 
-    /**
+	@Override
+	public void onTaskRemoved(int position, Task task)
+	{
+		// remove task from the server as well, if the user is signed in
+		CoreUser user = ((UltimateApplication) getActivity().getApplication()).getUser();
+		if(user != null)
+		{
+			new TaskRemoveTask(getActivity(), user, task);
+		}
+	}
+
+	/**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that

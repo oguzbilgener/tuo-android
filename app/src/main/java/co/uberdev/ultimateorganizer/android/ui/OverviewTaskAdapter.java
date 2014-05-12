@@ -38,6 +38,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     private Context context;
 	private LocalStorage localStorage;
 
+	private OnTaskRemovedListener onTaskRemovedListener;
+
     public OverviewTaskAdapter(Context context, ArrayList<Task> overviewTaskList)
     {
         super(context, R.layout.item_task_active, overviewTaskList);
@@ -393,6 +395,11 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 
 			// display an informative toast
 			Toast.makeText(context, context.getString(R.string.task_removed), Toast.LENGTH_SHORT).show();
+
+			if(onTaskRemovedListener != null)
+			{
+				onTaskRemovedListener.onTaskRemoved(position, toBeRemoved);
+			}
 		}
 		else
 		{
@@ -403,6 +410,16 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 	public void setLocalStorage(LocalStorage storage)
 	{
 		localStorage = storage;
+	}
+
+	public interface OnTaskRemovedListener
+	{
+		public void onTaskRemoved(int position, Task task);
+	}
+
+	public void setOnTaskRemovedListener(OnTaskRemovedListener listener)
+	{
+		onTaskRemovedListener = listener;
 	}
 
 }

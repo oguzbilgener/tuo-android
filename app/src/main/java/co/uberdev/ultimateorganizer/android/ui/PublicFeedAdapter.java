@@ -182,6 +182,7 @@ public class PublicFeedAdapter extends ArrayAdapter<Task> implements View.OnClic
 
 				Intent cloneIntent = new Intent(getContext(), EditTaskActivity.class);
 				cloneIntent.putExtra(getContext().getString(R.string.INTENT_DETAILS_TASK_JSON_OBJECT), task.asJsonString());
+				cloneIntent.putExtra(getContext().getString(R.string.INTENT_FROM_PUBLIC_FEED), true);
 				getContext().startActivity(cloneIntent);
 			}
 			catch(Exception e)
