@@ -6,11 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -101,7 +98,7 @@ public class TaskDetailFragment extends Fragment
         else
         {
             Date beginDate = new Date((long)shownTask.getBeginDate()*1000);
-            Date endDate = new Date((long)shownTask.getBeginDate()*1000);
+            Date endDate = new Date((long)shownTask.getEndDate()*1000);
             Calendar beginCalendar = Calendar.getInstance();
             beginCalendar.setTime(beginDate);
             Calendar endCalendar = Calendar.getInstance();
