@@ -54,7 +54,7 @@ public class Tasks extends CoreTasks implements CoreSelectable
 		{
 			if(db != null)
 			{
-				String sqlString = "SELECT * FROM "+CoreDataRules.tables.tasks;
+				String sqlString = "SELECT * FROM "+getTableName();
 				if(params.length > 0)
 					sqlString +=  " WHERE "+sqlCriteria;
 
@@ -137,7 +137,6 @@ public class Tasks extends CoreTasks implements CoreSelectable
 		{
 			e.printStackTrace();
 		}
-		// TODO: parse tags as Tag objects
 
 		return false;
 	}

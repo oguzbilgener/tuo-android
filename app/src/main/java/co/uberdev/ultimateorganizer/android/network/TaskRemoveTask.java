@@ -37,7 +37,7 @@ public class TaskRemoveTask extends AsyncTask<Void, Integer, Integer>
 	@Override
 	protected void onPreExecute()
 	{
-		Utils.log.w("sending task to server: "+ taskToRemove);
+		Utils.log.w("making a delete request task to server: "+ taskToRemove);
 	}
 
 	@Override

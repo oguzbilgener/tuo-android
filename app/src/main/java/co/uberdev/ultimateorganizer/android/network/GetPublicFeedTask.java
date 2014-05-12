@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
+import co.uberdev.ultimateorganizer.android.models.CloneHistoryItems;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.client.APIResult;
 import co.uberdev.ultimateorganizer.client.TuoClient;
@@ -25,11 +26,13 @@ public class GetPublicFeedTask extends AsyncTask<Void, Integer, Integer>
 	private CoreUser authorizedUser;
 	private TaskListener taskListener;
 	private CoreTask[] publicTasks;
+	private CloneHistoryItems historyItems;
 
-	public GetPublicFeedTask(Activity activity, CoreUser user, TaskListener listener)
+	public GetPublicFeedTask(Activity activity, CoreUser user, CloneHistoryItems items, TaskListener listener)
 	{
 		this.activity = activity;
 		this.authorizedUser = user;
+		this.historyItems = items;
 		this.taskListener = listener;
 	}
 
@@ -68,8 +71,13 @@ public class GetPublicFeedTask extends AsyncTask<Void, Integer, Integer>
 				{
 					Utils.log.i(t.asJsonString());
 				}
+
+				// load all the history items in the background! not the best solution though.
+				historyItems.loadFromDb("", new String[]{}, 0);
+
 				return SUCCESS;
 			}
+
 			return ERROR_UNKNOWN;
 		}
 		catch (IOException e)

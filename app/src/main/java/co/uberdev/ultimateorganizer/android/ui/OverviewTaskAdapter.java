@@ -23,6 +23,7 @@ import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.models.CloneHistoryItem;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.BareListView;
 import co.uberdev.ultimateorganizer.android.util.Utils;
@@ -393,6 +394,11 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 			overviewTaskList.remove(position);
 			notifyDataSetChanged();
 
+			// delete potential history item
+			CloneHistoryItem historyItem = new CloneHistoryItem(localStorage.getDb());
+			historyItem.setCloneLocalId(toBeRemoved.getLocalId());
+			historyItem.remove();
+
 			// display an informative toast
 			Toast.makeText(context, context.getString(R.string.task_removed), Toast.LENGTH_SHORT).show();
 
@@ -400,6 +406,8 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 			{
 				onTaskRemovedListener.onTaskRemoved(position, toBeRemoved);
 			}
+			else
+				Utils.log.d("ontaskremovedlistener null");
 		}
 		else
 		{

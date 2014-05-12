@@ -130,12 +130,6 @@
 
     <!-- strings for public feed item -->
 
-    <string name="item_public_feed_course_name">TURK102-13</string>
-    <string name="item_public_feed_task_name">Third Homework</string>
-    <string name="item_public_feed_task_description">Letter to Papa</string>
-    <string name="item_public_feed_task_owner">by Ani Kristo</string>
-    <string name="item_public_feed_task_due_date">Tue, 15 May\n10.30 - 12.30</string>
-
     <!-- reminder type displays -->
     <string-array name="reminder_types_keys">
         <item>Silent</item>
