@@ -21,20 +21,26 @@ import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
  *  created by dunkuCoder 07/07/2014
+ *  AddCourseFragment is nested in both AddCourseActivity and EditCourseActivity
+ *  AddCourseFragment is used to create a course and edit its information
  */
 
 public class AddCourseFragment extends Fragment implements FragmentCommunicator
 {
+    // The course that the user will work on
     public Course editableCourse;
 
+    // An instance of the user, user's id will be added to the course
 	private CoreUser user;
 
+    // Text fields to retrieve strings for the course
     private EditText departmentCode;
     private EditText courseNumber;
     private EditText sectionNumber;
     private EditText courseName;
     private EditText instructorName;
 
+    // ActivityCommunicator provides data communication with AddCourseActivity
     private ActivityCommunicator activityCommunicator;
 
     public static final int MESSAGE_REQUEST_COURSE = -99;
@@ -57,10 +63,15 @@ public class AddCourseFragment extends Fragment implements FragmentCommunicator
 
     public static AddCourseFragment newInstance(Context context, Course editableCourse)
     {
+        // If editableCourse is null it means a new instance of Course is created
+        // So a new instance of AddCourseFragment is created in that case
+        // Otherwise editableCourse is already created but it's information will be edited
         if(context == null || editableCourse == null)
             return newInstance();
 
         AddCourseFragment fragment = new AddCourseFragment();
+        // Since a new instance of AddCourseFragment is not returned so far, the parameter
+        // editCourse is set as the fragment's course.
         fragment.editableCourse = editableCourse;
         // Store task json string in arguments just in case a fragment is resurrected from background
         String courseJsonStr = editableCourse.asJsonString();
@@ -94,6 +105,7 @@ public class AddCourseFragment extends Fragment implements FragmentCommunicator
 
         if(editableCourse != null)
         {
+            // Data from editableCourse is used to fill current course.
             try {
                 fillFromCourse(editableCourse);
             } catch (Exception e) {
@@ -131,10 +143,13 @@ public class AddCourseFragment extends Fragment implements FragmentCommunicator
         // Then it will not be an edit action of course.
         Bundle args = getArguments();
         Course course;
+
+        // if the course was not previously built a new instance of Course is created
         if(editableCourse == null && !args.containsKey(getString(R.string.ARGS_COURSE_JSON_OBJECT)))
         {
             course = new Course();
         }
+        // otherwise the information is retrieved from editableCourse
         else if(editableCourse != null)
         {
             course = editableCourse;
@@ -164,6 +179,7 @@ public class AddCourseFragment extends Fragment implements FragmentCommunicator
 
 		if(user != null)
 		{
+            // User's id is added to the course
 			course.setOwnerId(user.getId());
 		}
 

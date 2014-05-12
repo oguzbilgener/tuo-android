@@ -18,12 +18,16 @@ import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
- *  created by dunkuCoder 07/07/2014
+ *  Date: 07/05/2014
+ *  AddCourseActivity contains an instance of AddCourseFragment which enables the user to add
+ *  a course providing the necessary information regarding the course.
  */
 
 public class AddCourseActivity extends FragmentActivity implements ActivityCommunicator
 {
+    // LocalStorage is used to provide the database
     private LocalStorage localStorage;
+    // FragmentCommunicator interface is used to execute AddCourseFragment's method
     private FragmentCommunicator fragmentCommunicator;
 
     public static final int MESSAGE_SWITCH_TO_DETAILS = -98;
@@ -34,13 +38,16 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
     {
         super.onCreate(savedInstanceState);
 
+        // The action bar is set to the color previously defined for this activity.
         getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.add_course_academic_year_color)));
 
         localStorage = new LocalStorage(this);
 
+        // An instance of AddCourseFragment is created and fragmentCommunicator is set to it.
         AddCourseFragment fragment = AddCourseFragment.newInstance();
         fragmentCommunicator = fragment;
 
+        // AddCourseActivity is set its layout.
         setContentView(R.layout.activity_add_course);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -53,6 +60,7 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
     @Override
     public void onDestroy()
     {
+        // It is important to close the LocalStorage when the activity is terminated.
         try
         {
             localStorage.close();
@@ -67,6 +75,8 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
     @Override
     public void onResume()
     {
+        // If the activity was paused and then resumed and if an instance of LocalStorage was created
+        // then that LocalStorage is restored.
         super.onResume();
         if(localStorage != null)
         {
@@ -76,7 +86,6 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.add_course, menu);
         return true;
@@ -94,8 +103,9 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
             return true;
         }
 
+        // The id belongs to the plus button on the action bar.
         if (id == R.id.action_add_course) {
-            // literally add the course, show a toast and return back to HomeActivity
+            // Literally add the course, show a toast and return back to HomeActivity
             fragmentCommunicator.onMessage(AddCourseFragment.MESSAGE_REQUEST_COURSE, null);
             return true;
         }
@@ -122,13 +132,15 @@ public class AddCourseActivity extends FragmentActivity implements ActivityCommu
                 try
                 {
                     Course enteredCourse = (Course) obj;
+
+                    // The course is added to the database if it is not empty
                     if(!enteredCourse.isEmpty())
                     {
                         enteredCourse.setDb(localStorage.getDb());
 
-                        // do all the neccesary insertions.
+                        // Do all the neccesary insertions.
 
-                        // insert the main course
+                        // Insert the main course
                         if (enteredCourse.insert())
                         {
 							// Send this new course to the server

@@ -25,8 +25,8 @@
     <string name="INTENT_DETAILS_COURSE_JSON_OBJECT">intent_details_course_json_object</string>
     <string name="INTENT_DETAILS_COURSE_LOCAL_ID">intent_details_course_id</string>
 
-    <string name="PREF_SEMESTER_CODE">20141</string>
-    <string name="PREF_SEMSTER_DESC">2014-2015 FALL</string>
+    <string name="PREF_SEMESTER_CODE">20132</string>
+    <string name="PREF_SEMSTER_DESC">2013-2014 SPRING</string>
 
 	<string name="INTENT_RESULT_SUB_TASK_OBJECT">intent_result_sub_task_object</string>
 
