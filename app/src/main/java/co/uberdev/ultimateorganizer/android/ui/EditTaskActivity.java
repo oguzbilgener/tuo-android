@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.models.CloneHistoryItem;
 import co.uberdev.ultimateorganizer.android.models.Reminder;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.models.Tasks;
@@ -29,7 +30,9 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 	private LocalStorage localStorage;
 	private Task editedTask;
 
+	// properties used when cloning tasks
 	private boolean cloneTask = false;
+	private long originalTaskId = 0;
 
 	// TODO:
 	// Use this class in a different way so that it recieves an existing Task and updates it.
@@ -93,6 +96,8 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 
 				Toast.makeText(this, getString(R.string.edit_task_no_task), Toast.LENGTH_SHORT).show();
 		}
+		// store the id of the edited task anyways, even if this is not a cloning action
+		originalTaskId = editedTask.getId();
 		fragment = AddTaskDetailFragment.newInstance(this, localStorage, editedTask);
 		fragmentCommunicator = fragment;
 
@@ -237,6 +242,14 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 						}
 						else
 						{
+							// Store cloning history
+							CloneHistoryItem historyItem = new CloneHistoryItem(localStorage.getDb());
+							historyItem.setOriginalId(originalTaskId);
+							historyItem.setCloneLocalId(editableTask.getLocalId());
+							historyItem.insert();
+
+							Utils.log.d("history item: "+historyItem.asJsonString());
+
 							// We have just cloned a task.
 							// return straight to home!
 							Intent homeIntent = new Intent(this, HomeActivity.class);

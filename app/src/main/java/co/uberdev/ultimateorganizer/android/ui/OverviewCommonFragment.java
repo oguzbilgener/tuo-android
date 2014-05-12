@@ -15,6 +15,7 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.network.TaskRemoveTask;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
@@ -111,11 +112,12 @@ public class OverviewCommonFragment extends Fragment implements OverviewTaskAdap
 	@Override
 	public void onTaskRemoved(int position, Task task)
 	{
+		Utils.log.d("onTaskRemoved");
 		// remove task from the server as well, if the user is signed in
 		CoreUser user = ((UltimateApplication) getActivity().getApplication()).getUser();
 		if(user != null)
 		{
-			new TaskRemoveTask(getActivity(), user, task);
+			new TaskRemoveTask(getActivity(), user, task).execute();
 		}
 	}
 

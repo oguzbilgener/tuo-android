@@ -129,18 +129,6 @@ public class Task extends CoreTask implements CoreStorable
 
 				setLocalId(localId);
 
-//				// now insert should be complete
-//				// time to insert reminders one by one
-//				if(this.reminders != null)
-//				{
-//					for (int i = 0; i < reminders.size(); i++)
-//					{
-//						Reminder reminder = (Reminder) reminders.get(i);
-//						reminder.setDb(getDb());
-//						reminder.insert();
-//					}
-//				}
-
 
 				return true;
 			}

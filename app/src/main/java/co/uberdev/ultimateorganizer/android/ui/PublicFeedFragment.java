@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.models.CloneHistoryItems;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.network.GetPublicFeedTask;
 import co.uberdev.ultimateorganizer.android.network.TaskListener;
@@ -32,6 +33,8 @@ public class PublicFeedFragment extends Fragment implements TaskListener
     private PublicFeedAdapter publicFeedAdapter;
 
 	private ActivityCommunicator activityCommunicator;
+
+	private CloneHistoryItems historyItems;
 
     /**
      * Use this factory method to create a new instance of
@@ -53,11 +56,15 @@ public class PublicFeedFragment extends Fragment implements TaskListener
     {
         super.onCreate(savedInstanceState);
 
+		localStorage = new LocalStorage(getActivity());
+
         publicFeedTasksList = new ArrayList<Task>();
 
 		user = ((UltimateApplication) getActivity().getApplication()).getUser();
 
         publicFeedAdapter = new PublicFeedAdapter(getActivity(), publicFeedTasksList);
+
+		historyItems = new CloneHistoryItems(localStorage.getDb());
     }
 
     @Override
@@ -69,7 +76,7 @@ public class PublicFeedFragment extends Fragment implements TaskListener
 
         publicFeedListView.setAdapter(publicFeedAdapter);
 
-		new GetPublicFeedTask(getActivity(), user, this).execute();
+		new GetPublicFeedTask(getActivity(), user, historyItems, this).execute();
 
         return rootView;
     }
@@ -115,13 +122,24 @@ public class PublicFeedFragment extends Fragment implements TaskListener
 		{
 			try
 			{
+				ArrayList<Long> originalIds = new ArrayList<Long>();
+				for(int i=0; i<historyItems.size(); i++)
+				{
+					originalIds.add(historyItems.get(i).getOriginalId());
+				}
+
 				publicFeedTasksList.clear();
 
 				CoreTask[] publicTasks = (CoreTask[]) data;
 				for(int i=0; i<publicTasks.length; i++)
 				{
-					publicFeedTasksList.add((Task)publicTasks[i]);
+					// do not insert tasks that exist in the cloning history into the displayed public feed
+					if(!originalIds.contains(publicTasks[i].getId()))
+						publicFeedTasksList.add((Task)publicTasks[i]);
+					else
+						Utils.log.d("task "+publicTasks[i].getTaskName()+" already exists in history");
 				}
+
 
 				publicFeedAdapter.notifyDataSetChanged();
 			}

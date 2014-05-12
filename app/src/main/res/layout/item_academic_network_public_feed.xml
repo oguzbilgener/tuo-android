@@ -22,7 +22,6 @@
             android:id="@+id/item_public_feed_course_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/item_public_feed_course_name"
             android:textColor="@color/item_public_feed_course_name_color"
             android:textSize="@dimen/item_public_feed_course_name_text_size"/>
 
@@ -34,7 +33,6 @@
             android:layout_below="@id/item_public_feed_course_code"
             android:layout_alignLeft="@id/item_public_feed_course_code"
             android:layout_marginTop="@dimen/item_public_feed_task_name_margin_top"
-            android:text="@string/item_public_feed_task_name"
             android:textSize="@dimen/item_public_feed_task_name_text_size"/>
 
         <!-- Info about the task -->
@@ -42,7 +40,6 @@
             android:id="@+id/item_public_feed_task_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/item_public_feed_task_description"
             android:layout_below="@id/item_public_feed_task_name"
             android:layout_alignLeft="@id/item_public_feed_task_name"
             android:layout_marginTop="@dimen/item_public_feed_task_description_margin_top"
@@ -55,7 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_public_feed_task_owner_margin_top"
-            android:text="@string/item_public_feed_task_owner"
             android:layout_alignLeft="@id/item_public_feed_task_description"
             android:layout_below="@id/item_public_feed_task_description"
             android:textColor="@color/item_public_feed_task_description_color"/>
@@ -75,8 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/item_public_feed_course_code"
-            android:text="@string/item_public_feed_task_due_date"/>
+            android:layout_alignTop="@id/item_public_feed_course_code"/>
 
         <!-- This icon will add the task to the user local tasks -->
         <ImageButton
