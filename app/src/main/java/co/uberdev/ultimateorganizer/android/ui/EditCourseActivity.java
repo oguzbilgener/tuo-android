@@ -19,11 +19,14 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
 /**
-*  created by dunkuCoder 07/07/2014
-*/
+ *  created by dunkuCoder 07/07/2014
+ *  EditCourseActivity is used to edit the information of a course
+ *  with the use of AddCourseFragment
+ */
 
 public class EditCourseActivity extends FragmentActivity implements ActivityCommunicator
 {
+    // FragmentCommunicator is used to provide communication between this and AddCourseFragment
     private FragmentCommunicator fragmentCommunicator;
     private LocalStorage localStorage;
     private Course editedCourse;
@@ -36,8 +39,10 @@ public class EditCourseActivity extends FragmentActivity implements ActivityComm
     {
         super.onCreate(savedInstanceState);
 
+        // Action bar's color is set to the pre-defined color for Course activities.
         getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.add_course_academic_year_color)));
 
+        // LocalStorage is used to retrieve the database
         localStorage = new LocalStorage(this);
 
         AddCourseFragment fragment;
