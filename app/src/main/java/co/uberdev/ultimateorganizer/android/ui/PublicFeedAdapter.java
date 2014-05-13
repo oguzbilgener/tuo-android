@@ -21,7 +21,8 @@ import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
- * Created by mozart on 23/04/14.
+ * Created by dunkuCoder on 23/04/14.
+ * PublicFeedAdapter is used to adapt the ListView and list task items on public feed
  */
 public class PublicFeedAdapter extends ArrayAdapter<Task> implements View.OnClickListener
 {
