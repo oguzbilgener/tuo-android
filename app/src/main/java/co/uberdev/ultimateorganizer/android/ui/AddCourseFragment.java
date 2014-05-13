@@ -20,7 +20,7 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
- *  created by dunkuCoder 07/07/2014
+ *  created by dunkuCoder 07/05/2014
  *  AddCourseFragment is nested in both AddCourseActivity and EditCourseActivity
  *  AddCourseFragment is used to create a course and edit its information
  */

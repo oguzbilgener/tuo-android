@@ -19,12 +19,16 @@ import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
  *  created by dunkuCoder 09/05/2014
+ *  RegisterActivity contains an instance of RegisterFragment and the registration
+ *  process is completed in this activity.
  */
 
 public class RegisterActivity extends Activity implements ActivityCommunicator
 {
     public static final int MESSAGE_REGISTER_CLICK = -99;
+    // Boolean registering is to determine if the user is registering at the time
     private boolean registering;
+    // RegisterTask extends AsyncTask and is used to execute necessary info about the user
 	private RegisterTask registerTask;
 
     @Override
@@ -51,6 +55,7 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
 	protected void onDestroy()
 	{
 		super.onDestroy();
+        // If the activity is closed the current RegisterTask will not be used and it's parameters will be nullified
 		if(registerTask != null)
 		{
 			registerTask.cancel(true);
@@ -76,10 +81,15 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        // If id is action_settings is then settings will open
+        if (id == R.id.action_settings)
+        {
             return true;
         }
-        else if(id == android.R.id.home) {
+        else if(id == android.R.id.home)
+        // If pressed button is of id R.id.home, back button will work to return the current screen to
+        // the previous activity but current task will be cleared
+        {
             Intent homeIntent = new Intent(this, HomeActivity.class);
             homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(homeIntent);
@@ -95,6 +105,7 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
             if(!registering && obj != null)
             {
                 Bundle credentials = (Bundle) obj;
+                // All necessary information for the user to register is retrieved from the bundle.
                 String email = credentials.getString(getString(R.string.REGISTER_EMAIL));
                 String password = credentials.getString(getString(R.string.REGISTER_PASSWORD));
                 String firstName = credentials.getString(getString(R.string.REGISTER_FIRST_NAME));
@@ -102,11 +113,13 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
                 String schoolName = credentials.getString(getString(R.string.REGISTER_SCHOOL_NAME));
                 String departmentName = credentials.getString(getString(R.string.REGISTER_DEPARTMENT_NAME));
                 registerTask = new RegisterTask(this);
+                // RegisterTask executes the necessary information to create a user account
 				registerTask.execute(email, password, firstName, lastName, schoolName, departmentName);
             }
         }
     }
 
+    // finishLogin method works to log the newly registered user in the system after the process is complete
     public void finishLogin(CoreUser user)
     {
         UltimateApplication app = (UltimateApplication) getApplication();
