@@ -102,6 +102,9 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
             view = inflater.inflate( layoutId, null);
             final ViewHolder viewHolder = new ViewHolder();
 
+            // getItemViewType method is used to determine which type of task the current task is
+            // Task's property (int) status is used to determine it, 3 different processes are
+            // carried out according to their statuses
             if(getItemViewType(position) == 1)
             {
                 viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title);
@@ -109,6 +112,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
                 viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox);
             }
+            // This one is an overdue task so it has an extra property added to the viewholder, the alert icon...
             else if(getItemViewType(position) == 2)
             {
                 viewHolder.taskTitle = (TextView) view.findViewById(R.id.task_item_task_title);
@@ -124,17 +128,23 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
                 viewHolder.taskDate = (TextView) view.findViewById(R.id.task_item_date);
                 viewHolder.checkbox = (CheckBox) view.findViewById(R.id.task_item_checkbox);
             }
+
 			viewHolder.taskItemLayout = (RelativeLayout) view.findViewById(R.id.task_item_layout);
 			viewHolder.menuButton = (ImageButton) view.findViewById(R.id.task_item_expand_icon);
 
+            // Each item is tagged
 			view.setTag(R.id.overview_task_item_object,viewHolder);
 
+            // OnClickListener set for checkboxes
 			if(viewHolder.checkbox != null)
-            	viewHolder.checkbox.setOnClickListener(this);
+            {
+                viewHolder.checkbox.setOnClickListener(this);
+            }
 
 			viewHolder.taskItemLayout.setOnClickListener(this);
 			viewHolder.menuButton.setOnClickListener(this);
 
+            // Tag bar below the task item is represented as an instance of BareListView
 			viewHolder.tagsList = (BareListView) view.findViewById(R.id.task_item_tag_bar);
 			viewHolder.tagsList.setHeaderVisible(false);
 			viewHolder.tagsList.setFooterVisible(false);
@@ -245,6 +255,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
     @Override
     public void onClick(final View view)
     {
+        // If the task item is clicked upon the details for that task are shown in a new activity
 		if(view.getId() == R.id.task_item_layout)
 		{
 			try
@@ -261,6 +272,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 				e.printStackTrace();
 			}
 		}
+        // Expand icon is clicked, user will see some options about the task
 		else if(view.getId() == R.id.task_item_expand_icon)
 		{
 			PopupMenu menu = new PopupMenu(getContext(), view);
@@ -275,11 +287,12 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 				{
 					switch(item.getItemId())
 					{
+                        // The task will be edited
 						case R.id.menu_task_edit:
 							// user pressed edit menu item
 							openTaskForEdit(getPositionByTaskItem(view));
 							return true;
-
+                        // The task will be deleted
 						case R.id.menu_task_delete:
 							// user pressed delete menu item
 							removeTask(getPositionByTaskItem(view));
