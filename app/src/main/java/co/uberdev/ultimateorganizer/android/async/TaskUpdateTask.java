@@ -1,12 +1,9 @@
-package co.uberdev.ultimateorganizer.android.network;
+package co.uberdev.ultimateorganizer.android.async;
 
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.io.IOException;
 
-import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.client.APIResult;
@@ -23,13 +20,11 @@ public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
 	public static int ERROR_UNAUTHORIZED = 10;
 	public static int SUCCESS = 0;
 
-	private Activity activity;
 	private CoreUser authorizedUser;
 	private Task taskToUpdate;
 
-	public TaskUpdateTask(Activity activity, CoreUser user, Task task)
+	public TaskUpdateTask(CoreUser user, Task task)
 	{
-		this.activity = activity;
 		this.authorizedUser = user;
 		this.taskToUpdate = task;
 	}
@@ -78,7 +73,7 @@ public class TaskUpdateTask extends AsyncTask<Void, Integer, Integer>
 		}
 		else if(result == ERROR_UNAUTHORIZED)
 		{
-			Toast.makeText(activity, activity.getString(R.string.invalid_login), Toast.LENGTH_SHORT).show();
+			Utils.log.w("Invalid login");
 		}
 		else if(result == SUCCESS)
 		{

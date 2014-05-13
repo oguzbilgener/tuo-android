@@ -3,6 +3,7 @@ package co.uberdev.ultimateorganizer.android.auth;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +11,7 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.network.LoginTask;
+import co.uberdev.ultimateorganizer.android.async.LoginTask;
 import co.uberdev.ultimateorganizer.android.ui.HomeActivity;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
@@ -20,6 +21,7 @@ public class LoginActivity extends Activity implements ActivityCommunicator
 {
 	public static final int MESSAGE_LOGIN_CLICK = -99;
 	private boolean loggingIn;
+	private LoginTask loginTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,22 @@ public class LoginActivity extends Activity implements ActivityCommunicator
                     .commit();
         }
     }
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		if(loginTask != null)
+		{
+			loginTask.cancel(true);
+		}
+	}
+
+	@Override
+	public void onConfigurationChanged (Configuration newConfig)
+	{
+		super.onConfigurationChanged(newConfig);
+	}
 
 
     @Override
@@ -76,7 +94,8 @@ public class LoginActivity extends Activity implements ActivityCommunicator
 				Bundle credentials = (Bundle) obj;
 				String email = credentials.getString(getString(R.string.LOGIN_EMAIL));
 				String password = credentials.getString(getString(R.string.LOGIN_PASSWORD));
-				new LoginTask(this).execute(email, password);
+				loginTask = new LoginTask(this);
+				loginTask.execute(email, password);
 			}
 		}
 	}

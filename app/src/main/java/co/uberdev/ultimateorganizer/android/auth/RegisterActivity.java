@@ -3,6 +3,7 @@ package co.uberdev.ultimateorganizer.android.auth;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +11,7 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.network.RegisterTask;
+import co.uberdev.ultimateorganizer.android.async.RegisterTask;
 import co.uberdev.ultimateorganizer.android.ui.HomeActivity;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
@@ -24,6 +25,7 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
 {
     public static final int MESSAGE_REGISTER_CLICK = -99;
     private boolean registering;
+	private RegisterTask registerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,21 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
         }
     }
 
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		if(registerTask != null)
+		{
+			registerTask.cancel(true);
+		}
+	}
+
+	@Override
+	public void onConfigurationChanged (Configuration newConfig)
+	{
+		super.onConfigurationChanged(newConfig);
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,7 +101,8 @@ public class RegisterActivity extends Activity implements ActivityCommunicator
                 String lastName = credentials.getString(getString(R.string.REGISTER_LAST_NAME));
                 String schoolName = credentials.getString(getString(R.string.REGISTER_SCHOOL_NAME));
                 String departmentName = credentials.getString(getString(R.string.REGISTER_DEPARTMENT_NAME));
-                new RegisterTask(this).execute(email, password, firstName, lastName, schoolName, departmentName);
+                registerTask = new RegisterTask(this);
+				registerTask.execute(email, password, firstName, lastName, schoolName, departmentName);
             }
         }
     }

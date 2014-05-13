@@ -1,4 +1,4 @@
-package co.uberdev.ultimateorganizer.android.network;
+package co.uberdev.ultimateorganizer.android.async;
 
 /**
  * Created by oguzbilgener on 10/05/14.

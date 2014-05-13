@@ -1,6 +1,5 @@
-package co.uberdev.ultimateorganizer.android.network;
+package co.uberdev.ultimateorganizer.android.async;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 
 import java.io.IOException;
@@ -22,15 +21,13 @@ public class GetPublicFeedTask extends AsyncTask<Void, Integer, Integer>
 	public static int ERROR_UNAUTHORIZED = 10;
 	public static int SUCCESS = 0;
 
-	private Activity activity;
 	private CoreUser authorizedUser;
 	private TaskListener taskListener;
 	private CoreTask[] publicTasks;
 	private CloneHistoryItems historyItems;
 
-	public GetPublicFeedTask(Activity activity, CoreUser user, CloneHistoryItems items, TaskListener listener)
+	public GetPublicFeedTask(CoreUser user, CloneHistoryItems items, TaskListener listener)
 	{
-		this.activity = activity;
 		this.authorizedUser = user;
 		this.historyItems = items;
 		this.taskListener = listener;

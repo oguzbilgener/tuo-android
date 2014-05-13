@@ -82,7 +82,8 @@
             android:label="@string/title_activity_login"
             android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity"
 			android:theme="@style/UltimateTheme.Auth"
-			android:icon="@null">
+			android:icon="@null"
+			android:configChanges="screenSize|keyboardHidden|orientation">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="co.uberdev.ultimateorganizer.android.ui.HomeActivity" />
@@ -93,7 +94,8 @@
             android:label="@string/title_activity_login"
             android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity"
             android:theme="@style/UltimateTheme.Auth"
-            android:icon="@null">
+            android:icon="@null"
+			android:configChanges="screenSize|keyboardHidden|orientation">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="co.uberdev.ultimateorganizer.android.ui.HomeActivity" />

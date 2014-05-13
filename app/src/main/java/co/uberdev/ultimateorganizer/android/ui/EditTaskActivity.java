@@ -15,8 +15,8 @@ import co.uberdev.ultimateorganizer.android.models.CloneHistoryItem;
 import co.uberdev.ultimateorganizer.android.models.Reminder;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.models.Tasks;
-import co.uberdev.ultimateorganizer.android.network.TaskInsertTask;
-import co.uberdev.ultimateorganizer.android.network.TaskUpdateTask;
+import co.uberdev.ultimateorganizer.android.async.TaskInsertTask;
+import co.uberdev.ultimateorganizer.android.async.TaskUpdateTask;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.ReminderManager;
@@ -207,7 +207,7 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 						// only sync if we have a server id
 						if(editableTask.getId() != 0)
 						{
-							new TaskUpdateTask(this, ((UltimateApplication) getApplication()).getUser(), editableTask).execute();
+							new TaskUpdateTask(((UltimateApplication) getApplication()).getUser(), editableTask).execute();
 						}
 
 						Toast.makeText(this, getString(R.string.edit_task_success), Toast.LENGTH_SHORT).show();
