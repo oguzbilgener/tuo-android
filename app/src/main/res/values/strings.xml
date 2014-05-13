@@ -217,4 +217,6 @@
 
 	<string name="oops">Oops</string>
 
+	<string name="no_such_note">No such note exists.</string>
+
 </resources>

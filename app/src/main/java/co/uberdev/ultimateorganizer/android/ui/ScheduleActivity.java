@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -19,10 +18,16 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.async.GetCoursesTask;
+import co.uberdev.ultimateorganizer.android.async.TaskListener;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
+import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
-public class ScheduleActivity extends Activity implements CoursesListFragment.OnFragmentInteractionListener {
+public class ScheduleActivity extends Activity implements ActivityCommunicator, TaskListener
+{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -40,6 +45,9 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
     ViewPager mViewPager;
 
     private LocalStorage localStorage;
+	private GetCoursesTask getCoursesTask;
+
+	private FragmentCommunicator fragmentCommunicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +68,10 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         localStorage = new LocalStorage(this);
+
+		getCoursesTask = new GetCoursesTask(localStorage, ((UltimateApplication)getApplication()).getUser(), this);
+		getCoursesTask.execute();
+
     }
 
 
@@ -97,9 +109,42 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
         return super.onOptionsItemSelected(item);
     }
 
-    
+	@Override
+	public void onDestroy()
+	{
+		if(getCoursesTask != null)
+		{
+			getCoursesTask.cancel(true);
+		}
+		super.onDestroy();
+	}
 
-    /**
+	@Override
+	public void onMessage(int msgType, Object obj)
+	{
+
+	}
+
+	@Override
+	public void onPreExecute() {
+
+	}
+
+	@Override
+	public void onPostExecute(Integer result, Object data)
+	{
+		if(result == 0)
+		{
+			if(fragmentCommunicator != null)
+			{
+				Utils.log.d("refresh");
+				fragmentCommunicator.onMessage(CoursesListFragment.MESSAGE_REFRESH_COURSES, null);
+			}
+		}
+	}
+
+
+	/**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -118,7 +163,9 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
             Utils.log.d("getItem "+position);
             if(position == 0)
             {
-                return CoursesListFragment.newInstance();
+				CoursesListFragment fragment = CoursesListFragment.newInstance();
+				fragmentCommunicator = fragment;
+                return fragment;
             }
 
             return PlaceholderFragment.newInstance(position + 1);
@@ -180,13 +227,6 @@ public class ScheduleActivity extends Activity implements CoursesListFragment.On
             tv.setText("lol");
             return tv;
         }
-    }
-
-
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     public LocalStorage getLocalStorage()

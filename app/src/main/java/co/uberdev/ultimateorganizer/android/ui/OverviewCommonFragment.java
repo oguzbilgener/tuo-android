@@ -1,7 +1,6 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,25 +11,18 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.async.TaskRemoveTask;
+import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
+import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreUser;
 
-/**
- * Created by dunkuCodder 02/05/2014
- * A simple {@link android.app.Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OverviewCommonFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link OverviewCommonFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-
-public class OverviewCommonFragment extends Fragment implements OverviewTaskAdapter.OnTaskRemovedListener
+public class OverviewCommonFragment extends Fragment implements OverviewTaskAdapter.OnTaskRemovedListener,
+		FragmentCommunicator
 {
-    protected OnFragmentInteractionListener mListener;
+    protected ActivityCommunicator activityCommunicator;
 
     protected ListView overviewTaskListview;
     protected ArrayList<Task> overviewTaskList;
@@ -82,31 +74,20 @@ public class OverviewCommonFragment extends Fragment implements OverviewTaskAdap
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri)
-    {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Activity activity)
     {
         super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+		activityCommunicator = (ActivityCommunicator) activity;
+
     }
 
     @Override
     public void onDetach()
     {
         super.onDetach();
-        mListener = null;
+        activityCommunicator = null;
     }
 
 	@Override
@@ -121,24 +102,13 @@ public class OverviewCommonFragment extends Fragment implements OverviewTaskAdap
 		}
 	}
 
-	/**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener
-    {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }
-
 	public HomeActivity getHomeActivity()
 	{
 		return (HomeActivity) getActivity();
+	}
+
+	@Override
+	public void onMessage(int msgType, Object obj)
+	{
 	}
 }

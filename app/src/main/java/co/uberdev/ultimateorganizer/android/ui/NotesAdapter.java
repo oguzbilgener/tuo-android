@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ import co.uberdev.ultimateorganizer.android.models.Note;
 /**
  * Created by begum on 05/05/14.
  */
-public class NotesAdapter extends ArrayAdapter<Note> {
+public class NotesAdapter extends ArrayAdapter<Note> implements View.OnClickListener
+{
 
     ArrayList<Note> noteList;
     LayoutInflater inflater;
@@ -32,14 +34,11 @@ public class NotesAdapter extends ArrayAdapter<Note> {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public class ViewHolder {
+	public class ViewHolder {
         // Common for every type of note
+		protected RelativeLayout innerLayout;
         protected TextView noteTitle;
         protected TextView date;
-
-        // For everything except to-do note
-        protected TextView tag1;
-        protected TextView tag2;
 
         // For plain note
         protected TextView noteDescription;
@@ -74,32 +73,29 @@ public class NotesAdapter extends ArrayAdapter<Note> {
             final ViewHolder viewHolder = new ViewHolder();
 
             if (getItemViewType(position) == getItem(position).NOTE_PLAIN) {
+				viewHolder.innerLayout = (RelativeLayout) view.findViewById(R.id.item_note_plain_inner_layout);
                 viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_plain_title);
                 viewHolder.date = (TextView) view.findViewById(R.id.note_plain_date);
-                viewHolder.tag1 = (TextView) view.findViewById(R.id.plain_tag_1);
-                viewHolder.tag2 = (TextView) view.findViewById(R.id.plain_tag_2);
                 viewHolder.noteDescription = (TextView) view.findViewById(R.id.note_plain_description);
                 view.setTag(R.id.note_item_object,viewHolder);
 
             }
             else if (getItemViewType(position) == getItem(position).NOTE_PHOTO) {
+				viewHolder.innerLayout = (RelativeLayout) view.findViewById(R.id.item_note_photo_inner_layout);
                 viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_photo_title);
                 viewHolder.date = (TextView) view.findViewById(R.id.note_photo_date);
-                viewHolder.tag1 = (TextView) view.findViewById(R.id.note_photo_tag_1);
-                viewHolder.tag2 = (TextView) view.findViewById(R.id.note_photo_tag_2);
                 viewHolder.photo = (ImageView) view.findViewById(R.id.note_photo_photo);
                 view.setTag(R.id.note_item_object,viewHolder);
             }
             else if(getItemViewType(position) == getItem(position).NOTE_AUDIO) {
                 viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_voice_title);
                 viewHolder.date = (TextView) view.findViewById(R.id.note_voice_date);
-                viewHolder.tag1 = (TextView) view.findViewById(R.id.voice_tag_1);
-                viewHolder.tag2 = (TextView) view.findViewById(R.id.voice_tag_2);
 
                 // TODO: The audio...
                 view.setTag(R.id.note_item_object,viewHolder);
             }
             else if (getItemViewType(position) == getItem(position).NOTE_TODO){
+				viewHolder.innerLayout = (RelativeLayout) view.findViewById(R.id.item_note_todo_inner_layout);
                 viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_todo_title);
                 viewHolder.date = (TextView) view.findViewById(R.id.note_todo_date);
                 viewHolder.checkBox1 = (CheckBox) view.findViewById(R.id.todo_checkbox_1);
@@ -118,6 +114,12 @@ public class NotesAdapter extends ArrayAdapter<Note> {
         view.setTag(R.id.note_item_id, noteItem.getId());
         view.setTag(R.id.note_item_index, position);
 
+		if(viewHolder.innerLayout != null)
+		{
+			viewHolder.innerLayout.setOnClickListener(this);
+			viewHolder.innerLayout.setTag(R.id.note_item_index, position);
+		}
+
         viewHolder.noteTitle.setText(noteItem.getNoteTitle());
 //        viewHolder.date.setText(noteItem.getLastModified());
 
@@ -134,4 +136,10 @@ public class NotesAdapter extends ArrayAdapter<Note> {
     {
         return 4;
     }
+
+	@Override
+	public void onClick(View v)
+	{
+
+	}
 }

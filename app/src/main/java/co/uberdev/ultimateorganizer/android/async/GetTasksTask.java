@@ -3,10 +3,11 @@ package co.uberdev.ultimateorganizer.android.async;
 import android.os.AsyncTask;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
-import co.uberdev.ultimateorganizer.android.models.Course;
-import co.uberdev.ultimateorganizer.android.models.Courses;
+import co.uberdev.ultimateorganizer.android.models.Task;
+import co.uberdev.ultimateorganizer.android.models.Tasks;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.client.APIResult;
 import co.uberdev.ultimateorganizer.client.TuoClient;
@@ -15,19 +16,20 @@ import co.uberdev.ultimateorganizer.core.CoreUser;
 /**
  * Created by oguzbilgener on 10/05/14.
  */
-public class GetCoursesTask extends AsyncTask<Void, Integer, Integer>
+public class GetTasksTask extends AsyncTask<Void, Integer, Integer>
 {
 	public static final int ERROR_NETWORK = 13;
 	public static final int ERROR_UNKNOWN = 9;
 	public static final int ERROR_UNAUTHORIZED = 10;
 	public static final int SUCCESS = 0;
+	public static final int CANCELLED = -1;
 
 	private LocalStorage localStorage;
 	private CoreUser authorizedUser;
 	private TaskListener taskListener;
-	private Course[] courses;
+	private Task[] tasks;
 
-	public GetCoursesTask(LocalStorage storage, CoreUser user, TaskListener listener)
+	public GetTasksTask(LocalStorage storage, CoreUser user, TaskListener listener)
 	{
 		this.localStorage = storage;
 		this.authorizedUser = user;
@@ -47,8 +49,7 @@ public class GetCoursesTask extends AsyncTask<Void, Integer, Integer>
 		{
 			TuoClient client = new TuoClient(authorizedUser.getPublicKey(), authorizedUser.getSecretToken());
 
-			APIResult result = client.getCourses(authorizedUser);
-			Utils.log.d("courses response body: \n"+result.getResponseBody());
+			APIResult result = client.getTasks(authorizedUser);
 
 			if(result.getResponseCode() == APIResult.RESPONSE_UNAUTHORIZED)
 			{
@@ -56,24 +57,56 @@ public class GetCoursesTask extends AsyncTask<Void, Integer, Integer>
 			}
 			if(result.getResponseCode() != APIResult.RESPONSE_SUCCESS)
 			{
-				Utils.log.w("Get Courses HTTP "+result.getResponseCode());
+				Utils.log.w("Get Tasks HTTP "+result.getResponseCode());
 				return ERROR_UNKNOWN;
 			}
 
-			courses = result.getAsClientCourseArray();
-
-			Courses oldCourses = new Courses(localStorage.getDb());
-			oldCourses.loadAllCourses();
-
-			if(courses != null)
+			if(isCancelled())
 			{
-				oldCourses.removeAll();
+				return CANCELLED;
+			}
 
-				for(int i=0; i<courses.length; i++)
+			tasks = result.getAsClientTaskArray();
+
+			Tasks oldTasks = new Tasks(localStorage.getDb());
+			oldTasks.loadAllAliveTasks();
+
+			ArrayList<Task> toInsert = new ArrayList<Task>();
+			ArrayList<Task> toUpdate = new ArrayList<Task>();
+
+			if(tasks != null)
+			{
+				for(int i=0; i<tasks.length; i++)
 				{
-					Course course = courses[i];
-					course.setDb(localStorage.getDb());
-					course.insert();
+					boolean exists = false;
+					for(int j=0;j<oldTasks.size();j++)
+					{
+						if(tasks[i].getId() == oldTasks.get(j).getId())
+						{
+							exists = true;
+							if (tasks[i].getLastModified() > oldTasks.get(j).getLastModified()) {
+								tasks[i].setLocalId(oldTasks.get(j).getLocalId());
+								toUpdate.add(tasks[j]);
+							}
+							break;
+						}
+					}
+					if(!exists)
+					{
+						toInsert.add(tasks[i]);
+					}
+				}
+
+				for(int i=0; i<toInsert.size(); i++)
+				{
+					toInsert.get(i).setDb(localStorage.getDb());
+					toInsert.get(i).insert();
+				}
+
+				for(int i=0; i<toUpdate.size(); i++)
+				{
+					toUpdate.get(i).setDb(localStorage.getDb());
+					toUpdate.get(i).update();
 				}
 
 				return SUCCESS;
@@ -103,7 +136,7 @@ public class GetCoursesTask extends AsyncTask<Void, Integer, Integer>
 		{
 			if(taskListener != null)
 			{
-				taskListener.onPostExecute(result, courses);
+				taskListener.onPostExecute(result, tasks);
 			}
 		}
 		else

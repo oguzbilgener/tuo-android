@@ -45,33 +45,33 @@ public class NotesFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         noteList = new ArrayList<Note>();
-        Note note = new Note();
-        note.setNoteTitle("Calculus Time!");
-        note.setNoteDescription("stop whatever you're doing and study calculus");
-        note.setDateCreated(123123321);
-        note.setLastModified( 123123321);
-        try{
-            note.setStatus( 0);
-        }
-        catch( Exception e){
-            e.printStackTrace();
-        }
-
-        noteList.add(note);
-
-        Note note2 = new Note();
-        note2.setNoteTitle("Fizik çok boktan");
-        note2.setContent("asdf");
-        note2.setDateCreated(73321);
-        note2.setLastModified( 123123321);
-
-        try{
-            note2.setStatus( 1);
-        }
-        catch( Exception e){
-            e.printStackTrace();
-        }
-        noteList.add(note2);
+//        Note note = new Note();
+//        note.setNoteTitle("Calculus Time!");
+//        note.setNoteDescription("stop whatever you're doing and study calculus");
+//        note.setDateCreated(123123321);
+//        note.setLastModified( 123123321);
+//        try{
+//            note.setStatus( 0);
+//        }
+//        catch( Exception e){
+//            e.printStackTrace();
+//        }
+//
+//        noteList.add(note);
+//
+//        Note note2 = new Note();
+//        note2.setNoteTitle("Fizik çok boktan");
+//        note2.setContent("asdf");
+//        note2.setDateCreated(73321);
+//        note2.setLastModified( 123123321);
+//
+//        try{
+//            note2.setStatus( 1);
+//        }
+//        catch( Exception e){
+//            e.printStackTrace();
+//        }
+//        noteList.add(note2);
 
 		// BUG HERE localStorage null
 //        note2.setDb(getHomeActivity().getLocalStorage().getDb());
@@ -91,7 +91,11 @@ public class NotesFragment extends Fragment
 	{
 		super.onResume();
 
-//		EventBus.getDefault().register(this);
+//		tasks = new Tasks(getHomeActivity().getLocalStorage().getDb());
+//		tasks.loadAllAliveTasks();
+//
+//		overviewTaskList.clear();
+//		overviewTaskList.addAll(tasks.toTaskArrayList());
 	}
 
 	@Override
@@ -99,7 +103,7 @@ public class NotesFragment extends Fragment
 	{
 		super.onPause();
 
-//		EventBus.getDefault().unregister(this);
+
 	}
 
 	@Override
@@ -123,18 +127,6 @@ public class NotesFragment extends Fragment
     {
         super.onDetach();
     }
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
 
 
     public HomeActivity getHomeActivity()
