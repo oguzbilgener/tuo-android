@@ -11,7 +11,7 @@ import android.widget.Toast;
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Course;
-import co.uberdev.ultimateorganizer.android.network.CourseInsertTask;
+import co.uberdev.ultimateorganizer.android.async.CourseInsertTask;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;

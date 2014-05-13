@@ -1,24 +1,22 @@
-package co.uberdev.ultimateorganizer.android.network;
+package co.uberdev.ultimateorganizer.android.async;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.io.IOException;
 
-import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
-import co.uberdev.ultimateorganizer.android.models.Course;
+import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.client.APIResult;
 import co.uberdev.ultimateorganizer.client.TuoClient;
-import co.uberdev.ultimateorganizer.core.CoreCourse;
+import co.uberdev.ultimateorganizer.core.CoreTask;
 import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
  * Created by oguzbilgener on 10/05/14.
  */
-public class CourseInsertTask extends AsyncTask<Void, Integer, Integer>
+public class TaskInsertTask extends AsyncTask<Void, Integer, Integer>
 {
 	public static int ERROR_NETWORK = 13;
 	public static int ERROR_UNKNOWN = 9;
@@ -27,19 +25,20 @@ public class CourseInsertTask extends AsyncTask<Void, Integer, Integer>
 
 	private Activity activity;
 	private CoreUser authorizedUser;
-	private Course courseToInsert;
+	private Task taskToInsert;
 
-	public CourseInsertTask(Activity activity, CoreUser user, Course course)
+
+	public TaskInsertTask(Activity activity, CoreUser user, Task task)
 	{
 		this.activity = activity;
 		this.authorizedUser = user;
-		this.courseToInsert = course;
+		this.taskToInsert = task;
 	}
 
 	@Override
 	protected void onPreExecute()
 	{
-		Utils.log.w("sending course to server: "+ courseToInsert);
+		Utils.log.w("sending task to server: "+taskToInsert);
 	}
 
 	@Override
@@ -47,9 +46,10 @@ public class CourseInsertTask extends AsyncTask<Void, Integer, Integer>
 	{
 		try
 		{
+			Utils.log.d(authorizedUser.getPublicKey()+" \n "+authorizedUser.getSecretToken());
 			TuoClient client = new TuoClient(authorizedUser.getPublicKey(), authorizedUser.getSecretToken());
 
-			APIResult result = client.insertCourse(courseToInsert);
+			APIResult result = client.insertTask(taskToInsert);
 
 			if(result.getResponseCode() == APIResult.RESPONSE_UNAUTHORIZED)
 			{
@@ -57,29 +57,30 @@ public class CourseInsertTask extends AsyncTask<Void, Integer, Integer>
 			}
 			if(result.getResponseCode() != APIResult.RESPONSE_SUCCESS)
 			{
-				Utils.log.w("insert course HTTP "+result.getResponseCode());
+				Utils.log.w("insert task HTTP "+result.getResponseCode());
 				return ERROR_UNKNOWN;
 			}
 
-			CoreCourse insertedCourse = result.getAsCourse();
-			if(insertedCourse != null)
+			CoreTask insertedTask = result.getAsTask();
+			if(insertedTask != null)
 			{
 				boolean dbOpened = false;
 				// the database in the reference might not be open
-				if(!courseToInsert.getDb().isOpen())
+				if(!taskToInsert.getDb().isOpen())
 				{
-					courseToInsert.setDb(new LocalStorage(activity).getDb());
+					taskToInsert.setDb(new LocalStorage(activity).getDb());
+					activity = null;
 					dbOpened = true;
 				}
 
-				// update local course with distant task's id
-				courseToInsert.setId(insertedCourse.getId());
+				// update local task with distant task's id
+				taskToInsert.setId(insertedTask.getId());
 				// make a database query to set the id
-				courseToInsert.update();
+				taskToInsert.update();
 
 				if(dbOpened)
 				{
-					courseToInsert.getDb().close();
+					taskToInsert.getDb().close();
 				}
 
 				return SUCCESS;
@@ -99,15 +100,15 @@ public class CourseInsertTask extends AsyncTask<Void, Integer, Integer>
 		if(result == ERROR_NETWORK)
 		{
 			// TODO: try inserting later when the device is online
-			Utils.log.w("Could not insert course because there is no internet connection");
+			Utils.log.w("Could not insert task because there is no internet connection");
 		}
 		else if(result == ERROR_UNAUTHORIZED)
 		{
-			Toast.makeText(activity, activity.getString(R.string.invalid_login), Toast.LENGTH_SHORT).show();
+			Utils.log.w("Invalid login.");
 		}
 		else if(result == SUCCESS)
 		{
-			Utils.log.d("inserted course into server " + courseToInsert.asJsonString());
+			Utils.log.d("inserted task into server "+taskToInsert.asJsonString());
 		}
 		else
 		{

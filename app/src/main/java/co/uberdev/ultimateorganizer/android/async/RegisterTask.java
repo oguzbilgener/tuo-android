@@ -1,4 +1,4 @@
-package co.uberdev.ultimateorganizer.android.network;
+package co.uberdev.ultimateorganizer.android.async;
 
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -6,7 +6,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import co.uberdev.ultimateorganizer.android.R;
-import co.uberdev.ultimateorganizer.android.auth.LoginActivity;
+import co.uberdev.ultimateorganizer.android.auth.RegisterActivity;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.client.APIResult;
 import co.uberdev.ultimateorganizer.client.TuoClient;
@@ -15,17 +15,21 @@ import co.uberdev.ultimateorganizer.core.CoreUser;
 /**
  * Created by oguzbilgener on 10/05/14.
  */
-public class LoginTask extends AsyncTask<String, Integer, Integer>
+public class RegisterTask extends AsyncTask<String, Integer, Integer>
 {
 	public static int ERROR_NETWORK = 13;
 	public static int ERROR_UNKNOWN = 9;
 	public static int ERROR_UNAUTHORIZED = 10;
 	public static int SUCCESS = 0;
 
-	private LoginActivity activity;
+	/**
+	 * Warning: keeping strong references to an Activity might cause memory leaks.
+	 * This is why this task should be cancelled when the activity is destroyed
+	 */
+	private RegisterActivity activity;
 	private CoreUser authorizedUser;
 
-	public LoginTask(LoginActivity activity)
+	public RegisterTask(RegisterActivity activity)
 	{
 		this.activity = activity;
 	}
@@ -41,16 +45,20 @@ public class LoginTask extends AsyncTask<String, Integer, Integer>
 	{
 		String emailAddress = params[0];
 		String password = params[1];
+		String firstName = params[2];
+		String lastName = params[3];
+		String schoolName = params[4];
+		String departmentName = params[5];
 
 		TuoClient client = new TuoClient(null, null);
 
 		try
 		{
-			APIResult result = client.logIn(emailAddress, password);
-
+			// TODO birthday ought not to be 0!
+			APIResult result = client.register(emailAddress, password, firstName, lastName, schoolName, departmentName, 0);
 			if(result.getResponseCode() != APIResult.RESPONSE_SUCCESS)
 			{
-				Utils.log.w("login HTTP "+result.getResponseCode());
+				Utils.log.w("register HTTP "+result.getResponseCode());
 				return ERROR_UNKNOWN;
 			}
 			authorizedUser = result.getAsUser();
@@ -71,13 +79,6 @@ public class LoginTask extends AsyncTask<String, Integer, Integer>
 	}
 
 	@Override
-	public void onProgressUpdate(Integer... values) //publishProgress (Progress... values)
-	{
-		int percent = values[0];
-
-	}
-
-	@Override
 	protected void onPostExecute(Integer result)
 	{
 		activity.setProgressBarIndeterminateVisibility(false);
@@ -91,6 +92,7 @@ public class LoginTask extends AsyncTask<String, Integer, Integer>
 		}
 		else if(result == SUCCESS)
 		{
+			Toast.makeText(activity, activity.getString(R.string.register_success), Toast.LENGTH_SHORT).show();
 			activity.finishLogin(authorizedUser);
 		}
 		else

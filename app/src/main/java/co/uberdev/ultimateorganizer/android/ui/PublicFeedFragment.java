@@ -15,8 +15,8 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.CloneHistoryItems;
 import co.uberdev.ultimateorganizer.android.models.Task;
-import co.uberdev.ultimateorganizer.android.network.GetPublicFeedTask;
-import co.uberdev.ultimateorganizer.android.network.TaskListener;
+import co.uberdev.ultimateorganizer.android.async.GetPublicFeedTask;
+import co.uberdev.ultimateorganizer.android.async.TaskListener;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
@@ -80,7 +80,7 @@ public class PublicFeedFragment extends Fragment implements TaskListener
 
         publicFeedListView.setAdapter(publicFeedAdapter);
 
-		new GetPublicFeedTask(getActivity(), user, historyItems, this).execute();
+		new GetPublicFeedTask(user, historyItems, this).execute();
 
         return rootView;
     }
@@ -117,6 +117,11 @@ public class PublicFeedFragment extends Fragment implements TaskListener
 	@Override
 	public void onPostExecute(Integer result, Object data)
 	{
+		if(!isAdded())
+		{
+			// do not let the fragment do things if it is not currently attached.
+			return;
+		}
 		if(activityCommunicator != null)
 		{
 			activityCommunicator.onMessage(AcademicNetworkActivity.MESSAGE_LOADING_ENDED, null);

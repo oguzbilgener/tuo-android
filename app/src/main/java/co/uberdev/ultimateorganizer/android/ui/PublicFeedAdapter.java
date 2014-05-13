@@ -2,6 +2,7 @@ package co.uberdev.ultimateorganizer.android.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.models.CloneHistoryItem;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
@@ -110,6 +112,9 @@ public class PublicFeedAdapter extends ArrayAdapter<Task> implements View.OnClic
 		viewHolder.taskAcceptIcon.setTag(R.id.task_item_position, position);
 		viewHolder.taskAcceptIcon.setOnClickListener(this);
 
+		viewHolder.taskRejectIcon.setTag(R.id.task_item_position, position);
+		viewHolder.taskRejectIcon.setOnClickListener(this);
+
 		if(item.getCourse().getCourseColor() != 0)
 		{
 			Utils.log.w(item.getCourse().getCourseColor()+"");
@@ -192,5 +197,27 @@ public class PublicFeedAdapter extends ArrayAdapter<Task> implements View.OnClic
 				e.printStackTrace();
 			}
 		}
+		else if(view.getId() == R.id.item_public_feed_reject_icon)
+		{
+			try
+			{
+				int position = (Integer) view.getTag(R.id.task_item_position);
+				Task taskToReject = publicFeedTasksList.get(position);
+				// get a sqlite object in the easiest way
+				SQLiteDatabase db = taskToReject.getDb();
+				CloneHistoryItem rejectedItem = new CloneHistoryItem(db);
+				rejectedItem.setOriginalId(taskToReject.getId());
+				rejectedItem.insert();
+
+				// simply remove here
+				publicFeedTasksList.remove(position);
+				notifyDataSetChanged();
+			}
+			catch(Exception e)
+			{
+				Toast.makeText(getContext(), getContext().getString(R.string.oops), Toast.LENGTH_SHORT).show();;
+				e.printStackTrace();
+			}
+	}
     }
 }

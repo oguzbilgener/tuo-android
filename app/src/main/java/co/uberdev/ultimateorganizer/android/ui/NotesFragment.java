@@ -12,8 +12,6 @@ import java.util.ArrayList;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Note;
-import co.uberdev.ultimateorganizer.android.models.Notes;
-import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by oguzbilgener on 15/03/14.
@@ -75,14 +73,15 @@ public class NotesFragment extends Fragment
         }
         noteList.add(note2);
 
-        note2.setDb(getHomeActivity().getLocalStorage().getDb());
-        note2.insert();
-
-        Notes fromdb = new Notes(getHomeActivity().getLocalStorage().getDb());
-
-        fromdb.loadFromDb(null, new String[] {}, 0);
-
-        Utils.log.i(fromdb.asJsonString());
+		// BUG HERE localStorage null
+//        note2.setDb(getHomeActivity().getLocalStorage().getDb());
+//        note2.insert();
+//
+//        Notes fromdb = new Notes(getHomeActivity().getLocalStorage().getDb());
+//
+//        fromdb.loadFromDb(null, new String[] {}, 0);
+//
+//        Utils.log.i(fromdb.asJsonString());
 
         noteAdapter = new NotesAdapter(getActivity(), noteList);
     }
