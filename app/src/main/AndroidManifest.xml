@@ -100,6 +100,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="co.uberdev.ultimateorganizer.android.ui.HomeActivity" />
         </activity>
+
+		<activity
+				android:name="co.uberdev.ultimateorganizer.android.ui.ViewNoteActivity"
+				android:label="@string/title_activity_note"
+				android:parentActivityName="co.uberdev.ultimateorganizer.android.ui.HomeActivity" >
+			<meta-data
+					android:name="android.support.PARENT_ACTIVITY"
+					android:value="HomeActivity" />
+		</activity>
+
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
+import android.app.ActionBar;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,12 +11,13 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Note;
 import co.uberdev.ultimateorganizer.android.models.Notes;
+import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
 /**
  * Created by begum on 10/05/14.
  */
-public class ViewNoteActivity extends FragmentActivity
+public class ViewNoteActivity extends FragmentActivity implements ActivityCommunicator
 {
 	private LocalStorage localStorage;
 
@@ -47,7 +49,7 @@ public class ViewNoteActivity extends FragmentActivity
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, ViewNoteFragment.newInstance(this, noteToShow))
+					.add(R.id.note_fragment_container, ViewNoteFragment.newInstance(this, noteToShow))
 					.commit();
 		}
 
@@ -90,5 +92,19 @@ public class ViewNoteActivity extends FragmentActivity
 	{
 		localStorage.close();
 		super.onDestroy();
+	}
+
+	@Override
+	public void onMessage(int msgType, Object obj)
+	{
+		if(msgType == ViewNoteFragment.REQUEST_BEGIN_EDITING)
+		{
+
+		}
+	}
+
+	public void invalidateActionBar()
+	{
+		getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 	}
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,18 +27,29 @@ import co.uberdev.ultimateorganizer.core.CoreUser;
 /**
  * Created by begum on 10/05/14.
  */
-public class ViewNoteFragment extends Fragment implements FragmentCommunicator {
-
+public class ViewNoteFragment extends Fragment implements FragmentCommunicator, View.OnClickListener
+{
     private TextView notePreview;
     private EditText noteEdit;
     private TextView noteDate;
     private CoreUser user;
     public Note shownNote;
 
+	private ViewSwitcher switcher;
+
+	public int viewType;
+	public static final int TYPE_PREVIEW = 0;
+	public static final int TYPE_EDIT = 1;
+
     private ActivityCommunicator activityCommunicator;
 
     public static final int MESSAGE_REQUEST_NOTE = -99;
     public static final int MESSAGE_RESPONSE_NOTE = -98;
+
+	public static final int MESSAGE_BEGIN_EDITING = -77;
+	public static final int MESSAGE_END_EDITING = -78;
+
+	public static final int REQUEST_BEGIN_EDITING = -57;
 
     public ViewNoteFragment() {  }
 
@@ -45,10 +57,19 @@ public class ViewNoteFragment extends Fragment implements FragmentCommunicator {
     {
         ViewNoteFragment fragment = new ViewNoteFragment();
         fragment.shownNote = shownNote;
-        String noteJsonStr = shownNote.asJsonString();
-        Bundle args = new Bundle();
-        args.putString(context.getString(R.string.ARGS_NOTE_JSON_OBJECT), noteJsonStr);
-        fragment.setArguments(args);
+		if(shownNote != null)
+		{
+			String noteJsonStr = shownNote.asJsonString();
+			Bundle args = new Bundle();
+			args.putString(context.getString(R.string.ARGS_NOTE_JSON_OBJECT), noteJsonStr);
+			fragment.setArguments(args);
+			fragment.viewType = TYPE_PREVIEW;
+		}
+		else
+		{
+			fragment.shownNote = new Note();
+			fragment.viewType = TYPE_EDIT;
+		}
         return fragment;
     }
 
@@ -70,11 +91,28 @@ public class ViewNoteFragment extends Fragment implements FragmentCommunicator {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_add_note, container, false);
 
         notePreview = (TextView) rootView.findViewById(R.id.add_note_preview);
-        noteEdit = (EditText) rootView.findViewById(R.id.add_note_edit);
+//		ViewGroup.LayoutParams maxParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//		noteEdit = new EditText(getActivity());
+//		notePreview = new EditText(getActivity());
+//		noteEdit.setLayoutParams(maxParams);
+//		notePreview.setLayoutParams(maxParams);
+//		notePreview.setClickable(true);
+//		notePreview.setOnClickListener(this);
+//		noteEdit.setId(R.id.note_view_edit);
+//		notePreview.setId(R.id.note_view_preview);
+//        noteEdit = (EditText) rootView.findViewById(R.id.add_note_edit);
         noteDate = (TextView) rootView.findViewById(R.id.add_note_date);
 
+		switcher = (ViewSwitcher) rootView.findViewById(R.id.switcher);
+//		switcher.addView(noteEdit);
+//		switcher.addView(notePreview);
+
+		if(viewType == TYPE_PREVIEW)
+			switcher.showPrevious();
+		else
+			switcher.showNext();
+
         notePreview.setText(shownNote.getContent());
-        noteEdit.setVisibility(View.INVISIBLE);
 
         if(Utils.isDateToday(shownNote.getLastModified()))
         {
@@ -166,4 +204,20 @@ public class ViewNoteFragment extends Fragment implements FragmentCommunicator {
                 break;
         }
     }
+
+	@Override
+	public void onClick(View v)
+	{
+		if(v.getId() == R.id.add_note_preview)
+		{
+			activityCommunicator.onMessage(REQUEST_BEGIN_EDITING, null);
+//			switcher.showNext();
+//			invalidateActionBar();
+		}
+	}
+
+	public int getViewType()
+	{
+		return viewType;
+	}
 }

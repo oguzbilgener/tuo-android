@@ -15,6 +15,7 @@
     <string name="title_activity_academic_network">Academic Network</string>
     <string name="title_activity_schedule">Academic Schedule</string>
     <string name="title_activity_task_details">Task Details</string>
+	<string name="title_activity_note">Note</string>
 
     <!-- sub navigation (ActionBar Spinner) -->
     <string-array name="title_section_overview_subs">
