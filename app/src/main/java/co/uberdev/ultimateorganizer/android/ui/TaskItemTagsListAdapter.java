@@ -20,6 +20,7 @@ import co.uberdev.ultimateorganizer.core.CoreTags;
 /**
  * Created by oguzbilgener on 02/05/14.
  */
+
 public class TaskItemTagsListAdapter extends ArrayAdapter<Tag> implements BareListDataDelegate
 {
 	private Context context;
@@ -36,7 +37,6 @@ public class TaskItemTagsListAdapter extends ArrayAdapter<Tag> implements BareLi
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		resourceId = resource;
 		items = objects;
-
 
 		setNotifyOnChange(true);
 	}
