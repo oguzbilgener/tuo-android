@@ -13,12 +13,16 @@ import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
 
 /**
  * Created by dunkuCoder on 09/05/14.
+ * RegisterFragment deals with registration process, communicates with RegisterActivity
+ * and delivers user's info to the activity.
  */
 
 public class RegisterFragment extends Fragment implements View.OnClickListener
 {
+    // An instance of ActivityCommunicator will help buildining
     private ActivityCommunicator activityCommunicator;
 
+    // EditText instances to get the strings user will input
     private EditText emailField;
     private EditText passwordField;
     private EditText firstNameField;
@@ -43,6 +47,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener
     {
         View rootView = inflater.inflate(R.layout.fragment_register, container, false);
 
+        // Each instance of EditText is found by their id that were defined in layout resources
         emailField = (EditText) rootView.findViewById(R.id.input_register_email);
         passwordField = (EditText) rootView.findViewById(R.id.input_register_password);
         firstNameField = (EditText) rootView.findViewById(R.id.input_register_first_name);
@@ -50,6 +55,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener
         schoolNameField = (EditText) rootView.findViewById(R.id.input_register_school_name);
         departmentNameField = (EditText) rootView.findViewById(R.id.input_register_department_name);
 
+        // Unless each instance of EditText is cleared of focus, to avoid opening virtual keyboard at the start
         emailField.clearFocus();
         passwordField.clearFocus();
         firstNameField.clearFocus();
@@ -66,6 +72,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v)
     {
+        // Necessary information is put in a Bundle that will be used by the RegisterActivity
         if(v.getId() == R.id.button_register)
         {
             Bundle credentials = new Bundle();

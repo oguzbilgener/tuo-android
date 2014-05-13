@@ -26,10 +26,14 @@ import co.uberdev.ultimateorganizer.core.CoreUser;
 public class PublicFeedFragment extends Fragment implements TaskListener
 {
 	private CoreUser user;
+    // An instance of LocalStorage to use the database
 	private LocalStorage localStorage;
 
+    // The ListView that will display the task items in public feed
     private ListView publicFeedListView;
+    // ArrayList of Tasks that will be displayed in the listview
     private ArrayList<Task> publicFeedTasksList;
+    // An instance of PublicFeedAdapter that will adapt the items to the listview
     private PublicFeedAdapter publicFeedAdapter;
 
 	private ActivityCommunicator activityCommunicator;

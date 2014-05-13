@@ -16,7 +16,9 @@ import co.uberdev.ultimateorganizer.core.CoreTask;
 import co.uberdev.ultimateorganizer.core.CoreUtils;
 
 /**
- * Created by oguzbilgener on 24/04/14.
+ * Created by dunkuCoder on 24/04/14.
+ * Extended from CoreTask, fundamentally a CoreTask, implements CoreStorable so that
+ * it can be stored in the database
  */
 public class Task extends CoreTask implements CoreStorable
 {
@@ -27,12 +29,14 @@ public class Task extends CoreTask implements CoreStorable
 	 */
 	private int alarmIndex;
 
+    // Task needs to be created with the provision of a SQLiteDatabase so it can be stored in the device
 	public Task(SQLiteDatabase db)
 	{
 		super();
 		this.db = db;
 		this.course = new CoreCourse();
 		this.tags = new CoreTags();
+        // All notes and tasks related to this task are stored by their id's
 		this.relatedNotes = new ArrayList<Long>();
 		this.relatedTasks = new ArrayList<Long>();
 		this.relatedTasksLocal = new ArrayList<Long>();
@@ -70,6 +74,7 @@ public class Task extends CoreTask implements CoreStorable
 		return CoreDataRules.tables.tasks;
 	}
 
+    // The task is inserted into the database
 	@Override
 	public boolean insert()
 	{
@@ -140,6 +145,7 @@ public class Task extends CoreTask implements CoreStorable
 		return false;
 	}
 
+    // The data of the task is updated
 	@Override
 	public boolean update()
 	{
