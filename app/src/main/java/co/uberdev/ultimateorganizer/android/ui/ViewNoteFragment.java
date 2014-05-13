@@ -100,7 +100,7 @@ public class ViewNoteFragment extends Fragment implements FragmentCommunicator, 
 //		notePreview.setOnClickListener(this);
 //		noteEdit.setId(R.id.note_view_edit);
 //		notePreview.setId(R.id.note_view_preview);
-//        noteEdit = (EditText) rootView.findViewById(R.id.add_note_edit);
+        noteEdit = (EditText) rootView.findViewById(R.id.add_note_edit);
         noteDate = (TextView) rootView.findViewById(R.id.add_note_date);
 
 		switcher = (ViewSwitcher) rootView.findViewById(R.id.switcher);
@@ -200,8 +200,19 @@ public class ViewNoteFragment extends Fragment implements FragmentCommunicator, 
         switch(msgType)
         {
             case MESSAGE_REQUEST_NOTE:
-                activityCommunicator.onMessage(MESSAGE_RESPONSE_NOTE, buildNote());
+
                 break;
+
+			case MESSAGE_BEGIN_EDITING:
+				switcher.showPrevious();
+				break;
+
+			case MESSAGE_END_EDITING:
+				Note builtNote = buildNote();
+				notePreview.setText(builtNote.getContent());
+				switcher.showNext();
+				activityCommunicator.onMessage(MESSAGE_RESPONSE_NOTE, builtNote);
+				break;
         }
     }
 

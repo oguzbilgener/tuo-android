@@ -71,7 +71,7 @@ public class TaskDetailFragment extends Fragment implements AdapterView.OnItemCl
         taskDescription = (TextView) rootView.findViewById(R.id.task_description);
         taskDate = (TextView) rootView.findViewById(R.id.task_date);
         taskRelatedTasks = (ListView) rootView.findViewById(R.id.task_detail_related_tasks_listview);
-        taskRelatedTags = (BareListView) rootView.findViewById(R.id.task_detail_tags_list)
+        taskRelatedTags = (BareListView) rootView.findViewById(R.id.task_detail_tags_list);
 
         taskTitle.setText(shownTask.getTaskName());
         taskDescription.setText(shownTask.getTaskDesc());
@@ -137,4 +137,9 @@ public class TaskDetailFragment extends Fragment implements AdapterView.OnItemCl
     }
 
 
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	{
+
+	}
 }

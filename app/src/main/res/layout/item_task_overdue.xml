@@ -44,15 +44,6 @@
 			android:layout_alignParentRight="true"
 			style="@style/task_item_date_overdue"/>
 
-		<!-- horizontal tag list -->
-		<co.uberdev.ultimateorganizer.android.util.BareListView
-				android:id="@+id/task_item_tag_bar"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/task_item_description"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentBottom="true"
-				android:layout_toLeftOf="@id/task_item_date"/>
 
 		<!-- Course label -->
 		<TextView
@@ -63,6 +54,16 @@
 			android:layout_alignParentLeft="true"
 			style="@style/task_item_course"
 				/>
+
+		<!-- horizontal tag list -->
+		<co.uberdev.ultimateorganizer.android.util.BareListView
+			android:id="@+id/task_item_tag_bar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/task_item_course"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentBottom="true"
+			android:layout_toLeftOf="@id/task_item_date"/>
 
 		<ImageView
 			android:id="@+id/task_item_alert_icon"

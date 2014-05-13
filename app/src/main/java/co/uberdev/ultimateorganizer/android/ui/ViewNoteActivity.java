@@ -1,6 +1,5 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
-import android.app.ActionBar;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +11,8 @@ import co.uberdev.ultimateorganizer.android.db.LocalStorage;
 import co.uberdev.ultimateorganizer.android.models.Note;
 import co.uberdev.ultimateorganizer.android.models.Notes;
 import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
+import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
 /**
@@ -20,6 +21,8 @@ import co.uberdev.ultimateorganizer.core.CoreDataRules;
 public class ViewNoteActivity extends FragmentActivity implements ActivityCommunicator
 {
 	private LocalStorage localStorage;
+	private static final String FRAG_TAG = "note_frag";
+	private FragmentCommunicator fragmentCommunicator;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,19 +51,47 @@ public class ViewNoteActivity extends FragmentActivity implements ActivityCommun
 		}
 
 		if (savedInstanceState == null) {
+
+			ViewNoteFragment fragment = ViewNoteFragment.newInstance(this, noteToShow);
+			fragmentCommunicator = fragment;
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.note_fragment_container, ViewNoteFragment.newInstance(this, noteToShow))
+					.add(R.id.note_fragment_container,  fragment, FRAG_TAG)
 					.commit();
 		}
 
 
 	}
 
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+
+		if (localStorage != null)
+			localStorage.reopen();
+	}
+
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.view_note, menu);
+		int menuId;
+		ViewNoteFragment fragment = (ViewNoteFragment) getSupportFragmentManager().findFragmentByTag(FRAG_TAG);
+		if(fragment != null || fragment.getViewType() == ViewNoteFragment.TYPE_EDIT)
+		{
+			menuId = R.menu.view_note_edit;
+		}
+		else
+		{
+			menuId = R.menu.view_note_preview;
+		}
+		getMenuInflater().inflate(menuId, menu);
 		return true;
 	}
 
@@ -77,15 +108,15 @@ public class ViewNoteActivity extends FragmentActivity implements ActivityCommun
 		if (id == R.id.action_settings) {
 			return true;
 		}
+		if (id == R.id.action_edit_note) {
+			fragmentCommunicator.onMessage(ViewNoteFragment.MESSAGE_BEGIN_EDITING, null);
+			return true;
+		}
+		if (id == R.id.action_save_note) {
+			fragmentCommunicator.onMessage(ViewNoteFragment.MESSAGE_END_EDITING, null);
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	public void onResume()
-	{
-		super.onResume();
-
-		if (localStorage != null)
-			localStorage.reopen();
 	}
 
 	public void onDestroy()
@@ -99,12 +130,26 @@ public class ViewNoteActivity extends FragmentActivity implements ActivityCommun
 	{
 		if(msgType == ViewNoteFragment.REQUEST_BEGIN_EDITING)
 		{
-
+			invalidateOptionsMenu();
 		}
-	}
 
-	public void invalidateActionBar()
-	{
-		getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		if(msgType == ViewNoteFragment.MESSAGE_RESPONSE_NOTE)
+		{
+			if(obj != null && obj instanceof Note)
+			{
+				Note latestNote = (Note) obj;
+				latestNote.setDb(localStorage.getDb());
+				latestNote.setLastModified(Utils.getUnixTimestamp());
+
+				if(latestNote.getLocalId() >= 0)
+				{
+					latestNote.update();
+				}
+				else
+				{
+					latestNote.insert();
+				}
+			}
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Note;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 
 
 /**
@@ -121,7 +126,33 @@ public class NotesAdapter extends ArrayAdapter<Note> implements View.OnClickList
 		}
 
         viewHolder.noteTitle.setText(noteItem.getNoteTitle());
+		viewHolder.noteDescription.setText(noteItem.getContent());
 //        viewHolder.date.setText(noteItem.getLastModified());
+
+		SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
+		Date lastModifiedDate = new Date((long)noteItem.getLastModified()*1000);
+
+		if(Utils.isDateToday(noteItem.getLastModified()))
+		{
+			viewHolder.date.setText(getContext().
+							getString(R.string.today_capital) + "\n" + hourFormat.format(lastModifiedDate)
+			);
+		}
+		else if(Utils.isDateToday(noteItem.getLastModified()))
+		{
+			viewHolder.date.setText(getContext().
+					getString(R.string.yesterday_capital) +"\n"+hourFormat.format(lastModifiedDate)
+			);
+		}
+		else
+		{
+			Calendar lastModifiedCalendar = Calendar.getInstance();
+			lastModifiedCalendar.setTime(lastModifiedDate);
+
+			SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
+			viewHolder.date.setText(
+					dateFormat.format(new Date(((long)noteItem.getLastModified()*1000))));
+		}
 
         return view;
     }
@@ -140,6 +171,13 @@ public class NotesAdapter extends ArrayAdapter<Note> implements View.OnClickList
 	@Override
 	public void onClick(View v)
 	{
+		if(v.getId() == R.id.item_note_plain_inner_layout)
+		{
+			long localId = noteList.get((Integer)v.getTag(R.id.note_item_index)).getLocalId();
+			Intent editIntent = new Intent(context, ViewNoteActivity.class);
+			editIntent.putExtra(context.getString(R.string.INTENT_DETAILS_NOTE_LOCAL_ID), localId);
 
+			context.startActivity(editIntent);
+		}
 	}
 }
