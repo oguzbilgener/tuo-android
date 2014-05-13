@@ -50,7 +50,6 @@ public class GetTasksTask extends AsyncTask<Void, Integer, Integer>
 			TuoClient client = new TuoClient(authorizedUser.getPublicKey(), authorizedUser.getSecretToken());
 
 			APIResult result = client.getTasks(authorizedUser);
-			Utils.log.d("tasks response body: \n"+result.getResponseBody());
 
 			if(result.getResponseCode() == APIResult.RESPONSE_UNAUTHORIZED)
 			{

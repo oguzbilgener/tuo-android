@@ -26,7 +26,7 @@ import co.uberdev.ultimateorganizer.core.CoreUser;
 /**
  * Created by begum on 10/05/14.
  */
-public class AddNoteFragment extends Fragment implements FragmentCommunicator {
+public class ViewNoteFragment extends Fragment implements FragmentCommunicator {
 
     private TextView notePreview;
     private EditText noteEdit;
@@ -39,11 +39,11 @@ public class AddNoteFragment extends Fragment implements FragmentCommunicator {
     public static final int MESSAGE_REQUEST_NOTE = -99;
     public static final int MESSAGE_RESPONSE_NOTE = -98;
 
-    public AddNoteFragment() {  }
+    public ViewNoteFragment() {  }
 
-    public static AddNoteFragment newInstance(Context context, Note shownNote)
+    public static ViewNoteFragment newInstance(Context context, Note shownNote)
     {
-        AddNoteFragment fragment = new AddNoteFragment();
+        ViewNoteFragment fragment = new ViewNoteFragment();
         fragment.shownNote = shownNote;
         String noteJsonStr = shownNote.asJsonString();
         Bundle args = new Bundle();
@@ -61,7 +61,7 @@ public class AddNoteFragment extends Fragment implements FragmentCommunicator {
 
     public static Fragment newInstance()
     {
-        return new AddNoteFragment();
+        return new ViewNoteFragment();
     }
 
     @Override

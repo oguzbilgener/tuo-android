@@ -18,6 +18,7 @@ public class Note extends CoreNote implements CoreStorable
         super();
         this.db = db;
         this.content = "";
+		this.status = 0;
     }
 
     public Note()
