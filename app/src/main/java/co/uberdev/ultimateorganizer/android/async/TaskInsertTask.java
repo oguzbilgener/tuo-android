@@ -18,10 +18,10 @@ import co.uberdev.ultimateorganizer.core.CoreUser;
  */
 public class TaskInsertTask extends AsyncTask<Void, Integer, Integer>
 {
-	public static int ERROR_NETWORK = 13;
-	public static int ERROR_UNKNOWN = 9;
-	public static int ERROR_UNAUTHORIZED = 10;
-	public static int SUCCESS = 0;
+	public static final int ERROR_NETWORK = 13;
+	public static final int ERROR_UNKNOWN = 9;
+	public static final int ERROR_UNAUTHORIZED = 10;
+	public static final int SUCCESS = 0;
 
 	private Activity activity;
 	private CoreUser authorizedUser;

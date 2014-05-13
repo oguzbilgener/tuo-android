@@ -2,7 +2,6 @@ package co.uberdev.ultimateorganizer.android.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,20 +14,13 @@ import java.util.ArrayList;
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Course;
 import co.uberdev.ultimateorganizer.android.models.Courses;
+import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 
-/**
- * A simple {@link android.app.Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CoursesListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CoursesListFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
-public class CoursesListFragment extends Fragment
+
+public class CoursesListFragment extends Fragment implements FragmentCommunicator
 {
-    private OnFragmentInteractionListener mListener;
+	public static final int MESSAGE_REFRESH_COURSES = -96;
 
     private ListView coursesListView;
     private ArrayList<Course> coursesList;
@@ -76,61 +68,46 @@ public class CoursesListFragment extends Fragment
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri)
-    {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Activity activity)
     {
         super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+
     }
 
     @Override
     public void onDetach()
     {
         super.onDetach();
-        mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener
-    {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }
+	@Override
+	public void onMessage(int msgType, Object obj)
+	{
+		if(msgType == MESSAGE_REFRESH_COURSES)
+		{
+			loadCourses();
+		}
+	}
 
     @Override
     public void onResume()
     {
         super.onResume();
 
-        Courses allCourses = new Courses(getParent().getLocalStorage().getDb());
-        allCourses.loadAllCourses();
-
-        coursesList.clear();
-        coursesList.addAll(allCourses.toCourseArrayList());
-        coursesListAdapter.notifyDataSetChanged();
+        loadCourses();
     }
+
+	public void loadCourses()
+	{
+		// TODO: make this method an async task loader
+		Courses allCourses = new Courses(getParent().getLocalStorage().getDb());
+		allCourses.loadAllCourses();
+
+		coursesList.clear();
+		coursesList.addAll(allCourses.toCourseArrayList());
+		coursesListAdapter.notifyDataSetChanged();
+	}
 
     public ScheduleActivity getParent()
     {

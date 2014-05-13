@@ -107,11 +107,21 @@ public class TuoClient{
     }
 
 
-    public APIResult getTasks()
+    public APIResult getTasks(CoreUser user) throws IOException
     {
-        // hede hodo
-        return null;
+		CoreJSON data = new CoreJSON();
+		data.put(CoreDataRules.columns.courses.ownerId, user.getId());
+		APIRequest request = prepareRequest("/users/tasks",data.getAsJsonString(), "POST", true);
+
+		return request.run();
     }
+
+	public APIResult getCourses(CoreUser user) throws IOException
+	{
+		APIRequest request = prepareRequest("/users/courses", user.asJsonString(), "POST", true);
+
+		return request.run();
+	}
 
     public APIResult insertCourse(CoreCourse toAdd) throws IOException
     {
@@ -167,7 +177,7 @@ public class TuoClient{
 
 	public APIResult listTasks(CoreJSON params) throws IOException
 	{
-		APIRequest request = prepareRequest("/tasks/list", params.getAsJsonString(), "POST", true);
+		APIRequest request = prepareRequest("/users/tasks", params.getAsJsonString(), "POST", true);
 
 		return request.run();
 	}

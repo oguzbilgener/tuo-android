@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -23,7 +22,11 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.async.GetTasksTask;
+import co.uberdev.ultimateorganizer.android.async.TaskListener;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.util.ActivityCommunicator;
+import co.uberdev.ultimateorganizer.android.util.FragmentCommunicator;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 
 
@@ -31,7 +34,13 @@ public class HomeActivity extends FragmentActivity
         implements HomeNavigationDrawerFragment.NavigationDrawerCallbacks,
 		ViewPager.OnPageChangeListener,
 		ActionBar.OnNavigationListener,
-        OverviewCommonFragment.OnFragmentInteractionListener{
+		ActivityCommunicator,
+		TaskListener
+{
+
+	public static final int MESSAGE_TASKS_SYNCED = 42;
+	public static final int MESSAGE_LOADING_STARTED = 37;
+	public static final int MESSAGE_LOADING_FINISHED = 37;
 
     // Fragment managing the behaviors, interactions and presentation of the navigation drawer.
     private HomeNavigationDrawerFragment mHomeNavigationDrawerFragment;
@@ -50,6 +59,8 @@ public class HomeActivity extends FragmentActivity
 	private boolean pageJustChanged;
 
 	private LocalStorage localStorage;
+
+	private FragmentCommunicator fragmentCommunicator;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -132,7 +143,6 @@ public class HomeActivity extends FragmentActivity
 	@Override
 	public void onDestroy() {
 		// Unregister in-app events
-//		EventBus.getDefault().unregister(this);
 		localStorage.close();
 		super.onDestroy();
 	}
@@ -284,12 +294,32 @@ public class HomeActivity extends FragmentActivity
 		mTitle = mSectionsPagerAdapter.getPageTitle(number);
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
-    }
+	@Override
+	public void onMessage(int msgType, Object obj)
+	{
 
-    /**
+	}
+
+	@Override
+	public void onPreExecute()
+	{
+
+	}
+
+	@Override
+	public void onPostExecute(Integer result, Object data)
+	{
+		if(result == GetTasksTask.SUCCESS)
+		{
+			if (fragmentCommunicator != null)
+			{
+				fragmentCommunicator.onMessage(MESSAGE_TASKS_SYNCED, null);
+			}
+		}
+	}
+
+	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
 	 */
@@ -308,7 +338,6 @@ public class HomeActivity extends FragmentActivity
 		@Override
 		public Fragment getItem(int position)
         {
-//			Utils.log.i("SectionsPagerAdapter getItem("+position+")");
 			// getItem is called to instantiate the fragment for the given page.
 			switch(position)
             {
@@ -456,35 +485,43 @@ public class HomeActivity extends FragmentActivity
 			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getHomeActivity());
 			positions[0] = sp.getInt(PREF_SUBNAV_OVERVIEW, 0);
 			positions[1] = sp.getInt(PREF_SUBNAV_CALENDAR, 0);
-//			Utils.log.d(positions[0]+" "+positions[1]);
 		}
 
 		public int getCurrentSubPosition(int position) {
-//			Utils.log.i("getCurrentSubPosition{"+position+"} = "+positions[position]);
 			return positions[position];
 		}
 
-		public Fragment getSubItem(int position, int subPosition) {
-
-//			Utils.log.d("SubPageAdapter getSubItem("+position+", "+subPosition+")");
-			switch(position) {
+		public Fragment getSubItem(int position, int subPosition)
+		{
+			fragmentCommunicator = null;
+			switch(position)
+			{
 				case 0:
-                    switch(subPosition) {
+					OverviewCommonFragment fragment;
+                    switch(subPosition)
+					{
                         case 0:
-                            return OverviewAllTasksFragment.newInstance();
+                            fragment = OverviewAllTasksFragment.newInstance();
+							break;
 						case 1:
-							return OverviewUpcomingTasksFragment.newInstance();
+							fragment = OverviewUpcomingTasksFragment.newInstance();
+							break;
 						case 2:
-							return OverviewOverdueTasksFragment.newInstance();
+							fragment = OverviewOverdueTasksFragment.newInstance();
+							break;
                         case 3:
-							return OverviewCompletedTasksFragment.newInstance();
+							fragment = OverviewCompletedTasksFragment.newInstance();
+							break;
 
                         default:
 							// This should not be a base fragment
-                            return OverviewBaseFragment.newInstance();
+                            fragment = OverviewCommonFragment.newInstance();
                     }
+					fragmentCommunicator = fragment;
+					return fragment;
 				case 1:
-					switch(subPosition) {
+					switch(subPosition)
+					{
 						case 0:
 							return CalendarDailyFragment.newInstance();
 						case 1:

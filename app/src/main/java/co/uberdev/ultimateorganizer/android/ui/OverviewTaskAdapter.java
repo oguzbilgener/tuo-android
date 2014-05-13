@@ -127,7 +127,6 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 			viewHolder.menuButton = (ImageButton) view.findViewById(R.id.task_item_expand_icon);
 
 			view.setTag(R.id.overview_task_item_object,viewHolder);
-			viewHolder.menuButton.setTag(R.id.task_item_position, position);
 
 			if(viewHolder.checkbox != null)
             	viewHolder.checkbox.setOnClickListener(this);
@@ -150,6 +149,7 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
         // ViewHolder receives tags for the next items
         final ViewHolder viewHolder = (ViewHolder) view.getTag(R.id.overview_task_item_object);
 
+		viewHolder.menuButton.setTag(R.id.task_item_position, position);
 		viewHolder.taskItemLayout.setTag(R.id.task_item_position, position);
 		viewHolder.checkbox.setTag(R.id.task_item_position, position);
 
@@ -384,34 +384,36 @@ public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnCl
 
 	public void removeTask(int position)
 	{
-		Task toBeRemoved = overviewTaskList.get(position);
-		if(toBeRemoved != null && toBeRemoved.getLocalId() != 0 && localStorage != null)
+		try
 		{
-			toBeRemoved.setDb(localStorage.getDb());
-			toBeRemoved.remove();
-			toBeRemoved.cancelReminders(context);
+			Task toBeRemoved = overviewTaskList.get(position);
+			if (toBeRemoved != null && toBeRemoved.getLocalId() != 0 && localStorage != null) {
+				toBeRemoved.setDb(localStorage.getDb());
+				toBeRemoved.remove();
+				toBeRemoved.cancelReminders(context);
 
-			overviewTaskList.remove(position);
-			notifyDataSetChanged();
+				overviewTaskList.remove(position);
+				notifyDataSetChanged();
 
-			// delete potential history item
-			CloneHistoryItem historyItem = new CloneHistoryItem(localStorage.getDb());
-			historyItem.setCloneLocalId(toBeRemoved.getLocalId());
-			historyItem.remove();
+				// delete potential history item
+				CloneHistoryItem historyItem = new CloneHistoryItem(localStorage.getDb());
+				historyItem.setCloneLocalId(toBeRemoved.getLocalId());
+				historyItem.remove();
 
-			// display an informative toast
-			Toast.makeText(context, context.getString(R.string.task_removed), Toast.LENGTH_SHORT).show();
+				// display an informative toast
+				Toast.makeText(context, context.getString(R.string.task_removed), Toast.LENGTH_SHORT).show();
 
-			if(onTaskRemovedListener != null)
-			{
-				onTaskRemovedListener.onTaskRemoved(position, toBeRemoved);
+				if (onTaskRemovedListener != null) {
+					onTaskRemovedListener.onTaskRemoved(position, toBeRemoved);
+				} else
+					Utils.log.d("ontaskremovedlistener null");
+			} else {
+				Utils.log.w("oops");
 			}
-			else
-				Utils.log.d("ontaskremovedlistener null");
 		}
-		else
+		catch(Exception e)
 		{
-			Utils.log.w("oops");
+			e.printStackTrace();
 		}
 	}
 

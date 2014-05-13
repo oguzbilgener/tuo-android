@@ -3,6 +3,10 @@ package co.uberdev.ultimateorganizer.android.ui;
 import android.app.Activity;
 import android.os.Bundle;
 
+import co.uberdev.ultimateorganizer.android.async.GetTasksTask;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
+import co.uberdev.ultimateorganizer.android.util.Utils;
+
 /**
  * Created by oguzbilgener on 15/03/14.
  */
@@ -33,15 +37,14 @@ public class OverviewBaseFragment extends BaseFragment
     {
         super.onResume();
 
-//		EventBus.getDefault().register(this);
+		Utils.log.d("START TASKS SYNC");
+		new GetTasksTask(getHomeActivity().getLocalStorage(), ((UltimateApplication)getActivity().getApplication()).getUser(), getHomeActivity()).execute();
     }
 
     @Override
     public void onPause()
     {
         super.onPause();
-
-//		EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -54,4 +57,9 @@ public class OverviewBaseFragment extends BaseFragment
     {
         super.onDetach();
     }
+
+	public HomeActivity getHomeActivity()
+	{
+		return (HomeActivity) getActivity();
+	}
 }

@@ -111,4 +111,15 @@ public class Courses extends CoreCourses implements CoreSelectable {
         }
         return list;
     }
+
+	public boolean removeAll()
+	{
+		if(db != null)
+		{
+			String removeSql = "DELETE FROM "+CoreDataRules.tables.courses;
+			db.execSQL(removeSql);
+			return true;
+		}
+		return false;
+	}
 }
