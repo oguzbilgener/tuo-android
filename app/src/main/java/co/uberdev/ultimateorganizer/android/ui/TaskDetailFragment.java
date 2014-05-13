@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,14 +23,20 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
 /**
  * Created by ozgur on 06.05.2014.
  */
-public class TaskDetailFragment extends Fragment
+
+public class TaskDetailFragment extends Fragment implements AdapterView.OnItemClickListener
 {
     private TextView taskTitle;
     private TextView taskDescription;
     private TextView taskDate;
-    private BareListView taskRelatedCourse;
+    private ListView taskRelatedTasks;
+    private BareListView taskRelatedTags;
+
     public Task shownTask;
     private RelativeLayout taskNameLayout;
+
+    public TaskItemTagsListAdapter tagsListAdapter;
+    public RelatedTasksListAdapter relatedTasksListAdapter;
 
     public TaskDetailFragment()
     {
@@ -57,11 +65,13 @@ public class TaskDetailFragment extends Fragment
     {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_task_detail, container, false);
 
+
         taskNameLayout = (RelativeLayout) rootView.findViewById(R.id.task_name_layout);
         taskTitle = (TextView) rootView.findViewById(R.id.task_title);
         taskDescription = (TextView) rootView.findViewById(R.id.task_description);
         taskDate = (TextView) rootView.findViewById(R.id.task_date);
-        taskRelatedCourse = (BareListView) rootView.findViewById(R.id.task_detail_tags_list);
+        taskRelatedTasks = (ListView) rootView.findViewById(R.id.task_detail_related_tasks_listview);
+        taskRelatedTags = (BareListView) rootView.findViewById(R.id.task_detail_tags_list)
 
         taskTitle.setText(shownTask.getTaskName());
         taskDescription.setText(shownTask.getTaskDesc());
@@ -125,4 +135,6 @@ public class TaskDetailFragment extends Fragment
 
         return rootView;
     }
+
+
 }

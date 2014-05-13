@@ -13,7 +13,8 @@ import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Course;
 
 /**
- * Created by mozart on 23/04/14.
+ * Created by dunkuCoder on 23/04/14.
+ * Adapter to adapt course items into a listview.
  */
 public class CoursesListAdapter extends ArrayAdapter<Course> implements View.OnClickListener
 {

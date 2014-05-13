@@ -22,6 +22,16 @@
             android:textColor="@color/white"
             android:padding="10dp"/>
 
+        <CheckBox
+            android:id="@+id/item_task_detail_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/task_title"
+            android:textColor="#000000"
+            android:background="#ffffff"
+            />
+
         <TextView
             android:id="@+id/task_description"
             android:layout_width="wrap_content"
@@ -33,9 +43,8 @@
             android:paddingLeft="10dp"
             android:paddingBottom="5dp"
             />
-
-
     </RelativeLayout>
+
     <TextView
         android:id="@+id/task_date"
         android:layout_width="wrap_content"
@@ -51,7 +60,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/task_date"
-        android:layout_marginTop="10dp"/>
+        android:layout_alignTop="@id/task_date"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="80dp"/>
+
+    <ListView
+        android:id="@+id/task_detail_related_tasks_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/task_date">
+
+        </ListView>
 
 </RelativeLayout>

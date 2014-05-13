@@ -32,6 +32,7 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
  * Created by dunkuCoder on 02/05/2014
  * OverviewTaskAdapter, to display the created tasks on Overview activity.
  */
+
 public class OverviewTaskAdapter extends ArrayAdapter<Task> implements View.OnClickListener
 {
     private ArrayList<Task> overviewTaskList;
