@@ -26,8 +26,7 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
  */
 public class NotesAdapter extends ArrayAdapter<Note> implements View.OnClickListener
 {
-
-    ArrayList<Note> noteList;
+    ArrayList<Note> noteList;       // The list of notes that will be displayed
     LayoutInflater inflater;
     Context context;
 
@@ -64,6 +63,7 @@ public class NotesAdapter extends ArrayAdapter<Note> implements View.OnClickList
         View view;
         int id;
 
+        // Checks the type of the note and sets the layout accordingly
         if(getItemViewType(position) == getItem(position).NOTE_PLAIN)
             id = R.layout.item_note_plain;
         else if(getItemViewType(position) == getItem(position).NOTE_PHOTO)
@@ -77,6 +77,7 @@ public class NotesAdapter extends ArrayAdapter<Note> implements View.OnClickList
             view = inflater.inflate( id, null);
             final ViewHolder viewHolder = new ViewHolder();
 
+            // If the note is a plain note updates the views accordingly
             if (getItemViewType(position) == getItem(position).NOTE_PLAIN) {
 				viewHolder.innerLayout = (RelativeLayout) view.findViewById(R.id.item_note_plain_inner_layout);
                 viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_plain_title);
@@ -85,6 +86,7 @@ public class NotesAdapter extends ArrayAdapter<Note> implements View.OnClickList
                 view.setTag(R.id.note_item_object,viewHolder);
 
             }
+            // If the note is a photo note updates the views accordingly
             else if (getItemViewType(position) == getItem(position).NOTE_PHOTO) {
 				viewHolder.innerLayout = (RelativeLayout) view.findViewById(R.id.item_note_photo_inner_layout);
                 viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_photo_title);
@@ -92,6 +94,7 @@ public class NotesAdapter extends ArrayAdapter<Note> implements View.OnClickList
                 viewHolder.photo = (ImageView) view.findViewById(R.id.note_photo_photo);
                 view.setTag(R.id.note_item_object,viewHolder);
             }
+            // If the note is a audio note updates the views accordingly
             else if(getItemViewType(position) == getItem(position).NOTE_AUDIO) {
                 viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_voice_title);
                 viewHolder.date = (TextView) view.findViewById(R.id.note_voice_date);
@@ -99,6 +102,7 @@ public class NotesAdapter extends ArrayAdapter<Note> implements View.OnClickList
                 // TODO: The audio...
                 view.setTag(R.id.note_item_object,viewHolder);
             }
+            // If the note is a to-do note updates the views accordingly
             else if (getItemViewType(position) == getItem(position).NOTE_TODO){
 				viewHolder.innerLayout = (RelativeLayout) view.findViewById(R.id.item_note_todo_inner_layout);
                 viewHolder.noteTitle = (TextView) view.findViewById(R.id.note_todo_title);
@@ -129,10 +133,12 @@ public class NotesAdapter extends ArrayAdapter<Note> implements View.OnClickList
 		viewHolder.noteDescription.setText(noteItem.getContent());
 //        viewHolder.date.setText(noteItem.getLastModified());
 
-		SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
+		// Saves the last modified date into a Date object
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
 		Date lastModifiedDate = new Date((long)noteItem.getLastModified()*1000);
 
-		if(Utils.isDateToday(noteItem.getLastModified()))
+		// Displays the last modified date of the note
+        if(Utils.isDateToday(noteItem.getLastModified()))
 		{
 			viewHolder.date.setText(getContext().
 							getString(R.string.today_capital) + "\n" + hourFormat.format(lastModifiedDate)
