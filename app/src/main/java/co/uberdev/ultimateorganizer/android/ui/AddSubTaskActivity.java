@@ -212,7 +212,8 @@ public class AddSubTaskActivity extends FragmentActivity implements ActivityComm
 						Toast.makeText(this, getString(R.string.msg_success_add_task), Toast.LENGTH_SHORT).show();
 
 						// Send this new task to the server
-						new TaskInsertTask(this, ((UltimateApplication) getApplication()).getUser(), subTask).execute();
+                        if(((UltimateApplication) getApplication()).getUser() != null)
+						    new TaskInsertTask(this, ((UltimateApplication) getApplication()).getUser(), subTask).execute();
 
 						// set a result to pass the task object via intent and go back to main AddTaskActivity
 						Intent resultIntent = new Intent();

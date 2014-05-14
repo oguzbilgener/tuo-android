@@ -141,7 +141,8 @@ public class AddTaskActivity extends FragmentActivity implements ActivityCommuni
 							Utils.log.d("inserted. now finish");
 
 							// Send this new task to the server
-							new TaskInsertTask(this, ((UltimateApplication) getApplication()).getUser(), enteredTask).execute();
+                            if(((UltimateApplication) getApplication()).getUser() != null)
+							    new TaskInsertTask(this, ((UltimateApplication) getApplication()).getUser(), enteredTask).execute();
 
 							// Add new task activity can just go back, but this might be different for edit task activity.
 							finish();

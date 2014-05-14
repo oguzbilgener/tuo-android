@@ -69,9 +69,11 @@ public class ScheduleActivity extends Activity implements ActivityCommunicator, 
 
         localStorage = new LocalStorage(this);
 
-		getCoursesTask = new GetCoursesTask(localStorage, ((UltimateApplication)getApplication()).getUser(), this);
-		getCoursesTask.execute();
-
+        if(((UltimateApplication)getApplication()).getUser() != null)
+        {
+            getCoursesTask = new GetCoursesTask(localStorage, ((UltimateApplication) getApplication()).getUser(), this);
+            getCoursesTask.execute();
+        }
     }
 
 

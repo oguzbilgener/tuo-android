@@ -38,7 +38,8 @@ public class OverviewBaseFragment extends BaseFragment
         super.onResume();
 
 		Utils.log.d("START TASKS SYNC");
-		new GetTasksTask(getHomeActivity().getLocalStorage(), ((UltimateApplication)getActivity().getApplication()).getUser(), getHomeActivity()).execute();
+        if(((UltimateApplication)getActivity().getApplication()).getUser() != null)
+		    new GetTasksTask(getHomeActivity().getLocalStorage(), ((UltimateApplication)getActivity().getApplication()).getUser(), getHomeActivity()).execute();
     }
 
     @Override

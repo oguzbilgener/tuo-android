@@ -205,7 +205,7 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 					{
 						Utils.log.d("updated task");
 						// only sync if we have a server id
-						if(editableTask.getId() != 0)
+						if(editableTask.getId() != 0 && (((UltimateApplication) getApplication()).getUser() != null))
 						{
 							new TaskUpdateTask(((UltimateApplication) getApplication()).getUser(), editableTask).execute();
 						}
@@ -233,7 +233,8 @@ public class EditTaskActivity extends FragmentActivity implements ActivityCommun
 						Utils.log.d("inserted. now finish");
 
 						// Send this new task to the server
-						new TaskInsertTask(this, ((UltimateApplication) getApplication()).getUser(), editableTask).execute();
+                        if(((UltimateApplication) getApplication()).getUser() != null)
+						    new TaskInsertTask(this, ((UltimateApplication) getApplication()).getUser(), editableTask).execute();
 
 						// Add new task activity can just go back, but this might be different for edit task activity.
 						if(!cloneTask)
