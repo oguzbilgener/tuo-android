@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.models.Note;
 import co.uberdev.ultimateorganizer.android.models.Notes;
+import co.uberdev.ultimateorganizer.core.CoreDataRules;
 
 /**
  * Created by oguzbilgener on 15/03/14.
@@ -59,7 +60,8 @@ public class NotesFragment extends Fragment
 
 		Notes fromdb = new Notes(getHomeActivity().getLocalStorage().getDb());
 
-		fromdb.loadFromDb(null, new String[] {}, 0);
+		// dirty hack
+		fromdb.loadFromDb(CoreDataRules.columns.notes.localId+" > ? ORDER BY "+ CoreDataRules.columns.notes.lastModified+" DESC", new String[] {"-1"}, 0);
 
 		for(int i=0; i<fromdb.size(); i++)
 		{

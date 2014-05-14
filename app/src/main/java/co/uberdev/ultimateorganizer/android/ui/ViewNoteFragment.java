@@ -50,6 +50,7 @@ public class ViewNoteFragment extends Fragment implements FragmentCommunicator, 
 	public static final int MESSAGE_END_EDITING = -78;
 
 	public static final int REQUEST_BEGIN_EDITING = -57;
+	public static final int REQUEST_CHANGE_TYPE = -42;
 
     public ViewNoteFragment() {  }
 
@@ -103,14 +104,22 @@ public class ViewNoteFragment extends Fragment implements FragmentCommunicator, 
         noteEdit = (EditText) rootView.findViewById(R.id.add_note_edit);
         noteDate = (TextView) rootView.findViewById(R.id.add_note_date);
 
+		fillFromNote(shownNote);
+
 		switcher = (ViewSwitcher) rootView.findViewById(R.id.switcher);
 //		switcher.addView(noteEdit);
 //		switcher.addView(notePreview);
 
 		if(viewType == TYPE_PREVIEW)
-			switcher.showPrevious();
+		{
+//			switcher.showPrevious();
+		}
 		else
+		{
 			switcher.showNext();
+		}
+
+		activityCommunicator.onMessage(REQUEST_CHANGE_TYPE, viewType);
 
         notePreview.setText(shownNote.getContent());
 
@@ -205,12 +214,17 @@ public class ViewNoteFragment extends Fragment implements FragmentCommunicator, 
 
 			case MESSAGE_BEGIN_EDITING:
 				switcher.showPrevious();
+				viewType = TYPE_EDIT;
+				activityCommunicator.onMessage(REQUEST_CHANGE_TYPE, TYPE_EDIT);
+				getActivity().invalidateOptionsMenu();
 				break;
 
 			case MESSAGE_END_EDITING:
 				Note builtNote = buildNote();
 				notePreview.setText(builtNote.getContent());
 				switcher.showNext();
+				viewType = TYPE_PREVIEW;
+				activityCommunicator.onMessage(REQUEST_CHANGE_TYPE, TYPE_PREVIEW);
 				activityCommunicator.onMessage(MESSAGE_RESPONSE_NOTE, builtNote);
 				break;
         }

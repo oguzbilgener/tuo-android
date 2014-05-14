@@ -94,7 +94,7 @@ public class Note extends CoreNote implements CoreStorable
                     CoreDataRules.columns.notes.dateCreated + " = ? , " +
                     CoreDataRules.columns.notes.lastModified + " = ? , " +
                     CoreDataRules.columns.notes.attachment + " = ? , " +
-                    CoreDataRules.columns.notes.relatedTaskID + " = ? , " +
+                    CoreDataRules.columns.notes.relatedTaskID + " = ?  " +
                     " WHERE " + CoreDataRules.columns.notes.localId + " = ?";
 
                 SQLiteStatement ss = db.compileStatement(updateSql);
@@ -104,7 +104,7 @@ public class Note extends CoreNote implements CoreStorable
                 ss.bindString(n++, getContent());
                 ss.bindLong(n++, getDateCreated());
                 ss.bindLong(n++, getLastModified());
-                ss.bindString(n++, getAttachment().asJsonString());
+                ss.bindString(n++, getAttachment() != null ? getAttachment().asJsonString() : "");
                 ss.bindLong(n++, getRelatedTaskId());
 
                 ss.bindLong(n++, getLocalId());

@@ -24,6 +24,8 @@ public class ViewNoteActivity extends FragmentActivity implements ActivityCommun
 	private static final String FRAG_TAG = "note_frag";
 	private FragmentCommunicator fragmentCommunicator;
 
+	private int viewType;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,6 +37,8 @@ public class ViewNoteActivity extends FragmentActivity implements ActivityCommun
 
 		Note noteToShow = null;
 
+		viewType = 0;
+
 		if (getIntent().getExtras() != null
 				&& getIntent().getExtras().containsKey(getResources().getString(R.string.INTENT_DETAILS_NOTE_LOCAL_ID)))
 		{
@@ -45,7 +49,7 @@ public class ViewNoteActivity extends FragmentActivity implements ActivityCommun
 
 			if(notes.size() > 0)
 			{
-				noteToShow = (Note) notes.get(0);
+				noteToShow = (Note) notes.get(0);;
 			}
 			// if there is no such note, this is an add note activity!
 		}
@@ -58,7 +62,6 @@ public class ViewNoteActivity extends FragmentActivity implements ActivityCommun
 					.add(R.id.note_fragment_container,  fragment, FRAG_TAG)
 					.commit();
 		}
-
 
 	}
 
@@ -82,13 +85,14 @@ public class ViewNoteActivity extends FragmentActivity implements ActivityCommun
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		int menuId;
-		ViewNoteFragment fragment = (ViewNoteFragment) getSupportFragmentManager().findFragmentByTag(FRAG_TAG);
-		if(fragment != null || fragment.getViewType() == ViewNoteFragment.TYPE_EDIT)
+		if(viewType == ViewNoteFragment.TYPE_EDIT)
 		{
+			Utils.log.d("menu edit");
 			menuId = R.menu.view_note_edit;
 		}
 		else
 		{
+			Utils.log.d("menu preview");
 			menuId = R.menu.view_note_preview;
 		}
 		getMenuInflater().inflate(menuId, menu);
@@ -133,8 +137,9 @@ public class ViewNoteActivity extends FragmentActivity implements ActivityCommun
 			invalidateOptionsMenu();
 		}
 
-		if(msgType == ViewNoteFragment.MESSAGE_RESPONSE_NOTE)
+		else if(msgType == ViewNoteFragment.MESSAGE_RESPONSE_NOTE)
 		{
+			invalidateOptionsMenu();
 			if(obj != null && obj instanceof Note)
 			{
 				Note latestNote = (Note) obj;
@@ -149,6 +154,15 @@ public class ViewNoteActivity extends FragmentActivity implements ActivityCommun
 				{
 					latestNote.insert();
 				}
+			}
+		}
+
+		else if(msgType == ViewNoteFragment.REQUEST_CHANGE_TYPE)
+		{
+			if(obj != null)
+			{
+				this.viewType = (Integer) obj;
+				invalidateOptionsMenu();
 			}
 		}
 	}
