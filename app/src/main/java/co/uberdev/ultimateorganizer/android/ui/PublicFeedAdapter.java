@@ -26,6 +26,7 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
  * Created by dunkuCoder on 23/04/14.
  * PublicFeedAdapter is used to adapt the ListView and list task items on public feed
  */
+
 public class PublicFeedAdapter extends ArrayAdapter<Task> implements View.OnClickListener
 {
     ArrayList<Task> publicFeedTasksList;
@@ -105,7 +106,7 @@ public class PublicFeedAdapter extends ArrayAdapter<Task> implements View.OnClic
         viewHolder.taskDescription.setText( item.getTaskDesc());
         viewHolder.taskOwner.setText( "by " + item.getTaskOwnerNameCombined());
         // DO NOT FORGET TO ADD STATUS ICON FOR THE USER
-//        viewHolder.taskOwnerStatusIcon
+        //        viewHolder.taskOwnerStatusIcon
         viewHolder.taskAcceptIcon.setImageDrawable( getContext().getResources().getDrawable( R.drawable.ic_action_accept_dark));
         viewHolder.taskRejectIcon.setImageDrawable( getContext().getResources().getDrawable( R.drawable.ic_action_remove));
 
