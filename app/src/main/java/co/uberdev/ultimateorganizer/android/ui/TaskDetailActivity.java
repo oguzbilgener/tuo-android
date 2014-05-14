@@ -1,31 +1,28 @@
 package co.uberdev.ultimateorganizer.android.ui;
 
-import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.Toast;
 
 import co.uberdev.ultimateorganizer.android.R;
+import co.uberdev.ultimateorganizer.android.async.TaskRemoveTask;
 import co.uberdev.ultimateorganizer.android.db.LocalStorage;
+import co.uberdev.ultimateorganizer.android.models.CloneHistoryItem;
 import co.uberdev.ultimateorganizer.android.models.Task;
 import co.uberdev.ultimateorganizer.android.models.Tasks;
+import co.uberdev.ultimateorganizer.android.util.UltimateApplication;
 import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreDataRules;
+import co.uberdev.ultimateorganizer.core.CoreUser;
 
 public class TaskDetailActivity extends FragmentActivity
 {
     private LocalStorage localStorage;
+	private Task taskToShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +33,7 @@ public class TaskDetailActivity extends FragmentActivity
 
         localStorage = new LocalStorage(this);
 
-        Task taskToShow = null;
+        taskToShow = null;
 
         if (getIntent().getExtras() != null
                 && getIntent().getExtras().containsKey(getResources().getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID)))
@@ -88,6 +85,39 @@ public class TaskDetailActivity extends FragmentActivity
         if (id == R.id.action_settings) {
             return true;
         }
+		if (id == R.id.button_task_detail_edit_task) {
+			long localId = taskToShow.getLocalId();
+			Intent editIntent = new Intent(this, EditTaskActivity.class);
+			editIntent.putExtra(getString(R.string.INTENT_DETAILS_TASK_LOCAL_ID), localId);
+
+			startActivity(editIntent);
+			return true;
+		}
+
+		if(id == R.id.button_task_detail_delete_task ) {
+
+			if (taskToShow != null && taskToShow.getLocalId() != 0 && localStorage != null) {
+				taskToShow.setDb(localStorage.getDb());
+				taskToShow.remove();
+				taskToShow.cancelReminders(this);
+
+				// delete potential history item
+				CloneHistoryItem historyItem = new CloneHistoryItem(localStorage.getDb());
+				historyItem.setCloneLocalId(taskToShow.getLocalId());
+				historyItem.remove();
+
+				// display an informative toast
+				Toast.makeText(this, getString(R.string.task_removed), Toast.LENGTH_SHORT).show();
+
+
+				CoreUser user = ((UltimateApplication) getApplication()).getUser();
+				if (user != null) {
+					new TaskRemoveTask(user, taskToShow).execute();
+				}
+				finish();
+			}
+			return true;
+		}
         return super.onOptionsItemSelected(item);
     }
 
