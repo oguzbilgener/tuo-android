@@ -21,7 +21,9 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
 
 /**
  * Created by dunkuCoder on 14/05/14.
+ * RelatedTasksListAdapter is used to display related tasks of a task when the details for that task is displayed.
  */
+
 public class RelatedTasksListAdapter extends ArrayAdapter<Task>
 {
     private Context context;
