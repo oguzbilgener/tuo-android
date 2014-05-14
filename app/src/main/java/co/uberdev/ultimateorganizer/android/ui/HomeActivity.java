@@ -646,7 +646,7 @@ public class HomeActivity extends FragmentActivity
 		if( id == R.id.action_add) {
 			// Start those activities with an extra, specifying that they are called from home activity
 			Intent startIntent;
-			if( mViewPager.getCurrentItem() == 1 || mViewPager.getCurrentItem() == 3) {
+			if( mViewPager.getCurrentItem() == 0 || mViewPager.getCurrentItem() == 1) {
 				startIntent = new Intent(this, AddTaskActivity.class);
 			}
 			else /* if(mViewPager.getCurrentItem() == 2)*/ {

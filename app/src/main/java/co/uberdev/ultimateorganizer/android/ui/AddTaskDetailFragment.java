@@ -734,6 +734,10 @@ public class AddTaskDetailFragment extends Fragment
 			for (int i=0; i<reminders.size(); i++)
 			{
 				reminders.get(i).setTitle(task.getTaskName());
+				if(task.getCourseCodeCombined().length()>3)
+					reminders.get(i).setDetails(task.getCourseCodeCombined()+" "+task.getTaskDesc());
+				else
+					reminders.get(i).setDetails(task.getTaskDesc());
 				reminders.get(i).setTargetDate(task.getBeginDate() - reminders.get(i).getGap() * 60);
 
 				if (user != null)
