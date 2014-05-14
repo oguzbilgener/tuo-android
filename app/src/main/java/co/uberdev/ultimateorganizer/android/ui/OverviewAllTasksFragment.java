@@ -60,6 +60,8 @@ public class OverviewAllTasksFragment extends OverviewCommonFragment implements 
 		@Override
 		protected Integer doInBackground(Void... params)
 		{
+            if(getHomeActivity() == null || getHomeActivity().getLocalStorage() == null)
+                return ERROR_UNKNOWN;
 			tasks = new Tasks(getHomeActivity().getLocalStorage().getDb());
 			tasks.loadAllAliveTasks();
 
