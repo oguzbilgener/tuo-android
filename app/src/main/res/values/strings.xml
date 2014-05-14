@@ -15,6 +15,7 @@
     <string name="title_activity_academic_network">Academic Network</string>
     <string name="title_activity_schedule">Academic Schedule</string>
     <string name="title_activity_task_details">Task Details</string>
+	<string name="title_activity_note">Note</string>
 
     <!-- sub navigation (ActionBar Spinner) -->
     <string-array name="title_section_overview_subs">
@@ -66,6 +67,7 @@
     <!-- Add task screen -->
     <string name="action_add_task">Add Task</string>
     <string name="action_edit_task">Edit Task</string>
+    <string name="action_delete_task">Delete Task</string>
     <string name="add_task_name_input_hint">Name</string>
     <string name="add_task_description_input_hint">Description</string>
     <string name="add_task_time_text_from">FROM</string>
@@ -81,6 +83,8 @@
     <string name="user_name">Omert Aksoy</string>
     <string name="user_info">Bilkent University, EE</string>
     <string name="action_add_course">Add Course</string>
+	<string name="action_save_note">Save note</string>
+	<string name="action_edit_note">Edit note</string>
     <string name="academic_calendar_year">2013-2014 SPRING</string>
     <string name="schedule_course_name">CS 102</string>
     <string name="schedule_course_description">Algorithms and Programming II</string>

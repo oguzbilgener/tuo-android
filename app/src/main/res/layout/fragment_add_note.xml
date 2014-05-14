@@ -12,30 +12,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+		android:visibility="gone"/>
 
     <ViewSwitcher
         android:id="@+id/switcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@id/add_note_date"
         >
 
-    <TextView
-        android:id="@+id/add_note_preview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:text="@string/item_add_note_hint"
-        />
+		<TextView
+			android:id="@+id/add_note_preview"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clickable="true"
+			android:text="@string/item_add_note_hint"
+			/>
 
-    <EditText
-        android:id="@+id/add_note_edit"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="@string/item_add_note_hint"
-        />
+		<EditText
+			android:id="@+id/add_note_edit"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="start"
+			android:hint="@string/item_add_note_hint"
+			/>
 
     </ViewSwitcher>
 

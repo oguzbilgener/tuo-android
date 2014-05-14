@@ -14,11 +14,14 @@ import java.util.List;
 import co.uberdev.ultimateorganizer.android.R;
 import co.uberdev.ultimateorganizer.android.util.BareListDataDelegate;
 import co.uberdev.ultimateorganizer.android.util.BareListDataListener;
+import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreTag;
 
 /**
  * Created by oguzbilgener on 02/05/14.
+ * Adapter for tags to be displayed horizontally at the bottom of a task item
  */
+
 public class AddedTagsListAdapter extends ArrayAdapter<CoreTag>
 		implements BareListDataDelegate, View.OnClickListener
 {
@@ -29,6 +32,7 @@ public class AddedTagsListAdapter extends ArrayAdapter<CoreTag>
 
 	private BareListDataListener dataListener;
 
+    // This one will be used to remove items
 	private OnItemRemoveClickListener itemRemoveClickListener;
 
 	public AddedTagsListAdapter(Context context, int resource, List<CoreTag> objects)
@@ -38,7 +42,6 @@ public class AddedTagsListAdapter extends ArrayAdapter<CoreTag>
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		resourceId = resource;
 		items = objects;
-
 
 		setNotifyOnChange(true);
 	}
@@ -102,6 +105,7 @@ public class AddedTagsListAdapter extends ArrayAdapter<CoreTag>
 			catch(Exception e)
 			{
 				// button has no tag. do nothing.
+                Utils.log.d( "HMMMM EXCEPTION!!");
 			}
 		}
 	}

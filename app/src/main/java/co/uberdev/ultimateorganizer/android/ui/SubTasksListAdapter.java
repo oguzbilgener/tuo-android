@@ -66,7 +66,7 @@ public class SubTasksListAdapter extends ArrayAdapter<Task>
 		{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 			subTaskDateView.setText(
-					context.getString(R.string.today_capital) + "\n" +
+					context.getString(R.string.today_capital) + " " +
 							dateFormat.format(new Date((long)items.get(position).getBeginDate()*1000)) + " - " + dateFormat.format(new Date((long)items.get(position).getEndDate()*1000))
 			);
 		}

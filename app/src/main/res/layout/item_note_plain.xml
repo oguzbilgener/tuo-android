@@ -23,15 +23,17 @@
             android:layout_marginLeft="@dimen/note_plain_title_margin_left"
             android:layout_marginTop="@dimen/note_plain_title_margin_top"
             android:text="@string/note_plain_title"
-            android:textSize="@dimen/note_plain_title_text_size"/>
+            android:textSize="@dimen/note_plain_title_text_size"
+			android:visibility="gone"/>
 
         <TextView
             android:id="@+id/note_plain_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/note_plain_title"
+            android:layout_alignParentTop="true"
             android:layout_alignLeft="@id/note_plain_title"
             android:text="@string/note_plain_description"
+			android:gravity="top|center_horizontal"
             android:textSize="@dimen/note_plain_description_text_size"/>
 
         <LinearLayout

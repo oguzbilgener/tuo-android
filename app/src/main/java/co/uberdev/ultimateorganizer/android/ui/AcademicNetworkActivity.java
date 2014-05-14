@@ -41,6 +41,7 @@ public class AcademicNetworkActivity extends Activity implements ActivityCommuni
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+
     ViewPager mViewPager;
 
     @Override

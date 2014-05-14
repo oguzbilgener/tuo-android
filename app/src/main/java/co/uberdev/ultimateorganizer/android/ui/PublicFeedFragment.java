@@ -23,6 +23,11 @@ import co.uberdev.ultimateorganizer.android.util.Utils;
 import co.uberdev.ultimateorganizer.core.CoreTask;
 import co.uberdev.ultimateorganizer.core.CoreUser;
 
+/**
+ * created by dunkuCoder 14/05/2014
+ * PublicFeedFragment employes PublicFeedAdapter and displays shared tasks in order of date.
+ */
+
 public class PublicFeedFragment extends Fragment implements TaskListener
 {
 	private CoreUser user;
@@ -64,6 +69,7 @@ public class PublicFeedFragment extends Fragment implements TaskListener
 
         publicFeedTasksList = new ArrayList<Task>();
 
+        // Having an instance of CoreUser is quite delicate as the user's id is needed in public feed
 		user = ((UltimateApplication) getActivity().getApplication()).getUser();
 
         publicFeedAdapter = new PublicFeedAdapter(getActivity(), publicFeedTasksList);

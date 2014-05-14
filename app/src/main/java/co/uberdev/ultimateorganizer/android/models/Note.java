@@ -19,6 +19,7 @@ public class Note extends CoreNote implements CoreStorable
         this.db = db;
         this.content = "";
 		this.status = 0;
+		this.localId = -1;
     }
 
     public Note()
@@ -45,7 +46,6 @@ public class Note extends CoreNote implements CoreStorable
 		if(db != null) {
             try {
                 String insertSql = "INSERT INTO " + getTableName() + " (" +
-                    CoreDataRules.columns.notes.localId + ", " +
                     CoreDataRules.columns.notes.id + ", " +
                     CoreDataRules.columns.notes.ownerId + ", " +
                     CoreDataRules.columns.notes.content + ", " +
@@ -53,21 +53,23 @@ public class Note extends CoreNote implements CoreStorable
                     CoreDataRules.columns.notes.lastModified + ", " +
                     CoreDataRules.columns.notes.attachment + ", " +
                     CoreDataRules.columns.notes.relatedTaskID + " " +
-                    ") VALUES (?,?,?,?,?,?,?,?)";
+                    ") VALUES (?,?,?,?,?,?,?)";
 
 
                 int n = 1;
                 SQLiteStatement ss = db.compileStatement(insertSql);
-                ss.bindLong(n++, getLocalId());
                 ss.bindLong(n++, getId());
                 ss.bindLong(n++, getOwnerId());
                 ss.bindString(n++, getContent());
                 ss.bindLong(n++, getDateCreated());
                 ss.bindLong(n++, getLastModified());
-                ss.bindString(n++, getAttachment().asJsonString());
+                ss.bindString(n++, getAttachment() != null ? getAttachment().asJsonString() : "");
                 ss.bindLong(n++, getRelatedTaskId());
 
-                ss.execute();
+                long localId = ss.executeInsert();
+
+				setLocalId(localId);
+
                 ss.close();
             }
             catch(Exception e)
@@ -94,7 +96,7 @@ public class Note extends CoreNote implements CoreStorable
                     CoreDataRules.columns.notes.dateCreated + " = ? , " +
                     CoreDataRules.columns.notes.lastModified + " = ? , " +
                     CoreDataRules.columns.notes.attachment + " = ? , " +
-                    CoreDataRules.columns.notes.relatedTaskID + " = ? , " +
+                    CoreDataRules.columns.notes.relatedTaskID + " = ?  " +
                     " WHERE " + CoreDataRules.columns.notes.localId + " = ?";
 
                 SQLiteStatement ss = db.compileStatement(updateSql);
@@ -104,7 +106,7 @@ public class Note extends CoreNote implements CoreStorable
                 ss.bindString(n++, getContent());
                 ss.bindLong(n++, getDateCreated());
                 ss.bindLong(n++, getLastModified());
-                ss.bindString(n++, getAttachment().asJsonString());
+                ss.bindString(n++, getAttachment() != null ? getAttachment().asJsonString() : "");
                 ss.bindLong(n++, getRelatedTaskId());
 
                 ss.bindLong(n++, getLocalId());
