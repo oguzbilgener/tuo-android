@@ -50,9 +50,12 @@ import co.uberdev.ultimateorganizer.core.CoreTags;
 import co.uberdev.ultimateorganizer.core.CoreUser;
 
 /**
- *
- *
+ *  Date: 03/05/2014
+ *  AddTaskDetailedFragment is used by AddTaskActivity and EditTaskActivity, fragment is used to
+ *  add information to its task, referred to as editableTask. Course, related tasks, reminders, and
+ *  tags are added through this fragment. Also this fragment adds the task the info of the user.
  */
+
 public class AddTaskDetailFragment extends Fragment
 		implements 	CalendarDatePickerDialog.OnDateSetListener,
 		View.OnClickListener, ReminderListAdapter.OnItemRemoveClickListener,
@@ -61,7 +64,7 @@ public class AddTaskDetailFragment extends Fragment
 		FragmentCommunicator, TextView.OnEditorActionListener,
 		AdapterView.OnItemSelectedListener
 {
-
+    // Apparently, some things are better off limited.
 	public static final int MAX_REMINDER_COUNT = 5;
 	public static final int MAX_RELATED_TASK_COUNT = 5;
 
@@ -69,14 +72,21 @@ public class AddTaskDetailFragment extends Fragment
 
 	public LocalStorage localStorage;
 
+    // An instance of the user is created to load the user's courses and deal with id's
 	private CoreUser user;
 
+    // These instances of BareListView are used to instantly display after an item of their
+    // responsibility is added.
 	private BareListView remindersListView;
 	private BareListView tagsListView;
 	private BareListView subTasksListView;
+
+    // coursesSpinner is used to select a course from courses list
 	private Spinner coursesSpinner;
+    // privacySwitch is used to determine whether the task will be shared among other students or not
 	private Switch privacySwitch;
 
+    // Adapters respectively.
 	private ReminderListAdapter remindersAdapter;
 	private AddedTagsListAdapter tagsAdapter;
 	private SubTasksListAdapter subTasksAdapter;
@@ -87,8 +97,10 @@ public class AddTaskDetailFragment extends Fragment
 	private ArrayList<Task> subTasks;
 	private ArrayList<Course> courses;
 
+    // editableTask stands for the task currently being worked on by AddTaskDetailFragment
 	public Task editableTask;
 	public Task parentTask;
+    // The course that the task is related to
 	private CoreCourse relatedCourse;
 
 	private ViewGroup remindersAddButton;
@@ -128,6 +140,7 @@ public class AddTaskDetailFragment extends Fragment
 
 	public static AddTaskDetailFragment newInstance(Context context, LocalStorage storage, Task editableTask)
 	{
+        // If editableTask has not been touched, a new instance of AddTaskDetailFragment is returned.
 		if(context == null || editableTask == null)
 			return newInstance(storage);
 
@@ -158,7 +171,7 @@ public class AddTaskDetailFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            // Not much happens here
         }
 
 		timeDifference = 3600 * 1000; // An hour
@@ -174,6 +187,7 @@ public class AddTaskDetailFragment extends Fragment
 
 		relatedCourse = new CoreCourse();
 
+        // Adapters are matched with their layout resources and provided listeners one by one....
 		remindersAdapter = new ReminderListAdapter(getActivity(), R.layout.item_add_task_reminder, reminders);
 		remindersAdapter.setItemRemoveClickListener(this);
 
@@ -185,6 +199,13 @@ public class AddTaskDetailFragment extends Fragment
 
 		courseAdapter = new CourseSelectSpinnerAdapter(getActivity(), courses);
 
+        // An instance of UltimateApplication, The Lord of the Objects
+        /*
+            One Object to rule them all,
+            One Object to find them,
+            One Object to bring them all
+            And in the uberness bind them
+         */
 		UltimateApplication app = (UltimateApplication) getActivity().getApplication();
 		user = app.getUser();
 
@@ -194,6 +215,7 @@ public class AddTaskDetailFragment extends Fragment
 			Courses coursesOfUser = new Courses(localStorage.getDb());
 			coursesOfUser.loadAllCourses();
 
+            // The courses of the user is added
 			courses.add(new Course());
 			courses.addAll(coursesOfUser.toCourseArrayList());
 			courseAdapter.notifyDataSetChanged();
@@ -206,6 +228,7 @@ public class AddTaskDetailFragment extends Fragment
                              Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_add_task_detailed, container, false);
 
+        // ListView instances are matched with their layout resources
 		remindersListView = (BareListView) rootView.findViewById(R.id.reminders_list_view);
 		tagsListView = (BareListView) rootView.findViewById(R.id.tags_list_view);
 		subTasksListView = (BareListView) rootView.findViewById(R.id.sub_tasks_list_view);
@@ -213,12 +236,13 @@ public class AddTaskDetailFragment extends Fragment
 
 		coursesSpinner.setOnItemSelectedListener(this);
 
+        // Adapters are set for ListView instances
 		remindersListView.setAdapter(remindersAdapter);
 		tagsListView.setAdapter(tagsAdapter);
 		subTasksListView.setAdapter(subTasksAdapter);
 		coursesSpinner.setAdapter(courseAdapter);
 
-		// Create tag input
+		// Create tag input, it will be used to get tag's title
 		tagInput = new EditText(getActivity());
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,
@@ -273,16 +297,19 @@ public class AddTaskDetailFragment extends Fragment
 
 		if(editableTask != null)
 		{
+            // If the task has information from before, the previous data is filled into the current task
 			try {
 				fillFromTask(editableTask);
 			} catch (Exception e) {
 				e.printStackTrace();
-				// show an error toast
+				// show an error toast, not that it is likely for things to go wrong
 				Toast.makeText(getActivity(), getString(R.string.edit_task_unknown_error), Toast.LENGTH_SHORT).show();
 			}
 		}
+        // This means the task will be a brand new one.
 		else
 		{
+            // Reminder instance is created with permissions given to vibrate and make sounds
 			Reminder reminder = new Reminder();
 			reminder.setGap(5);
 			reminder.setVibrate(true);
