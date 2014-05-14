@@ -35,7 +35,7 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         this.list = list;
-
+        // The date "today" is created when the spinner is created
         date = new Date();
         calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -48,6 +48,7 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
         return getItemView(position,  parent, false);
     }
 
+    // The view to be displayed when the dropdown is open
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent)
     {
@@ -69,6 +70,7 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
         TextView text = (TextView) view.findViewById(R.id.calendar_spinner_item_text);
         TextView dateText = (TextView) view.findViewById(R.id.calendar_spinner_item_date);
 
+        // Sets the text on the spinner according to the position
         text.setText(list.get(position));
 
         switch (position) {
@@ -76,10 +78,11 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
                 dateText.setText(Utils.toMonthString(calendar.get(Calendar.MONTH)) + " " + calendar.get(Calendar.DAY_OF_MONTH));
                 break;
             case 1:
-                // :))))9)))
+                // Creates to different objects for the start of the week an the end of the week
                 Calendar weekStart = Calendar.getInstance();
                 Calendar weekEnd = Calendar.getInstance();
 
+               // Sets the first day of the week
                 weekStart.setFirstDayOfWeek(Calendar.MONDAY);
                 weekStart.set(Calendar.HOUR_OF_DAY, 0);
                 weekStart.clear(Calendar.MILLISECOND);
@@ -87,6 +90,7 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
                 weekStart.clear(Calendar.SECOND);
                 weekStart.set(Calendar.DAY_OF_WEEK, weekStart.getFirstDayOfWeek());
 
+                // Sets the last day of the week
                 weekEnd.setFirstDayOfWeek(Calendar.MONDAY);
                 weekEnd.set(Calendar.HOUR_OF_DAY, 0);
                 weekEnd.clear(Calendar.MILLISECOND);
@@ -96,7 +100,7 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
                 weekEnd.add(Calendar.WEEK_OF_YEAR, 1);
                 weekEnd.add(Calendar.DAY_OF_WEEK, -1);
 
-
+                // Displays the dates on the spinner
                 dateText.setText(Utils.toMonthString(weekStart.get(Calendar.MONTH)) + " "+ weekStart.get(Calendar.DAY_OF_MONTH) +
                     " - " + Utils.toMonthString(weekEnd.get(Calendar.MONTH)) + " " + weekEnd.get(Calendar.DAY_OF_MONTH));
                 break;
@@ -114,7 +118,7 @@ public class CalendarSpinnerAdapter extends ArrayAdapter<String> implements Spin
                 break;
         }
 
-
+        // Parses the colors according to the spinner's state
         if(isOpen)
         {
             text.setTextColor(Color.parseColor("#000000"));

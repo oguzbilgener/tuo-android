@@ -8,7 +8,7 @@ import co.uberdev.ultimateorganizer.core.CoreNote;
 import co.uberdev.ultimateorganizer.core.CoreStorable;
 
 /**
- * Created by oguzbilgener on 24/04/14.
+ * Created by begum on 24/04/14.
  */
 public class Note extends CoreNote implements CoreStorable
 {
@@ -39,7 +39,8 @@ public class Note extends CoreNote implements CoreStorable
 		return CoreDataRules.tables.notes;
 	}
 
-	@Override
+	// Inserts the information about the note into the table
+    @Override
 	public boolean insert() {
 		if(db != null) {
             try {
@@ -77,6 +78,7 @@ public class Note extends CoreNote implements CoreStorable
         return false;
 	}
 
+    // Updates the note's information in the database
 	@Override
 	public boolean update() {
         if(db != null)

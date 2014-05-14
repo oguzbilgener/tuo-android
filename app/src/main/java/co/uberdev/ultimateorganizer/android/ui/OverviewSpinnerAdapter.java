@@ -19,6 +19,7 @@ import co.uberdev.ultimateorganizer.android.R;
 
 public class OverviewSpinnerAdapter extends ArrayAdapter<String> implements SpinnerAdapter {
 
+    // The list of the items that will be displayed on the spinner
     private ArrayList<String> list;
     private LayoutInflater inflater;
     public static final int resourceId = R.layout.overview_spinner_item;
@@ -60,11 +61,13 @@ public class OverviewSpinnerAdapter extends ArrayAdapter<String> implements Spin
 		View view;
 		if(getItemViewType(position) == 0)
 		{
-			view = inflater.inflate(resourceId, parent, false);
+			// According to the position, sets the text on the spinner to the corresponding element in the String array
+            view = inflater.inflate(resourceId, parent, false);
 			TextView titleText = (TextView) view.findViewById(R.id.overview_spinner_item_text);
 			titleText.setText(list.get(position));
 
-			if(isOpen)
+			// Parses the colors according to spinner's open/closed state
+            if(isOpen)
 			{
 				titleText.setTextColor(Color.parseColor("#000000"));
 			}

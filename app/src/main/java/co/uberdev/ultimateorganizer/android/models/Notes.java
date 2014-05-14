@@ -9,7 +9,7 @@ import co.uberdev.ultimateorganizer.core.CoreNotes;
 import co.uberdev.ultimateorganizer.core.CoreSelectable;
 
 /**
- * Created by oguzbilgener on 24/04/14.
+ * Created by begum on 24/04/14.
  */
 public class Notes extends CoreNotes implements CoreSelectable
 {
