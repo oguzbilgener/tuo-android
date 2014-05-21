@@ -3,7 +3,7 @@
 This is a CS 102 project. Most of the core features work, but there is a lot to do.
 ![Overview Screenshot](http://img.oguzdev.com/VPonGnxa5k_Screenshot_2014-05-15-00-30-24-1.png)
 
-## Related repositories
+### Related repositories
 - [tuo-core](https://github.com/oguzbilgener/tuo-core)
 - [tuo-server](https://github.com/oguzbilgener/tuo-server)
 
